@@ -382,55 +382,26 @@ export default function AiWorkforceAuditModal({ isOpen, onClose, defaultSource =
                 <span>Заявка #{leadResult?.leadId || 'AUDIT-2026'} зареєстрована в базі Recruiter I Club! Кошторис сформовано.</span>
               </div>
 
-              {/* Real Founders Cards */}
+              {/* B2B Operations Dispatch */}
               <div className="p-5 rounded-2xl bg-slate-950 border border-white/10 space-y-4">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-bold block">
-                  Персональний супровід від засновників Recruiter I Club:
-                </span>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Roman Yanovskyi */}
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.04] border border-white/5">
-                    <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-amber-500/40 shrink-0 bg-slate-900">
-                      <Image
-                        src="/team/roman_yanovskyi.jpg"
-                        alt="Роман Яновський"
-                        fill
-                        className="object-cover object-top"
-                      />
-                    </div>
-                    <div>
-                      <h5 className="text-xs font-bold text-white">Роман Яновський</h5>
-                      <span className="text-[10px] text-amber-400 block font-medium">Засновник &amp; CEO</span>
-                      <span className="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> В мережі
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Stanislav Lukhmenko */}
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.04] border border-white/5">
-                    <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-amber-500/40 shrink-0 bg-slate-900">
-                      <Image
-                        src="/team/stanislav_lukhmenko.jpg"
-                        alt="Станіслав Лухменко"
-                        fill
-                        className="object-cover object-top"
-                      />
-                    </div>
-                    <div>
-                      <h5 className="text-xs font-bold text-white">Станіслав Лухменко</h5>
-                      <span className="text-[10px] text-amber-400 block font-medium">Керуючий партнер</span>
-                      <span className="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> В мережі
-                      </span>
-                    </div>
-                  </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-bold block">
+                    Офіційний відділ B2B контрактування:
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Черговий координатор
+                  </span>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  Розрахунок готовий. Натисніть кнопку нижче, щоб негайно відкрити діалог у месенджері та отримати повний файл аудиту безпосередньо від Романа або Станіслава:
-                </p>
+                <div className="p-4 rounded-xl bg-white/[0.04] border border-white/5 space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-white font-bold">Операційний штаб Recruiter I Club</span>
+                    <span className="text-slate-400 text-[11px]">Ліцензія Мінсоцполітики №1428</span>
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Розрахунок аудиту та перші 5 атестованих кандидатів сформовані. Натисніть кнопку нижче, щоб отримати готовий PDF-звіт та узгодити графік трансферу через чергового координатора напрямку:
+                  </p>
+                </div>
               </div>
 
               {/* Direct Messenger Buttons */}

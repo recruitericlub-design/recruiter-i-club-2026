@@ -25,7 +25,8 @@ import {
   ChevronRight,
   TrendingUp,
   Briefcase,
-  AlertTriangle
+  AlertTriangle,
+  BookOpen
 } from 'lucide-react';
 import WorkerCatalogSection from '@/components/WorkerCatalogSection';
 import QuotaBookingModal from '@/components/QuotaBookingModal';
@@ -235,32 +236,58 @@ export default function HomePage() {
 
             </div>
 
-            {/* Right Column: Real Founders & Trust Card */}
+            {/* Right Column: Executive Board Trust & Guarantee */}
             <div className="lg:col-span-5">
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xl space-y-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -z-0"></div>
+              <div className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xl space-y-5 relative overflow-hidden ring-1 ring-slate-900/5">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-900">Персональна Гарантія Керівництва</span>
+                  </div>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-100/80 border border-amber-200 text-amber-950 text-[10px] font-mono font-bold">
+                    Офіційні партнери
+                  </span>
+                </div>
 
-                <div className="relative z-10 flex items-center gap-4 pb-4 border-b border-slate-100">
-                  <div className="flex -space-x-3">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
-                      <Image src="/team/roman_portrait_close.jpg" alt="Роман Яновський" fill className="object-cover" />
-                    </div>
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
-                      <Image src="/team/stanislav_lukhmenko.jpg" alt="Станіслав Лухменко" fill className="object-cover" />
+                {/* Dual Executive Studio Showcase */}
+                <div className="grid grid-cols-2 gap-3.5">
+                  <div className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-sm">
+                    <div className="relative aspect-[4/5] w-full">
+                      <Image 
+                        src="/team/roman_yanovskyi_studio.jpg" 
+                        alt="Роман Яновський" 
+                        fill 
+                        className="object-cover object-top group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent"></div>
+                      <div className="absolute bottom-2 left-2 right-2 text-white">
+                        <span className="text-[9px] uppercase tracking-wider font-bold text-amber-300 block">Засновник</span>
+                        <h4 className="text-xs font-black text-white leading-tight">Роман Яновський</h4>
+                        <p className="text-[9px] text-slate-300 mt-0.5">B2B контракти &amp; Аудит</p>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-slate-900">Роман Яновський &amp; Станіслав Лухменко</h3>
-                    <p className="text-xs text-slate-500">Засновники клубу Recruiter I Club</p>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 mt-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                      Особистий контроль кожного контракту
-                    </span>
+
+                  <div className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-sm">
+                    <div className="relative aspect-[4/5] w-full">
+                      <Image 
+                        src="/team/stanislav_lukhmenko_studio.jpg" 
+                        alt="Станіслав Лухменко" 
+                        fill 
+                        className="object-cover object-top group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent"></div>
+                      <div className="absolute bottom-2 left-2 right-2 text-white">
+                        <span className="text-[9px] uppercase tracking-wider font-bold text-emerald-300 block">Співзасновник</span>
+                        <h4 className="text-xs font-black text-white leading-tight">Станіслав Лухменко</h4>
+                        <p className="text-[9px] text-slate-300 mt-0.5">Міжнародна логістика</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Direct Quote */}
-                <div className="relative z-10 bg-slate-50 rounded-xl p-4 border border-slate-100 text-xs text-slate-700 italic leading-relaxed">
+                <div className="relative z-10 bg-slate-50/80 rounded-xl p-3.5 border border-slate-200/70 text-xs text-slate-700 italic leading-relaxed">
                   «Ми не продаємо повітря. Ми даємо підприємствам реальних людей, які вміють працювати, не зривають зміни та не потрапляють під призов. Передплата за бронь — всього €50. Якщо спеціаліст не підійшов — заміна безкоштовна.»
                 </div>
 
@@ -731,50 +758,50 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
             
             {/* Roman Yanovskyi */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col sm:flex-row gap-5 items-center">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 border-2 border-slate-100 shadow">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-md hover:shadow-lg transition-all flex flex-col sm:flex-row gap-6 items-center ring-1 ring-slate-900/5">
+              <div className="relative w-32 h-40 sm:w-36 sm:h-44 rounded-2xl overflow-hidden shrink-0 border-2 border-slate-200/80 shadow-md">
                 <Image 
-                  src="/team/roman_portrait_close.jpg" 
+                  src="/team/roman_yanovskyi_studio.jpg" 
                   alt="Роман Яновський" 
                   fill 
-                  className="object-cover" 
+                  className="object-cover object-top" 
                 />
               </div>
-              <div className="space-y-2 text-center sm:text-left">
-                <div className="inline-block px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 text-[11px] font-bold">
+              <div className="space-y-2.5 text-center sm:text-left">
+                <div className="inline-block px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-[11px] font-bold">
                   Засновник &amp; Керуючий партнер
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Роман Яновський</h3>
+                <h3 className="text-xl font-black text-slate-900">Роман Яновський</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Експерт з міжнародного рекрутингу та B2B контрактування. Особисто курує акредитацію тестових полігонів та юридичну чистоту віз D-03.
+                  Експерт з міжнародного рекрутингу та B2B контрактування. Особисто курує акредитацію тестових полігонів, аудит підприємств та юридичну чистоту віз D-03.
                 </p>
-                <div className="pt-2 text-xs font-semibold text-slate-500 flex items-center gap-1.5 justify-center sm:justify-start">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Персональна фінансова гарантія виконання договору</span>
+                <div className="pt-1 text-xs font-semibold text-slate-700 flex items-center gap-1.5 justify-center sm:justify-start">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Персональна фінансова гарантія виконання контракту</span>
                 </div>
               </div>
             </div>
 
             {/* Stanislav Lukhmenko */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col sm:flex-row gap-5 items-center">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 border-2 border-slate-100 shadow">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-md hover:shadow-lg transition-all flex flex-col sm:flex-row gap-6 items-center ring-1 ring-slate-900/5">
+              <div className="relative w-32 h-40 sm:w-36 sm:h-44 rounded-2xl overflow-hidden shrink-0 border-2 border-slate-200/80 shadow-md">
                 <Image 
-                  src="/team/stanislav_lukhmenko.jpg" 
+                  src="/team/stanislav_lukhmenko_studio.jpg" 
                   alt="Станіслав Лухменко" 
                   fill 
-                  className="object-cover" 
+                  className="object-cover object-top" 
                 />
               </div>
-              <div className="space-y-2 text-center sm:text-left">
-                <div className="inline-block px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+              <div className="space-y-2.5 text-center sm:text-left">
+                <div className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-bold">
                   Співзасновник &amp; Директор з логістики
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Станіслав Лухменко</h3>
+                <h3 className="text-xl font-black text-slate-900">Станіслав Лухменко</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Відповідає за трансферний коридор «Кишинів ➔ Україна», безпечний супровід груп кандидатів, розселення та адаптацію на виробництві.
+                  Відповідає за трансферний коридор «Кишинів ➔ Україна», безпечний супровід груп кандидатів, розселення та оперативну адаптацію на виробництві.
                 </p>
-                <div className="pt-2 text-xs font-semibold text-slate-500 flex items-center gap-1.5 justify-center sm:justify-start">
-                  <ShieldCheck className="w-4 h-4 text-blue-600" />
+                <div className="pt-1 text-xs font-semibold text-slate-700 flex items-center gap-1.5 justify-center sm:justify-start">
+                  <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
                   <span>Повний логістичний супровід до дверей підприємства</span>
                 </div>
               </div>
@@ -798,49 +825,83 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
-                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
-                  <Image src="/team/olena_kravchenko_legal.jpg" alt="Олена Кравченко" fill className="object-cover" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+              <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                    <Image src="/team/olena_kravchenko_legal.jpg" alt="Олена Кравченко" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900">Олена Кравченко</h4>
+                    <span className="text-[10px] text-blue-700 font-semibold block">Юр. комплаєнс</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-xs text-slate-900">Олена Кравченко</h4>
-                  <span className="text-[10px] text-blue-700 font-medium block">Юридичний комплаєнс</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">Дозволи Держпраці</span>
-                </div>
+                <span className="text-[10px] text-slate-400 block">Дозволи Держпраці та ДМС</span>
               </div>
 
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
-                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
-                  <Image src="/team/alisher_karimov_recruitment.jpg" alt="Алішер Карімов" fill className="object-cover" />
+              <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                    <Image src="/team/alisher_karimov_recruitment.jpg" alt="Алішер Карімов" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900">Алішер Карімов</h4>
+                    <span className="text-[10px] text-blue-700 font-semibold block">Відбір в Азії</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-xs text-slate-900">Алішер Карімов</h4>
-                  <span className="text-[10px] text-blue-700 font-medium block">Відбір в Азії</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">Хаби Ташкент &amp; Делі</span>
-                </div>
+                <span className="text-[10px] text-slate-400 block">Хаби Ташкент &amp; Делі</span>
               </div>
 
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
-                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
-                  <Image src="/team/oleksandr_melnyk_engineer.jpg" alt="Олександр Мельник" fill className="object-cover" />
+              <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                    <Image src="/team/oleksandr_melnyk_engineer.jpg" alt="Олександр Мельник" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900">Олександр Мельник</h4>
+                    <span className="text-[10px] text-blue-700 font-semibold block">Головний інженер</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-xs text-slate-900">Олександр Мельник</h4>
-                  <span className="text-[10px] text-blue-700 font-medium block">Головний інженер</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">Голова Trade Test</span>
-                </div>
+                <span className="text-[10px] text-slate-400 block">Голова Trade Test комісії</span>
               </div>
 
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
-                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
-                  <Image src="/team/sergiy_melnyk.jpg" alt="Сергій Мельник" fill className="object-cover" />
+              <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                    <Image src="/team/tetyana_bondarenko_adaptation.jpg" alt="Тетяна Бондаренко" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900">Тетяна Бондаренко</h4>
+                    <span className="text-[10px] text-blue-700 font-semibold block">Адаптація &amp; HR</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-xs text-slate-900">Сергій Мельник</h4>
-                  <span className="text-[10px] text-blue-700 font-medium block">Логістика &amp; Транзит</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">Коридор Кишинів-Київ</span>
+                <span className="text-[10px] text-slate-400 block">Гуртожитки та куратори</span>
+              </div>
+
+              <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                    <Image src="/team/dmytro_kovalchuk_operations.jpg" alt="Дмитро Ковальчук" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900">Дмитро Ковальчук</h4>
+                    <span className="text-[10px] text-blue-700 font-semibold block">Операційний дир.</span>
+                  </div>
                 </div>
+                <span className="text-[10px] text-slate-400 block">Вихід змін 99.4% &amp; KPI</span>
+              </div>
+
+              <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                    <Image src="/team/sergiy_melnyk.jpg" alt="Сергій Мельник" fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900">Сергій Мельник</h4>
+                    <span className="text-[10px] text-blue-700 font-semibold block">Транзит персоналу</span>
+                  </div>
+                </div>
+                <span className="text-[10px] text-slate-400 block">Коридор Кишинів — Київ</span>
               </div>
             </div>
           </div>
@@ -912,6 +973,121 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 8.5. KNOWLEDGE BASE & SEO ARTICLES */}
+      <section className="py-20 bg-slate-50 border-t border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-bold uppercase tracking-wider">
+                <BookOpen className="w-3.5 h-3.5 text-blue-700" />
+                Юридична аналітика та SEO-експертиза 2026
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                База знань: Закон, податки та економіка найму
+              </h2>
+              <p className="text-sm text-slate-600 max-w-2xl">
+                Повні розбори законодавства, статті 23 ЗУ про мобілізацію, розрахунки собівартості людино-години та вимоги ДБН до розміщення персоналу.
+              </p>
+            </div>
+
+            <Link 
+              href="/blog"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-900 font-bold text-xs shadow-sm hover:shadow transition-all group shrink-0"
+            >
+              <span>Всі 8 аналітичних статей</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform text-blue-600" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Article 1 */}
+            <article className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 font-bold">
+                    Юридична безпека
+                  </span>
+                  <span className="text-slate-400 font-mono">7 хв читання</span>
+                </div>
+                <h3 className="font-bold text-base text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                  <Link href="/blog/legal-guide-foreign-worker-hiring-ukraine-2026">
+                    Повний юридичний гайд 2026: Як легально оформити іноземного працівника на ТОВ
+                  </Link>
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  Покроковий розбір отримання дозволу Держпраці, подання документів на візу D-03, укладення прямого трудового контракту та уникнення штрафів до 160 000 грн.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-medium text-[11px]">Олена Кравченко</span>
+                <Link href="/blog/legal-guide-foreign-worker-hiring-ukraine-2026" className="font-bold text-blue-600 flex items-center gap-1 group-hover:underline">
+                  <span>Читати</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </article>
+
+            {/* Article 2 */}
+            <article className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold">
+                    Захист бізнесу
+                  </span>
+                  <span className="text-slate-400 font-mono">8 хв читання</span>
+                </div>
+                <h3 className="font-bold text-base text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                  <Link href="/blog/article-23-law-ukraine-mobilization-exemption">
+                    Стаття 23 ЗУ: Чому іноземні працівники на 100% захищені від мобілізації та призову
+                  </Link>
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  Детальний правовий висновок щодо правового статусу іноземців в Україні: відсутність військового обліку, ТЦК та гарантія безперервної роботи підприємства.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-medium text-[11px]">Олена Кравченко</span>
+                <Link href="/blog/article-23-law-ukraine-mobilization-exemption" className="font-bold text-blue-600 flex items-center gap-1 group-hover:underline">
+                  <span>Читати</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </article>
+
+            {/* Article 3 */}
+            <article className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900 font-bold">
+                    Фінанси & ROI
+                  </span>
+                  <span className="text-slate-400 font-mono">8 хв читання</span>
+                </div>
+                <h3 className="font-bold text-base text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                  <Link href="/blog/cost-calculator-foreign-vs-local-workers-ukraine-2026">
+                    Собівартість години праці: іноземний фахівець проти місцевого робітника (Порівняльний аудит)
+                  </Link>
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  Повний фінансовий розбір собівартості людино-години з урахуванням простоїв, плинності кадрів, переробок та коефіцієнта стабільності зміни 99.4%.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-medium text-[11px]">Дмитро Ковальчук</span>
+                <Link href="/blog/cost-calculator-foreign-vs-local-workers-ukraine-2026" className="font-bold text-blue-600 flex items-center gap-1 group-hover:underline">
+                  <span>Читати</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </article>
 
           </div>
 
