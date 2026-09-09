@@ -16,10 +16,10 @@ export default function Navbar() {
     { name: 'Головна', href: '/' },
     { name: 'Каталог персоналу', href: '/#catalog' },
     { name: 'Гарантії', href: '/#guarantees' },
-    { name: 'База знань (SEO)', href: '/blog' },
+    { name: 'База знань', href: '/blog' },
     { name: 'Калькулятор ROI', href: '/calculator' },
     { name: 'Команда', href: '/about' },
-    { name: 'Trade Tests (Відео)', href: '/trade-tests' },
+    { name: 'Trade Tests', href: '/trade-tests' },
   ];
 
   return (
