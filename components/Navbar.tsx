@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShieldCheck, ChevronRight, Menu, X, UserCheck, Sparkles } from 'lucide-react';
+import { ShieldCheck, ChevronRight, Menu, X, UserCheck, Phone, CheckCircle2 } from 'lucide-react';
 import QuotaBookingModal from './QuotaBookingModal';
 
 export default function Navbar() {
@@ -13,32 +13,42 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Головна', href: '/' },
+    { name: 'Каталог персоналу', href: '/#catalog' },
+    { name: 'Гарантії', href: '/#guarantees' },
     { name: 'Країни-донори', href: '/countries' },
     { name: 'Калькулятор ROI', href: '/calculator' },
-    { name: 'Виставки & Команда', href: '/about' },
+    { name: 'Команда & Виставки', href: '/about' },
     { name: 'Trade Tests (Відео)', href: '/trade-tests' },
-    { name: 'База знань', href: '/blog' },
   ];
 
   return (
     <>
-      {/* Top Patriotic Telemetry Ribbon */}
-      <div className="bg-slate-950/90 border-b border-white/[0.06] text-[11px] text-slate-400 py-1.5 px-4 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      {/* Top Telemetry & National Standards Ribbon */}
+      <div className="bg-slate-900 border-b border-slate-800 text-[11px] text-slate-300 py-2 px-4">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 font-medium text-amber-400">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Офіційний партнер підприємств України
+              Офіційний партнер роботодавців України
             </span>
             <span className="hidden sm:inline-block text-slate-600">|</span>
-            <span className="hidden sm:inline-flex items-center gap-1 text-slate-300">
-              🇺🇦 Ліцензія Мінсоцполітики · ISO 9001
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-slate-200">
+              <span className="inline-block w-4 h-2.5 rounded-sm overflow-hidden bg-blue-600 relative border border-white/20">
+                <span className="absolute bottom-0 left-0 right-0 h-1/2 bg-yellow-400"></span>
+              </span>
+              Ліцензія Мінсоцполітики №1428 · 100% захист від мобілізації (ст. 23 ЗУ)
             </span>
           </div>
+
           <div className="flex items-center gap-4">
-            <span className="hidden md:inline text-slate-400">
-              Транзитний коридор: <span className="text-slate-200 font-mono">Кишинів (MD) ➔ Одеса / Київ</span>
-            </span>
+            <a 
+              href="tel:+380678004040" 
+              className="inline-flex items-center gap-1.5 font-bold text-white hover:text-emerald-400 transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 text-emerald-400" />
+              <span>+38 (067) 800-40-40</span>
+            </a>
+            <span className="text-slate-600 hidden sm:inline">|</span>
             <Link 
               href="/portal"
               className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold transition-colors"
@@ -50,15 +60,15 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main Header */}
-      <header className="sticky top-0 z-40 bg-[#070a12]/85 backdrop-blur-xl border-b border-white/[0.08]">
+      {/* Main Corporate Header */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo with Ukrainian Trident */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 p-[1px] shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-all">
-                <div className="w-full h-full rounded-[11px] bg-slate-950 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+            <Link href="/" className="flex items-center gap-3.5 group">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-slate-900 p-0.5 shadow-md group-hover:shadow-lg transition-all flex items-center justify-center">
+                <div className="w-full h-full rounded-[10px] bg-slate-900 flex items-center justify-center">
+                  <svg className="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2L13.5 7V17H10.5V7L12 2Z" />
                     <path d="M7 6C7 9.5 8 13 9 15V17H6C5 15 4 11 4 7L7 6Z" />
                     <path d="M17 6C17 9.5 16 13 15 15V17H18C19 15 20 11 20 7L17 6Z" />
@@ -68,15 +78,15 @@ export default function Navbar() {
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-black tracking-tight text-white group-hover:text-amber-400 transition-colors">
+                  <span className="text-xl font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
                     Recruiter I Club
                   </span>
-                  <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                    2026
+                  <span className="text-[11px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    B2B
                   </span>
                 </div>
-                <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">
-                  Recruiter I Club · Україна
+                <span className="text-[11px] font-medium tracking-wide text-slate-500">
+                  Підбір іноземного персоналу в Україні
                 </span>
               </div>
             </Link>
@@ -87,12 +97,12 @@ export default function Navbar() {
                 const isActive = pathname === link.href;
                 return (
                   <Link
-                    key={link.href}
+                    key={link.name}
                     href={link.href}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all ${
+                    className={`px-3.5 py-2 rounded-lg text-xs font-semibold tracking-tight transition-all ${
                       isActive
-                        ? 'text-amber-400 bg-amber-500/10 border border-amber-500/20'
-                        : 'text-slate-300 hover:text-white hover:bg-white/[0.04]'
+                        ? 'text-blue-700 bg-blue-50 font-bold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
                     {link.name}
@@ -103,19 +113,17 @@ export default function Navbar() {
 
             {/* Action Buttons */}
             <div className="hidden lg:flex items-center gap-3">
-              <div className="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/25">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span className="text-xs font-bold text-amber-300">
-                  Від $500 / робітник
-                </span>
+              <div className="flex flex-col text-right pr-2">
+                <span className="text-[11px] text-slate-500 font-medium">Вартість найму</span>
+                <span className="text-xs font-bold text-slate-900">від $500 / працівник</span>
               </div>
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="relative group overflow-hidden px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all active:scale-95 flex items-center gap-2"
+                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all active:scale-95 flex items-center gap-2"
               >
-                <span>Бронювати квоту (€50)</span>
-                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                <span>Отримати анкети</span>
+                <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
 
@@ -123,13 +131,13 @@ export default function Navbar() {
             <div className="flex xl:hidden items-center gap-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-3 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs"
+                className="px-3.5 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs"
               >
-                Бронь €50
+                Анкети
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05]"
+                className="p-2 rounded-lg text-slate-700 hover:bg-slate-100"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -139,24 +147,28 @@ export default function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="xl:hidden bg-[#070a12]/95 border-b border-white/[0.1] px-4 pt-2 pb-6 space-y-2 backdrop-blur-2xl">
+          <div className="xl:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-1 shadow-xl">
             {navLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-200 hover:bg-white/[0.06] hover:text-amber-400"
+                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600"
               >
                 {link.name}
               </Link>
             ))}
-            <div className="pt-3 border-t border-white/[0.08] flex flex-col gap-2">
+            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+              <div className="flex items-center justify-between px-4 py-2 bg-slate-50 rounded-lg text-xs">
+                <span className="text-slate-500">Пряма консультація:</span>
+                <a href="tel:+380678004040" className="font-bold text-slate-900">+38 (067) 800-40-40</a>
+              </div>
               <Link
                 href="/portal"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl border border-white/15 text-slate-200 font-semibold text-sm"
+                className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50"
               >
-                <UserCheck className="w-4 h-4 text-amber-400" />
+                <UserCheck className="w-4 h-4 text-blue-600" />
                 Особистий кабінет (CRM)
               </Link>
               <button
@@ -164,9 +176,9 @@ export default function Navbar() {
                   setIsMobileMenuOpen(false);
                   setIsModalOpen(true);
                 }}
-                className="w-full py-3 rounded-xl bg-amber-500 text-slate-950 font-bold text-sm"
+                className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md"
               >
-                Забронювати квоту (всього €50)
+                Отримати анкети кандидатів (бронь €50)
               </button>
             </div>
           </div>
