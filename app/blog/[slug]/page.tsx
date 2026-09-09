@@ -1,7 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Calendar, Clock, Share2, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Share2, ShieldCheck, Zap, User, ArrowRight } from 'lucide-react';
 import { articlesData } from '@/lib/articlesData';
 
 export function generateStaticParams() {
@@ -43,16 +43,16 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
       {/* Back Link */}
       <Link
         href="/blog"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-amber-400 transition-colors"
+        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-blue-600 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Назад до бази знань</span>
       </Link>
 
       {/* Header */}
-      <div className="space-y-4 border-b border-white/[0.08] pb-8">
-        <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
-          <span className="px-3 py-1 rounded bg-amber-500/10 text-amber-400 font-bold font-sans">
+      <div className="space-y-4 border-b border-slate-200 pb-8">
+        <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
+          <span className="px-3 py-1 rounded-md bg-blue-50 text-blue-800 font-bold font-sans border border-blue-100">
             {article.category}
           </span>
           <span>{article.date}</span>
@@ -60,17 +60,28 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
           <span>{article.readTime} читання</span>
         </div>
 
-        <h1 className="text-2xl sm:text-4xl font-black text-white leading-tight">
+        <h1 className="text-2xl sm:text-4xl font-black text-slate-900 leading-tight">
           {article.title}
         </h1>
 
-        <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
           {article.summary}
         </p>
+
+        {/* Author Details */}
+        <div className="flex items-center gap-3 pt-2 text-xs text-slate-600">
+          <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center font-bold">
+            {article.author.name[0]}
+          </div>
+          <div>
+            <span className="font-bold text-slate-900 block">{article.author.name}</span>
+            <span className="text-[11px] text-slate-500">{article.author.role}</span>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="prose prose-invert prose-amber max-w-none text-slate-300 text-sm sm:text-base leading-relaxed space-y-6">
+      <div className="prose prose-slate max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-6">
         <div className="whitespace-pre-line">
           {article.content}
         </div>
@@ -78,18 +89,18 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
 
       {/* FAQ Section */}
       {article.faq && article.faq.length > 0 && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-950 border border-white/10 space-y-6 mt-12">
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-amber-400" />
+        <div className="p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 space-y-6 mt-12">
+          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-emerald-600" />
             Часті запитання керівників підприємств
           </h3>
           <div className="space-y-4">
             {article.faq.map((f, idx) => (
-              <div key={idx} className="p-4 rounded-xl bg-slate-900 border border-white/5 space-y-2">
-                <strong className="text-sm font-semibold text-white block">
+              <div key={idx} className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5 shadow-sm">
+                <strong className="text-sm font-bold text-slate-900 block">
                   {f.q}
                 </strong>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {f.a}
                 </p>
               </div>
@@ -99,20 +110,21 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
       )}
 
       {/* Bottom CTA Box */}
-      <div className="p-8 rounded-3xl bg-gradient-to-r from-amber-500/15 to-transparent border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="p-8 rounded-3xl bg-gradient-to-r from-blue-700 to-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
         <div className="space-y-1">
           <h4 className="text-base font-bold text-white">
             Потрібна індивідуальна юридична консультація?
           </h4>
-          <p className="text-xs text-slate-400">
-            Отримайте повний аудит вашої потреби та зафіксуйте квоту від  за працівника.
+          <p className="text-xs text-blue-100">
+            Отримайте безкоштовний аудит вашої кадрової потреби та забронюйте квоту від €50 за працівника.
           </p>
         </div>
         <Link
-          href="/calculator"
-          className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shrink-0 transition-all shadow-md shadow-amber-500/20"
+          href="/#calculator"
+          className="px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shrink-0 transition-all shadow-lg active:scale-95 flex items-center gap-2"
         >
-          Зафіксувати квоту (€50)
+          <span>Зафіксувати квоту (€50)</span>
+          <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     </article>

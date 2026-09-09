@@ -16,9 +16,9 @@ export default function Navbar() {
     { name: 'Головна', href: '/' },
     { name: 'Каталог персоналу', href: '/#catalog' },
     { name: 'Гарантії', href: '/#guarantees' },
-    { name: 'Країни-донори', href: '/countries' },
+    { name: 'База знань (SEO)', href: '/blog' },
     { name: 'Калькулятор ROI', href: '/calculator' },
-    { name: 'Команда & Виставки', href: '/about' },
+    { name: 'Команда', href: '/about' },
     { name: 'Trade Tests (Відео)', href: '/trade-tests' },
   ];
 

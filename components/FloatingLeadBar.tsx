@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, MessageSquare, Send, X, PhoneCall } from 'lucide-react';
+import { Sparkles, MessageSquare, Send, X, PhoneCall, Phone, ShieldCheck } from 'lucide-react';
 import AiWorkforceAuditModal from './AiWorkforceAuditModal';
 
 export default function FloatingLeadBar() {
@@ -11,7 +11,7 @@ export default function FloatingLeadBar() {
 
   return (
     <>
-      <aside aria-label="Консультація та аудит засновників" className="fixed bottom-5 right-5 z-40 max-w-sm sm:max-w-md w-[calc(100%-2.5rem)] animate-fadeIn">
+      <aside aria-label="Консультація відділу B2B рекрутингу" className="fixed bottom-5 right-5 z-40 max-w-sm sm:max-w-md w-[calc(100%-2.5rem)] animate-fadeIn">
         {!isCollapsed ? (
           <div className="bg-white/95 p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xl shadow-slate-900/15 backdrop-blur-md relative">
             
@@ -25,24 +25,9 @@ export default function FloatingLeadBar() {
             </button>
 
             <div className="flex items-start gap-3.5">
-              {/* Real Founders Double Avatar Badge */}
-              <div className="relative flex -space-x-3 shrink-0 pt-0.5">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-md bg-slate-100 z-10">
-                  <Image
-                    src="/team/roman_portrait_close.jpg"
-                    alt="Роман Яновський"
-                    fill
-                    className="object-cover object-top"
-                  />
-                </div>
-                <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-md bg-slate-100 z-0">
-                  <Image
-                    src="/team/stanislav_lukhmenko.jpg"
-                    alt="Станіслав Лухменко"
-                    fill
-                    className="object-cover object-top"
-                  />
-                </div>
+              {/* Corporate Badge Icon */}
+              <div className="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                <PhoneCall className="w-5 h-5" />
               </div>
 
               {/* Text */}
@@ -50,14 +35,14 @@ export default function FloatingLeadBar() {
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span className="text-[10px] uppercase tracking-wider text-blue-700 font-bold">
-                    Роман Яновський &amp; Станіслав Лухменко
+                    Відділ B2B рекрутингу в Україні
                   </span>
                 </div>
                 <h4 className="text-xs font-bold text-slate-900 leading-snug">
-                  Безкоштовний аудит кадрів підприємства
+                  Гаряча лінія підбору персоналу
                 </h4>
                 <p className="text-[11px] text-slate-500 leading-tight">
-                  Отримайте розрахунок економії та перші 5 резюме за 24 години.
+                  Черговий координатор розрахує кошторис та надасть перші 5 резюме.
                 </p>
               </div>
             </div>
@@ -66,30 +51,28 @@ export default function FloatingLeadBar() {
             <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-slate-100">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="py-2 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                className="py-2 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
               >
                 <Sparkles className="w-3 h-3" />
                 <span>Аудит</span>
               </button>
 
               <a
-                href="https://t.me"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] flex items-center justify-center gap-1 transition-all"
+                href="tel:+380678004040"
+                className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] flex items-center justify-center gap-1 transition-all"
               >
-                <Send className="w-3 h-3 text-[#229ED9]" />
-                <span>Telegram</span>
+                <Phone className="w-3 h-3 text-blue-600" />
+                <span>Дзвінок</span>
               </a>
 
               <a
-                href="https://wa.me"
+                href="https://t.me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] flex items-center justify-center gap-1 transition-all"
+                className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] flex items-center justify-center gap-1 transition-all"
               >
-                <MessageSquare className="w-3 h-3 text-[#25D366]" />
-                <span>WhatsApp</span>
+                <Send className="w-3 h-3 text-[#229ED9]" />
+                <span>Telegram</span>
               </a>
             </div>
 
@@ -97,19 +80,14 @@ export default function FloatingLeadBar() {
         ) : (
           <button
             onClick={() => setIsCollapsed(false)}
-            className="flex items-center gap-3 p-2.5 pr-4 rounded-full bg-white border border-slate-200 hover:border-slate-300 text-slate-900 shadow-xl font-bold text-xs ml-auto transition-all group"
+            className="flex items-center gap-3 p-3 pr-4 rounded-full bg-white border border-slate-200 hover:border-slate-300 text-slate-900 shadow-xl font-bold text-xs ml-auto transition-all group"
           >
-            <div className="relative flex -space-x-2">
-              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-white">
-                <Image src="/team/roman_portrait_close.jpg" alt="Роман" fill className="object-cover" />
-              </div>
-              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-white">
-                <Image src="/team/stanislav_lukhmenko.jpg" alt="Станіслав" fill className="object-cover" />
-              </div>
+            <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center">
+              <Phone className="w-3 h-3" />
             </div>
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              Консультація засновників
+              Відділ B2B найму
             </span>
           </button>
         )}

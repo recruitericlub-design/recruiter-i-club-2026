@@ -748,16 +748,9 @@ export default function HomePage() {
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Експерт з міжнародного рекрутингу та B2B контрактування. Особисто курує акредитацію тестових полігонів та юридичну чистоту віз D-03.
                 </p>
-                <div className="pt-2">
-                  <a 
-                    href="https://t.me" 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>Зв’язатися в Telegram</span>
-                  </a>
+                <div className="pt-2 text-xs font-semibold text-slate-500 flex items-center gap-1.5 justify-center sm:justify-start">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Персональна фінансова гарантія виконання договору</span>
                 </div>
               </div>
             </div>
@@ -780,20 +773,76 @@ export default function HomePage() {
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Відповідає за трансферний коридор «Кишинів ➔ Україна», безпечний супровід груп кандидатів, розселення та адаптацію на виробництві.
                 </p>
-                <div className="pt-2">
-                  <a 
-                    href="https://wa.me" 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-700"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>Зв’язатися у WhatsApp</span>
-                  </a>
+                <div className="pt-2 text-xs font-semibold text-slate-500 flex items-center gap-1.5 justify-center sm:justify-start">
+                  <ShieldCheck className="w-4 h-4 text-blue-600" />
+                  <span>Повний логістичний супровід до дверей підприємства</span>
                 </div>
               </div>
             </div>
 
+          </div>
+
+          {/* Extended Key Team Preview */}
+          <div className="mb-16">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <span className="text-xs font-bold text-blue-700 uppercase tracking-wider block">Експертний штаб клубу</span>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900">Керівники ключових напрямків</h3>
+              </div>
+              <Link 
+                href="/about"
+                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800"
+              >
+                <span>Вся команда</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
+                  <Image src="/team/olena_kravchenko_legal.jpg" alt="Олена Кравченко" fill className="object-cover" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs text-slate-900">Олена Кравченко</h4>
+                  <span className="text-[10px] text-blue-700 font-medium block">Юридичний комплаєнс</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">Дозволи Держпраці</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
+                  <Image src="/team/alisher_karimov_recruitment.jpg" alt="Алішер Карімов" fill className="object-cover" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs text-slate-900">Алішер Карімов</h4>
+                  <span className="text-[10px] text-blue-700 font-medium block">Відбір в Азії</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">Хаби Ташкент &amp; Делі</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
+                  <Image src="/team/oleksandr_melnyk_engineer.jpg" alt="Олександр Мельник" fill className="object-cover" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs text-slate-900">Олександр Мельник</h4>
+                  <span className="text-[10px] text-blue-700 font-medium block">Головний інженер</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">Голова Trade Test</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
+                  <Image src="/team/sergiy_melnyk.jpg" alt="Сергій Мельник" fill className="object-cover" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs text-slate-900">Сергій Мельник</h4>
+                  <span className="text-[10px] text-blue-700 font-medium block">Логістика &amp; Транзит</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">Коридор Кишинів-Київ</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Real Media & Documents Proof Gallery */}
