@@ -11,6 +11,8 @@ BASE_URL = "https://recruiter-i-club-2026.vercel.app"
 PAGES = [
     {"name": "homepage", "url": BASE_URL},
     {"name": "about", "url": f"{BASE_URL}/about"},
+    {"name": "blog_catalog", "url": f"{BASE_URL}/blog"},
+    {"name": "blog_article_cost", "url": f"{BASE_URL}/blog/b2b-cost-of-importing-workers-2026"},
 ]
 
 def capture_all():
