@@ -22,7 +22,10 @@ import {
   MessageSquare,
   Check,
   X as CloseIcon,
-  ChevronRight
+  ChevronRight,
+  TrendingUp,
+  Briefcase,
+  AlertTriangle
 } from 'lucide-react';
 import WorkerCatalogSection from '@/components/WorkerCatalogSection';
 import QuotaBookingModal from '@/components/QuotaBookingModal';
@@ -33,11 +36,27 @@ export default function HomePage() {
   const [isAuditOpen, setIsAuditOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
+  // ROI Calculator state
+  const [workersCount, setWorkersCount] = useState(15);
+  const [industry, setIndustry] = useState<'welding' | 'cnc' | 'logistics' | 'agro'>('welding');
+
+  const industryParams = {
+    welding: { name: 'Зварювання & Металообробка', avgLocalPay: 38000, foreignPay: 31000, downtimeCost: 120000 },
+    cnc: { name: 'Верстати ЧПК & Машинобудування', avgLocalPay: 42000, foreignPay: 33000, downtimeCost: 150000 },
+    logistics: { name: 'Склади & Комплектація (WMS)', avgLocalPay: 30000, foreignPay: 25000, downtimeCost: 90000 },
+    agro: { name: 'Агросектор & Трактористи', avgLocalPay: 34000, foreignPay: 27000, downtimeCost: 110000 },
+  };
+
+  const selectedParam = industryParams[industry];
+  const monthlySalarySavings = (selectedParam.avgLocalPay - selectedParam.foreignPay) * workersCount;
+  const turnoverAndDowntimeSavings = Math.round(selectedParam.downtimeCost * (workersCount / 10));
+  const totalAnnualSavings = (monthlySalarySavings + turnoverAndDowntimeSavings) * 12;
+
   const guarantees = [
     {
       num: '01',
       title: 'Кандидат не доїхав — 100% заміна або повернення',
-      desc: 'Якщо кандидат захворів, отримав відмову або передумав — миттєво надаємо рівноцінного спеціаліста або повертаємо передоплату без затримок.'
+      desc: 'Якщо кандидат захворів, отримав відмову або передумав — миттєво надаємо рівноцінного спеціаліста або повертаємо передоплату без зволікань.'
     },
     {
       num: '02',
@@ -56,14 +75,59 @@ export default function HomePage() {
     }
   ];
 
+  const caseStudies = [
+    {
+      company: 'ТОВ «УкрСтальКонструкція»',
+      location: 'Київська область',
+      industry: 'Важке машинобудування & Металоконструкції',
+      challenge: 'Втрата 14 дипломованих зварювальників через мобілізацію та загроза зриву держзамовлення на будівництво мостових прогонів.',
+      solution: 'Підбір 16 зварювальників 6G MIG/TIG з Індії та Узбекистану з відеофіксацією Trade Test.',
+      results: [
+        '0 днів простою з моменту виходу першої зміни',
+        'Економія фонду оплати праці: 340 000 грн/місяць',
+        '100% захист лінії від повісток (ст. 23 ЗУ)'
+      ],
+      quota: '16 працівників',
+      timing: '28 днів'
+    },
+    {
+      company: 'Логістичний комплекс «Вест-Логістик»',
+      location: 'Львівська область',
+      industry: 'Розподільчий центр 3PL & Склади',
+      challenge: 'Плинність місцевих пакувальників понад 50% на рік, зриви нічних змін та затримки відвантажень продукції.',
+      solution: 'Залучення бригади з 30 комплектувальників та операторів річтраків з Непалу та Бангладеш.',
+      results: [
+        'Плинність кадрів впала до 2% за рік контракту',
+        'Швидкість збирання замовлень зросла на 24%',
+        'Нуль прогулів та відмов від понаднормових змін'
+      ],
+      quota: '30 працівників',
+      timing: '35 днів'
+    },
+    {
+      company: 'Агрохолдинг «Поділля-Агро»',
+      location: 'Вінницька область',
+      industry: 'Агропромисловий комплекс',
+      challenge: 'Критичний дефіцит трактористів та комбайнерів на весняну посівну кампанію через мобілізаційні заходи в регіоні.',
+      solution: '18 досвідчених механізаторів з Узбекистану з правами категорій A, B, C, D на техніку John Deere.',
+      results: [
+        'Посівна проведена точно в агротехнічні терміни',
+        'Цілодобова робота техніки у дві зміни без затримок',
+        'Подовження контрактів ще на 2 сезони'
+      ],
+      quota: '18 працівників',
+      timing: '22 дні'
+    }
+  ];
+
   const steps = [
-    { step: '01', title: 'Технічне завдання', desc: 'Узгоджуємо вимоги, кваліфікацію, умови праці, графік та розмір окладу.' },
-    { step: '02', title: 'Відбір та Trade Test', desc: 'Кандидати складають практичний іспит на полігоні з відеофіксацією процесу.' },
-    { step: '03', title: 'Дозвіл Держпраці', desc: 'Готуємо юридичний пакет та отримуємо офіційний дозвіл на працевлаштування (7–10 днів).' },
-    { step: '04', title: 'Віза D-03', desc: 'Подаємо документи в консульство України та супроводжуємо отримання робочої візи.' },
-    { step: '05', title: 'Авіарейс у Кишинів', desc: 'Організовуємо безпечний переліт міжнародної групи в найближчий хаб Кишинів (Молдова).' },
-    { step: '06', title: 'Трансфер в Україну', desc: 'Зустрічаємо спецтранспортом та доставляємо робітників прямо до гуртожитку вашого заводу.' },
-    { step: '07', title: 'Вихід на зміну', desc: 'Супровід куратора, медичний огляд, інструктаж та початок 30-денного випробувального терміну.' }
+    { step: '01', title: 'Технічне завдання', desc: 'Узгоджуємо кваліфікацію, умови праці, графік та очікувану ставку працівника.' },
+    { step: '02', title: 'Відбір та Trade Test', desc: 'Кандидати складають практичний іспит на камеру з лабораторною перевіркою швів і деталей.' },
+    { step: '03', title: 'Дозвіл Держпраці', desc: 'Готуємо офіційний юридичний пакет та отримуємо дозвіл на працевлаштування за 7–10 днів.' },
+    { step: '04', title: 'Віза D-03', desc: 'Супроводжуємо оформлення робочої візи в консульстві України без міграційних відмов.' },
+    { step: '05', title: 'Авіарейс у Кишинів', desc: 'Організовуємо безпечний переліт міжнародної групи в найближчий авіахаб Кишинів (Молдова).' },
+    { step: '06', title: 'Трансфер в Україну', desc: 'Зустрічаємо спецтранспортом та доставляємо робітників безпосередньо до гуртожитку вашого підприємства.' },
+    { step: '07', title: 'Вихід на зміну', desc: 'Медичний огляд, інструктаж з техніки безпеки, супровід куратора та початок 30-денного випробувального терміну.' }
   ];
 
   return (
@@ -115,11 +179,14 @@ export default function HomePage() {
                 </button>
 
                 <button
-                  onClick={() => setIsAuditOpen(true)}
+                  onClick={() => {
+                    const el = document.getElementById('calculator');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="px-6 py-4 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-base border border-slate-300 shadow-sm transition-all flex items-center justify-center gap-2"
                 >
                   <Calculator className="w-5 h-5 text-blue-600" />
-                  <span>Безкоштовний калькулятор витрат</span>
+                  <span>Розрахувати економію</span>
                 </button>
               </div>
 
@@ -147,6 +214,22 @@ export default function HomePage() {
                     <span className="text-xs font-bold text-slate-900 block">Заміна за 48 годин</span>
                     <span className="text-[11px] text-slate-500 leading-tight block">Гарантія в офіційному договорі</span>
                   </div>
+                </div>
+              </div>
+
+              {/* Live Telemetry Counter Ribbon */}
+              <div className="p-3.5 rounded-xl bg-slate-900 text-white flex flex-wrap items-center justify-between gap-4 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span className="text-slate-300">Вже працюють в Україні: <strong className="text-white font-mono text-sm">384</strong> робітники</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-blue-400" />
+                  <span className="text-slate-300">Мобілізація іноземців: <strong className="text-emerald-400 font-mono text-sm">0%</strong></span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-amber-400 font-bold">Бронь вересня:</span>
+                  <span className="bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded text-[11px]">залишилось 27 місць</span>
                 </div>
               </div>
 
@@ -184,34 +267,46 @@ export default function HomePage() {
                 {/* Quick Interactive Selector */}
                 <div className="space-y-3 relative z-10">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-slate-700">Оберіть сферу вашого підприємства:</span>
+                    <span className="font-semibold text-slate-700">Швидкий підбір за сферою:</span>
                     <span className="text-[11px] text-blue-600 font-bold">120+ кандидатів у базі</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <button 
-                      onClick={() => setIsBookingOpen(true)}
+                      onClick={() => {
+                        const el = document.getElementById('catalog');
+                        el?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       className="p-2.5 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-left transition-colors font-medium text-slate-800 flex items-center justify-between"
                     >
                       <span>Зварювання & ЧПК</span>
                       <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                     </button>
                     <button 
-                      onClick={() => setIsBookingOpen(true)}
+                      onClick={() => {
+                        const el = document.getElementById('catalog');
+                        el?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       className="p-2.5 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-left transition-colors font-medium text-slate-800 flex items-center justify-between"
                     >
                       <span>Склади & Логістика</span>
                       <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                     </button>
                     <button 
-                      onClick={() => setIsBookingOpen(true)}
+                      onClick={() => {
+                        const el = document.getElementById('catalog');
+                        el?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       className="p-2.5 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-left transition-colors font-medium text-slate-800 flex items-center justify-between"
                     >
                       <span>Агрокомплекси</span>
                       <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                     </button>
                     <button 
-                      onClick={() => setIsBookingOpen(true)}
+                      onClick={() => {
+                        const el = document.getElementById('catalog');
+                        el?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       className="p-2.5 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-left transition-colors font-medium text-slate-800 flex items-center justify-between"
                     >
                       <span>Будівництво & Монтаж</span>
@@ -239,7 +334,204 @@ export default function HomePage() {
       {/* 2. WORKER CATALOG SECTION ("ЛЮДИ — ЦЕ ТОВАР") */}
       <WorkerCatalogSection />
 
-      {/* 3. 4 B2B GUARANTEES (ASIA WORK STYLE) */}
+      {/* 3. INTERACTIVE ROI & SAVINGS CALCULATOR */}
+      <section id="calculator" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-xl">
+          <div className="max-w-3xl mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold uppercase tracking-wider mb-3">
+              <Calculator className="w-4 h-4 text-blue-600" />
+              Калькулятор окупності та захисту виробництва
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Скільки ваше підприємство заощадить на наймі іноземців?
+            </h2>
+            <p className="mt-2 text-slate-600 text-base">
+              Порівняйте реальні витрати на місцевий персонал (з урахуванням плинності та простоїв від мобілізації) проти стабільної команди за контрактом.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            {/* Left Controls */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Industry Selector */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-slate-500 mb-2">
+                  1. Оберіть галузь вашого підприємства:
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {(Object.keys(industryParams) as Array<keyof typeof industryParams>).map((ind) => (
+                    <button
+                      key={ind}
+                      onClick={() => setIndustry(ind)}
+                      className={`p-3 rounded-xl text-xs font-bold text-left border transition-all ${
+                        industry === ind
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      {industryParams[ind].name.split(' & ')[0]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Workers Count Slider */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold uppercase text-slate-500">
+                    2. Потрібна кількість робітників:
+                  </label>
+                  <span className="text-2xl font-black text-slate-900 font-mono">
+                    {workersCount} <span className="text-sm font-normal text-slate-500">осіб</span>
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="5"
+                  max="80"
+                  step="5"
+                  value={workersCount}
+                  onChange={(e) => setWorkersCount(Number(e.target.value))}
+                  className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                />
+                <div className="flex justify-between text-[11px] text-slate-400 font-mono">
+                  <span>5 осіб (бригада)</span>
+                  <span>40 осіб (цех)</span>
+                  <span>80 осіб (завод)</span>
+                </div>
+              </div>
+
+              {/* Breakdown metrics */}
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <span className="text-[11px] text-slate-500 block">Середня ставка в Україні:</span>
+                  <span className="text-lg font-bold text-slate-900">{selectedParam.avgLocalPay.toLocaleString()} грн/міс</span>
+                  <span className="text-[10px] text-red-500 block mt-1">+ постійний ризик мобілізації</span>
+                </div>
+                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <span className="text-[11px] text-emerald-800 block">Ставка іноземного фахівця:</span>
+                  <span className="text-lg font-bold text-emerald-900">{selectedParam.foreignPay.toLocaleString()} грн/міс</span>
+                  <span className="text-[10px] text-emerald-700 font-medium block mt-1">100% захист ст. 23 ЗУ</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Result Card */}
+            <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 to-blue-950 rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl">
+              <div className="space-y-4">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-400 block">
+                  Розрахунок річної вигоди:
+                </span>
+
+                <div>
+                  <span className="text-3xl sm:text-4xl font-black text-white font-mono block">
+                    {totalAnnualSavings.toLocaleString()} <span className="text-xl font-normal text-slate-300">грн/рік</span>
+                  </span>
+                  <span className="text-xs text-slate-300 mt-1 block">
+                    Сукупна економія на зарплатному фонді та ліквідації простоїв зміни.
+                  </span>
+                </div>
+
+                <div className="space-y-2 pt-4 border-t border-white/10 text-xs">
+                  <div className="flex justify-between text-slate-300">
+                    <span>Економія на ФОП щомісяця:</span>
+                    <strong className="text-white font-mono">{monthlySalarySavings.toLocaleString()} грн</strong>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span>Збережені втрати від простою:</span>
+                    <strong className="text-emerald-400 font-mono">+{turnoverAndDowntimeSavings.toLocaleString()} грн/міс</strong>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span>Бронювання квоти на {workersCount} осіб:</span>
+                    <strong className="text-amber-400 font-mono">{workersCount * 50} €</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <button
+                  onClick={() => setIsBookingOpen(true)}
+                  className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <span>Зафіксувати квоту та отримати розрахунок</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. REAL UKRAINIAN ENTERPRISE CASE STUDIES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold uppercase tracking-wider mb-3">
+            <Briefcase className="w-4 h-4 text-blue-600" />
+            Досвід українських підприємств
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            Реальні кейси: як наші клієнти вирішили проблему браку кадрів
+          </h2>
+          <p className="mt-3 text-base text-slate-600">
+            Виробництва, склади та агрохолдинги, які зберегли безперебійність під час воєнного стану.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {caseStudies.map((c, i) => (
+            <div 
+              key={i}
+              className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-4">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider block">{c.location}</span>
+                    <h3 className="text-lg font-black text-slate-900">{c.company}</h3>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-bold font-mono">
+                    {c.quota}
+                  </span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+                  <span className="font-bold text-slate-500 block mb-1">Проблема:</span>
+                  <p className="text-slate-700 leading-relaxed">{c.challenge}</p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-blue-50/50 border border-blue-100 text-xs">
+                  <span className="font-bold text-blue-800 block mb-1">Рішення Recruiter I Club:</span>
+                  <p className="text-slate-700 leading-relaxed">{c.solution}</p>
+                </div>
+
+                <div className="space-y-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-slate-900 block">Результати:</span>
+                  {c.results.map((res, rIdx) => (
+                    <div key={rIdx} className="flex items-start gap-2 text-xs text-slate-600">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{res}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <span>Термін запуску: <strong className="text-slate-900">{c.timing}</strong></span>
+                <button
+                  onClick={() => setIsBookingOpen(true)}
+                  className="font-bold text-blue-600 hover:text-blue-700"
+                >
+                  Хочу такий результат →
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. 4 B2B GUARANTEES (ASIA WORK STYLE) */}
       <section id="guarantees" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
@@ -281,7 +573,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. DEFENSE & MOBILIZATION SHIELD SECTION (СТАТТЯ 23 ЗУ) */}
+      {/* 6. DEFENSE & MOBILIZATION SHIELD SECTION (СТАТТЯ 23 ЗУ) */}
       <section className="bg-slate-900 text-white py-16 sm:py-20 border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -326,7 +618,7 @@ export default function HomePage() {
                   <div>
                     <span className="font-bold text-sm text-white block">Пряме оформлення в штат вашого підприємства</span>
                     <span className="text-xs text-slate-400 block mt-0.5">
-                      Ми забезпечуємо офіційний дозвіл Держпраці України на 1 або 2 роки з можливістю необмеженого продовження.
+                      Ми забезпечуємо офіційний дозвіл Держпраці України на 1 або 2 роки з можливістю безперешкодного подовження.
                     </span>
                   </div>
                 </div>
@@ -377,7 +669,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. 7 STEPS WORKFLOW (МАРШРУТ КАНДИДАТА) */}
+      {/* 7. 7 STEPS WORKFLOW (МАРШРУТ КАНДИДАТА) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider mb-3">
@@ -419,7 +711,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. REAL PROOF & FOUNDERS SECTION */}
+      {/* 8. REAL PROOF & FOUNDERS SECTION */}
       <section className="bg-slate-100 py-16 sm:py-24 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -577,7 +869,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. FINAL LEAD GENERATION & AUDIT SECTION */}
+      {/* 9. FINAL LEAD GENERATION & AUDIT SECTION */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-br from-blue-700 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
           <div className="max-w-2xl space-y-4 relative z-10">

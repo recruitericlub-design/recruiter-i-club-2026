@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Lock } from 'lucide-react';
+import BrandLogo from './BrandLogo';
 
 export default function Footer() {
   return (
@@ -10,19 +11,7 @@ export default function Footer() {
           
           {/* Col 1: Brand & Ukraine Mission */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-amber-400">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L13.5 7V17H10.5V7L12 2Z" />
-                  <path d="M7 6C7 9.5 8 13 9 15V17H6C5 15 4 11 4 7L7 6Z" />
-                  <path d="M17 6C17 9.5 16 13 15 15V17H18C19 15 20 11 20 7L17 6Z" />
-                  <path d="M9 19H15V22H9V19Z" />
-                </svg>
-              </div>
-              <span className="text-base font-bold text-white tracking-tight">
-                Recruiter I Club
-              </span>
-            </div>
+            <BrandLogo variant="light" />
 
             <p className="text-slate-400 leading-relaxed max-w-sm">
               Національний оператор легального підбору іноземного персоналу для промислових, будівельних, аграрних та логістичних підприємств України. Пряме офіційне працевлаштування в штат замовника та 100% захист від мобілізації (ст. 23 ЗУ).

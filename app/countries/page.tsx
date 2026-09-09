@@ -13,21 +13,21 @@ export default function CountriesCatalogPage() {
       slug: 'india',
       country: 'Індія',
       flag: '🇮🇳',
-      timing: '45–60 днів',
+      timing: '35–45 днів',
       badge: 'Технічна еліта',
-      salary: '–900',
-      description: 'Світовий центр підготовки технічних робітників. Відмінні зварювальники 6G, оператори ЧПК, фахівці монтажу металоконструкцій з обов\'язковим проходженням Trade Test.',
+      salary: '$650–$900',
+      description: 'Світовий центр підготовки технічних фахівців. Неперевершені зварювальники 6G, оператори ЧПК, слюсарі монтажу металоконструкцій з обов\'язковим практичним Trade Test.',
       strengths: ['Сертифікований Trade Test', 'Англомовні бригадири', 'Висока технічна дисципліна']
     },
     {
       slug: 'uzbekistan',
       country: 'Узбекистан',
       flag: '🇺🇿',
-      timing: '20–30 днів',
+      timing: '20–25 днів',
       badge: 'Найшвидший старт',
-      salary: '–850',
-      description: 'Найпростіший та найшвидший коридор для України. Безвізовий в\'їзд, повна відсутність мовного бар\'єру, готовність до важкої фізичної праці на агропідприємствах та складах.',
-      strengths: ['Безвізовий швидкий в\'їзд', 'Немає мовного бар\'єру', 'Витривалість до фізичних навантажень']
+      salary: '$600–$850',
+      description: 'Найпростіший та найшвидший коридор для України. Безвізовий в\'їзд, повна відсутність мовного бар\'єру, відмінна витривалість на промислових підприємствах, складах та агрокомплексах.',
+      strengths: ['Безвізовий швидкий в\'їзд', 'Вільне володіння мовою', 'Витривалість до фізичних навантажень']
     },
     {
       slug: 'kazakhstan',
@@ -35,49 +35,39 @@ export default function CountriesCatalogPage() {
       flag: '🇰🇿',
       timing: '25–35 днів',
       badge: 'Важка індустрія',
-      salary: '–950',
-      description: 'Промислові кадри з досвідом у гірничій справі, металургії та машинобудуванні. Вільне володіння мовою, звичка до індустріальних стандартів безпеки.',
-      strengths: ['Досвід у важкому машинобудуванні', 'Звичка до змінних графіків', 'Висока відповідальність']
-    },
-    {
-      slug: 'bangladesh',
-      country: 'Бангладеш',
-      flag: '🇧🇩',
-      timing: '40–55 днів',
-      badge: 'Конвеєр та текстиль',
-      salary: '–750',
-      description: 'Провідні фахівці швейної промисловості, розкрою та фасування продукції. Бездоганна усидливість і скрупульозність при монотонній конвеєрній роботі.',
-      strengths: ['Ідеальні для текстилю та харчопрому', 'Скромність та відсутність конфліктів', 'Вигідна ставка']
+      salary: '$700–$950',
+      description: 'Промислові кадри з досвідом у гірничій справі, металургії та машинобудуванні. Вільне володіння мовою, звичка до індустріальних регламентів охорони праці.',
+      strengths: ['Досвід у важкому машинобудуванні', 'Звичка до позмінної роботи', 'Висока відповідальність']
     },
     {
       slug: 'nepal',
       country: 'Непал',
       flag: '🇳🇵',
-      timing: '45–60 днів',
-      badge: 'Дисципліна та витривалість',
-      salary: '–750',
-      description: 'Надзвичайно спокійні, лояльні та працьовиті кандидати. Ідеально підходять для великих складських комплексів, тепличних господарств та лісопереробки.',
-      strengths: ['Сувора субординація та порядок', 'Відсутність шкідливих звичок', 'Висока фізична витривалість']
+      timing: '40–50 днів',
+      badge: 'Дисципліна та порядок',
+      salary: '$550–$750',
+      description: 'Надзвичайно спокійні, чесні та працьовиті кандидати. Ідеально підходять для логістичних терміналів WMS, тепличних комплексів, птахофабрик та будівництва.',
+      strengths: ['Сувора субординація та порядок', 'Повна відсутність шкідливих звичок', 'Висока фізична витривалість']
+    },
+    {
+      slug: 'bangladesh',
+      country: 'Бангладеш',
+      flag: '🇧🇩',
+      timing: '35–45 днів',
+      badge: 'Конвеєр та фасування',
+      salary: '$500–$700',
+      description: 'Провідні фахівці швейної промисловості, розкрою та складського фасування. Бездоганна посидючість і скрупульозність при безперервній конвеєрній роботі.',
+      strengths: ['Ідеальні для конвеєра та харчопрому', 'Скромність та нуль конфліктів', 'Вигідна ставка оплати']
     },
     {
       slug: 'philippines',
       country: 'Філіппіни',
       flag: '🇵🇭',
       timing: '50–70 днів',
-      badge: 'Преміум сервіс та англійська',
-      salary: '–1100',
-      description: 'Висококультурний персонал з вільною англійською мовою. Обслуговування роботизованих ліній, контроль якості (QA), високоточна збірка електроніки.',
-      strengths: ['Вільна ділова англійська', 'Висока культура праці', 'Акуратність з високими технологіями']
-    },
-    {
-      slug: 'vietnam',
-      country: 'В\'єтнам',
-      flag: '🇻🇳',
-      timing: '45–65 днів',
-      badge: 'Висока швидкість рук',
-      salary: '–850',
-      description: 'Майстри швидкої моторики, збірки деталей, харчового виробництва та кондитерських ліній. Згуртовані у робочі бригади з високою внутрішньою самоорганізацією.',
-      strengths: ['Неймовірна швидкість конвеєра', 'Командна взаємодопомога', 'Старанність']
+      badge: 'Преміум сервіс & англійська',
+      salary: '$800–$1,100',
+      description: 'Висококваліфікований персонал з вільною англійською мовою. Обслуговування автоматизованих ліній, контроль якості (QA), високоточна збірка електроніки.',
+      strengths: ['Вільна ділова англійська', 'Висока виробнича культура', 'Акуратність з високими технологіями']
     }
   ];
 
@@ -86,71 +76,74 @@ export default function CountriesCatalogPage() {
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-xs font-bold uppercase tracking-wider">
-          <Globe className="w-4 h-4" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold uppercase tracking-wider">
+          <Globe className="w-4 h-4 text-blue-600" />
           Географія залучення 2026
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
           Країни-донори та міжнародні хаби Recruiter I Club
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-          Оберіть країну, щоб переглянути специфіку менталітету, терміни доставки через транзитний коридор Молдови та вартість окладу.
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Оберіть країну, щоб переглянути специфіку спеціалізацій, терміни доставки через транзитний коридор Кишинева та очікуваний розмір заробітної плати.
         </p>
       </div>
 
-      {/* Grid */}
+      {/* Grid of Donor Countries */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {hubs.map((h) => (
+        {hubs.map((hub) => (
           <div
-            key={h.slug}
-            className="glass-card glass-card-hover rounded-3xl p-7 flex flex-col justify-between group"
+            key={hub.slug}
+            className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
           >
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="text-4xl">{h.flag}</span>
+                  <span className="text-3xl leading-none">{hub.flag}</span>
                   <div>
-                    <h3 className="text-xl font-black text-white group-hover:text-amber-400 transition-colors">
-                      {h.country}
+                    <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">
+                      {hub.country}
                     </h3>
-                    <span className="text-[11px] text-amber-400/90 font-mono font-bold">
-                      {h.badge}
-                    </span>
+                    <span className="text-[11px] text-slate-400 font-mono">Хаб відбору</span>
                   </div>
                 </div>
+                <span className="px-2.5 py-1 rounded-md bg-blue-50 text-blue-800 border border-blue-200 text-xs font-bold">
+                  {hub.badge}
+                </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                {h.description}
+              <p className="text-xs text-slate-600 leading-relaxed">
+                {hub.description}
               </p>
 
-              <div className="space-y-2 pt-2">
-                {h.strengths.map((s, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs text-slate-400">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>{s}</span>
+              {/* Strengths */}
+              <div className="space-y-1.5 pt-2 border-t border-slate-100">
+                {hub.strengths.map((str, sIdx) => (
+                  <div key={sIdx} className="flex items-center gap-2 text-xs text-slate-700">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>{str}</span>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <div className="pt-6 mt-6 border-t border-white/[0.08] space-y-4">
-              <div className="flex items-center justify-between text-xs">
-                <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-mono">Цикл прибуття</span>
-                  <span className="text-white font-bold">{h.timing}</span>
+              {/* Metrics */}
+              <div className="grid grid-cols-2 gap-2 pt-3">
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-400 block font-medium">Термін прибуття</span>
+                  <span className="text-sm font-bold text-slate-900">{hub.timing}</span>
                 </div>
-                <div className="text-right">
-                  <span className="text-slate-500 block text-[10px] uppercase font-mono">Зарплатний рівень</span>
-                  <span className="text-amber-400 font-extrabold font-mono text-sm">{h.salary}/міс</span>
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-400 block font-medium">Очікуваний оклад</span>
+                  <span className="text-sm font-bold text-emerald-700">{hub.salary}</span>
                 </div>
               </div>
+            </div>
 
+            <div className="pt-6 mt-4 border-t border-slate-100">
               <Link
-                href={`/countries/${h.slug}`}
-                className="w-full py-3 rounded-xl bg-white/[0.06] hover:bg-amber-500 hover:text-slate-950 text-white font-bold text-xs transition-all flex items-center justify-center gap-2"
+                href="/#catalog"
+                className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors"
               >
-                <span>Детальний огляд хабу {h.country}</span>
+                <span>Дивитися анкету кандидатів з {hub.country}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

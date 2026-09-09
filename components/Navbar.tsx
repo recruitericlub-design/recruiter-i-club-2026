@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShieldCheck, ChevronRight, Menu, X, UserCheck, Phone, CheckCircle2 } from 'lucide-react';
 import QuotaBookingModal from './QuotaBookingModal';
+import BrandLogo from './BrandLogo';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -64,32 +65,8 @@ export default function Navbar() {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo with Ukrainian Trident */}
-            <Link href="/" className="flex items-center gap-3.5 group">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-slate-900 p-0.5 shadow-md group-hover:shadow-lg transition-all flex items-center justify-center">
-                <div className="w-full h-full rounded-[10px] bg-slate-900 flex items-center justify-center">
-                  <svg className="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L13.5 7V17H10.5V7L12 2Z" />
-                    <path d="M7 6C7 9.5 8 13 9 15V17H6C5 15 4 11 4 7L7 6Z" />
-                    <path d="M17 6C17 9.5 16 13 15 15V17H18C19 15 20 11 20 7L17 6Z" />
-                    <path d="M9 19H15V22H9V19Z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
-                    Recruiter I Club
-                  </span>
-                  <span className="text-[11px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
-                    B2B
-                  </span>
-                </div>
-                <span className="text-[11px] font-medium tracking-wide text-slate-500">
-                  Підбір іноземного персоналу в Україні
-                </span>
-              </div>
-            </Link>
+            {/* Bespoke Logo with Ukrainian Trident */}
+            <BrandLogo variant="dark" />
 
             {/* Desktop Navigation */}
             <nav className="hidden xl:flex items-center gap-1">

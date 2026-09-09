@@ -3,13 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Play, CheckCircle2, ShieldCheck, Video, Bus, Wrench, FileCheck, Sparkles } from 'lucide-react';
+import { Play, CheckCircle2, ShieldCheck, Video, Bus, Wrench, FileCheck, Sparkles, ArrowRight } from 'lucide-react';
 import QuotaBookingModal from '@/components/QuotaBookingModal';
 
 export default function TradeTestsPage() {
   const [activeTab, setActiveTab] = useState<'all' | 'transfer' | 'trade_test'>('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const videoItems = [
     {
@@ -20,7 +19,7 @@ export default function TradeTestsPage() {
       location: 'Аеропорт Кишинів ➔ Кордон України',
       src: '/videos/transfer_moldova_ukraine.mp4',
       duration: '00:25 хв',
-      desc: 'Зустріч закордонних фахівців куратором Recruiter I Club, перевірка пакетів D-03 віз та безпечний автобусний трансфер через кордон.'
+      desc: 'Зустріч закордонних фахівців куратором Recruiter I Club, перевірка пакетів D-03 віз та безпечний автобусний трансфер через державний кордон.'
     },
     {
       id: 'arrival-ukraine',
@@ -30,7 +29,7 @@ export default function TradeTestsPage() {
       location: 'Виробничий комплекс, Україна',
       src: '/videos/arrival_in_ukraine.mp4',
       duration: '00:34 хв',
-      desc: 'Група прибула безпосередньо на територію підприємства: поселення, первинний медичний огляд та підготовка до виходу на тестову зміну.'
+      desc: 'Група прибула безпосередньо на територію підприємства: поселення у гуртожиток, первинний медичний огляд та підготовка до виходу на тестову зміну.'
     },
     {
       id: 'transfer-logistics',
@@ -40,14 +39,14 @@ export default function TradeTestsPage() {
       location: 'Транзитний хаб ➔ Завод',
       src: '/videos/transfer_logistics_group.mp4',
       duration: '00:19 хв',
-      desc: 'Кожен етап пересування супроводжується персональним менеджером Recruiter I Club з фото- та відеозвітом замовнику.'
+      desc: 'Кожен етап пересування супроводжується персональним менеджером Recruiter I Club з постійним відеозвітом керівництву замовника.'
     },
     {
       id: 'welder-test-1',
       type: 'trade_test',
       title: 'Trade Test: Атестація напівавтоматичного зварювання (MIG / MAG)',
       badge: 'Відеоіспит',
-      location: 'Акредитований хаб (Південна Азія)',
+      location: 'Акредитований хаб (Делі / Ташкент)',
       src: '/work-samples/welder_trade_test_1.mp4',
       duration: '00:28 хв',
       desc: 'Практичне виконання таврового та стикового з\'єднання товстостінної сталі під кутом перед комісією технічного контролю.'
@@ -60,7 +59,7 @@ export default function TradeTestsPage() {
       location: 'Екзаменаційний центр',
       src: '/work-samples/welder_trade_test_2.mp4',
       duration: '00:38 хв',
-      desc: 'Макрозйомка чистоти зварювального шва, відсутність пір та шлакових дефектів за міжнародним стандартом ISO 9606.'
+      desc: 'Макрозйомка чистоти зварювального шва, відсутність пір та шлакових дефектів за міжнародним регламентом ISO 9606.'
     },
     {
       id: 'assembly-line-test',
@@ -77,12 +76,12 @@ export default function TradeTestsPage() {
   const photoSamples = [
     {
       src: '/work-samples/photo_2026-08-24_15-37-22.jpg',
-      title: 'Атестований майстер-зварювальник після здачі нормативу',
+      title: 'Атестований майстер-зварювальник після складання нормативу',
       date: 'Серпень 2026'
     },
     {
       src: '/work-samples/photo_2026-08-24_15-37-31.jpg',
-      title: 'Контрольний зразок провару стику під ультразвуковий тест',
+      title: 'Контрольний зразок провару стику під ультразвуковий контроль',
       date: 'Серпень 2026'
     },
     {
@@ -101,15 +100,15 @@ export default function TradeTestsPage() {
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-xs font-bold uppercase tracking-wider">
-          <Video className="w-4 h-4" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold uppercase tracking-wider">
+          <Video className="w-4 h-4 text-blue-600" />
           Реальний відеоархів рейсів та атестацій
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
           Відеодокази Recruiter I Club: Рейси в Україну та Trade Test
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-          Ми не показуємо рекламні муляжі. Тут зібрані реальні відеозаписи трансферів через Молдову, прибуття робітників на об&apos;єкти замовників в Україні та кваліфікаційні випробування у закордонних хабах.
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Ми не показуємо рекламні муляжі. Тут зібрані реальні відеозаписи трансферів через Молдову, прибуття робітників на об’єкти замовників в Україні та кваліфікаційні випробування у закордонних хабах.
         </p>
       </div>
 
@@ -119,8 +118,8 @@ export default function TradeTestsPage() {
           onClick={() => setActiveTab('all')}
           className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'all'
-              ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20'
-              : 'bg-slate-900 border border-white/10 text-slate-300 hover:border-white/20'
+              ? 'bg-slate-900 text-white shadow-md'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           Всі відеоматеріали ({videoItems.length})
@@ -129,8 +128,8 @@ export default function TradeTestsPage() {
           onClick={() => setActiveTab('transfer')}
           className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'transfer'
-              ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20'
-              : 'bg-slate-900 border border-white/10 text-slate-300 hover:border-white/20'
+              ? 'bg-slate-900 text-white shadow-md'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           <Bus className="w-3.5 h-3.5" />
@@ -140,8 +139,8 @@ export default function TradeTestsPage() {
           onClick={() => setActiveTab('trade_test')}
           className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'trade_test'
-              ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20'
-              : 'bg-slate-900 border border-white/10 text-slate-300 hover:border-white/20'
+              ? 'bg-slate-900 text-white shadow-md'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           <Wrench className="w-3.5 h-3.5" />
@@ -154,11 +153,11 @@ export default function TradeTestsPage() {
         {filteredVideos.map((item) => (
           <div
             key={item.id}
-            className="glass-card glass-card-hover rounded-3xl overflow-hidden border border-white/10 flex flex-col justify-between group"
+            className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
           >
             <div>
               {/* HTML5 Video Player Container */}
-              <div className="relative aspect-video bg-slate-950 border-b border-white/10 flex items-center justify-center overflow-hidden">
+              <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
                 <video
                   src={item.src}
                   controls
@@ -167,7 +166,7 @@ export default function TradeTestsPage() {
                 />
                 
                 {/* Location Badge */}
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-[11px] text-white border border-white/15 flex items-center gap-1.5 font-medium pointer-events-none">
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-[11px] text-white border border-white/15 flex items-center gap-1.5 font-medium pointer-events-none">
                   <span>📍</span>
                   <span>{item.location}</span>
                 </span>
@@ -180,20 +179,20 @@ export default function TradeTestsPage() {
 
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-amber-400 font-bold flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-700 font-bold flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     {item.badge}
                   </span>
-                  <span className="text-slate-500 font-mono text-[11px]">
+                  <span className="text-slate-400 font-mono text-[11px]">
                     Верифіковано 2026
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-white group-hover:text-amber-400 transition-colors leading-snug">
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -202,9 +201,10 @@ export default function TradeTestsPage() {
             <div className="p-6 pt-0">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="w-full py-2.5 rounded-xl bg-white/[0.05] hover:bg-amber-500 hover:text-slate-950 text-white font-bold text-xs border border-white/10 transition-colors flex items-center justify-center gap-1.5"
+                className="w-full py-3 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
               >
                 <span>Замовити таких фахівців (€50 бронь)</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
@@ -214,16 +214,16 @@ export default function TradeTestsPage() {
       {/* Real Photos from Technical Inspections */}
       <div className="space-y-6">
         <div className="space-y-1">
-          <span className="text-xs font-bold uppercase tracking-wider text-amber-400">Фотозвіти з екзаменаційних хабів</span>
-          <h2 className="text-xl sm:text-3xl font-extrabold text-white">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Фотозвіти з екзаменаційних хабів</span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
             Контроль якості швів та практичних зразків
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {photoSamples.map((photo, idx) => (
-            <div key={idx} className="glass-card rounded-2xl overflow-hidden border border-white/10 group">
-              <div className="relative h-60 w-full bg-slate-900">
+            <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm group">
+              <div className="relative h-60 w-full bg-slate-100">
                 <Image
                   src={photo.src}
                   alt={photo.title}
@@ -232,7 +232,7 @@ export default function TradeTestsPage() {
                 />
               </div>
               <div className="p-4 space-y-1">
-                <h4 className="text-xs font-bold text-white leading-snug">{photo.title}</h4>
+                <h4 className="text-xs font-bold text-slate-900 leading-snug">{photo.title}</h4>
                 <span className="text-[10px] text-slate-500 font-mono block">{photo.date} · Лабораторія Recruiter I Club</span>
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function TradeTestsPage() {
       </div>
 
       {/* Video Verification Guarantee Box */}
-      <div className="p-8 sm:p-12 rounded-3xl bg-slate-950 border border-amber-500/25 space-y-4">
+      <div className="p-8 sm:p-12 rounded-3xl bg-slate-900 text-white shadow-xl space-y-4">
         <div className="flex items-center gap-3">
           <ShieldCheck className="w-6 h-6 text-amber-400" />
           <h3 className="text-xl font-bold text-white">
@@ -254,16 +254,10 @@ export default function TradeTestsPage() {
         <div className="flex flex-wrap gap-4 pt-2">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow-md shadow-amber-500/20"
+            className="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition-all shadow-md active:scale-95"
           >
             Замовити індивідуальний Trade Test
           </button>
-          <Link
-            href="/about"
-            className="px-6 py-3 rounded-xl bg-white/[0.06] hover:bg-white/10 text-white font-semibold text-xs border border-white/10 transition-colors flex items-center gap-1.5"
-          >
-            <span>Дізнатися більше про Recruiter I Club</span>
-          </Link>
         </div>
       </div>
 
