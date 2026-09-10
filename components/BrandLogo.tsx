@@ -1,40 +1,19 @@
-'use client';
-
 import React from 'react';
-import Link from 'next/link';
 
-interface BrandLogoProps {
-  variant?: 'light' | 'dark' | 'badge';
-  size?: 'sm' | 'md' | 'lg';
-  showTagline?: boolean;
-}
+export const BrandLogo: React.FC<{ className?: string; size?: 'sm' | 'md' | 'lg' }> = ({ className = '', size = 'md' }) => {
+  const sizeClasses = {
+    sm: 'h-8 sm:h-10',
+    md: 'h-10 sm:h-12 md:h-14',
+    lg: 'h-14 sm:h-16 md:h-20'
+  };
 
-export default function BrandLogo({ variant = 'badge', size = 'md', showTagline = true }: BrandLogoProps) {
   return (
-    <Link 
-      href="/" 
-      className="inline-flex items-center gap-3 group select-none transition-transform duration-300 hover:scale-[1.02]"
-      title="Recruiter I Club — Платформа підбору персоналу з Азії"
-    >
-      {/* Authentic 3D Gold Seal & Typography Lockup */}
-      <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-950/90 border border-amber-500/40 shadow-lg shadow-black/20 backdrop-blur-md">
-        <img 
-          src="/images/logo/riclub_gold_seal_3d.png" 
-          alt="Recruiter I Club 3D Gold Seal" 
-          className="h-8 sm:h-9 w-auto object-contain filter drop-shadow(0 2px 4px rgba(0,0,0,0.4)) transition-transform duration-300 group-hover:rotate-6"
-        />
-        <img 
-          src="/images/logo/riclub_text_gold_3d.png" 
-          alt="Recruiter I Club" 
-          className="h-5 sm:h-6 w-auto object-contain filter drop-shadow(0 1px 3px rgba(0,0,0,0.3))"
-        />
-      </div>
-
-      {showTagline && (
-        <span className="hidden xl:inline-block text-[10px] font-semibold text-slate-400 font-mono uppercase tracking-wider pl-1 border-l border-slate-700/50">
-          Official B2B Licensed Agency
-        </span>
-      )}
-    </Link>
+    <a href="/" className={`relative flex items-center shrink-0 group select-none transition-transform duration-300 hover:scale-[1.03] ${className}`} title="Recruiter I Club">
+      <img
+        src="/images/logo/riclub_master_badge_3d.png"
+        alt="Recruiter I Club B2B"
+        className={`${sizeClasses[size]} w-auto object-contain rounded-xl shadow-lg border border-amber-500/40 transition-all duration-300 group-hover:border-amber-400`}
+      />
+    </a>
   );
-}
+};
