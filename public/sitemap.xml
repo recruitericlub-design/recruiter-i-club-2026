@@ -12,6 +12,12 @@
     </image:image>
   </url>
   <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/blog.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://recruiter-i-club-2026.vercel.app/candidates_database.html</loc>
     <lastmod>2026-09-10</lastmod>
     <changefreq>daily</changefreq>
@@ -30,9 +36,105 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://recruiter-i-club-2026.vercel.app/gallery.html</loc>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/adaptation-overcoming-language-barrier-on-production.html</loc>
     <lastmod>2026-09-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/article-23-law-ukraine-mobilization-exemption.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/economic-efficiency-import-workers-roi-2026.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/industries-construction-and-agriculture-workers.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/industries-manufacturing-and-textile-workers.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/legal-extending-work-permit-ukraine-lifehack.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/legal-guide-foreign-worker-hiring-ukraine-2026.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/legal-work-permit-and-trc-guide.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/logistics-import-timeline-asia-to-ukraine.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/logistics-transit-corridor-chisinau-odesa.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/pricing-cost-of-importing-workers-2026.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/taxes-foreign-employee-taxation-ukraine-2026.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/work-in-ukraine-extending-work-contract-second-year.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/work-in-ukraine-legal-guide-for-foreigners.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/work-in-ukraine-salary-accommodation-and-worker-rights.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/work-in-ukraine-trc-temporary-residence-card.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://recruiter-i-club-2026.vercel.app/articles/work-in-ukraine-visa-d04-and-medical-requirements.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>
