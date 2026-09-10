@@ -4,11 +4,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: '/',
         destination: '/index.html',
+        permanent: false,
       },
     ];
   },
