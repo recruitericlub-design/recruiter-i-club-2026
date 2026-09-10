@@ -1,0 +1,2796 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I CLUB RECRUITER | Преміальний Особистий Кабінет Роботодавця</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0b192c;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px;
+      overflow-x: hidden;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Ambient Glow */
+    .ambient-glow {
+      position: absolute;
+      width: 1100px;
+      height: 1100px;
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.15) 0%, rgba(217, 119, 6, 0.08) 45%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .main-grid {
+      position: relative;
+      z-index: 10;
+      max-width: 1280px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    @media (min-width: 992px) {
+      .main-grid {
+        grid-template-columns: 1.08fr 0.92fr;
+      }
+    }
+
+    /* LEFT EXPLANATION PANEL (HIGH-CONVERTING 2026 B2B MARKETING SUITE) */
+    .left-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* EXCLUSIVITY PORTAL VIP BADGE */
+    .exclusive-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(5, 150, 105, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34D399;
+      font-size: 10.5px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      width: fit-content;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+    .exclusive-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 10px #10B981;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+
+    /* HIGH HOOK HEADLINE */
+    .headline {
+      font-size: 34px;
+      line-height: 1.18;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.7px;
+    }
+    .headline span {
+      background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #FBBF24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* INTRIGUING LEAD SUBHEAD */
+    .subhead {
+      font-size: 14px;
+      color: #94A3B8;
+      line-height: 1.6;
+    }
+
+    /* 3 DIRECTOR'S PILLARS */
+    .director-pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: -2px;
+    }
+    @media (min-width: 640px) {
+      .director-pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .pillar-card {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #E2E8F0;
+      transition: all 0.25s ease;
+    }
+    .pillar-card:hover {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .pillar-icon {
+      color: #10B981;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    /* STEP CARDS CONTAINER */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 2px;
+    }
+    .step-card {
+      display: flex;
+      gap: 13px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .step-card.active {
+      background: rgba(5, 150, 105, 0.14);
+      border-color: rgba(16, 185, 129, 0.55);
+      transform: translateX(6px);
+      box-shadow: 0 10px 28px -6px rgba(0,0,0,0.5), inset 0 0 20px rgba(16, 185, 129, 0.08);
+    }
+    .step-card.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #34D399, #059669);
+      box-shadow: 0 0 10px #10B981;
+    }
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .step-card.active .step-num {
+      background: #059669;
+      color: white;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.75);
+    }
+    .step-content {
+      flex: 1;
+    }
+    .step-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .step-content h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #E2E8F0;
+      letter-spacing: -0.2px;
+    }
+    .step-card.active .step-content h4 {
+      color: #34D399;
+    }
+    .step-badge-tag {
+      font-size: 8.5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #64748B;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 4px;
+    }
+    .step-card.active .step-badge-tag {
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .step-content p {
+      font-size: 11.5px;
+      color: #64748B;
+      line-height: 1.45;
+    }
+    .step-card.active .step-content p {
+      color: #CBD5E1;
+    }
+    .step-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+      font-size: 9.5px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      color: #F59E0B;
+      font-weight: 700;
+    }
+    .step-card.active .step-meta-pill {
+      color: #FBBF24;
+    }
+
+    /* EXECUTIVE TRUST METRICS BANNER */
+    .trust-metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .trust-tile {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 9px 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .trust-tile:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+    }
+    .trust-val {
+      font-size: 13px;
+      font-weight: 900;
+      color: #34D399;
+      font-family: 'JetBrains Mono', monospace;
+      display: block;
+      margin-bottom: 2px;
+      letter-spacing: -0.3px;
+    }
+    .trust-lbl {
+      font-size: 9px;
+      color: #94A3B8;
+      line-height: 1.25;
+    }
+
+    /* VIP CALLOUT / EXCLUSIVE ACCESS BOX */
+    .vip-access-callout {
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.12) 0%, rgba(11, 25, 44, 0.8) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 11px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .vip-icon-box {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: rgba(5, 150, 105, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #34D399;
+      flex-shrink: 0;
+    }
+    .vip-text-box {
+      flex: 1;
+    }
+    .vip-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #F8FAFC;
+      margin-bottom: 2px;
+    }
+    .vip-desc {
+      font-size: 9.5px;
+      color: #94A3B8;
+      line-height: 1.35;
+    }
+    .vip-desc strong {
+      color: #10B981;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* RIGHT SMARTPHONE CONTAINER */
+    .phone-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* TITANIUM SMARTPHONE CHASSIS */
+    .phone-device {
+      width: 360px;
+      height: 740px;
+      background: #020617;
+      border-radius: 52px;
+      border: 11px solid #1E293B;
+      box-shadow: 
+        0 0 0 2px #334155,
+        0 0 0 4px #0F172A,
+        0 30px 70px -15px rgba(0, 0, 0, 0.9),
+        0 0 45px rgba(5, 150, 105, 0.22);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Physical buttons */
+    .btn-phys-left-1 { position: absolute; top: 130px; left: -15px; width: 4px; height: 28px; background: #334155; border-radius: 2px 0 0 2px; }
+    .btn-phys-left-2 { position: absolute; top: 175px; left: -15px; width: 4px; height: 48px; background: #334155; border-radius: 2px 0 0 2px; }
+    .btn-phys-left-3 { position: absolute; top: 235px; left: -15px; width: 4px; height: 48px; background: #334155; border-radius: 2px 0 0 2px; }
+    .btn-phys-right { position: absolute; top: 185px; right: -15px; width: 4px; height: 70px; background: #334155; border-radius: 0 2px 2px 0; }
+
+    /* Glass Reflection */
+    .phone-glare {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 45%);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* DYNAMIC ISLAND WITH SOUND TOGGLE INTEGRATION */
+    .dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 115px;
+      height: 26px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .island-cam {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #334155 0%, #0f172a 60%, #000 100%);
+      border: 1px solid #334155;
+    }
+    .island-speaker {
+      width: 44px;
+      height: 3px;
+      background: #1E293B;
+      border-radius: 3px;
+    }
+
+    /* TOP STATUS BAR */
+    .status-bar {
+      height: 44px;
+      padding: 13px 20px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94A3B8;
+      z-index: 80;
+      flex-shrink: 0;
+      background: #070B14;
+    }
+
+    /* SOUND TOGGLE FLOATING BADGE */
+    .sound-toggle-btn {
+      position: absolute;
+      top: 52px;
+      right: 14px;
+      z-index: 120;
+      pointer-events: auto;
+      background: rgba(11, 25, 44, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 9px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      color: #34D399;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+    .sound-toggle-btn:hover {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #34D399;
+    }
+    .sound-toggle-btn.unmuted {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10B981;
+      color: #10B981;
+    }
+
+    /* PHONE SCREEN (AUTOPILOT ONLY, NO ACCIDENTAL CLICKS) */
+    .phone-screen {
+      flex: 1;
+      position: relative;
+      background: #070B14;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none; /* Disables manual touch clicks so auto-demo never gets corrupted */
+    }
+
+    /* TOUCH POINTER */
+    .touch-pointer {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.9) 0%, rgba(16, 185, 129, 0.35) 65%, transparent 85%);
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.9);
+      pointer-events: none;
+      z-index: 300;
+      transform: translate(-50%, -50%);
+      transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1), top 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s ease;
+    }
+    .touch-pointer.tapped {
+      transform: translate(-50%, -50%) scale(0.65);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.95) 0%, rgba(56, 189, 248, 0.4) 70%, transparent 90%);
+      box-shadow: 0 0 24px rgba(16, 185, 129, 1);
+    }
+
+    /* TOP NOTIFICATION PUSH BANNER */
+    .push-banner {
+      position: absolute;
+      top: -100px;
+      left: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 16px;
+      padding: 10px 13px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 150;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.75);
+      transition: top 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .push-banner.active {
+      top: 50px;
+    }
+    .push-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #34D399;
+      flex-shrink: 0;
+    }
+    .push-icon-box svg {
+      width: 16px;
+      height: 16px;
+    }
+    .push-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #F8FAFC;
+    }
+    .push-desc {
+      font-size: 9px;
+      color: #94A3B8;
+      line-height: 1.3;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    /* ========================================================
+       SCREEN 0: WELCOME / LOGIN SCREEN ("УВІЙТИ В КАБІНЕТ")
+       ======================================================== */
+    .login-screen-view {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #070B14;
+      z-index: 115;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .login-screen-view.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+    .login-logo-crest {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #059669, #047857);
+      border: 2px solid rgba(56, 189, 248, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 28px;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+      margin-bottom: 16px;
+    }
+    .login-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .login-subtitle {
+      font-size: 10px;
+      color: #F59E0B;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 22px;
+      letter-spacing: 0.5px;
+    }
+    .login-form-box {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .login-input-mock {
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #CBD5E1;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-login-action {
+      width: 100%;
+      background: linear-gradient(135deg, #059669, #047857);
+      border: 1px solid #10B981;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+      transition: all 0.2s ease;
+    }
+    .btn-login-action.clicked {
+      transform: scale(0.96);
+      background: #059669;
+      border-color: #10B981;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+    }
+
+    /* ========================================================
+       SCREEN 1: PORTAL FEED WITH CANDIDATE CARDS
+       ======================================================== */
+    .app-header {
+      padding: 10px 14px;
+      background: #0B1120;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-logo-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #059669, #047857);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 12px;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
+    }
+    .brand-title {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      color: #FFFFFF;
+    }
+    .brand-sub {
+      font-size: 8px;
+      color: #F59E0B;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .live-status-pill {
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 8px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 6px #10B981;
+    }
+
+    /* COUNTRY SELECTOR TABS */
+    .country-selector-strip {
+      display: flex;
+      gap: 6px;
+      padding: 10px 14px 4px 14px;
+      background: #070B14;
+      flex-shrink: 0;
+    }
+    .country-tab {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 6px 4px;
+      border-radius: 8px;
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 10px;
+      font-weight: 700;
+      color: #94A3B8;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .country-tab.active {
+      background: rgba(5, 150, 105, 0.2);
+      border-color: #10B981;
+      color: #34D399;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+
+    /* SEARCH */
+    .search-section {
+      padding: 6px 14px 8px 14px;
+      flex-shrink: 0;
+    }
+    .search-box {
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #94A3B8;
+      transition: all 0.3s ease;
+    }
+    .search-box.focus {
+      border-color: #10B981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+      color: #F8FAFC;
+    }
+    .search-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 12px;
+      background: #10B981;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* FEED SCROLL */
+    .feed-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 14px 80px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+    .feed-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .feed-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+    }
+
+    /* CANDIDATE CARD WITH EXACT VIDEO MATCH */
+    .worker-card {
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .worker-img-wrap {
+      height: 140px;
+      position: relative;
+      background: #1E293B;
+      overflow: hidden;
+    }
+    .worker-img-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-top-left {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-top-right {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(16, 185, 129, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 800;
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* APPROVAL STAMP */
+    .stamp-approved {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-12deg) scale(2);
+      border: 3px solid #10B981;
+      color: #10B981;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: rgba(16, 185, 129, 0.25);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.8);
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 10;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stamp-approved.show {
+      transform: translate(-50%, -50%) rotate(-12deg) scale(1);
+      opacity: 1;
+    }
+
+    .card-info {
+      padding: 10px 12px;
+    }
+    .card-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .worker-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #F8FAFC;
+    }
+    .worker-age {
+      font-size: 10px;
+      color: #64748B;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .worker-spec {
+      font-size: 10px;
+      color: #34D399;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    .vitals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .vital-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 4px 6px;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #CBD5E1;
+    }
+    .vital-chip strong {
+      color: #F8FAFC;
+      font-weight: 700;
+    }
+    .vital-chip.gold {
+      border-color: rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.07);
+      color: #FDE68A;
+    }
+    .vital-chip.green {
+      border-color: rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.07);
+      color: #A7F3D0;
+    }
+
+    .salary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0 8px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 9px;
+    }
+    .salary-val {
+      font-size: 11px;
+      font-weight: 800;
+      color: #F8FAFC;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .btn-action-dossier {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 7px 6px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-action-approve {
+      background: #059669;
+      border: 1px solid #10B981;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 7px 6px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-action-approve.done {
+      background: #059669;
+      border-color: #10B981;
+    }
+
+    /* ========================================================
+       SCREEN: DOSSIER MODAL (READ INFO FIRST -> THEN LAUNCH VIDEO)
+       ======================================================== */
+    .dossier-modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #070B14;
+      z-index: 110;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dossier-modal.open {
+      transform: translateY(0);
+    }
+    .modal-head-bar {
+      padding: 12px 14px;
+      background: #0B1120;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .modal-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+    }
+    .modal-body-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dossier-profile-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 12px;
+    }
+    .dossier-avatar-video-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid #10B981;
+      background: #000;
+      flex-shrink: 0;
+    }
+    .dossier-avatar-video-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .metric-tile {
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 6px;
+      text-align: center;
+    }
+    .metric-tile-lbl {
+      font-size: 8px;
+      color: #64748B;
+      display: block;
+      margin-bottom: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .metric-tile-val {
+      font-size: 11px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .btn-launch-video {
+      background: linear-gradient(135deg, #059669, #047857);
+      border: 1px solid #10B981;
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .video-frame-wrap {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s ease;
+    }
+    .video-frame-wrap.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .video-frame-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-live-pill {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(239, 68, 68, 0.95);
+      color: white;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .video-caption-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+      padding: 10px 10px 6px 10px;
+      font-size: 9px;
+      color: #E2E8F0;
+      font-weight: 700;
+    }
+
+    /* ========================================================
+       SCREEN 2: ROADMAP FLOWCHART WITH ARROWS & TIMELINES
+       ======================================================== */
+    .roadmap-screen-view {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #070B14;
+      z-index: 130;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(100%);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .roadmap-screen-view.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .roadmap-header-box {
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+    .roadmap-badge-online {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      color: #10B981;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    .roadmap-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #FFFFFF;
+    }
+    .roadmap-subtitle {
+      font-size: 10px;
+      color: #34D399;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* TELEMETRY PROCESSING STATUS BANNER (BETWEEN STAGES) */
+    .telemetry-status-banner {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #F59E0B;
+      font-weight: 700;
+      margin-bottom: 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .telemetry-status-banner.visible {
+      opacity: 1;
+    }
+
+    .flowchart-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      justify-content: space-between;
+    }
+
+    .flow-stage-item {
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .flow-stage-item.in-progress {
+      border-color: #F59E0B;
+      background: rgba(245, 158, 11, 0.08);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+    }
+    .flow-stage-item.completed {
+      border-color: #10B981;
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+    }
+
+    .flow-stage-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+    .flow-stage-item.in-progress .flow-stage-num {
+      background: #F59E0B;
+      color: #000;
+    }
+    .flow-stage-item.completed .flow-stage-num {
+      background: #10B981;
+      color: #FFF;
+    }
+
+    .flow-stage-content {
+      flex: 1;
+    }
+    .flow-stage-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .flow-stage-name {
+      font-size: 11px;
+      font-weight: 800;
+      color: #F8FAFC;
+    }
+    .flow-stage-duration {
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #34D399;
+      font-weight: 700;
+    }
+    .flow-stage-desc {
+      font-size: 9px;
+      color: #94A3B8;
+      line-height: 1.25;
+    }
+
+    .flow-arrow-down {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #334155;
+      margin: -3px 0;
+      transition: color 0.3s;
+    }
+    .flow-arrow-down.active {
+      color: #10B981;
+    }
+
+    /* ========================================================
+       EVIDENCE MODAL POPUP (CENTERED, LETTERBOXED)
+       ======================================================== */
+    .evidence-modal-popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(3, 7, 18, 0.95);
+      backdrop-filter: blur(14px);
+      z-index: 180;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .evidence-modal-popup.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .evidence-card-box {
+      width: 100%;
+      background: #0B1120;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+    }
+    .evidence-header {
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .evidence-badge {
+      font-size: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10B981;
+      color: #10B981;
+      font-weight: 800;
+    }
+
+    /* LETTERBOXED MEDIA HOLDER */
+    .evidence-media-holder {
+      width: 100%;
+      height: 200px;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .evidence-media-holder img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .evidence-media-holder video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .evidence-footer {
+      padding: 10px 14px;
+      font-size: 10px;
+      color: #CBD5E1;
+      line-height: 1.4;
+      background: #0B1120;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .evidence-officer {
+      font-size: 9px;
+      color: #34D399;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    /* ========================================================
+       FINAL COMPLETION CELEBRATION CARD WITH GUARANTEE SEAL
+       ======================================================== */
+    .completion-screen-popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(3, 7, 18, 0.98);
+      backdrop-filter: blur(16px);
+      z-index: 190;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .completion-screen-popup.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .guarantee-crest-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.15);
+      border: 2px solid #F59E0B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #F59E0B;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.4);
+      margin-bottom: 12px;
+      animation: pulseGold 2s infinite;
+    }
+    .guarantee-crest-box svg {
+      width: 30px;
+      height: 30px;
+    }
+    @keyframes pulseGold {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(245, 158, 11, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(245, 158, 11, 0.7); }
+    }
+
+    /* EMBOSSED GOLDEN GUARANTEE SEAL */
+    .golden-seal-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.08) 100%);
+      border: 1px solid #F59E0B;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      width: 100%;
+    }
+    .seal-heading {
+      font-size: 11px;
+      font-weight: 900;
+      color: #FDE68A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+    .seal-caption {
+      font-size: 8px;
+      color: #CBD5E1;
+      line-height: 1.3;
+    }
+
+    /* CONTROLS BELOW PHONE */
+    .controls-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 18px;
+      width: 360px;
+      justify-content: space-between;
+    }
+    .btn-ctrl {
+      background: #0B1120;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-ctrl:hover {
+      background: #1E293B;
+      border-color: #34D399;
+    }
+    .ctrl-status {
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #34D399;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <div class="main-grid">
+    
+    <!-- LEFT PANEL: ENHANCED EXECUTIVE B2B VALUE PROPOSITION -->
+    <div class="left-panel">
+      
+      <!-- VIP EXCLUSIVITY BADGE -->
+      <div class="exclusive-badge">
+        <span class="exclusive-dot"></span>
+        <span>ЗАКРИТИЙ B2B-ДОСТУП · ЕКСКЛЮЗИВ ДЛЯ ПАРТНЕРІВ RECRUITER I CLUB</span>
+      </div>
+
+      <!-- HIGH-HOOK HEADLINE -->
+      <h1 class="headline">
+        Тільки у нас: після укладання договору ви отримуєте <span>Особистий Кабінет і повний контроль</span> над наймом прямо у смартфоні
+      </h1>
+
+      <!-- INTRIGUING LEAD SUBHEAD -->
+      <p class="subhead">
+        Більше жодних «котів у мішку», нескінченних співбесід та невідомості. Ми створили першу в Україні цифрову екосистему для генеральних підрядників і директорів підприємств: ви отримуєте особистий пульт управління робочою силою. Обирайте фахівців за реальними відеофіксаціями іспитів, підтверджуйте бригаду в 1 клік та відстежуйте кожен крок легалізації й логістики 24/7.
+      </p>
+
+      <!-- 3 DIRECTOR'S PILLARS -->
+      <div class="director-pillars-grid">
+        <div class="pillar-card">
+          <span class="pillar-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          </span>
+          <span>База 100+ фахівців з Азії</span>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </span>
+          <span>Відео Trade-тестів наживо</span>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <span>100% бронь за Ст. 23 ЗУ</span>
+        </div>
+      </div>
+
+      <!-- 4 STAGES CONTAINER (SYNCHRONIZED WITH SMARTPHONE AUTOPILOT) -->
+      <div class="steps-container">
+        
+        <!-- Step 1 -->
+        <div class="step-card active" id="guideStep1">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-header-row">
+              <h4>Вхід у закриту базу атестованих робітників</h4>
+              <span class="step-badge-tag">100+ АНКЕТ</span>
+            </div>
+            <p>Одразу після підписання договору ви входите в персональний кабінет. Моментальний пошук за спеціалізаціями: монолітники, зварювальники, арматурники, різноробочі. Кожен робітник пройшов перевірку служби безпеки та має підтверджений стаж від 5 років (Узбекистан 🇺🇿, Індія 🇮🇳, Бангладеш 🇧🇩).</p>
+            <div class="step-meta-pill">
+              <span>●</span> База доступна у вашому смартфоні 24/7
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card" id="guideStep2">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-header-row">
+              <h4>Особиста інспекція практичних Trade-тестів</h4>
+              <span class="step-badge-tag">HD-ВІДЕО ТА ВИМІРИ</span>
+            </div>
+            <p>Жодних слів на папері. Відкривайте досьє кандидата і дивіться реальний відеозапис практичного іспиту на тестових полігонах у Ташкенті та Делі: апарат Jasic, шов під катетомір, в'язка арматури (180 кг/год) та жива мовна візитка. Ви точно знаєте, кого наймаєте.</p>
+            <div class="step-meta-pill">
+              <span>●</span> Оцінка реальних навичок до виїзду кандидата
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card" id="guideStep3">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-header-row">
+              <h4>Затвердження в 1 клік & Бронь за Ст. 23 ЗУ</h4>
+              <span class="step-badge-tag">НАКАЗ ДЦЗ ПІД КЛЮЧ</span>
+            </div>
+            <p>Одне натискання кнопки закріплює бригаду за вашим об'єктом. Провідний міграційний юрист Владлен Пономаренко запускає офіційний наказ Державного центру зайнятості. Згідно зі ст. 23 ЗУ, іноземні фахівці мають 100% імунітет від мобілізації — ваш об'єкт захищений від повісток.</p>
+            <div class="step-meta-pill">
+              <span>●</span> Повний юридичний супровід та білі податки
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card" id="guideStep4">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-header-row">
+              <h4>Наскрізний GPS/CRM-контроль логістики до зміни</h4>
+              <span class="step-badge-tag">ОНЛАЙН-ТРЕКІНГ</span>
+            </div>
+            <p>Ви бачите реальні фото віз D-04 у паспортах, транзитні штампи Кишинева, відео зустрічі групи Станіславом Лухменком біля аеропорту та супровід до Києва. Комісію беремо тільки в кінці — коли робітники вже прибули на ваше підприємство та вийшли на зміну.</p>
+            <div class="step-meta-pill">
+              <span>●</span> 14 днів безкоштовної гарантійної заміни
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TRUST & ECONOMY METRICS STRIP -->
+      <div class="trust-metrics-strip">
+        <div class="trust-tile">
+          <span class="trust-val">КОМІСІЯ В КІНЦІ</span>
+          <span class="trust-lbl">Беремо тільки тоді, коли працівники вже у вас на підприємстві</span>
+        </div>
+        <div class="trust-tile">
+          <span class="trust-val">СТ. 23 ЗУ</span>
+          <span class="trust-lbl">100% легальний імунітет від мобілізації для іноземців</span>
+        </div>
+        <div class="trust-tile">
+          <span class="trust-val">14 ДНІВ ТЕСТ</span>
+          <span class="trust-lbl">Безкоштовна оперативна заміна за першою вимогою</span>
+        </div>
+      </div>
+
+      <!-- VIP ACCESS CALLOUT BOX -->
+      <div class="vip-access-callout">
+        <div class="vip-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div class="vip-text-box">
+          <div class="vip-title">Як отримати персональний доступ до кабінету?</div>
+          <div class="vip-desc">Логін і пароль надаються відразу після укладання договору. Комісію беремо тільки в кінці — коли відібрані робітники вже прибули на ваше підприємство.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL: INTERACTIVE SMARTPHONE DEMO -->
+    <div class="phone-wrapper">
+      <div class="phone-device" id="phoneDevice">
+        <div class="phone-glare"></div>
+
+        <!-- Physical Buttons -->
+        <div class="btn-phys-left-1"></div>
+        <div class="btn-phys-left-2"></div>
+        <div class="btn-phys-left-3"></div>
+        <div class="btn-phys-right"></div>
+
+        <!-- Dynamic Island -->
+        <div class="dynamic-island">
+          <div class="island-cam"></div>
+          <div class="island-speaker"></div>
+        </div>
+
+        <!-- Touch Pointer Finger -->
+        <div class="touch-pointer" id="touchFinger"></div>
+
+        <!-- FLOATING SOUND TOGGLE BUTTON -->
+        <div class="sound-toggle-btn" id="btnSoundToggle" onclick="toggleSound()">
+          <span id="soundIcon">🔇</span>
+          <span id="soundText">ЗВУК ВИМКНЕНО</span>
+        </div>
+
+        <!-- Push Notification Banner -->
+        <div class="push-banner" id="pushBanner">
+          <div class="push-icon-box" id="pushIconBox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div style="flex:1; overflow:hidden;">
+            <div class="push-title" id="pushTitle">Оновлення статусу заявки</div>
+            <div class="push-desc" id="pushDesc">Офіційне сповіщення CRM</div>
+          </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span style="font-family: 'JetBrains Mono', monospace;">09:41</span>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span style="font-size: 10px; font-weight: 800;">5G</span>
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor">
+              <rect x="0" y="7" width="2.5" height="3" rx="0.5"/>
+              <rect x="4" y="4.5" width="2.5" height="5.5" rx="0.5"/>
+              <rect x="8" y="2" width="2.5" height="8" rx="0.5"/>
+              <rect x="12" y="0" width="2.5" height="10" rx="0.5"/>
+            </svg>
+            <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="1" y="1" width="18" height="10" rx="2.5"/>
+              <path d="M20 4v4" stroke-linecap="round"/>
+              <rect x="3" y="3" width="13" height="6" rx="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- SCREEN CONTAINER -->
+        <div class="phone-screen" id="phoneScreen">
+
+          <!-- ========================================================
+               SCREEN 0: LOGIN SCREEN
+               ======================================================== -->
+          <div class="login-screen-view" id="screenLogin">
+            <div class="login-logo-crest" style="padding:0; overflow:hidden; border-radius:50%; border:2.5px solid #f59e0b; background:#081329;">
+              <img src="images/logo/iclub_seal_straight_circle.png" alt="Recruiter I Club" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+            <div class="login-title">RECRUITER I CLUB</div>
+            <div class="login-subtitle">ПОРТАЛ РОБОТОДАВЦЯ 2026</div>
+
+            <div class="login-form-box">
+              <div class="login-input-mock">
+                <span style="color: #64748B;">Логін:</span>
+                <span class="font-mono">kyiv-monolith@corp.ua</span>
+              </div>
+              <div class="login-input-mock">
+                <span style="color: #64748B;">Пароль:</span>
+                <span class="font-mono">••••••••••••</span>
+              </div>
+            </div>
+
+            <div class="btn-login-action" id="btnLogin">
+              <span>УВІЙТИ В ОСОБИСТИЙ КАБІНЕТ</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ========================================================
+               SCREEN 1: PORTAL FEED
+               ======================================================== -->
+          <div class="app-header">
+            <div class="brand-mark">
+              <div class="brand-logo-icon" style="padding:0; overflow:hidden; border-radius:50%; border:1.5px solid #f59e0b; background:#081329;">
+                <img src="images/logo/iclub_seal_straight_circle.png" alt="Recruiter I Club" style="width:100%; height:100%; object-fit:cover; display:block;">
+              </div>
+              <div>
+                <div class="brand-title">RECRUITER I CLUB</div>
+                <div class="brand-sub">PORTAL · 24/7 ONLINE</div>
+              </div>
+            </div>
+            <div class="live-status-pill">
+              <span class="live-dot"></span> БАЗА ОНЛАЙН
+            </div>
+          </div>
+
+          <!-- COUNTRY SELECTOR STRIP -->
+          <div class="country-selector-strip">
+            <div class="country-tab active" id="tabUzbekistan">
+              <span>🇺🇿</span> Узбекистан (48)
+            </div>
+            <div class="country-tab" id="tabIndia">
+              <span>🇮🇳</span> Індія (36)
+            </div>
+            <div class="country-tab" id="tabBangladesh">
+              <span>🇧🇩</span> Бангладеш (22)
+            </div>
+          </div>
+
+          <!-- SEARCH SECTION -->
+          <div class="search-section">
+            <div class="search-box" id="searchBoxEl">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <span id="searchTypedText"></span><span class="search-cursor" id="searchCursor"></span>
+              <span id="searchPlaceholder" style="color: #475569;">Пошук професії...</span>
+            </div>
+          </div>
+
+          <!-- FEED SCROLL -->
+          <div class="feed-scroll" id="feedScroll">
+
+            <!-- CARD 1: Alisher Tursunov (Welder / Uzbekistan) -->
+            <div class="worker-card" id="cardWorker1">
+              <div class="worker-img-wrap">
+                <video src="videos/candidate_welder_test.mp4#t=5.5" muted playsinline preload="auto"></video>
+                <div class="card-top-left">🇺🇿 Ташкент</div>
+                <div class="card-top-right">★ 9.8 / 10</div>
+                <div class="stamp-approved" id="stamp1">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  ЗАТВЕРДЖЕНО
+                </div>
+              </div>
+              <div class="card-info">
+                <div class="card-name-row">
+                  <div class="worker-name">Алішер Турсунов</div>
+                  <div class="worker-age">34 роки</div>
+                </div>
+                <div class="worker-spec">Електрогазозварювальник · 5 розряд</div>
+
+                <div class="vitals-grid">
+                  <div class="vital-chip gold">
+                    ⚡ Стаж: <strong>8 років</strong>
+                  </div>
+                  <div class="vital-chip green">
+                    🛡️ <strong>100% Сухий закон</strong>
+                  </div>
+                  <div class="vital-chip">
+                    🎯 Тест: <strong>ISO 9606</strong>
+                  </div>
+                  <div class="vital-chip">
+                    📋 Рентген-контроль
+                  </div>
+                </div>
+
+                <div class="salary-row">
+                  <span style="color: #64748B;">Очікувана ставка:</span>
+                  <span class="salary-val">30,000 – 35,000 ₴</span>
+                </div>
+
+                <div class="card-actions">
+                  <div class="btn-action-dossier" id="btnDossier1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Анкета & Досьє
+                  </div>
+                  <div class="btn-action-approve" id="btnApprove1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Затвердити
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: Ilhom Babaev (Rebar / Uzbekistan) -->
+            <div class="worker-card" id="cardWorker2">
+              <div class="worker-img-wrap">
+                <video src="videos/candidate_rebar_test.mp4#t=6.0" muted playsinline preload="auto"></video>
+                <div class="card-top-left">🇺🇿 Самарканд</div>
+                <div class="card-top-right">★ 9.7 / 10</div>
+                <div class="stamp-approved" id="stamp2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  ЗАТВЕРДЖЕНО
+                </div>
+              </div>
+              <div class="card-info">
+                <div class="card-name-row">
+                  <div class="worker-name">Ільхом Бабаєв</div>
+                  <div class="worker-age">36 років</div>
+                </div>
+                <div class="worker-spec">Арматурник-бетонник · Швидка в'язка</div>
+
+                <div class="vitals-grid">
+                  <div class="vital-chip gold">
+                    ⚡ Стаж: <strong>6 років</strong>
+                  </div>
+                  <div class="vital-chip green">
+                    🛡️ <strong>100% Сухий закон</strong>
+                  </div>
+                  <div class="vital-chip">
+                    🎯 Швидкість: <strong>180 кг/год</strong>
+                  </div>
+                  <div class="vital-chip">
+                    📋 Опалубка Doka
+                  </div>
+                </div>
+
+                <div class="salary-row">
+                  <span style="color: #64748B;">Очікувана ставка:</span>
+                  <span class="salary-val">28,000 – 34,000 ₴</span>
+                </div>
+
+                <div class="card-actions">
+                  <div class="btn-action-dossier" id="btnDossier2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Анкета & Досьє
+                  </div>
+                  <div class="btn-action-approve" id="btnApprove2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Затвердити
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 3: Rajesh Kumar (India / General Worker) -->
+            <div class="worker-card" id="cardWorker3">
+              <div class="worker-img-wrap">
+                <video src="videos/candidate_india_resume.mp4#t=2.0" muted playsinline preload="auto"></video>
+                <div class="card-top-left">🇮🇳 Нью-Делі</div>
+                <div class="card-top-right">★ 9.9 / 10</div>
+                <div class="stamp-approved" id="stamp3">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  ЗАТВЕРДЖЕНО
+                </div>
+              </div>
+              <div class="card-info">
+                <div class="card-name-row">
+                  <div class="worker-name">Раджеш Кумар</div>
+                  <div class="worker-age">29 років</div>
+                </div>
+                <div class="worker-spec">Різноробочий / Склад & Будівництво</div>
+
+                <div class="vitals-grid">
+                  <div class="vital-chip gold">
+                    ⚡ Стаж: <strong>5 років</strong>
+                  </div>
+                  <div class="vital-chip green">
+                    🛡️ <strong>100% Сухий закон</strong>
+                  </div>
+                  <div class="vital-chip">
+                    🎯 Англійська: <strong>В1 Розмовна</strong>
+                  </div>
+                  <div class="vital-chip">
+                    📋 Без шкідл. звичок
+                  </div>
+                </div>
+
+                <div class="salary-row">
+                  <span style="color: #64748B;">Очікувана ставка:</span>
+                  <span class="salary-val">26,000 – 30,000 ₴</span>
+                </div>
+
+                <div class="card-actions">
+                  <div class="btn-action-dossier" id="btnDossier3">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    Відеовізитка
+                  </div>
+                  <div class="btn-action-approve" id="btnApprove3">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Затвердити
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ========================================================
+               SCREEN: DOSSIER MODAL
+               ======================================================== -->
+          <div class="dossier-modal" id="dossierModal">
+            <div class="modal-head-bar">
+              <div>
+                <h4 id="dosName" style="font-size: 12px; font-weight: 800; color: white;">Алішер Турсунов 🇺🇿</h4>
+                <div id="dosSpec" style="font-size: 9px; color: #34D399; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;">Електрогазозварювальник (5 розряд)</div>
+              </div>
+              <div class="modal-close-btn" id="btnModalClose">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="modal-body-scroll" id="dossierScroll">
+              
+              <div class="dossier-profile-header">
+                <div class="dossier-avatar-video-box">
+                  <video id="dosAvatarVideo" src="videos/candidate_welder_test.mp4#t=5.5" muted playsinline preload="auto"></video>
+                </div>
+                <div style="flex:1;">
+                  <div id="dosHeaderName" style="font-size: 13px; font-weight: 800; color: white;">Алішер Турсунов</div>
+                  <div style="font-size: 10px; color: #10B981; font-weight: 700; display:flex; align-items:center; gap:4px;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    Верифікований кандидат ДЦЗ
+                  </div>
+                  <div style="font-size: 9px; color: #94A3B8; font-family: 'JetBrains Mono', monospace; margin-top:2px;">
+                    ID: #UZ-78401 · Ташкент
+                  </div>
+                </div>
+              </div>
+
+              <div class="metrics-row">
+                <div class="metric-tile">
+                  <span class="metric-tile-lbl">СТАЖ:</span>
+                  <span class="metric-tile-val" id="dosExp" style="color: #34D399;">8 РОКІВ</span>
+                </div>
+                <div class="metric-tile">
+                  <span class="metric-tile-lbl">ОЦІНКА ТЕСТУ:</span>
+                  <span class="metric-tile-val" id="dosScore" style="color: #10B981;">★ 9.8/10</span>
+                </div>
+                <div class="metric-tile">
+                  <span class="metric-tile-lbl">ДИСЦИПЛІНА:</span>
+                  <span class="metric-tile-val" style="color: #F59E0B;">100% ТАК</span>
+                </div>
+              </div>
+
+              <div style="background: #0B1120; border: 1px solid rgba(255,255,255,0.06); padding: 10px; border-radius: 10px; font-size: 10px; color: #CBD5E1; line-height: 1.45;">
+                <span style="color: #64748B; font-size: 8px; display: block; margin-bottom: 3px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">ХАРАКТЕРИСТИКА ТА ДОСВІД:</span>
+                <p id="dosBio">Атестований зварювальник 5 розряду. Повний досвід монолітного зварювання каркасів та закладних деталей. Напівавтомат MIG/MAG, контроль геометрії катетоміром. Шви проходять ультразвуковий та рентген-контроль без дефектів.</p>
+              </div>
+
+              <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); padding: 9px; border-radius: 8px; font-size: 9px; color: #A7F3D0; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Біометричний паспорт дійсний до 2031 р.
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Довідка МВС про несудимість в наявності
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Повний медичний чекап пройдено
+                </div>
+              </div>
+
+              <div class="btn-launch-video" id="btnLaunchVideo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <span id="btnLaunchVideoText">ДИВИТИСЯ ВІДЕО ТЕСТУВАННЯ ▶</span>
+              </div>
+
+              <div class="video-frame-wrap" id="videoFrameWrap">
+                <video id="tradeVideoPlayer" playsinline loop preload="auto">
+                  <source src="videos/candidate_welder_test.mp4" type="video/mp4">
+                </video>
+                <div class="video-live-pill">
+                  <span style="width:5px; height:5px; border-radius:50%; background:white;"></span>
+                  TRADE TEST · ВІДЕОФІКСАЦІЯ
+                </div>
+                <div class="video-caption-bar" id="videoTitleBar">
+                  ▶ Тестовий центр Ташкент: апарат Jasic, катетомір, «Готово!»
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ========================================================
+               SCREEN 2: ROADMAP FLOWCHART (ALL 4 STAGES WITH CONNECTING ARROWS)
+               ======================================================== -->
+          <div class="roadmap-screen-view" id="screenRoadmap">
+            
+            <div class="roadmap-header-box">
+              <div class="roadmap-badge-online">
+                <span class="live-dot"></span> ОПЕРАТИВНИЙ ТРЕКЕР CRM
+              </div>
+              <div class="roadmap-title">ДОРОЖНЯ КАРТА ЗАМОВЛЕННЯ</div>
+              <div class="roadmap-subtitle">БРИГАДА · 3 РОБІТНИКИ · СТРОК 21 ДЕНЬ</div>
+            </div>
+
+            <!-- TELEMETRY STATUS BANNER BETWEEN STAGES -->
+            <div class="telemetry-status-banner" id="telemetryBanner">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation: spin 1s linear infinite;">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+              </svg>
+              <span id="telemetryText">Синхронізація з консульською базою...</span>
+            </div>
+
+            <!-- ALL 4 STAGES ON SCREEN AT ONCE -->
+            <div class="flowchart-list">
+              
+              <!-- STAGE 1 ITEM -->
+              <div class="flow-stage-item" id="flowItem1">
+                <div class="flow-stage-num" id="flowNum1">01</div>
+                <div class="flow-stage-content">
+                  <div class="flow-stage-title-row">
+                    <span class="flow-stage-name">Офіційна віза D-04</span>
+                    <span class="flow-stage-duration" id="flowDur1">7–12 ДНІВ</span>
+                  </div>
+                  <div class="flow-stage-desc">Наказ ДЦЗ підписано, 100% «біле» оформлення, ст. 23 ЗУ</div>
+                </div>
+              </div>
+
+              <!-- ARROW 1 -->
+              <div class="flow-arrow-down" id="flowArrow1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <polyline points="19 12 12 19 5 12"/>
+                </svg>
+              </div>
+
+              <!-- STAGE 2 ITEM -->
+              <div class="flow-stage-item" id="flowItem2">
+                <div class="flow-stage-num" id="flowNum2">02</div>
+                <div class="flow-stage-content">
+                  <div class="flow-stage-title-row">
+                    <span class="flow-stage-name">Авіаквитки & Митниця Кишинів</span>
+                    <span class="flow-stage-duration" id="flowDur2">2–3 ДНІ</span>
+                  </div>
+                  <div class="flow-stage-desc">Квитки куплені робітниками за свій кошт, рейс Кишинів</div>
+                </div>
+              </div>
+
+              <!-- ARROW 2 -->
+              <div class="flow-arrow-down" id="flowArrow2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <polyline points="19 12 12 19 5 12"/>
+                </svg>
+              </div>
+
+              <!-- STAGE 3 ITEM -->
+              <div class="flow-stage-item" id="flowItem3">
+                <div class="flow-stage-num" id="flowNum3">03</div>
+                <div class="flow-stage-content">
+                  <div class="flow-stage-title-row">
+                    <span class="flow-stage-name">Зустріч Станіславом & Трансфер</span>
+                    <span class="flow-stage-duration" id="flowDur3">1 ДЕНЬ</span>
+                  </div>
+                  <div class="flow-stage-desc">Зустріч у терміналі, посадка в Mercedes Sprinter, кордон</div>
+                </div>
+              </div>
+
+              <!-- ARROW 3 -->
+              <div class="flow-arrow-down" id="flowArrow3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <polyline points="19 12 12 19 5 12"/>
+                </svg>
+              </div>
+
+              <!-- STAGE 4 ITEM -->
+              <div class="flow-stage-item" id="flowItem4">
+                <div class="flow-stage-num" id="flowNum4">04</div>
+                <div class="flow-stage-content">
+                  <div class="flow-stage-title-row">
+                    <span class="flow-stage-name">Прибуття в Київ & Вихід на зміну</span>
+                    <span class="flow-stage-duration" id="flowDur4" style="color:#F59E0B;">ДЕНЬ 21</span>
+                  </div>
+                  <div class="flow-stage-desc">Поселення, вихід на зміну о 08:00, оплата комісії агенції</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- ========================================================
+               EVIDENCE MODAL POPUP (CENTERED, LETTERBOXED, CLEAN ASPECT RATIO!)
+               ======================================================== -->
+          <div class="evidence-modal-popup" id="evidencePopup">
+            <div class="evidence-card-box">
+              <div class="evidence-header">
+                <div>
+                  <div id="evidStageTag" style="font-size: 8px; color: #34D399; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-weight:800;">ЕТАП 01</div>
+                  <div id="evidTitle" style="font-size: 11px; font-weight: 800; color: white;">ОФІЦІЙНА РОБОЧА ВІЗА D-04</div>
+                </div>
+                <span class="evidence-badge" id="evidBadge">✓ ПІДТВЕРДЖЕНО</span>
+              </div>
+
+              <div class="evidence-media-holder" id="evidMediaHolder">
+                <img id="evidImage" src="visas/photo_2026-09-07_15-22-38.jpg" alt="Підтвердження">
+                <video id="evidVideo" playsinline loop style="display:none;"></video>
+              </div>
+
+              <div class="evidence-footer">
+                <div id="evidDesc">Офіційна багаторазова робоча віза D-04 України. 100% легальне працевлаштування.</div>
+                <div class="evidence-officer" id="evidOfficer">Юрист: Владлен Вікторович Пономаренко · Наказ ДЦЗ підписано</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================================================
+               FINAL COMPLETION POPUP ("РОБОТА ВИКОНАНА + ГАРАНТІЙНИЙ ШТАМП")
+               ======================================================== -->
+          <div class="completion-screen-popup" id="completionPopup">
+            <div class="guarantee-crest-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+
+            <div style="font-size: 17px; font-weight: 900; color: white; margin-bottom: 3px;">
+              РОБОТА ВИКОНАНА!
+            </div>
+            <div style="font-size: 11px; font-weight: 800; color: #10B981; letter-spacing: 0.5px; margin-bottom: 10px;">
+              БРИГАДА НА МІСЦІ · ПРОСТІЙ ЗНЯТО
+            </div>
+
+            <!-- EMBOSSED GOLDEN GUARANTEE SEAL -->
+            <div class="golden-seal-banner">
+              <div class="seal-heading">
+                <span>🛡️</span>
+                <span>100% БЕЗКОШТОВНА ЗАМІНА ЗА 14 ДНІВ</span>
+              </div>
+              <div class="seal-caption">
+                Офіційно закріплено в B2B-договорі. Персональний куратор Оксана Ковальчук замінить працівника без доплат у разі невідповідності.
+              </div>
+            </div>
+
+            <div style="background: #0B1120; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 12px; font-size: 10px; color: #CBD5E1; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
+              <div>✓ 3 робітники стали до роботи о 08:00</div>
+              <div>✓ Повний міграційний супровід юриста</div>
+            </div>
+
+            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid #F59E0B; padding: 8px 12px; border-radius: 8px; font-size: 10px; color: #FDE68A; font-weight: 800;">
+              ✓ ОПЛАТА КОМІСІЇ АГЕНЦІЇ ЗА ФАКТОМ ВИХОДУ!
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CONTROLS BELOW PHONE -->
+      <div class="controls-row">
+        <button class="btn-ctrl" onclick="togglePlay()" id="btnPlayPause">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" id="playIconSvg">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+          <span id="btnPlayText">ПАУЗА</span>
+        </button>
+        <button class="btn-ctrl" onclick="restartSimulation()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+          СПОЧАТКУ
+        </button>
+        <div class="ctrl-status">
+          <span style="width:6px; height:6px; border-radius:50%; background:#10B981; box-shadow:0 0 6px #10B981;"></span>
+          <span id="simStatusLbl">АВТОНОМНИЙ ДЕМО-ТУР (75 СЕК)</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- COMPLETE 2026 CHOREOGRAPHED SCENARIO SCRIPT V4 -->
+  <script>
+    let isPlaying = true;
+    let isSoundEnabled = false;
+    let masterTimer = null;
+    let userInteractedTimeout = null;
+
+    const finger = document.getElementById('touchFinger');
+    const phoneScreen = document.getElementById('phoneScreen');
+    const pushBanner = document.getElementById('pushBanner');
+    const pushTitle = document.getElementById('pushTitle');
+    const pushDesc = document.getElementById('pushDesc');
+
+    const btnSoundToggle = document.getElementById('btnSoundToggle');
+    const soundIcon = document.getElementById('soundIcon');
+    const soundText = document.getElementById('soundText');
+
+    const screenLogin = document.getElementById('screenLogin');
+    const btnLogin = document.getElementById('btnLogin');
+
+    const tabUzbekistan = document.getElementById('tabUzbekistan');
+    const tabIndia = document.getElementById('tabIndia');
+    const tabBangladesh = document.getElementById('tabBangladesh');
+
+    const searchBoxEl = document.getElementById('searchBoxEl');
+    const searchTypedText = document.getElementById('searchTypedText');
+    const searchPlaceholder = document.getElementById('searchPlaceholder');
+    const feedScroll = document.getElementById('feedScroll');
+
+    const dossierModal = document.getElementById('dossierModal');
+    const dossierScroll = document.getElementById('dossierScroll');
+    const dosAvatarVideo = document.getElementById('dosAvatarVideo');
+    const dosHeaderName = document.getElementById('dosHeaderName');
+    const dosName = document.getElementById('dosName');
+    const dosSpec = document.getElementById('dosSpec');
+    const dosExp = document.getElementById('dosExp');
+    const dosScore = document.getElementById('dosScore');
+    const dosBio = document.getElementById('dosBio');
+    const btnLaunchVideo = document.getElementById('btnLaunchVideo');
+    const videoFrameWrap = document.getElementById('videoFrameWrap');
+    const tradeVideoPlayer = document.getElementById('tradeVideoPlayer');
+    const videoTitleBar = document.getElementById('videoTitleBar');
+    const btnModalClose = document.getElementById('btnModalClose');
+
+    const screenRoadmap = document.getElementById('screenRoadmap');
+    const telemetryBanner = document.getElementById('telemetryBanner');
+    const telemetryText = document.getElementById('telemetryText');
+
+    const evidencePopup = document.getElementById('evidencePopup');
+    const evidStageTag = document.getElementById('evidStageTag');
+    const evidTitle = document.getElementById('evidTitle');
+    const evidBadge = document.getElementById('evidBadge');
+    const evidImage = document.getElementById('evidImage');
+    const evidVideo = document.getElementById('evidVideo');
+    const evidDesc = document.getElementById('evidDesc');
+    const evidOfficer = document.getElementById('evidOfficer');
+
+    const completionPopup = document.getElementById('completionPopup');
+
+    // SOUND TOGGLE HANDLER
+    function toggleSound() {
+      isSoundEnabled = !isSoundEnabled;
+      if (isSoundEnabled) {
+        btnSoundToggle.classList.add('unmuted');
+        soundIcon.innerText = "🔊";
+        soundText.innerText = "ЗВУК УВІМКНЕНО";
+        tradeVideoPlayer.muted = false;
+        evidVideo.muted = false;
+        showPush("Аудіо увімкнено", "Тепер ви чуєте реальні голоси робітників та Станіслава");
+      } else {
+        btnSoundToggle.classList.remove('unmuted');
+        soundIcon.innerText = "🔇";
+        soundText.innerText = "ЗВУК ВИМКНЕНО";
+        tradeVideoPlayer.muted = true;
+        evidVideo.muted = true;
+      }
+    }
+
+// Manual touch listener removed for seamless automated cinema demonstration
+
+    function syncLeftCard(stepIdx) {
+      for (let i = 1; i <= 4; i++) {
+        const c = document.getElementById('guideStep' + i);
+        if (i === stepIdx) c.classList.add('active');
+        else c.classList.remove('active');
+      }
+    }
+
+    function showPush(title, desc, duration = 3000) {
+      pushTitle.innerText = title;
+      pushDesc.innerText = desc;
+      pushBanner.classList.add('active');
+      setTimeout(() => {
+        pushBanner.classList.remove('active');
+      }, duration);
+    }
+
+    function showTelemetry(msg, duration = 1200, callback) {
+      telemetryText.innerText = msg;
+      telemetryBanner.classList.add('visible');
+      setTimeout(() => {
+        telemetryBanner.classList.remove('visible');
+        if (callback) callback();
+      }, duration);
+    }
+
+    // DYNAMIC TARGETING WITH getBoundingClientRect()
+    function moveFingerTo(targetElem, tap = false, delay = 0, callback) {
+      if (!isPlaying) return;
+      masterTimer = setTimeout(() => {
+        const screenRect = phoneScreen.getBoundingClientRect();
+        const elemRect = targetElem.getBoundingClientRect();
+        const targetX = (elemRect.left + elemRect.width / 2) - screenRect.left;
+        const targetY = (elemRect.top + elemRect.height / 2) - screenRect.top;
+
+        finger.style.left = targetX + 'px';
+        finger.style.top = targetY + 'px';
+
+        if (tap) {
+          setTimeout(() => {
+            finger.classList.add('tapped');
+            setTimeout(() => {
+              finger.classList.remove('tapped');
+              if (callback) callback();
+            }, 200);
+          }, 450);
+        } else {
+          if (callback) setTimeout(callback, 350);
+        }
+      }, delay);
+    }
+
+    // MASTER SEQUENCE (~75 SECONDS)
+    function runSimulation() {
+      if (!isPlaying) return;
+
+      // 1. Reset all components
+      syncLeftCard(1);
+      screenLogin.classList.remove('hidden');
+      btnLogin.classList.remove('clicked');
+
+      dossierModal.classList.remove('open');
+      videoFrameWrap.classList.remove('active');
+      pushBanner.classList.remove('active');
+      feedScroll.scrollTop = 0;
+      searchTypedText.innerText = "";
+      searchPlaceholder.style.display = "inline";
+      searchBoxEl.classList.remove('focus');
+
+      screenRoadmap.classList.remove('active');
+      evidencePopup.classList.remove('show');
+      completionPopup.classList.remove('show');
+      telemetryBanner.classList.remove('visible');
+
+      tabUzbekistan.classList.add('active');
+      tabIndia.classList.remove('active');
+      tabBangladesh.classList.remove('active');
+
+      tradeVideoPlayer.pause();
+      evidVideo.pause();
+
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById('stamp' + i).classList.remove('show');
+        const b = document.getElementById('btnApprove' + i);
+        b.classList.remove('done');
+        b.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Затвердити';
+      }
+
+      for (let i = 1; i <= 4; i++) {
+        const item = document.getElementById('flowItem' + i);
+        item.className = "flow-stage-item";
+        document.getElementById('flowNum' + i).innerText = "0" + i;
+        if (i < 4) {
+          document.getElementById('flowArrow' + i).classList.remove('active');
+        }
+      }
+
+      // ==========================================
+      // PHASE 0: CLICK "УВІЙТИ В ОСОБИСТИЙ КАБІНЕТ"
+      // ==========================================
+      moveFingerTo(btnLogin, true, 800, () => {
+        btnLogin.classList.add('clicked');
+        showPush("Авторизація успішна", "Ласкаво просимо в особистий кабінет");
+
+        masterTimer = setTimeout(() => {
+          screenLogin.classList.add('hidden');
+
+          // ==========================================
+          // PHASE 1: SEARCH "Будівельники"
+          // ==========================================
+          moveFingerTo(searchBoxEl, true, 700, () => {
+            searchBoxEl.classList.add('focus');
+            searchPlaceholder.style.display = "none";
+            const text = "Будівельники моноліт";
+            let charIdx = 0;
+
+            function typeLoop() {
+              if (!isPlaying) return;
+              if (charIdx < text.length) {
+                searchTypedText.innerText += text[charIdx];
+                charIdx++;
+                masterTimer = setTimeout(typeLoop, 45);
+              } else {
+                masterTimer = setTimeout(inspectCandidate1, 600);
+              }
+            }
+            typeLoop();
+          });
+
+        }, 600);
+      });
+    }
+
+    // ==========================================
+    // PHASE 2: ALISHER (READ INFO FIRST -> THEN LAUNCH VIDEO)
+    // ==========================================
+    function inspectCandidate1() {
+      syncLeftCard(2);
+
+      const btnDossier1 = document.getElementById('btnDossier1');
+      moveFingerTo(btnDossier1, true, 500, () => {
+        dosName.innerText = "Алішер Турсунов 🇺🇿";
+        dosHeaderName.innerText = "Алішер Турсунов";
+        dosAvatarVideo.src = "videos/candidate_welder_test.mp4#t=5.5";
+        dosSpec.innerText = "Електрогазозварювальник (5 розряд)";
+        dosExp.innerText = "8 РОКІВ";
+        dosScore.innerText = "★ 9.8/10";
+        dosBio.innerText = "Атестований зварювальник 5 розряду. Повний досвід монолітного зварювання каркасів та закладних деталей. Напівавтомат MIG/MAG, контроль геометрії катетоміром. Шви проходять ультразвуковий та рентген-контроль без дефектів.";
+        videoTitleBar.innerText = "▶ Тестовий центр Ташкент: апарат Jasic, катетомір, «Готово!»";
+        tradeVideoPlayer.src = "videos/candidate_welder_test.mp4";
+
+        videoFrameWrap.classList.remove('active');
+        dossierModal.classList.add('open');
+
+        masterTimer = setTimeout(() => {
+          dossierScroll.scrollTop = 120;
+
+          // Finger taps "ДИВИТИСЯ ВІДЕО ТЕСТУВАННЯ"
+          masterTimer = setTimeout(() => {
+            moveFingerTo(btnLaunchVideo, true, 500, () => {
+              videoFrameWrap.classList.add('active');
+              try { tradeVideoPlayer.play(); } catch(e){}
+
+              // Watch video for 6.5s
+              masterTimer = setTimeout(() => {
+                moveFingerTo(btnModalClose, true, 700, () => {
+                  dossierModal.classList.remove('open');
+                  tradeVideoPlayer.pause();
+
+                  // Scroll feed to candidate 2
+                  masterTimer = setTimeout(() => {
+                    feedScroll.scrollTop = 185;
+                    masterTimer = setTimeout(inspectCandidate2, 500);
+                  }, 500);
+                });
+              }, 6500);
+            });
+          }, 1200);
+        }, 1000);
+      });
+    }
+
+    // ==========================================
+    // PHASE 3: ILHOM (READ INFO FIRST -> THEN LAUNCH VIDEO)
+    // ==========================================
+    function inspectCandidate2() {
+      const btnDossier2 = document.getElementById('btnDossier2');
+      moveFingerTo(btnDossier2, true, 500, () => {
+        dosName.innerText = "Ільхом Бабаєв 🇺🇿";
+        dosHeaderName.innerText = "Ільхом Бабаєв";
+        dosAvatarVideo.src = "videos/candidate_rebar_test.mp4#t=6.0";
+        dosSpec.innerText = "Арматурник-бетонник (Швидка в'язка)";
+        dosExp.innerText = "6 РОКІВ";
+        dosScore.innerText = "★ 9.7/10";
+        dosBio.innerText = "Практичний тест з армування складних каркасів. Швидкість в'язки 180 кг/год. Робота за німецькими стандартами якості Doka/Peri. Вимірювання рулеткою.";
+        videoTitleBar.innerText = "▶ Практичний тест: в'язка каркаса, рулетка, «Норматив виконано!»";
+        tradeVideoPlayer.src = "videos/candidate_rebar_test.mp4";
+
+        videoFrameWrap.classList.remove('active');
+        dossierModal.classList.add('open');
+
+        masterTimer = setTimeout(() => {
+          dossierScroll.scrollTop = 120;
+
+          masterTimer = setTimeout(() => {
+            moveFingerTo(btnLaunchVideo, true, 500, () => {
+              videoFrameWrap.classList.add('active');
+              try { tradeVideoPlayer.play(); } catch(e){}
+
+              masterTimer = setTimeout(() => {
+                moveFingerTo(btnModalClose, true, 700, () => {
+                  dossierModal.classList.remove('open');
+                  tradeVideoPlayer.pause();
+
+                  masterTimer = setTimeout(switchCountryToIndia, 600);
+                });
+              }, 6500);
+            });
+          }, 1200);
+        }, 1000);
+      });
+    }
+
+    // ==========================================
+    // PHASE 4: INDIA RAJESH (FULL BODY VIDEO RESUME)
+    // ==========================================
+    function switchCountryToIndia() {
+      moveFingerTo(tabIndia, true, 600, () => {
+        tabUzbekistan.classList.remove('active');
+        tabIndia.classList.add('active');
+        showPush("Країна: Індія", "База: 36 верифікованих кандидатів (Делі)");
+
+        feedScroll.scrollTop = 330;
+
+        const btnDossier3 = document.getElementById('btnDossier3');
+        moveFingerTo(btnDossier3, true, 700, () => {
+          dosName.innerText = "Раджеш Кумар 🇮🇳";
+          dosHeaderName.innerText = "Раджеш Кумар";
+          dosAvatarVideo.src = "videos/candidate_india_resume.mp4#t=2.0";
+          dosSpec.innerText = "Різноробочий / Склад & Будівництво";
+          dosExp.innerText = "5 РОКІВ";
+          dosScore.innerText = "★ 9.9/10";
+          dosBio.innerText = "Відеовізитка в повний зріст. Англійська мова рівня B1. Досвід 5 років на будівництві та складі. 100% сухий закон, висока дисципліна.";
+          videoTitleBar.innerText = "▶ Відеовізитка з Делі: «Hello sir, ready to work in Ukraine»";
+          tradeVideoPlayer.src = "videos/candidate_india_resume.mp4";
+
+          videoFrameWrap.classList.add('active');
+          dossierModal.classList.add('open');
+          try { tradeVideoPlayer.play(); } catch(e){}
+
+          masterTimer = setTimeout(() => {
+            moveFingerTo(btnModalClose, true, 700, () => {
+              dossierModal.classList.remove('open');
+              tradeVideoPlayer.pause();
+
+              masterTimer = setTimeout(() => {
+                feedScroll.scrollTop = 0;
+                tabUzbekistan.classList.add('active');
+                tabIndia.classList.remove('active');
+                masterTimer = setTimeout(serialApprovalFlow, 500);
+              }, 500);
+            });
+          }, 6500);
+        });
+      });
+    }
+
+    // ==========================================
+    // PHASE 5: SERIAL 1-CLICK APPROVALS
+    // ==========================================
+    function serialApprovalFlow() {
+      syncLeftCard(3);
+
+      const b1 = document.getElementById('btnApprove1');
+      moveFingerTo(b1, true, 500, () => {
+        document.getElementById('stamp1').classList.add('show');
+        b1.classList.add('done');
+        b1.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> ЗАТВЕРДЖЕНО';
+
+        feedScroll.scrollTop = 150;
+
+        const b2 = document.getElementById('btnApprove2');
+        moveFingerTo(b2, true, 600, () => {
+          document.getElementById('stamp2').classList.add('show');
+          b2.classList.add('done');
+          b2.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> ЗАТВЕРДЖЕНО';
+
+          feedScroll.scrollTop = 310;
+
+          const b3 = document.getElementById('btnApprove3');
+          moveFingerTo(b3, true, 600, () => {
+            document.getElementById('stamp3').classList.add('show');
+            b3.classList.add('done');
+            b3.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> ЗАТВЕРДЖЕНО';
+
+            showPush("Кандидати затверджені!", "Перехід до дорожньої карти виконання замовлення...");
+
+            masterTimer = setTimeout(launchRoadmapSequence, 1200);
+          });
+        });
+      });
+    }
+
+    // ========================================================
+    // PHASE 6: ROADMAP FLOWCHART WITH TELEMETRY & POPUPS
+    // ========================================================
+    function launchRoadmapSequence() {
+      syncLeftCard(4);
+      screenRoadmap.classList.add('active');
+
+      // --- STEP 1: PROCESSING VISA D-04 ---
+      showTelemetry("⏳ Запит до консульського реєстру: наказ ДЦЗ...", 1200, () => {
+        const item1 = document.getElementById('flowItem1');
+        item1.classList.add('completed');
+        document.getElementById('flowNum1').innerHTML = "✓";
+
+        // POPUP 1: VISA D-04
+        evidStageTag.innerText = "ЕТАП 01";
+        evidTitle.innerText = "ОФІЦІЙНА РОБОЧА ВІЗА D-04";
+        evidBadge.innerText = "✓ ОФОРМЛЕНО";
+        evidImage.style.display = "block";
+        evidVideo.style.display = "none";
+        evidImage.src = "visas/photo_2026-09-07_15-22-38.jpg";
+        evidDesc.innerText = "Офіційна багаторазова віза D-04 від Консульства України. 100% 'біле' працевлаштування зі сплатою податків (ст. 23 ЗУ).";
+        evidOfficer.innerText = "Юрист: Владлен Вікторович Пономаренко · Наказ ДЦЗ підписано";
+
+        evidencePopup.classList.add('show');
+
+        // Stay 3.5s on Visa, then close
+        masterTimer = setTimeout(() => {
+          evidencePopup.classList.remove('show');
+          document.getElementById('flowArrow1').classList.add('active');
+
+          // --- STEP 2: PROCESSING TRANSIT STAMP ---
+          showTelemetry("📡 Телеметрія авіарейсу: прибуття в Кишинів...", 1200, () => {
+            const item2 = document.getElementById('flowItem2');
+            item2.classList.add('completed');
+            document.getElementById('flowNum2').innerHTML = "✓";
+
+            // POPUP 2: TRANSIT STAMP CHISINAU
+            evidStageTag.innerText = "ЕТАП 02";
+            evidTitle.innerText = "АВІАКВИТКИ & МИТНИЙ ШТАМП";
+            evidBadge.innerText = "✓ МИТНИЦЮ ПРОЙДЕНО";
+            evidImage.style.display = "block";
+            evidVideo.style.display = "none";
+            evidImage.src = "visas/transit_stamp_chisinau.jpg";
+            evidDesc.innerText = "Штамп вильоту та в'їзний штамп аеропорту Кишинева (MD). Квитки куплені робітниками за власний кошт!";
+            evidOfficer.innerText = "Зелений коридор: перевірка документів перед посадкою в бус";
+
+            evidencePopup.classList.add('show');
+
+            masterTimer = setTimeout(() => {
+              evidencePopup.classList.remove('show');
+              document.getElementById('flowArrow2').classList.add('active');
+
+              // --- STEP 3: STAS MEETING VIDEO ---
+              showTelemetry("🚐 Логістика хабу Молдова: зустріч Станіславом...", 1200, () => {
+                const item3 = document.getElementById('flowItem3');
+                item3.classList.add('completed');
+                document.getElementById('flowNum3').innerHTML = "✓";
+
+                // POPUP 3: STAS MEETING VIDEO
+                evidStageTag.innerText = "ЕТАП 03";
+                evidTitle.innerText = "ЗУСТРІЧ В АЕРОПОРТУ КИШИНЕВА";
+                evidBadge.innerText = "✓ ЗУСТРІЛИ";
+                evidImage.style.display = "none";
+                evidVideo.style.display = "block";
+                evidVideo.src = "videos/transfer_moldova_ukraine.mp4";
+                try { evidVideo.play(); } catch(e){}
+                evidDesc.innerText = "Станіслав особисто зустрів групу в терміналі: 'Всі на місці, все нормально!'. Посадка в бус Mercedes Sprinter.";
+                evidOfficer.innerText = "Хаб Молдова: Станіслав Лухменко (Особистий нагляд)";
+
+                evidencePopup.classList.add('show');
+
+                masterTimer = setTimeout(() => {
+                  evidVideo.pause();
+                  evidencePopup.classList.remove('show');
+                  document.getElementById('flowArrow3').classList.add('active');
+
+                  // --- STEP 4: ARRIVAL IN KYIV VIDEO ---
+                  showTelemetry("🏗️ Доставка на об'єкт: Денис Кравченко заселив...", 1200, () => {
+                    const item4 = document.getElementById('flowItem4');
+                    item4.classList.add('completed');
+                    document.getElementById('flowNum4').innerHTML = "🏆";
+
+                    // POPUP 4: KYIV WORKER VIDEO WITH FLAG
+                    evidStageTag.innerText = "ЕТАП 04 · ФІНІШ";
+                    evidTitle.innerText = "ПРИБУТТЯ В КИЇВ & ВИХІД НА ЗМІНУ";
+                    evidBadge.innerText = "🏆 НА ЗМІНІ";
+                    evidImage.style.display = "none";
+                    evidVideo.style.display = "block";
+                    evidVideo.src = "videos/arrival_in_ukraine.mp4";
+                    try { evidVideo.play(); } catch(e){}
+                    evidDesc.innerText = "Робітник у Києві біля прапора України: 'Приїхав, влаштувався, все нормально!'. Бригада стала до роботи о 08:00.";
+                    evidOfficer.innerText = "✓ Комісія агенції I CLUB сплачується ТІЛЬКИ ЗАРАЗ за фактом!";
+
+                    evidencePopup.classList.add('show');
+
+                    masterTimer = setTimeout(() => {
+                      evidVideo.pause();
+                      evidencePopup.classList.remove('show');
+
+                      // FINAL CELEBRATION POPUP WITH GUARANTEE SEAL
+                      completionPopup.classList.add('show');
+
+                      masterTimer = setTimeout(() => {
+                        completionPopup.classList.remove('show');
+                        screenRoadmap.classList.remove('active');
+                        masterTimer = setTimeout(runSimulation, 600);
+                      }, 7500);
+
+                    }, 6500);
+                  });
+                }, 5500);
+              });
+            }, 3500);
+          });
+        }, 3500);
+      });
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      const btnText = document.getElementById('btnPlayText');
+      const iconSvg = document.getElementById('playIconSvg');
+      const simStatusLbl = document.getElementById('simStatusLbl');
+
+      if (isPlaying) {
+        btnText.innerText = "ПАУЗА";
+        iconSvg.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+        simStatusLbl.innerText = "АВТОНОМНИЙ ДЕМО-ТУР (75 СЕК)";
+        runSimulation();
+      } else {
+        btnText.innerText = "ГРАТИ";
+        iconSvg.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+        simStatusLbl.innerText = "ПАУЗА";
+        if (masterTimer) clearTimeout(masterTimer);
+        tradeVideoPlayer.pause();
+        evidVideo.pause();
+      }
+    }
+
+    function restartSimulation() {
+      if (masterTimer) clearTimeout(masterTimer);
+      isPlaying = true;
+      document.getElementById('btnPlayText').innerText = "ПАУЗА";
+      document.getElementById('playIconSvg').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      document.getElementById('simStatusLbl').innerText = "АВТОНОМНИЙ ДЕМО-ТУР (75 СЕК)";
+      runSimulation();
+    }
+
+    window.addEventListener('load', () => {
+      runSimulation();
+    });
+  </script>
+</body>
+</html>

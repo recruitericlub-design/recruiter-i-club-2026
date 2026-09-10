@@ -1,0 +1,15 @@
+# Robots.txt for Recruiter I Club (recruiter-i-club-2026)
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /scratch/
+
+# Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap
+Sitemap: https://recruiter-i-club-2026.vercel.app/sitemap.xml

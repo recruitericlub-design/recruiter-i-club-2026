@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I CLUB RECRUITER | Особистий Кабінет Роботодавця (CRM)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background-color: #070a12;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow: hidden;
+    }
+    a, button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    input { font-family: inherit; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070a12; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .app-root { display: flex; flex-direction: column; height: 100vh; width: 100vw; }
+    .topbar {
+      height: 60px;
+      background: #0b111e;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+    .brand-box { display: flex; align-items: center; gap: 10px; }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      background: #111a2e;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f59e0b;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .brand-text h1 { font-size: 14px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; line-height: 1.2; }
+    .brand-text span { font-size: 9px; font-family: monospace; letter-spacing: 1.5px; color: #94a3b8; text-transform: uppercase; }
+    .client-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      font-size: 11px;
+    }
+    .status-dot { width: 7px; height: 7px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
+    .topbar-right { display: flex; align-items: center; gap: 14px; }
+    .stats-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 11px;
+    }
+    .stats-pill strong { color: #38bdf8; }
+    .manager-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    .manager-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #0284c7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 10px;
+    }
+    .app-main { display: flex; flex: 1; overflow: hidden; }
+    .sidebar {
+      width: 260px;
+      background: #090e18;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .sidebar-section-title {
+      font-size: 10px;
+      font-family: monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+    .search-box input {
+      width: 100%;
+      background: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: white;
+      outline: none;
+    }
+    .search-box input:focus { border-color: #06b6d4; }
+    .filter-list { display: flex; flex-direction: column; gap: 4px; }
+    .filter-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: #94a3b8;
+      font-size: 12px;
+      transition: all 0.15s;
+      text-align: left;
+    }
+    .filter-btn:hover { background: rgba(255, 255, 255, 0.04); color: #ffffff; }
+    .filter-btn.active { background: rgba(6, 182, 212, 0.12); color: #38bdf8; font-weight: 600; }
+    .filter-count { font-family: monospace; font-size: 10px; background: rgba(255, 255, 255, 0.06); padding: 2px 6px; border-radius: 4px; }
+    .country-pills { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .country-pill {
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      color: #94a3b8;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .country-pill.active { background: rgba(255, 255, 255, 0.09); color: white; border-color: rgba(255, 255, 255, 0.15); font-weight: 600; }
+    .legal-card {
+      margin-top: auto;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #060910; }
+    .content-header {
+      padding: 14px 24px;
+      background: #0a0f1b;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .content-header h2 { font-size: 15px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+    .badge-count { font-size: 11px; font-family: monospace; font-weight: normal; background: rgba(255, 255, 255, 0.08); padding: 2px 8px; border-radius: 12px; color: #cbd5e1; }
+    .grid-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      align-content: start;
+    }
+    .cand-card {
+      background: #0c1220;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .cand-card:hover { border-color: rgba(6, 182, 212, 0.35); transform: translateY(-2px); }
+    .cand-card.approved { border-color: #10b981; }
+    .cand-img-box { height: 170px; position: relative; background: #1e293b; overflow: hidden; }
+    .cand-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .cand-pill-top {
+      position: absolute; top: 8px; left: 8px; background: rgba(0, 0, 0, 0.75); padding: 3px 8px;
+      border-radius: 4px; font-size: 10px; font-family: monospace; color: white; border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .cand-score-top {
+      position: absolute; top: 8px; right: 8px; background: #f59e0b; color: #0f172a; padding: 3px 7px;
+      border-radius: 4px; font-size: 10px; font-family: monospace; font-weight: 700;
+    }
+    .cand-video-btn {
+      position: absolute; bottom: 8px; right: 8px; background: rgba(6, 182, 212, 0.85); color: #080c14;
+      padding: 4px 9px; border-radius: 5px; font-size: 10px; font-weight: 700; cursor: pointer;
+    }
+    .approved-overlay {
+      position: absolute; inset: 0; background: rgba(6, 78, 59, 0.82); display: flex; align-items: center;
+      justify-content: center; color: #6ee7b7; font-weight: 800; font-size: 12px; letter-spacing: 0.5px; border: 2px solid #10b981;
+    }
+    .cand-info { padding: 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .cand-header { display: flex; justify-content: space-between; align-items: baseline; }
+    .cand-name { font-size: 14px; font-weight: 700; color: #ffffff; }
+    .cand-age { font-size: 11px; font-family: monospace; color: #94a3b8; }
+    .cand-spec { color: #38bdf8; font-size: 12px; font-weight: 600; }
+    .cand-grade { font-size: 11px; color: #94a3b8; }
+    .cand-salary {
+      margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex; justify-content: space-between; align-items: center; font-size: 11px;
+    }
+    .cand-salary strong { color: #10b981; font-family: monospace; font-size: 12px; }
+    .cand-actions { padding: 0 14px 14px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-dossier {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 7px; border-radius: 6px; font-size: 11px; font-weight: 500; color: #cbd5e1; text-align: center;
+    }
+    .btn-dossier:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+    .btn-approve { background: #059669; color: white; padding: 7px; border-radius: 6px; font-size: 11px; font-weight: 700; text-align: center; }
+    .btn-approve:hover { background: #10b981; }
+    .btn-approved-cancel { background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #6ee7b7; padding: 7px; border-radius: 6px; font-size: 11px; font-weight: 700; text-align: center; }
+    .drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 40;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 560px; max-width: 90vw; background: #0b111e;
+      border-left: 1px solid rgba(255, 255, 255, 0.1); box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 50;
+      display: flex; flex-direction: column;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-header {
+      padding: 16px 20px; background: #0e1526; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    }
+    .drawer-close-btn {
+      width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);
+      color: #94a3b8; display: flex; align-items: center; justify-content: center; font-size: 14px;
+    }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+    .video-box { border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .video-box video { width: 100%; max-height: 280px; display: block; }
+    .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .score-card { background: #111827; border: 1px solid rgba(255, 255, 255, 0.06); padding: 8px; border-radius: 6px; text-align: center; }
+    .score-card span { font-size: 9px; color: #94a3b8; display: block; }
+    .score-card strong { font-size: 13px; font-family: monospace; color: #38bdf8; margin-top: 2px; display: block; }
+    .drawer-footer {
+      padding: 14px 20px; background: #0e1526; border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+    }
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast {
+      pointer-events: auto; background: #111827; border: 1px solid #06b6d4; padding: 12px 16px;
+      border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); color: white; max-width: 320px;
+    }
+  </style>
+</head>
+<body>
+  <div class="toast-container" id="toastContainer"></div>
+  <div class="app-root">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="brand-box">
+          <div class="brand-icon">★</div>
+          <div class="brand-text">
+            <h1>I CLUB</h1>
+            <span>RECRUITER · B2B PORTAL</span>
+          </div>
+        </div>
+        <div class="client-badge">
+          <div class="status-dot"></div>
+          <strong>ТОВ «УКРБУДІНВЕСТ-МОНОЛІТ»</strong>
+          <span style="color:#64748b; font-family:monospace;">#UA-8942</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="stats-pill">
+          <span>У БАЗІ: <strong>124</strong></span>
+          <span>|</span>
+          <span>ЗАТВЕРДЖЕНО: <strong id="approvedCount" style="color:#10b981;">0</strong></span>
+          <span>|</span>
+          <span>ДЦЗ: <strong id="dtszCount" style="color:#06b6d4;">0</strong></span>
+        </div>
+        <button onclick="showManagerContact()" class="manager-pill">
+          <div class="manager-avatar">ОК</div>
+          <div style="text-align:left;">
+            <div style="font-size:11px; font-weight:700; color:white;">Оксана Ковальчук</div>
+            <div style="font-size:9px; color:#38bdf8;">Куратор 24/7</div>
+          </div>
+        </button>
+      </div>
+    </header>
+
+    <div class="app-main">
+      <aside class="sidebar">
+        <div>
+          <div class="sidebar-section-title">Швидкий пошук у базі</div>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Посада, ім'я, кваліфікація..." oninput="filterCandidates()">
+          </div>
+        </div>
+        <div>
+          <div class="sidebar-section-title">Спеціалізація</div>
+          <div class="filter-list">
+            <button class="filter-btn active" onclick="setIndustry('all')" data-ind="all">
+              <span>Всі спеціальності</span>
+              <span class="filter-count" id="cnt-all">11</span>
+            </button>
+            <button class="filter-btn" onclick="setIndustry('construction')" data-ind="construction">
+              <span>🏗️ Будівництво & Моноліт</span>
+              <span class="filter-count">2</span>
+            </button>
+            <button class="filter-btn" onclick="setIndustry('welder')" data-ind="welder">
+              <span>👨‍🏭 Зварювальники & Метал</span>
+              <span class="filter-count">2</span>
+            </button>
+            <button class="filter-btn" onclick="setIndustry('warehouse')" data-ind="warehouse">
+              <span>📦 Склад & Логістика</span>
+              <span class="filter-count">2</span>
+            </button>
+            <button class="filter-btn" onclick="setIndustry('factory')" data-ind="factory">
+              <span>⚙️ Виробництво & ЧПК</span>
+              <span class="filter-count">4</span>
+            </button>
+            <button class="filter-btn" onclick="setIndustry('agro')" data-ind="agro">
+              <span>🌾 Агрокомплекс</span>
+              <span class="filter-count">1</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="sidebar-section-title">Країна відбору</div>
+          <div class="country-pills">
+            <button class="country-pill active" onclick="setCountry('all')" data-ctry="all">Всі країни</button>
+            <button class="country-pill" onclick="setCountry('uz')" data-ctry="uz">🇺🇿 Узбекистан</button>
+            <button class="country-pill" onclick="setCountry('in')" data-ctry="in">🇮🇳 Індія</button>
+            <button class="country-pill" onclick="setCountry('bd')" data-ctry="bd">🇧🇩 Бангладеш</button>
+          </div>
+        </div>
+        <div class="legal-card">
+          <div style="font-weight:700; color:#f59e0b; margin-bottom:4px;">⚖️ Юридичний імунітет</div>
+          100% захист від мобілізації (ст. 23 ЗУ). Прямий контракт з ТОВ. Оплата комісії строго після прибуття бригади.
+        </div>
+      </aside>
+
+      <main class="content-area">
+        <div class="content-header">
+          <h2>
+            Реєстр верифікованих робітників
+            <span class="badge-count" id="visibleCounter">11 доступно</span>
+          </h2>
+          <button onclick="approveAll()" style="background:#059669; color:white; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700;">
+            ✓ Затвердити всіх на ДЦЗ
+          </button>
+        </div>
+        <div class="grid-container" id="candidatesGrid"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="drawer-overlay" id="drawerBackdrop" onclick="closeDrawer()"></div>
+  <div class="drawer" id="dossierDrawer">
+    <div class="drawer-header">
+      <div>
+        <h2 id="drawerName" style="font-size:15px; font-weight:700; color:white;">Алішер Турсунов</h2>
+        <div id="drawerSpec" style="font-size:11px; color:#38bdf8; font-family:monospace;">Бригадир-монолітник 5 розряду</div>
+      </div>
+      <button class="drawer-close-btn" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div>
+        <div style="font-size:11px; font-weight:700; margin-bottom:6px; color:white;">🎬 Запис практичного тесту (Trade Test)</div>
+        <div class="video-box">
+          <video id="drawerVideo" controls playsinline>
+            <source src="work-samples/welder_trade_test_1.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px; font-weight:700; margin-bottom:6px; color:white;">Оцінка центру тестування:</div>
+        <div class="score-grid">
+          <div class="score-card"><span>Швидкість:</span><strong id="scoreSpeed">9.8/10</strong></div>
+          <div class="score-card"><span>Точність:</span><strong style="color:#10b981;">9.7/10</strong></div>
+          <div class="score-card"><span>Дисципліна:</span><strong style="color:#f59e0b;">10/10</strong></div>
+          <div class="score-card"><span>Медогляд:</span><strong style="color:white;">ПРИДАТНИЙ</strong></div>
+        </div>
+      </div>
+      <div style="background:#111827; border:1px solid rgba(255,255,255,0.06); padding:12px; border-radius:8px; font-size:12px; line-height:1.5;">
+        <div style="color:#94a3b8; font-size:10px; text-transform:uppercase; margin-bottom:4px;">Характеристика та досвід:</div>
+        <div id="drawerBio" style="color:#cbd5e1;">Досвідчений робітник з підтвердженим стажем.</div>
+        <div style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.06); padding-top:8px; display:flex; justify-content:space-between;">
+          <span style="color:#94a3b8;">Бажана ставка:</span>
+          <strong id="drawerSalary" style="color:#10b981; font-family:monospace;">28,000 – 34,000 грн</strong>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button onclick="requestReplacementCurrent()" style="background:rgba(225,29,72,0.15); border:1px solid #f43f5e; color:#fda4af; padding:8px 14px; border-radius:6px; font-size:11px; font-weight:600;">
+        🔄 Запросити заміну
+      </button>
+      <button id="drawerApproveBtn" onclick="approveCurrentDrawerCandidate()" style="background:#059669; color:white; padding:8px 18px; border-radius:6px; font-size:11px; font-weight:700;">
+        ✓ Затвердити кандидатуру
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const candidates = [
+      { id: 1, name: 'Алішер Турсунов', age: 34, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'construction', spec: 'Бригадир-монолітник & Арматурник', grade: '5 розряд (6 років стажу)', score: '9.8', salary: '28,000 – 34,000 грн', img: 'workers/builder_ilkhom_34.jpg', video: 'work-samples/welder_trade_test_1.mp4', bio: 'Керував бригадою з 12 монолітників. Читає складні арматурні креслення. Швидкість в\'язки арматури вдвічі перевищує норму.', approved: false },
+      { id: 2, name: 'Отабек Мірзаєв', age: 32, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'welder', spec: 'Зварювальник MIG/MAG (Напівавтомат)', grade: 'Сертифікат ISO 9606', score: '9.9', salary: '30,000 – 36,000 грн', img: 'workers/welder_master_certified.jpg', video: 'work-samples/welder_trade_test_1.mp4', bio: 'Зварювання відповідальних металоконструкцій під рентген та УЗК-контроль. Працював на машинобудівному заводі.', approved: false },
+      { id: 3, name: 'Джамшид Рахімов', age: 29, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'warehouse', spec: 'Водій навантажувача / Карист', grade: 'Посвідчення, досвід 4 роки', score: '9.7', salary: '24,000 – 28,000 грн', img: 'workers/forklift_driver.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Висотні стелажі класу А (до 10м), штабелери та ричтраки. Робота з терміналами ТЗД, сухий закон.', approved: false },
+      { id: 4, name: 'Сардор Карімов', age: 26, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'warehouse', spec: 'Комплектувальник / Складальник', grade: 'Норматив: 140 піків/год', score: '9.6', salary: '22,000 – 26,000 грн', img: 'workers/logistics_packer.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Фізично витривалий, готовий до нічних змін у великих розподільчих центрах. Сканування штрих-кодів.', approved: false },
+      { id: 5, name: 'Раджеш Кумар', age: 33, country: 'in', countryName: 'Індія', flag: '🇮🇳', industry: 'welder', spec: 'Зварювальник TIG / Аргон', grade: 'Стаж 7 років (трубопроводи)', score: '9.8', salary: '32,000 – 38,000 грн', img: 'workers/welder_rajesh.jpg', video: 'work-samples/welder_trade_test_2.mp4', bio: 'Працював на проектах нафтогазової промисловості в ОАЕ та Індії. Рівномірний шов на нержавійці.', approved: false },
+      { id: 6, name: 'Хасан Махмудов', age: 31, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'factory', spec: 'Оператор верстатів з ЧПК', grade: 'Siemens Sinumerik / Fanuc', score: '9.9', salary: '30,000 – 35,000 грн', img: 'workers/cnc_hasan.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Коригування керуючих програм, підбір та прив\'язка інструменту, серійне виготовлення деталей.', approved: false },
+      { id: 7, name: 'Бахром Саліхов', age: 38, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'agro', spec: 'Тракторист-механізатор', grade: 'Категорії B, C, D (John Deere)', score: '9.7', salary: '26,000 – 32,000 грн', img: 'workers/agricultural_tractorist.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Польові та тепличні роботи 12 років. Дрібний ремонт навісного обладнання та гідравліки.', approved: false },
+      { id: 8, name: 'Азіз Юлдашев', age: 35, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'factory', spec: 'Електромонтажник обладнання', grade: '4 група електробезпеки до 1000В', score: '9.8', salary: '28,000 – 34,000 грн', img: 'workers/electrician_technician.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Розключення шаф автоматики, монтаж кабельних трас, підключення верстатів, читання схем.', approved: false },
+      { id: 9, name: 'Шерзод Алімов', age: 30, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'factory', spec: 'Слюсар-складальник металу', grade: 'Стаж 5 років', score: '9.6', salary: '25,000 – 29,000 грн', img: 'workers/mechanic_assembler.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Складання рамних вузлів, робота з пневматичним і електричним ручним інструментом.', approved: false },
+      { id: 10, name: 'Умід Норматов', age: 27, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'factory', spec: 'Оператор конвеєрної лінії', grade: 'Норматив 100%', score: '9.5', salary: '23,000 – 27,000 грн', img: 'workers/conveyor_operator.jpg', video: 'work-samples/assembly_line_test.mp4', bio: 'Досвід на пакувальних та фасувальних лініях, стандарти НАССР, відсутність втоми.', approved: false },
+      { id: 11, name: 'Ільхом Бабаєв', age: 36, country: 'uz', countryName: 'Узбекистан', flag: '🇺🇿', industry: 'construction', spec: 'Муляр / Опоряджувальник', grade: 'Кладка 2.5 куб.м/зміна', score: '9.7', salary: '27,000 – 33,000 грн', img: 'workers/builder_ilkhom_34.jpg', video: 'work-samples/welder_trade_test_1.mp4', bio: 'Кладка газоблоку, цегли, штукатурка за маяками, монтаж фасадної мінеральної вати.', approved: false }
+    ];
+
+    let currentIndustry = 'all';
+    let currentCountry = 'all';
+    let activeCandId = null;
+
+    function renderCandidates(list) {
+      const grid = document.getElementById('candidatesGrid');
+      grid.innerHTML = '';
+      document.getElementById('visibleCounter').innerText = list.length + ' доступно';
+
+      list.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'cand-card' + (c.approved ? ' approved' : '');
+
+        card.innerHTML = `
+          <div class="cand-img-box">
+            <img src="${c.img}" alt="${c.name}">
+            <div class="cand-pill-top">${c.flag} ${c.countryName}</div>
+            <div class="cand-score-top">★ ${c.score}</div>
+            <button onclick="openDossier(${c.id})" class="cand-video-btn">▶ ВІДЕО ТЕСТУ</button>
+            ${c.approved ? '<div class="approved-overlay">✓ ЗАТВЕРДЖЕНО НА ДЦЗ</div>' : ''}
+          </div>
+          <div class="cand-info">
+            <div class="cand-header">
+              <div class="cand-name">${c.name}</div>
+              <div class="cand-age">${c.age} р.</div>
+            </div>
+            <div class="cand-spec">${c.spec}</div>
+            <div class="cand-grade">${c.grade}</div>
+            <div class="cand-salary">
+              <span style="color:#64748b;">СТАВКА:</span>
+              <strong>${c.salary}</strong>
+            </div>
+          </div>
+          <div class="cand-actions">
+            <button onclick="openDossier(${c.id})" class="btn-dossier">Досьє кандидата</button>
+            ${c.approved ? `
+              <button onclick="toggleApprove(${c.id})" class="btn-approved-cancel">✓ В роботі</button>
+            ` : `
+              <button onclick="toggleApprove(${c.id})" class="btn-approve">✓ Затвердити</button>
+            `}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterCandidates() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const filtered = candidates.filter(c => {
+        if (currentIndustry !== 'all' && c.industry !== currentIndustry) return false;
+        if (currentCountry !== 'all' && c.country !== currentCountry) return false;
+        if (q) {
+          const text = (c.name + ' ' + c.spec + ' ' + c.grade + ' ' + c.bio).toLowerCase();
+          if (!text.includes(q)) return false;
+        }
+        return true;
+      });
+      renderCandidates(filtered);
+    }
+
+    function setIndustry(ind) {
+      currentIndustry = ind;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        if (b.getAttribute('data-ind') === ind) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      filterCandidates();
+    }
+
+    function setCountry(ctry) {
+      currentCountry = ctry;
+      document.querySelectorAll('.country-pill').forEach(b => {
+        if (b.getAttribute('data-ctry') === ctry) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      filterCandidates();
+    }
+
+    function toggleApprove(id) {
+      const c = candidates.find(x => x.id === id);
+      if (!c) return;
+      c.approved = !c.approved;
+      updateHeader();
+      filterCandidates();
+      if (c.approved) {
+        showToast('✅ Кандидата затверджено!', `«${c.name}» передано юристу Владлену на оформлення дозволу ДЦЗ.`);
+      } else {
+        showToast('ℹ️ Погодження скасовано', `«${c.name}» повернуто до списку.`);
+      }
+    }
+
+    function updateHeader() {
+      const cnt = candidates.filter(x => x.approved).length;
+      document.getElementById('approvedCount').innerText = cnt;
+      document.getElementById('dtszCount').innerText = cnt;
+    }
+
+    function openDossier(id) {
+      const c = candidates.find(x => x.id === id);
+      if (!c) return;
+      activeCandId = id;
+      document.getElementById('drawerName').innerText = c.name + ' ' + c.flag;
+      document.getElementById('drawerSpec').innerText = c.spec + ' (' + c.grade + ')';
+      document.getElementById('drawerBio').innerText = c.bio;
+      document.getElementById('drawerSalary').innerText = c.salary;
+      document.getElementById('scoreSpeed').innerText = c.score + '/10';
+      document.getElementById('drawerVideo').src = c.video;
+
+      const approveBtn = document.getElementById('drawerApproveBtn');
+      if (c.approved) {
+        approveBtn.innerText = '✓ Скасувати погодження';
+        approveBtn.style.background = '#475569';
+      } else {
+        approveBtn.innerText = '✓ Затвердити кандидатуру';
+        approveBtn.style.background = '#059669';
+      }
+
+      document.getElementById('drawerBackdrop').classList.add('open');
+      document.getElementById('dossierDrawer').classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerBackdrop').classList.remove('open');
+      document.getElementById('dossierDrawer').classList.remove('open');
+      document.getElementById('drawerVideo').pause();
+    }
+
+    function approveCurrentDrawerCandidate() {
+      if (!activeCandId) return;
+      toggleApprove(activeCandId);
+      openDossier(activeCandId);
+    }
+
+    function requestReplacementCurrent() {
+      closeDrawer();
+      showToast('🔄 Запит на заміну прийнято', 'Куратор Оксана отримала сповіщення. Протягом 24 год буде додано нове досьє.');
+    }
+
+    function approveAll() {
+      candidates.forEach(c => c.approved = true);
+      updateHeader();
+      filterCandidates();
+      showToast('🏆 Всіх кандидатів затверджено', 'Реєстр направлено до юридичного відділу на процедуру ДЦЗ.');
+    }
+
+    function showManagerContact() {
+      showToast('📞 Зв\'язок з куратором Оксаною', 'Telegram: @iclub_manager | Телефон: +380 (67) 123-45-67');
+    }
+
+    function showToast(title, msg) {
+      const box = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<div style="font-weight:700; font-size:12px; margin-bottom:2px;">${title}</div><div style="font-size:11px; color:#cbd5e1;">${msg}</div>`;
+      box.appendChild(t);
+      setTimeout(() => t.remove(), 4000);
+    }
+
+    renderCandidates(candidates);
+  </script>
+</body>
+</html>

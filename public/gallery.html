@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recruiter I Club — 6 Преміальних Світлих Дизайн-Концептів (Asia Work Benchmark)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B1120; color: #F8FAFC; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .tab-btn.active { background: #0284C7; color: #FFFFFF; border-color: #38BDF8; box-shadow: 0 4px 18px rgba(14, 165, 233, 0.4); }
+  </style>
+</head>
+<body class="p-6 md:p-10">
+
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Top Bar -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-950/80 border border-sky-500/30 text-sky-400 font-mono text-xs font-bold uppercase tracking-wider mb-3">
+        <span class="inline-flex rounded-xs overflow-hidden shadow-xs border border-slate-300 w-5 h-3.5 align-middle"><span class="w-full h-1/2 bg-[#0057B7]"></span><span class="w-full h-1/2 bg-[#FFDD00]"></span></span> ДИЗАЙН-ЛАБОРАТОРІЯ RECRUITER I CLUB · СТАНДАРТ 2026
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-3">
+        6 Преміальних Світлих Концептів Сайту
+      </h1>
+      <p class="text-slate-400 text-sm md:text-base max-w-3xl mx-auto leading-relaxed">
+        Створено за еталоном <strong>Asia Work</strong> з інтеграцією офіційної української символіки (Золотий Тризуб, Ліцензія Мінсоцполітики №1428, печатки ДЦЗ, Ст. 23 ЗУ).
+        Світла естетика, глибокий тактильний рельєф, статичні макети без зайвих анімацій.
+      </p>
+      <div class="mt-4 inline-block bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 px-4 py-1 rounded-full text-xs font-mono font-bold">
+        «Комісію беремо тільки в кінці — коли робітники вже у вас на підприємстві»
+      </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-6 border-b border-slate-800 pb-4">
+      <button onclick="switchTab(1)" id="btn-1" class="tab-btn active px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-bold transition hover:text-white">
+        1. Державний Еталон
+      </button>
+      <button onclick="switchTab(2)" id="btn-2" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-bold transition hover:text-white">
+        2. Індустріальний Моноліт
+      </button>
+      <button onclick="switchTab(3)" id="btn-3" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-bold transition hover:text-white">
+        3. Преміальний B2B Портал
+      </button>
+      <button onclick="switchTab(4)" id="btn-4" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-bold transition hover:text-white">
+        4. Економічний Щит
+      </button>
+      <button onclick="switchTab(5)" id="btn-5" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-bold transition hover:text-white">
+        5. Швейцарська Довіра
+      </button>
+      <button onclick="switchTab(6)" id="btn-6" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-bold transition hover:text-white">
+        6. Прозора Логістика
+      </button>
+    </div>
+
+    <!-- Active Variant Meta & Controls -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div id="meta-badge" class="text-xs font-mono font-bold text-sky-400 uppercase">Концепт 1 · Престиж & Державна Ліцензія</div>
+        <h2 id="meta-title" class="text-xl font-bold text-white">Державний Еталон (State Sovereign Standard / Asia Work Prime)</h2>
+        <p id="meta-desc" class="text-xs text-slate-400 mt-1 max-w-3xl">
+          Світлий класичний корпоративний престиж (еталон Asia Work): білий фарфор, золотий Тризуб, жовто-блакитна стрічка ліцензії №1428, печатки ДЦЗ, 0 грн авансу.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a id="meta-link" href="stitch_variants/variant_1_design.html" target="_blank" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition flex items-center gap-2">
+          <span>Відкрити на весь екран</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Live Preview Iframe Frame -->
+    <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <div class="h-10 bg-slate-900 px-4 flex items-center justify-between border-b border-slate-800 text-xs font-mono text-slate-400">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+          <span id="preview-url" class="ml-2 text-slate-300">stitch_variants/variant_1_design.html</span>
+        </div>
+        <div class="text-[11px] text-slate-500">
+          Світла B2B архітектура · Статичний макет
+        </div>
+      </div>
+      <iframe id="preview-frame" src="stitch_variants/variant_1_design.html" class="w-full h-[850px] bg-white border-0"></iframe>
+    </div>
+
+  </div>
+
+  <script>
+    const variants = {
+      1: {
+        title: "Державний Еталон (State Sovereign Standard / Asia Work Prime)",
+        badge: "Концепт 1 · Престиж & Державна Ліцензія",
+        desc: "Світлий класичний корпоративний престиж (еталон Asia Work): білий фарфор, золотий Тризуб, жовто-блакитна стрічка ліцензії №1428, печатки ДЦЗ, оплата комісії строго в кінці.",
+        file: "stitch_variants/variant_1_design.html"
+      },
+      2: {
+        title: "Індустріальний Моноліт (Industrial Enterprise Vanguard)",
+        badge: "Концепт 2 · Генпідряд & Виробництво",
+        desc: "Asia Work стандарт для будівельних трестів та важких заводів: інженерна сітка, живі лічильники дефіциту (зварювальники, арматурники), картки лабораторного скорингу ISO 9606-1.",
+        file: "stitch_variants/variant_2_design.html"
+      },
+      3: {
+        title: "Преміальний B2B Портал (Executive Private Cockpit)",
+        badge: "Концепт 3 · Особистий Кабінет у Центрі",
+        desc: "Фокус на Особистому Кабінеті роботодавця 2026: титановий iPhone 16 Pro у центрі композиції, затвердження кандидатів в 1 клік, онлайн-трекінг консульських баз без бюрократії.",
+        file: "stitch_variants/variant_3_design.html"
+      },
+      4: {
+        title: "Національний Економічний Щит (Sovereign Economic Shield)",
+        badge: "Концепт 4 · Юридична Броня & Ст. 23 ЗУ",
+        desc: "Патріотично-ділове позиціонування: збереження робочих місць в Україні під час війни. Офіційна стаття 23 ЗУ, консульські візи D-04, експертиза Владлена Пономаренка.",
+        file: "stitch_variants/variant_4_design.html"
+      },
+      5: {
+        title: "Швейцарська Архітектура Довіри (Swiss Precision Bento)",
+        badge: "Концепт 5 · Точність, Факти & Хроніка",
+        desc: "Бездоганна типографіка та асиметричний 12-колонковий бенто: тактильні печатки ДЦЗ, детальна фотохроніка рекорду (21 день), міжнародні хаби в Ташкенті та Делі.",
+        file: "stitch_variants/variant_5_design.html"
+      },
+      6: {
+        title: "Прозора Логістика та Зелений Коридор (Turnkey Logistics Hub)",
+        badge: "Концепт 6 · Документальна Фотохроніка Маршруту",
+        desc: "Документальний фоторепортаж наскрізного шляху: Ташкент ➔ Кишинів ➔ Київ, митні штампи, зустріч Станіславом біля терміналу, квитки купують самі робітники.",
+        file: "stitch_variants/variant_6_design.html"
+      }
+    };
+
+    function switchTab(id) {
+      for (let i = 1; i <= 6; i++) {
+        const btn = document.getElementById('btn-' + i);
+        if (i === id) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      }
+      const v = variants[id];
+      document.getElementById('meta-title').innerText = v.title;
+      document.getElementById('meta-badge').innerText = v.badge;
+      document.getElementById('meta-desc').innerText = v.desc;
+      document.getElementById('meta-link').href = v.file;
+      document.getElementById('preview-url').innerText = v.file;
+      document.getElementById('preview-frame').src = v.file;
+    }
+  </script>
+
+</body>
+</html>

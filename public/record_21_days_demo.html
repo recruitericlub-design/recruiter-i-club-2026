@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Хроніка Рекорду: 21 День | I CLUB RECRUITER</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #060911;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 40px -5px rgba(6, 182, 212, 0.45);
+    }
+    .text-glow-cyan {
+      text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+    }
+    .gradient-border {
+      position: relative;
+      border-radius: 1.25rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #fxCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .ring-pulse {
+      animation: pulse-ring 2.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen relative flex items-center justify-center py-12 px-4 sm:px-6">
+
+  <!-- Background Animated Particle Canvas -->
+  <canvas id="fxCanvas"></canvas>
+
+  <!-- Ambient Light Orbs -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-cyan-600/15 via-blue-700/10 to-transparent blur-[140px] pointer-events-none"></div>
+  <div class="absolute bottom-10 right-10 w-[500px] h-[300px] bg-amber-500/10 blur-[130px] pointer-events-none"></div>
+
+  <!-- Main Container -->
+  <div class="max-w-5xl w-full relative z-10 space-y-8">
+
+    <!-- Top Badge & Header -->
+    <div class="text-center space-y-3">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs font-mono tracking-widest uppercase">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        ХРОНІКА НАШОГО АБСОЛЮТНОГО РЕКОРДУ
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+        Як ми закрили дефіцит цеху <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-300">за 21 день</span>
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        Реальний кейс екстреної мобілізації команди I CLUB, коли у замовника зупинявся експортний контракт і кожна доба коштувала тисячі доларів.
+      </p>
+    </div>
+
+    <!-- Interactive Stage Display (Main Card) -->
+    <div class="gradient-border p-6 sm:p-10 glow-cyan relative overflow-hidden">
+
+      <!-- Top Stats Bar & Day Counter -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-white/10">
+        <div>
+          <div class="text-xs font-mono text-cyan-400 uppercase tracking-widest">Хронометр проекту</div>
+          <div class="flex items-baseline gap-2 mt-1">
+            <span id="dayDisplay" class="text-5xl sm:text-6xl font-black text-white font-mono text-glow-cyan">ДЕНЬ 01</span>
+            <span class="text-slate-500 font-mono text-sm">/ 21 день</span>
+          </div>
+        </div>
+
+        <!-- City & Location Badge -->
+        <div class="flex items-center gap-3 bg-slate-900/80 border border-white/10 px-5 py-3 rounded-xl">
+          <div class="w-3 h-3 rounded-full bg-cyan-400 ring-pulse"></div>
+          <div>
+            <div class="text-xs font-mono text-slate-400">Локація дії:</div>
+            <div id="locationDisplay" class="text-sm font-bold text-white tracking-wide">м. Київ (Центральний офіс)</div>
+          </div>
+        </div>
+
+        <!-- Auto Play / Interactive Control -->
+        <div class="flex items-center gap-2">
+          <button id="togglePlayBtn" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-lg text-xs font-mono transition-all flex items-center gap-2">
+            <span id="playIcon">⏸ ПАУЗА</span>
+          </button>
+          <button id="restartBtn" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono transition-all">
+            ↺ ЗНОВУ
+          </button>
+        </div>
+      </div>
+
+      <!-- Animated Progress Pipeline Bar -->
+      <div class="py-6">
+        <div class="flex justify-between text-xs font-mono text-slate-400 mb-2">
+          <span>СТАРТ ЗАПИТУ</span>
+          <span class="text-cyan-400 font-bold" id="progressPercent">5% ВИКОНАНО</span>
+          <span>ПЕРША ЗМІНА</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-950/80 rounded-full overflow-hidden border border-white/5 relative p-0.5">
+          <div id="progressBar" class="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-amber-400 rounded-full transition-all duration-700 w-[5%]"></div>
+        </div>
+      </div>
+
+      <!-- Middle Stage Dynamic Content: Story + Visual Artifact -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
+        
+        <!-- Left Column: Story Narration -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-amber-400 border border-amber-400/20">
+            <span id="tagDisplay">⚡ ЕКСТРЕНИЙ ВИКЛИК</span>
+          </div>
+
+          <h2 id="titleDisplay" class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+            «У нас через мобілізацію встали верстати. Якщо не запустимося за 3 тижні — штраф $40,000»
+          </h2>
+
+          <p id="descDisplay" class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Дзвінок власника швейної фабрики у понеділок о 09:15. Потрібно терміново 12 кваліфікованих швачок зі швидкістю пошиву на прямострочках від 800 одиниць за зміну. Роман запускає оперативний штаб.
+          </p>
+
+          <!-- Responsible Team Member Card -->
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-white/5">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-700 flex items-center justify-center font-bold text-white text-lg ring-2 ring-cyan-400/30" id="avatarLetter">
+              РЯ
+            </div>
+            <div>
+              <div id="personName" class="font-bold text-white text-sm">Роман Яновський</div>
+              <div id="personRole" class="text-xs text-slate-400">Керуючий проектами в Україні & партнерськими центрами</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Graphic Telemetry / Visual -->
+        <div class="lg:col-span-5">
+          <div class="p-6 rounded-xl bg-slate-950/90 border border-white/10 space-y-4 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+
+            <div class="text-xs font-mono text-slate-500 uppercase tracking-wider flex items-center justify-between">
+              <span>ТЕЛЕМЕТРІЯ ОПЕРАЦІЇ</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            </div>
+
+            <!-- Metric Items -->
+            <div class="space-y-3">
+              <div class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                <span class="text-slate-400" id="metric1Label">Кандидатів у скорингу:</span>
+                <span class="font-mono font-bold text-cyan-300" id="metric1Val">38 осіб</span>
+              </div>
+              <div class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                <span class="text-slate-400" id="metric2Label">Відеовізиток у кабінеті:</span>
+                <span class="font-mono font-bold text-white" id="metric2Val">16 затверджено</span>
+              </div>
+              <div class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                <span class="text-slate-400" id="metric3Label">Офіційний статус:</span>
+                <span class="font-mono font-bold text-amber-400" id="metric3Val">Аудит запиту 0 грн</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-400" id="metric4Label">Безпека коридору:</span>
+                <span class="font-mono font-bold text-emerald-400" id="metric4Val">100% супровід</span>
+              </div>
+            </div>
+
+            <!-- Mini Live Feed -->
+            <div class="pt-2 text-xs font-mono text-slate-400 bg-black/40 p-3 rounded-lg border border-white/5">
+              <span class="text-cyan-400">● LIVE: </span>
+              <span id="liveFeedText">Вхідний дзвінок зафіксовано в системі CRM.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navigation Steps (5 Checkpoints) -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-8 border-t border-white/10 mt-8">
+        <button onclick="setStage(0)" class="step-btn text-left p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all text-xs" data-idx="0">
+          <div class="font-mono text-slate-400">ЕТАП 1</div>
+          <div class="font-bold text-white mt-1">День 1: Запит</div>
+        </button>
+        <button onclick="setStage(1)" class="step-btn text-left p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all text-xs" data-idx="1">
+          <div class="font-mono text-slate-400">ЕТАП 2</div>
+          <div class="font-bold text-white mt-1">День 4: Тест у цеху</div>
+        </button>
+        <button onclick="setStage(2)" class="step-btn text-left p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all text-xs" data-idx="2">
+          <div class="font-mono text-slate-400">ЕТАП 3</div>
+          <div class="font-bold text-white mt-1">День 9: Дозвіл ДЦЗ</div>
+        </button>
+        <button onclick="setStage(3)" class="step-btn text-left p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all text-xs" data-idx="3">
+          <div class="font-mono text-slate-400">ЕТАП 4</div>
+          <div class="font-bold text-white mt-1">День 17: Коридор</div>
+        </button>
+        <button onclick="setStage(4)" class="step-btn text-left p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all text-xs" data-idx="4">
+          <div class="font-mono text-slate-400">ЕТАП 5</div>
+          <div class="font-bold text-white mt-1">День 21: Перша зміна</div>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Bottom Reassurance Note -->
+    <div class="text-center text-xs text-slate-500 font-mono">
+      💡 СТАНДАРТНИЙ ТЕРМІН ОФОРМЛЕННЯ В ЗВИЧАЙНОМУ РЕЖИМІ СКЛАДАЄ 30–45 ДНІВ. РЕКОРД 21 ДЕНЬ МОЖЛИВИЙ ПРИ МИТТЄВОМУ ПОГОДЖЕННІ ДОКУМЕНТІВ РОБОТОДАВЦЕМ.
+    </div>
+
+  </div>
+
+  <script>
+    const stages = [
+      {
+        day: "ДЕНЬ 01",
+        percent: "5%",
+        progressWidth: "5%",
+        location: "м. Київ (Центральний офіс)",
+        tag: "⚡ ЕКСТРЕНИЙ ВИКЛИК",
+        title: "«У нас через мобілізацію встали верстати. Якщо не запустимося за 3 тижні — зрив контракту»",
+        desc: "Дзвінок власника швейної фабрики у понеділок о 09:15. Потрібно терміново 12 кваліфікованих швачок зі швидкістю пошиву на прямострочках. Роман Яновський миттєво підключає базу акредитованого центру в Ташкенті.",
+        personName: "Роман Яновський",
+        personRole: "Керуючий проектами в Україні & зв'язок з Азією",
+        avatarLetter: "РЯ",
+        metric1: ["Кандидатів у скорингу:", "38 осіб"],
+        metric2: ["Формат аудиту:", "0 грн без авансу"],
+        metric3: ["Час реакції:", "15 хвилин"],
+        metric4: ["Статус готовності:", "Запуск відбору"],
+        liveFeed: "Запит внесено до CRM. Технічне ТЗ відправлено до тестового центру в Ташкент."
+      },
+      {
+        day: "ДЕНЬ 04",
+        percent: "25%",
+        progressWidth: "25%",
+        location: "м. Ташкент (Тестовий полігон)",
+        tag: "✂️ ПРАКТИЧНИЙ ТЕСТ & ВІДЕО",
+        title: "Фарход Карімов тестує кандидаток на оверлоках: кожна строчка перевірена на швидкість",
+        desc: "З 38 претенденток відібрано 14 найдосвідченіших із досвідом на експортних фабриках від 4 років. Оксана Ковальчук завантажує відеовізитки та тайм-тести строчок в Особистий кабінет клієнта. Замовник стверджує список за 2 години.",
+        personName: "Фарход Карімов & Оксана Ковальчук",
+        personRole: "Керівник центру тестування & Сервіс кабінету (CRM)",
+        avatarLetter: "ФК",
+        metric1: ["Відібрано кандидаток:", "14 швачок"],
+        metric2: ["Відео в кабінеті:", "14 відеовізиток"],
+        metric3: ["Погодження клієнтом:", "100% в 1 клік"],
+        metric4: ["Дисциплінарний скоринг:", "Пройдено"],
+        liveFeed: "Замовник через онлайн-кабінет затвердив 12 основних і 2 резервних кандидаток."
+      },
+      {
+        day: "ДЕНЬ 09",
+        percent: "50%",
+        progressWidth: "50%",
+        location: "м. Київ (Державний центр зайнятості)",
+        tag: "⚖️ 100% БІЛА ЛЕГАЛІЗАЦІЯ",
+        title: "Владлен Вікторович подає повний пакет до ДЦЗ: наказ на дозвіл праці підписано",
+        desc: "Жодних затримок та помилок у перекладах чи нотаріальних заявах. Старший юрист особисто супроводжує проходження комісії. Офіційний дозвіл на роботу на ТОВ замовника видано за спеціальним пріоритетним регламентом.",
+        personName: "Владлен Вікторович Пономаренко",
+        personRole: "Головний міграційний юрист компанії",
+        avatarLetter: "ВП",
+        metric1: ["Дозвіл ДЦЗ:", "Офіційно видано"],
+        metric2: ["Прив'язка до ТОВ:", "100% юридично"],
+        metric3: ["Імунітет мобілізації:", "Стаття 23 ЗУ"],
+        metric4: ["Податковий аудит:", "Оптимізовано"],
+        liveFeed: "Накази ДЦЗ зареєстровано в електронному реєстрі. Підготовка до вильоту."
+      },
+      {
+        day: "ДЕНЬ 17",
+        percent: "75%",
+        progressWidth: "75%",
+        location: "Аеропорт Кишинів ➔ Зелений коридор",
+        tag: "🛡️ ОРГАНІЗОВАНИЙ ТРАНЗИТ",
+        title: "Швачки купують квитки за власний кошт. Станіслав Лухменко зустрічає рейс у Молдові",
+        desc: "Дівчата прилетіли повним складом — кожна придбала квиток за свої гроші (гарантія зацікавленості у заробітках). Станіслав особисто координує проходження митного контролю та саджає групу в комфортабельний прямий трансфер.",
+        personName: "Станіслав Лухменко",
+        personRole: "Керівник логістики & транзитного хабу в Молдові",
+        avatarLetter: "СЛ",
+        metric1: ["Авіаквитки:", "Оплачено робітниками"],
+        metric2: ["Транзитний хаб:", "Молдова пройшла без черг"],
+        metric3: ["Транспорт:", "Організований бус"],
+        metric4: ["Супровід:", "Особистий нагляд 24/7"],
+        liveFeed: "Кордон перетнуто впевнено. Колона рухається безпосередньо до підприємства замовника."
+      },
+      {
+        day: "ДЕНЬ 21",
+        percent: "100%",
+        progressWidth: "100%",
+        location: "Виробничий цех (Україна)",
+        tag: "🏆 ФІНІШ РЕКОРДУ: ПЕРША ЗМІНА",
+        title: "Денис Кравченко привіз бригаду в гуртожиток. О 08:00 ранку швачки сіли за машини",
+        desc: "План виконано за 21 календарний день! Виробнича лінія запущена на повну потужність, замовник встиг здати експортну партію без єдиного цента штрафу. Тільки після виходу людей у цех сплачується комісія I CLUB.",
+        personName: "Денис Кравченко",
+        personRole: "Операційний координатор трансферу та онбордингу",
+        avatarLetter: "ДК",
+        metric1: ["Людей на зміні:", "12 із 12 швачок"],
+        metric2: ["Вихід у зміну:", "День 21, 08:00"],
+        metric3: ["Штраф підприємства:", "$0 (врятовано контракт)"],
+        metric4: ["Комісія агенції:", "Сплачено за фактом"],
+        liveFeed: "Акт виконаних робіт підписано. Персонал заступив на річний контракт."
+      }
+    ];
+
+    let currentStage = 0;
+    let isPlaying = true;
+    let timer = null;
+
+    function renderStage(idx) {
+      const data = stages[idx];
+      document.getElementById('dayDisplay').innerText = data.day;
+      document.getElementById('progressPercent').innerText = data.percent + " ВИКОНАНО";
+      document.getElementById('progressBar').style.width = data.progressWidth;
+      document.getElementById('locationDisplay').innerText = data.location;
+      document.getElementById('tagDisplay').innerText = data.tag;
+      document.getElementById('titleDisplay').innerText = data.title;
+      document.getElementById('descDisplay').innerText = data.desc;
+      document.getElementById('personName').innerText = data.personName;
+      document.getElementById('personRole').innerText = data.personRole;
+      document.getElementById('avatarLetter').innerText = data.avatarLetter;
+
+      document.getElementById('metric1Label').innerText = data.metric1[0];
+      document.getElementById('metric1Val').innerText = data.metric1[1];
+      document.getElementById('metric2Label').innerText = data.metric2[0];
+      document.getElementById('metric2Val').innerText = data.metric2[1];
+      document.getElementById('metric3Label').innerText = data.metric3[0];
+      document.getElementById('metric3Val').innerText = data.metric3[1];
+      document.getElementById('metric4Label').innerText = data.metric4[0];
+      document.getElementById('metric4Val').innerText = data.metric4[1];
+      document.getElementById('liveFeedText').innerText = data.liveFeed;
+
+      document.querySelectorAll('.step-btn').forEach((btn, i) => {
+        if (i === idx) {
+          btn.classList.add('border-cyan-400', 'bg-cyan-950/50', 'text-cyan-300');
+          btn.classList.remove('border-white/10', 'bg-white/5');
+        } else {
+          btn.classList.remove('border-cyan-400', 'bg-cyan-950/50', 'text-cyan-300');
+          btn.classList.add('border-white/10', 'bg-white/5');
+        }
+      });
+    }
+
+    function setStage(idx) {
+      currentStage = idx;
+      renderStage(currentStage);
+      resetAutoPlay();
+    }
+
+    function nextStage() {
+      currentStage = (currentStage + 1) % stages.length;
+      renderStage(currentStage);
+    }
+
+    function startAutoPlay() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(nextStage, 4500);
+      isPlaying = true;
+      document.getElementById('playIcon').innerText = "⏸ ПАУЗА";
+    }
+
+    function stopAutoPlay() {
+      if (timer) clearInterval(timer);
+      isPlaying = false;
+      document.getElementById('playIcon').innerText = "▶ ГРАТИ";
+    }
+
+    function resetAutoPlay() {
+      if (isPlaying) startAutoPlay();
+    }
+
+    document.getElementById('togglePlayBtn').addEventListener('click', () => {
+      if (isPlaying) stopAutoPlay();
+      else startAutoPlay();
+    });
+
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      setStage(0);
+      startAutoPlay();
+    });
+
+    const canvas = document.getElementById('fxCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.alpha = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(6, 182, 212, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) particles.push(new Particle());
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    renderStage(0);
+    startAutoPlay();
+  </script>
+</body>
+</html>
