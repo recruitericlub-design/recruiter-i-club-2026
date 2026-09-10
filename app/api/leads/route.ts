@@ -43,7 +43,30 @@ export async function POST(request: Request) {
     existingLeads.unshift(leadRecord);
     fs.writeFileSync(leadsFile, JSON.stringify(existingLeads, null, 2), 'utf-8');
 
-    console.log(`[CRM Lead Captured] ID: ${leadRecord.id} | ${leadRecord.name} (${leadRecord.company}) | Phone: ${leadRecord.phone} | Messenger: ${leadRecord.messenger}`);
+    console.log(`[CRM Lead Captured] ID: ${leadRecord.id} | ${leadRecord.name} (${leadRecord.company}) | Phone: ${leadRecord.phone}`);
+
+    // Forward to official CRM Webhook gateway
+    try {
+      const parsedHeadcount = parseInt(String(data.headcount || data.workersNeeded || '').replace(/\D/g, '')) || 5;
+      await fetch('https://online-crm.onrender.com/api/webhooks/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: leadRecord.name,
+          phone: leadRecord.phone,
+          email: data.email || '',
+          company: leadRecord.company,
+          headcount: parsedHeadcount,
+          message: data.message || `Спеціалізація: ${data.specialization || leadRecord.industry}. Потрібно: ${leadRecord.workersNeeded} робітників.`,
+          utm_source: data.utm_source || 'Next.js API Gateway',
+          utm_campaign: data.utm_campaign || 'B2B Recruitment 2026',
+          utm_medium: data.utm_medium || 'website_lead'
+        })
+      });
+      console.log(`[CRM Webhook Forwarded successfully for ${leadRecord.id}]`);
+    } catch (crmErr) {
+      console.error('[CRM Webhook Forward Error]:', crmErr);
+    }
 
     return NextResponse.json({
       success: true,

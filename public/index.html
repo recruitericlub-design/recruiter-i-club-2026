@@ -1297,31 +1297,37 @@
           </p>
         </div>
 
-        <form onsubmit="handleAuditSubmit(event)" class="space-y-4 max-w-2xl mx-auto">
+        <form id="audit-form" onsubmit="handleAuditSubmit(event)" class="space-y-4 max-w-2xl mx-auto">
           
           <div>
             <label class="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">Ваше ім'я та посада</label>
-            <input type="text" required placeholder="Олександр, директор з виробництва" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
+            <input type="text" id="audit-name" name="name" required placeholder="Олександр, директор з виробництва" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">Спеціалізація працівників</label>
-              <input type="text" required placeholder="Зварювальники, арматурники, різноробочі" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
+              <input type="text" id="audit-spec" name="specialization" required placeholder="Зварювальники, арматурники, різноробочі" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
             </div>
             <div>
               <label class="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">Необхідна кількість людей</label>
-              <input type="text" required placeholder="Напр: 10 або 25 людей" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
+              <input type="text" id="audit-headcount" name="headcount" required placeholder="Напр: 10 або 25 людей" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
             </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">Контактний номер телефону (Telegram / WhatsApp / Дзвінок)</label>
-            <input type="tel" required placeholder="+380" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-mono focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">Контактний номер телефону (Telegram / WhatsApp / Дзвінок)</label>
+              <input type="tel" id="audit-phone" name="phone" required placeholder="+380" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-mono focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
+            </div>
+            <div>
+              <label class="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">Підприємство або Email (опціонально)</label>
+              <input type="text" id="audit-company" name="company" placeholder="ТОВ / Завод / email" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-growth focus:ring-1 focus:ring-emerald-growth bg-slate-50/50">
+            </div>
           </div>
 
-          <button type="submit" class="w-full py-4 rounded-button bg-emerald-growth hover:bg-deep-emerald text-white font-extrabold text-base shadow-lg shadow-emerald-950/20 transition-all hover:scale-[1.01] uppercase tracking-wider">
-            Замовити безкоштовний аудит запиту (0 грн)
+          <button type="submit" id="audit-submit-btn" class="w-full py-4 rounded-button bg-emerald-growth hover:bg-deep-emerald text-white font-extrabold text-base shadow-lg shadow-emerald-950/20 transition-all hover:scale-[1.01] uppercase tracking-wider flex items-center justify-center gap-2">
+            <span>Замовити безкоштовний аудит запиту (0 грн)</span>
           </button>
 
           <p class="text-[11px] text-slate-500 text-center mt-3">
@@ -1824,36 +1830,141 @@
         <button onclick="closeRequestModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
       </div>
 
-      <form onsubmit="handleCandidateModalSubmit(event)" class="space-y-3">
+      <form id="candidate-modal-form" onsubmit="handleCandidateModalSubmit(event)" class="space-y-3">
+        <input type="hidden" id="modal-candidate-target" name="candidate" value="">
         <div>
-          <label class="block text-xs font-bold tracking-wide text-slate-600 mb-1">КІЛЬКІСТЬ РОБІТНИКІВ</label>
-          <input type="text" required placeholder="Напр: 5 або 15 людей" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth">
+          <label class="block text-xs font-bold tracking-wide text-slate-600 mb-1">ВАШЕ ІМ'Я ТА ПОСАДА</label>
+          <input type="text" id="modal-name" name="name" required placeholder="Олександр, керівник виробництва" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth">
         </div>
-        <div>
-          <label class="block text-xs font-bold tracking-wide text-slate-600 mb-1">НАЗВА ПІДПРИЄМСТВА / ЗАВОДУ</label>
-          <input type="text" required placeholder="ТОВ / ПП" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth">
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-bold tracking-wide text-slate-600 mb-1">КІЛЬКІСТЬ РОБІТНИКІВ</label>
+            <input type="text" id="modal-headcount" name="headcount" required placeholder="Напр: 5 або 15" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth">
+          </div>
+          <div>
+            <label class="block text-xs font-bold tracking-wide text-slate-600 mb-1">ПІДПРИЄМСТВО</label>
+            <input type="text" id="modal-company" name="company" placeholder="ТОВ / ПП" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth">
+          </div>
         </div>
         <div>
           <label class="block text-xs font-bold tracking-wide text-slate-600 mb-1">ВАШ ТЕЛЕФОН (Telegram / WhatsApp / Дзвінок)</label>
-          <input type="tel" required placeholder="+380" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-mono focus:outline-none focus:border-emerald-growth">
+          <input type="tel" id="modal-phone" name="phone" required placeholder="+380" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-mono focus:outline-none focus:border-emerald-growth">
         </div>
-        <button type="submit" class="w-full py-3 rounded-button bg-emerald-growth hover:bg-deep-emerald text-white font-bold text-xs shadow-md transition uppercase tracking-wider">
-          Отримати анкети схожих спеціалістів (0 грн)
+        <button type="submit" id="modal-submit-btn" class="w-full py-3 rounded-button bg-emerald-growth hover:bg-deep-emerald text-white font-bold text-xs shadow-md transition uppercase tracking-wider flex items-center justify-center gap-2">
+          <span>Отримати анкети схожих спеціалістів (0 грн)</span>
         </button>
       </form>
     </div>
   </div>
 
-  <!-- JavaScript Interactions -->
+  <!-- Success Notification Modal -->
+  <div id="success-modal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-7 shadow-2xl border border-emerald-500/30 text-center relative animate-in fade-in zoom-in-95 duration-200">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center text-3xl mb-4 shadow-xs border border-emerald-200">
+        ✓
+      </div>
+      <div class="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-extrabold uppercase tracking-wider mb-2 border border-emerald-200">
+        Заявку зареєстровано в CRM
+      </div>
+      <h3 class="font-extrabold text-xl text-ink-black mb-2">Дякуємо! Запит прийнято</h3>
+      <p id="success-modal-message" class="text-xs text-slate-600 leading-relaxed mb-6">
+        Ваші контакти та параметри заявки успішно передано до чергового куратора проектів Recruiter I Club. Ми зв'яжемося з вами протягом 15 хвилин для надання кошторису.
+      </p>
+      <button onclick="closeSuccessModal()" class="w-full py-3 rounded-button bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-md">
+        Зрозуміло, дякую
+      </button>
+    </div>
+  </div>
+
+  <!-- JavaScript Interactions & Direct CRM Webhook Integration -->
   <script>
-    function handleAuditSubmit(e) {
-      e.preventDefault();
-      alert('Дякуємо! Ваш запит на аудит прийнято. Керуючий проектами Роман Яновський зв\'яжеться з вами протягом 15 хвилин для надання кошторису.');
-      e.target.reset();
+    // 1. UTM Tag Extraction & Persistence
+    function getUtmParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+      utmKeys.forEach(k => {
+        const val = urlParams.get(k);
+        if (val) {
+          try { sessionStorage.setItem(k, val); } catch(e) {}
+        }
+      });
+
+      return {
+        utm_source: (sessionStorage.getItem('utm_source') || urlParams.get('utm_source') || 'recruiter-portal').trim(),
+        utm_medium: (sessionStorage.getItem('utm_medium') || urlParams.get('utm_medium') || 'direct_organic').trim(),
+        utm_campaign: (sessionStorage.getItem('utm_campaign') || urlParams.get('utm_campaign') || 'B2B Recruitment 2026').trim(),
+        utm_term: (sessionStorage.getItem('utm_term') || urlParams.get('utm_term') || '').trim(),
+        utm_content: (sessionStorage.getItem('utm_content') || urlParams.get('utm_content') || window.location.pathname).trim()
+      };
+    }
+
+    // 2. Direct CRM Webhook Dispatcher
+    async function sendLeadToCrm(lead) {
+      const utms = getUtmParams();
+      const numHeadcount = parseInt(String(lead.headcount || '').replace(/\\D/g, '')) || 5;
+
+      const crmPayload = {
+        name: lead.name || 'Анонімний замовник',
+        phone: lead.phone || '',
+        email: lead.email || '',
+        company: lead.company || 'ТОВ (не вказано)',
+        headcount: numHeadcount,
+        message: lead.message || 'Заявка на підбір персоналу з сайту',
+        utm_source: utms.utm_source,
+        utm_campaign: utms.utm_campaign,
+        utm_medium: utms.utm_medium
+      };
+
+      console.log('[CRM Webhook] Dispatching lead payload:', crmPayload);
+
+      // Primary: Official Webhook
+      try {
+        const crmRes = await fetch('https://online-crm.onrender.com/api/webhooks/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(crmPayload)
+        });
+        const crmData = await crmRes.json().catch(() => ({}));
+        console.log('[CRM Webhook] Response:', crmRes.status, crmData);
+      } catch (err) {
+        console.warn('[CRM Webhook] Direct call warning (will use fallback):', err);
+      }
+
+      // Secondary Backup: Server-side Next.js Route
+      try {
+        await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...crmPayload,
+            workersNeeded: String(numHeadcount),
+            source: 'website_b2b_portal'
+          })
+        });
+      } catch (backupErr) {
+        console.warn('[CRM Backup] Route warning:', backupErr);
+      }
+    }
+
+    // 3. UI Modal Controls
+    function showSuccessModal(customMsg) {
+      if (customMsg) {
+        document.getElementById('success-modal-message').innerText = customMsg;
+      }
+      const modal = document.getElementById('success-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById('success-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
 
     function openRequestModal(candidateName) {
       document.getElementById('modal-candidate-title').innerText = 'Запит: ' + candidateName;
+      document.getElementById('modal-candidate-target').value = candidateName;
       document.getElementById('request-modal').classList.remove('hidden');
       document.getElementById('request-modal').classList.add('flex');
     }
@@ -1863,11 +1974,66 @@
       document.getElementById('request-modal').classList.remove('flex');
     }
 
-    function handleCandidateModalSubmit(e) {
+    // 4. Form Handlers
+    async function handleAuditSubmit(e) {
       e.preventDefault();
-      alert('Запит успішно надіслано в CRM! Куратор бази завантажить досьє відповідних працівників та зв\'яжеться з вами.');
+      const btn = document.getElementById('audit-submit-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Передача в CRM...</span>';
+
+      const name = document.getElementById('audit-name').value.trim();
+      const spec = document.getElementById('audit-spec').value.trim();
+      const headcount = document.getElementById('audit-headcount').value.trim();
+      const phone = document.getElementById('audit-phone').value.trim();
+      const company = (document.getElementById('audit-company').value || '').trim();
+
+      const leadData = {
+        name: name,
+        phone: phone,
+        company: company || 'ТОВ',
+        headcount: headcount,
+        message: `Запит на аудит: ${spec}. Потрібно: ${headcount} робітників.`
+      };
+
+      await sendLeadToCrm(leadData);
+
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+      e.target.reset();
+
+      showSuccessModal(`Дякуємо, ${name}! Ваш запит на розрахунок ${headcount} робітників (${spec}) успішно зареєстровано в CRM. Роман Яновський підготує індивідуальний кошторис та зв'яжеться з вами за номером ${phone}.`);
+    }
+
+    async function handleCandidateModalSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('modal-submit-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Передача в CRM...</span>';
+
+      const candidateTarget = document.getElementById('modal-candidate-target').value || 'Кандидат';
+      const name = document.getElementById('modal-name').value.trim();
+      const headcount = document.getElementById('modal-headcount').value.trim();
+      const company = (document.getElementById('modal-company').value || '').trim();
+      const phone = document.getElementById('modal-phone').value.trim();
+
+      const leadData = {
+        name: name,
+        phone: phone,
+        company: company || 'ТОВ / ПП',
+        headcount: headcount,
+        message: `Запит кандидатів за профілем: ${candidateTarget}. Потрібно: ${headcount} робітників.`
+      };
+
+      await sendLeadToCrm(leadData);
+
+      btn.disabled = false;
+      btn.innerHTML = originalText;
       closeRequestModal();
       e.target.reset();
+
+      showSuccessModal(`Дякуємо, ${name}! Запит на анкету за профілем "${candidateTarget}" надіслано в CRM. Куратор бази відбере кандидатів та зв'яжеться з вами за номером ${phone}.`);
     }
 
     function toggleAiChat() {
