@@ -439,12 +439,13 @@
         <button onclick="toggleAiChat()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
       </div>
 
-      <div id="ai-chat-messages" class="p-4 space-y-3 h-96 overflow-y-auto bg-slate-50 text-xs">
+      <div id="ai-chat-messages" class="p-4 space-y-3 h-80 sm:h-96 overflow-y-auto bg-slate-50 text-xs flex-1">
         <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">
           👋 Вітаю! Я інтелектуальний B2B-консультант <strong>Recruiter I Club</strong>. Допоможу вам розрахувати строки та вартість імпорту персоналу для вашого підприємства згідно законодавства України (ст. 23 ЗУ).
         </div>
+      </div>
 
-      <div class="p-3 bg-white border-t border-slate-200 flex gap-2">
+      <div class="p-3 bg-white border-t border-slate-200 flex gap-2 shrink-0">
         <input id="ai-user-input" type="text" placeholder="Напишіть ваше запитання..." class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth" onkeydown="if(event.key==='Enter') sendAiMessage()">
         <button onclick="sendAiMessage()" class="px-3 py-2 bg-emerald-growth text-white rounded-xl text-xs font-bold hover:bg-deep-emerald transition">➔</button>
       </div>
