@@ -1,0 +1,42 @@
+[
+  {
+    "round": 1,
+    "title": "Hero & Conversion Architecture (Bento + AI Shift Sizing)",
+    "screen_id": "85c8795a04cb42738bc63a449761d23a",
+    "html_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_1_design.html",
+    "shot_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_1_screenshot.png",
+    "success": true
+  },
+  {
+    "round": 2,
+    "title": "Worker Catalog & AI Match Passports (Asia Work Benchmark)",
+    "screen_id": "e37858093d2a442b97d625bd2da0629a",
+    "html_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_2_design.html",
+    "shot_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_2_screenshot.png",
+    "success": true
+  },
+  {
+    "round": 3,
+    "title": "Industrial Testing Infrastructure & QA Lab",
+    "screen_id": "36ac1c46a99f4b938de1c968da423b4f",
+    "html_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_3_design.html",
+    "shot_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_3_screenshot.png",
+    "success": true
+  },
+  {
+    "round": 4,
+    "title": "Transparent 4-Tranche Escrow & Legal Shield (Article 23)",
+    "screen_id": "ecd9fb90545b485595cd5d68cb97490c",
+    "html_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_4_design.html",
+    "shot_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_4_screenshot.png",
+    "success": true
+  },
+  {
+    "round": 5,
+    "title": "Executive Authority & Final Masterpiece (Founders & AI Concierge)",
+    "screen_id": "8e3f279a3ae84f8d9e9365ba9dd2b499",
+    "html_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_5_design.html",
+    "shot_path": "e:\\сайт Recruiter I Club\\hirex-portal-2026\\stitch_rounds\\round_5_screenshot.png",
+    "success": true
+  }
+]

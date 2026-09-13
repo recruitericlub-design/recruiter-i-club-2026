@@ -1,0 +1,28 @@
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"name\":\"projects/16904973243350504592/screens/3034a78dfb33438da09e5db863ad1b09\",\"title\":\"Recruiter I Club — Industrial Workforce Infrastructure\",\"screenshot\":{\"name\":\"projects/16904973243350504592/files/303fcf347480481e90393f29c6daf528\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1VbaWaou476kZnjgEhAmbu9SVIdyCcnhsnR1O741JzTrXqi8aQpZ6sekhhFVcJXn8B0kNIJ5saBjbPJQuV9ewillutNXXCFKXgYl6R85dSmaGf19iaL1vf9z26i6VbAKmmB-0vKRzNL2dwEekIzrGxr1hYEO9RL2xtx1hacXIKp_qLzG1yCA_9N7xKH6Aj2hXlqn1X40UklKo4yoL5kypiNMzi4YNmSUK0_27EustWj2irDbxRtvCmkmsH8\"},\"htmlCode\":{\"name\":\"projects/16904973243350504592/files/99202d5d44c14fcb86a2682af356cb2e\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzZkYWQxNDVmNTE1MzQzOWFhNjUzZGUwYjUwYjMyMTkyEgsSBxDjrI6CiRYYAZIBJAoKcHJvamVjdF9pZBIWQhQxNjkwNDk3MzI0MzM1MDUwNDU5Mg&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"8714\",\"deviceType\":\"DESKTOP\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "deviceType": "DESKTOP",
+      "height": "8714",
+      "htmlCode": {
+        "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzZkYWQxNDVmNTE1MzQzOWFhNjUzZGUwYjUwYjMyMTkyEgsSBxDjrI6CiRYYAZIBJAoKcHJvamVjdF9pZBIWQhQxNjkwNDk3MzI0MzM1MDUwNDU5Mg&filename=&opi=96797242",
+        "mimeType": "text/html",
+        "name": "projects/16904973243350504592/files/99202d5d44c14fcb86a2682af356cb2e"
+      },
+      "name": "projects/16904973243350504592/screens/3034a78dfb33438da09e5db863ad1b09",
+      "screenshot": {
+        "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VbaWaou476kZnjgEhAmbu9SVIdyCcnhsnR1O741JzTrXqi8aQpZ6sekhhFVcJXn8B0kNIJ5saBjbPJQuV9ewillutNXXCFKXgYl6R85dSmaGf19iaL1vf9z26i6VbAKmmB-0vKRzNL2dwEekIzrGxr1hYEO9RL2xtx1hacXIKp_qLzG1yCA_9N7xKH6Aj2hXlqn1X40UklKo4yoL5kypiNMzi4YNmSUK0_27EustWj2irDbxRtvCmkmsH8",
+        "name": "projects/16904973243350504592/files/303fcf347480481e90393f29c6daf528"
+      },
+      "title": "Recruiter I Club — Industrial Workforce Infrastructure",
+      "width": "2560"
+    }
+  }
+}

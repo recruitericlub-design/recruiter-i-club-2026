@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recruiter I Club | Master Industrial Workforce Platform</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary": "#000000",
+          "tertiary-container": "#111c2d",
+          "tertiary-fixed": "#d8e3fb",
+          "surface-variant": "#d3e4fe",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low": "#eff4ff",
+          "secondary-fixed-dim": "#68dba9",
+          "on-tertiary": "#ffffff",
+          "surface-tint": "#565e74",
+          "on-background": "#0b1c30",
+          "surface-dim": "#cbdbf5",
+          "on-secondary-container": "#00714e",
+          "inverse-primary": "#bec6e0",
+          "on-error-container": "#93000a",
+          "inverse-surface": "#213145",
+          "on-secondary-fixed-variant": "#005137",
+          "surface-container-highest": "#d3e4fe",
+          "on-tertiary-container": "#79849a",
+          "secondary-container": "#82f5c1",
+          "outline": "#76777d",
+          "background": "#f8f9ff",
+          "surface-bright": "#f8f9ff",
+          "on-surface-variant": "#45464d",
+          "on-secondary-fixed": "#002114",
+          "surface-container-high": "#dce9ff",
+          "on-tertiary-fixed-variant": "#3c475a",
+          "on-primary-fixed": "#131b2e",
+          "on-tertiary-fixed": "#111c2d",
+          "on-primary": "#ffffff",
+          "surface": "#f8f9ff",
+          "primary-container": "#131b2e",
+          "outline-variant": "#c6c6cd",
+          "on-primary-container": "#7c839b",
+          "on-error": "#ffffff",
+          "error": "#ba1a1a",
+          "tertiary": "#000000",
+          "inverse-on-surface": "#eaf1ff",
+          "error-container": "#ffdad6",
+          "secondary-fixed": "#85f8c4",
+          "primary-fixed": "#dae2fd",
+          "on-surface": "#0b1c30",
+          "secondary": "#006c4a",
+          "surface-container": "#e5eeff",
+          "on-secondary": "#ffffff",
+          "on-primary-fixed-variant": "#3f465c",
+          "primary-fixed-dim": "#bec6e0",
+          "tertiary-fixed-dim": "#bcc7de"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-xl": "2rem",
+          "space-base": "1rem",
+          "gutter-desktop": "1.5rem",
+          "margin-desktop": "2rem",
+          "margin-mobile": "1rem",
+          "space-3xl": "4rem",
+          "grid-max-width": "90rem",
+          "space-sm": "0.5rem",
+          "space-2xl": "3rem",
+          "space-xxs": "0.125rem",
+          "space-xs": "0.25rem",
+          "space-lg": "1.5rem",
+          "space-md": "0.75rem",
+          "gutter-mobile": "1rem"
+        },
+        "fontFamily": {
+          "display-xl": ["Inter", "sans-serif"],
+          "headline-sm": ["Inter", "sans-serif"],
+          "display-xl-mobile": ["Inter", "sans-serif"],
+          "headline-md": ["Inter", "sans-serif"],
+          "body-md": ["Inter", "sans-serif"],
+          "headline-lg-mobile": ["Inter", "sans-serif"],
+          "body-sm": ["Inter", "sans-serif"],
+          "body-lg": ["Inter", "sans-serif"],
+          "headline-lg": ["Inter", "sans-serif"],
+          "label-lg": ["JetBrains Mono", "monospace"],
+          "label-sm": ["JetBrains Mono", "monospace"],
+          "label-md": ["JetBrains Mono", "monospace"]
+        },
+        "fontSize": {
+          "display-xl": ["3rem", { "lineHeight": "3.5rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+          "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "display-xl-mobile": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "headline-md": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "body-md": ["0.875rem", { "lineHeight": "1.375rem", "letterSpacing": "0em", "fontWeight": "400" }],
+          "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "letterSpacing": "0em", "fontWeight": "400" }],
+          "body-lg": ["1rem", { "lineHeight": "1.625rem", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+          "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+          "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+          "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.05em", "fontWeight": "600" }],
+          "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" }]
+        }
+      }
+    }
+  }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 2px;
+      background: #000000;
+      cursor: pointer;
+      border: 1px solid #ffffff;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased selection:bg-secondary selection:text-on-secondary min-h-screen flex flex-col">
+<!-- 1. SOVEREIGN REGULATORY TELEMETRY BANNER (TOP AUDIT STRIP) -->
+<div class="w-full bg-primary-container text-on-surface border-b border-outline-variant/30 text-on-primary">
+<div class="max-w-grid-max-width mx-auto px-margin-desktop py-space-xs flex flex-wrap items-center justify-between text-label-sm font-label-sm tracking-wider">
+<div class="flex items-center gap-space-lg flex-wrap">
+<div class="flex items-center gap-space-xs text-secondary-fixed">
+<span class="inline-block w-2 h-2 bg-secondary-container rounded-full animate-pulse"></span>
+<span class="text-on-primary font-bold">STATE LICENSE № 1428</span>
+<span class="text-outline-variant">|</span>
+<span>LAW OF UKRAINE “ON EMPLOYMENT”</span>
+</div>
+<div class="hidden lg:flex items-center gap-space-xs text-on-primary-container">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+<span class="text-surface-container-lowest font-medium">ARTICLE 23 MOBILIZATION IMMUNITY: 100% FOREIGN NATIONAL EXEMPTION</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md text-surface-variant">
+<span class="text-label-sm font-label-sm text-outline-variant">CONSULAR CORRIDOR:</span>
+<span class="text-on-primary font-mono bg-primary px-space-xs py-0.5 border border-outline/40">TASHKENT ➔ CHISINAU ➔ ODESA [GREEN CORRIDOR ACTIVE]</span>
+<span class="text-secondary-fixed font-bold">24H TELEMETRY OK</span>
+</div>
+</div>
+</div>
+<!-- SHARED COMPONENT: TopNavBar (from Shared Components JSON) -->
+<header class="w-full border-b border-outline-variant dark:border-outline max-w-grid-max-width mx-auto px-margin-desktop bg-surface-container-lowest dark:bg-inverse-surface">
+<div class="flex items-center justify-between h-16">
+<!-- Brand Logo Anchor -->
+<div class="flex items-center gap-space-lg">
+<a class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-inverse-on-surface uppercase tracking-tight flex items-center gap-space-xs" href="#">
+<span class="bg-primary text-on-primary px-2 py-1 rounded-DEFAULT text-label-md font-label-md font-bold">R | C</span>
+<span>Recruiter I Club</span>
+</a>
+<span class="hidden xl:inline-block text-label-sm font-label-sm text-on-surface-variant uppercase px-2 py-0.5 bg-surface-container-low border border-outline-variant rounded-DEFAULT">
+          State Employment Service Partner
+        </span>
+</div>
+<!-- Navigation Links (Mapped from JSON) -->
+<nav class="hidden md:flex items-center space-x-6 text-label-md font-label-md">
+<a class="border-b-2 border-primary dark:border-inverse-primary text-primary dark:text-inverse-primary font-bold pb-1 transition-colors duration-150" href="#pipelines">Workforce Pipelines</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#standards">Trade Standards</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#legal">Regulatory Legal</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#financial">Financial Schedule</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#catalog">Dossier Catalog</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-sm">
+<!-- Search bar on right -->
+<div class="hidden lg:flex items-center relative">
+<input class="bg-surface border border-outline-variant text-body-sm font-body-sm px-space-sm py-1.5 rounded-DEFAULT w-52 focus:outline-none focus:ring-1 focus:ring-secondary" placeholder="Search Dossiers, ISO Codes..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 text-[18px] text-on-surface-variant" data-icon="search">search</span>
+</div>
+<!-- Trailing Icons -->
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 rounded-DEFAULT" title="State Verification Badge">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified_user">verified_user</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 rounded-DEFAULT" title="Legal Compliance Archive">
+<span class="material-symbols-outlined text-[20px]" data-icon="gavel">gavel</span>
+</button>
+<!-- Trailing Actions -->
+<a class="hidden sm:inline-flex items-center text-label-sm font-label-sm border border-outline-variant px-3 py-2 rounded-DEFAULT text-on-surface hover:bg-surface-container-low transition-colors duration-150" href="#emergency">
+          Emergency Hotline
+        </a>
+<a class="inline-flex items-center text-label-sm font-label-sm bg-primary text-on-primary px-3.5 py-2 rounded-DEFAULT font-semibold hover:bg-on-primary-fixed-variant transition-colors duration-150" href="#quota">
+          Enterprise Portal
+        </a>
+</div>
+</div>
+</header>
+<!-- MAIN VIEWPORT CANVAS: INDUSTRIAL PRECISION ARCHITECTURE -->
+<main class="flex-grow w-full max-w-grid-max-width mx-auto px-margin-desktop py-space-xl space-y-space-2xl">
+<!-- 2. HERO & CONVERSION BENTO -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- HERO LEFT & SIMULATOR (Span 8) -->
+<div class="lg:col-span-7 xl:col-span-8 space-y-space-lg">
+<!-- Sovereign Classification Tag -->
+<div class="flex flex-wrap items-center gap-space-xs text-label-sm font-label-sm">
+<span class="bg-secondary text-on-secondary px-2.5 py-1 rounded-DEFAULT font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">gavel</span>
+            ARTICLE 23 STATUTORY EXEMPTION
+          </span>
+<span class="bg-surface-container text-on-surface-variant px-2.5 py-1 rounded-DEFAULT border border-outline-variant font-mono">
+            STATE AUDIT CODE #UA-1428-IND
+          </span>
+<span class="bg-surface-container-low text-secondary px-2 py-1 rounded-DEFAULT border border-outline-variant font-mono flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> DIN EN ISO 9001:2015 AUDITED
+          </span>
+</div>
+<!-- Master Headline -->
+<div class="space-y-space-sm">
+<h1 class="font-display-xl text-display-xl text-on-surface font-extrabold tracking-tight">
+            CERTIFIED INDUSTRIAL WORKFORCE FOR ENTERPRISES IN UKRAINE: <span class="text-primary underline decoration-secondary decoration-2 underline-offset-8">DEPLOYMENT IN 20–45 DAYS</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+            Sovereign B2B deployment matrix supplying vetted specialists from Central and South Asia. Direct enterprise employment on client LLC, zero mobilization liability under Ukrainian law, and pre-screened DIN EN ISO laboratory testing.
+          </p>
+</div>
+<!-- AI Workforce Shift Sizing Simulator v3.0 (Interactive Bento Module) -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-base shadow-none">
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">tune</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">AI Workforce Shift Sizing Simulator v3.0</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary font-mono bg-surface-container-low px-2 py-0.5 border border-outline-variant">
+              CALIBRATED TO STATE QUOTA 2025
+            </span>
+</div>
+<!-- Controls Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<!-- Trade Selector -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant block">Target Trade Discipline</label>
+<select class="w-full bg-surface border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0" id="sim-trade">
+<option value="6G Welder">6G Pipe Welder (SMAW/TIG/FCAW)</option>
+<option value="5-Axis CNC">5-Axis CNC Milling Operator</option>
+<option value="Heavy Forklift">Heavy Reach-Stacker / Logistics</option>
+<option value="Agrotechnician">Combine &amp; Precision Agrotechnician</option>
+</select>
+</div>
+<!-- Shift Protocol -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant block">Factory Shift Matrix</label>
+<select class="w-full bg-surface border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0" id="sim-shift">
+<option value="2-Shift">2-Shift Continuous (12h Rotational)</option>
+<option value="3-Shift">3-Shift Standard (8h Industrial)</option>
+<option value="Overhaul">Turnaround / 24-7 Rapid Overhaul</option>
+</select>
+</div>
+<!-- Target Corridor SLA -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant block">Corridor Priority</label>
+<div class="bg-surface-container p-2 border border-outline-variant rounded-DEFAULT text-label-sm font-label-sm font-mono flex items-center justify-between">
+<span>GREEN TRANSIT</span>
+<span class="text-secondary font-bold">24–32 DAYS SLA</span>
+</div>
+</div>
+</div>
+<!-- Headcount Range & Stepper -->
+<div class="space-y-2 pt-space-xs">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="uppercase text-on-surface-variant">Specialist Crew Allocation:</span>
+<span class="text-headline-sm font-headline-sm font-bold text-primary font-mono"><span id="sim-headcount-val">12</span> Technicians</span>
+</div>
+<input class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" id="sim-slider" max="50" min="1" oninput="updateSim()" type="range" value="12"/>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant font-mono">
+<span>Min: 1 Specialist</span>
+<span>Squad: 12</span>
+<span>Max: 50 Crew Block</span>
+</div>
+</div>
+<!-- Calculation Telemetry Breakdown Bar -->
+<div class="bg-primary-container text-on-primary p-space-md rounded-DEFAULT border border-outline/30 grid grid-cols-2 md:grid-cols-4 gap-space-sm text-label-sm font-label-sm">
+<div>
+<div class="text-on-primary-container uppercase text-[10px]">TOTAL FEE / SPEC.</div>
+<div class="text-headline-sm font-headline-sm font-mono font-bold text-surface-container-lowest">€900.00</div>
+<div class="text-outline-variant text-[11px]">Milestone-Gated</div>
+</div>
+<div>
+<div class="text-on-primary-container uppercase text-[10px]">TRANCHE 01 ENTRY</div>
+<div class="text-headline-sm font-headline-sm font-mono font-bold text-secondary-fixed">€225.00</div>
+<div class="text-outline-variant text-[11px]">Post-Video Lab QA</div>
+</div>
+<div>
+<div class="text-on-primary-container uppercase text-[10px]">CREW TOTAL FEE</div>
+<div class="text-headline-sm font-headline-sm font-mono font-bold text-surface-container-lowest" id="sim-total-fee">€10,800</div>
+<div class="text-outline-variant text-[11px]">4 Tranches over 60 Days</div>
+</div>
+<div>
+<div class="text-on-primary-container uppercase text-[10px]">REPLACEMENT WARRANTY</div>
+<div class="text-headline-sm font-headline-sm font-mono font-bold text-secondary-container">90 DAYS</div>
+<div class="text-outline-variant text-[11px]">48h Standby Guarantee</div>
+</div>
+</div>
+<!-- Simulator Action CTA -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/40">
+<span class="text-body-sm font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+              Direct corporate employment under Ukraine Work Permit (12–36 Months)
+            </span>
+<a class="bg-primary text-on-primary px-space-lg py-2.5 rounded-DEFAULT text-label-sm font-label-sm font-bold tracking-wider uppercase hover:bg-on-primary-fixed-variant transition-colors" href="#quota">
+              Lock In Shift Batch Quota →
+            </a>
+</div>
+</div>
+</div>
+<!-- RIGHT: VERIFIED CANDIDATE OF THE DAY CARD (Span 4) -->
+<div class="lg:col-span-5 xl:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-space-lg space-y-space-base shadow-none">
+<!-- Header Ribbon -->
+<div class="flex items-center justify-between border-b border-outline-variant/70 pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Candidate of the Day</span>
+</div>
+<span class="bg-surface-container text-primary font-mono text-label-sm font-label-sm px-2 py-0.5 border border-outline-variant">
+            #RC-WLD-8842
+          </span>
+</div>
+<!-- Profile Head & Bio -->
+<div class="flex gap-space-md items-start">
+<div class="w-20 h-24 bg-surface-container-high border border-outline-variant rounded-DEFAULT overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover object-top" data-alt="High quality professional identity photograph of Dilshod Tashbaev, an experienced 35-year-old master industrial welder wearing industrial protective gear and flame retardant navy blue work shirt in a precision manufacturing facility. Bright clean studio lighting, industrial German precision background, sovereign verified badge in corner, sharp high contrast light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC936J_u2NE5oL-FIZrtKE1MXPEAhT-W_myVOgfCLek3jNLcIJC25FHyYvzYKsZukhbZvHNwrdNUMIB_0g01Z1SbGBXvuo6D_pS0zByZfusyaXvvwbJxq65ilLB8xRnsDRMH_GkELaijVsh9_HbJkpUA74xsJral4sqrYKrrw_hKatuC_amTmzz5PiaHSB0ySc3AvZR-QyPSvB1p-dhaTwCuu3uKSR_AjQjruashpxySMWq03GHnKaE3nM9Xz4PEmPBKnhTFirjDBqi"/>
+<div class="absolute bottom-0 inset-x-0 bg-primary/90 text-surface-container-lowest text-[9px] font-mono text-center py-0.5">
+              VERIFIED
+            </div>
+</div>
+<div class="space-y-1 flex-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Dilshod Tashbaev</h3>
+<span class="text-label-sm font-label-sm font-mono text-secondary font-bold">UZBEKISTAN</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-mono">Master 6G Pipe &amp; Vessel Welder</p>
+<div class="flex items-center gap-2 pt-1 text-label-sm font-label-sm">
+<span class="bg-surface-container px-2 py-0.5 border border-outline-variant font-mono">9 Yrs Exp</span>
+<span class="bg-surface-container-low text-secondary px-2 py-0.5 border border-outline-variant font-mono font-bold">NDT: 9.9 / 10.0</span>
+</div>
+</div>
+</div>
+<!-- 4K Video Inspection Telemetry Frame Preview -->
+<div class="border border-outline-variant bg-tertiary-container rounded-DEFAULT overflow-hidden relative">
+<div class="p-2 border-b border-outline/30 flex items-center justify-between text-label-sm font-label-sm text-surface-variant">
+<span class="flex items-center gap-1 font-mono">
+<span class="material-symbols-outlined text-[16px] text-secondary">videocam</span>
+              4K_ULTRASOUND_NDT_LAB_FEED.MP4
+            </span>
+<span class="text-secondary-fixed font-mono text-[10px]">TÜV RHEINLAND CERT</span>
+</div>
+<div class="h-36 bg-surface-container-low flex flex-col items-center justify-center relative p-3 text-center border-y border-outline/20">
+<div class="absolute top-2 left-2 text-[10px] font-mono text-on-surface-variant bg-surface-container-lowest px-1.5 py-0.5 border border-outline-variant">
+              CALIBRATION: DIN EN ISO 9606-1
+            </div>
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center cursor-pointer shadow hover:scale-105 transition-transform mb-1">
+<span class="material-symbols-outlined text-[24px]">play_arrow</span>
+</div>
+<span class="text-label-sm font-label-sm font-mono text-on-surface font-semibold">Preview 4-Minute Heavy Wall Weld Test</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant text-[11px]">X-Ray Volumetric Defect Rate: 0.00%</span>
+</div>
+<div class="bg-primary p-2 text-label-sm font-label-sm font-mono text-surface-variant flex justify-between">
+<span>CONSUMABLE: AWS E7018 / ER70S-6</span>
+<span class="text-secondary-fixed">STATUS: CLEARED</span>
+</div>
+</div>
+<!-- Telemetry Audit Checklist -->
+<div class="space-y-1.5 font-label-sm text-label-sm border-t border-outline-variant/60 pt-space-sm">
+<div class="flex justify-between items-center py-0.5 border-b border-surface-container">
+<span class="text-on-surface-variant">Consular Medical Clearance:</span>
+<span class="font-mono text-secondary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Form 086/O Verified
+            </span>
+</div>
+<div class="flex justify-between items-center py-0.5 border-b border-surface-container">
+<span class="text-on-surface-variant">Biometric Passport Validity:</span>
+<span class="font-mono text-on-surface font-semibold">Until Nov 2029 (Uzbekistan)</span>
+</div>
+<div class="flex justify-between items-center py-0.5 border-b border-surface-container">
+<span class="text-on-surface-variant">Article 23 Conscription Risk:</span>
+<span class="font-mono text-secondary font-bold">0% Sovereign Exemption</span>
+</div>
+<div class="flex justify-between items-center py-0.5">
+<span class="text-on-surface-variant">Moldova Corridor Transit ETA:</span>
+<span class="font-mono text-primary font-bold">Dispatched within 24h</span>
+</div>
+</div>
+<!-- Reservation Module -->
+<div class="bg-surface-container-low border border-outline-variant p-space-sm rounded-DEFAULT space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Lock Specialist Slot</span>
+<span class="text-headline-sm font-headline-sm font-mono font-bold text-primary">€50 Deposit</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+            Fully deductible from Tranche 01. Holds candidate exclusively for 72 hours while corporate review team inspects 4K telemetry dossier.
+          </p>
+<button class="w-full bg-secondary text-on-secondary font-label-md font-label-md font-bold py-2 px-3 rounded-DEFAULT uppercase tracking-wider hover:bg-on-secondary-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+            Reserve Candidate for €50 Deposit
+          </button>
+</div>
+</div>
+</section>
+<!-- 3. INSTITUTIONAL LEGAL SHIELD & ARTICLE 23 MOBILIZATION IMMUNITY SECTION -->
+<section class="border border-outline-variant bg-surface-container-lowest rounded-DEFAULT overflow-hidden" id="legal">
+<!-- Institutional Top Bar -->
+<div class="bg-primary text-on-primary px-margin-desktop py-space-md flex flex-wrap items-center justify-between gap-space-sm border-b border-outline">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary-fixed text-[28px]" data-icon="gavel">gavel</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-surface-container-lowest font-bold">INSTITUTIONAL LEGAL SHIELD &amp; ARTICLE 23 MOBILIZATION GUARANTEE</h2>
+<p class="font-label-sm text-label-sm text-on-primary-container font-mono">STATUTORY DIRECTIVE: LAW OF UKRAINE 'ON MOBILIZATION PREPARATION AND MOBILIZATION'</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs font-mono text-label-sm bg-tertiary-container px-3 py-1.5 rounded-DEFAULT border border-outline/50">
+<span class="material-symbols-outlined text-[16px] text-secondary">shield</span>
+<span class="text-secondary-fixed font-bold">100% LEGAL IMMUNITY FOR FOREIGN CREWS</span>
+</div>
+</div>
+<!-- Legal Bento Matrix -->
+<div class="p-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop">
+<!-- Module 1: Article 23 Specifics -->
+<div class="border border-outline-variant p-space-lg rounded-DEFAULT bg-surface-bright space-y-space-sm">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono border-b border-outline-variant/60 pb-2">
+<span class="text-secondary font-bold">STATUTORY BASES</span>
+<span class="text-on-surface-variant">ART. 23 § 1</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Article 23 Sovereign Exemption</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Under Article 23 of the Law of Ukraine “On Mobilization Preparation and Mobilization”, compulsory conscription and military registration apply exclusively to citizens of Ukraine. Non-citizen foreign passport holders hold unconditional statutory exemption from territorial recruitment center (ТЦК та СП) mobilization summons.
+          </p>
+<div class="bg-surface-container p-space-sm border border-outline-variant rounded-DEFAULT font-mono text-label-sm text-on-surface space-y-1">
+<div class="font-bold text-primary">Key Legislative Excerpt:</div>
+<div class="italic text-[11px] text-on-surface-variant">
+              “...foreigners and stateless persons legally residing in Ukraine are not subject to military conscription during martial law periods...”
+            </div>
+</div>
+</div>
+<!-- Module 2: Direct LLC Corporate Employment -->
+<div class="border border-outline-variant p-space-lg rounded-DEFAULT bg-surface-bright space-y-space-sm">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono border-b border-outline-variant/60 pb-2">
+<span class="text-secondary font-bold">EMPLOYER TITLE</span>
+<span class="text-on-surface-variant">ТОВ / ПрАТ</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Direct Corporate Work Permit</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Candidates are NOT deployed as subcontracted agency workers. We process official Ukrainian State Employment Center Work Permits (Дозвіл на працю) issued straight to the client enterprise’s legal entity (ТОВ/ПрАТ) for terms ranging from 12 to 36 months.
+          </p>
+<ul class="space-y-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+<span>Full compliance with State Migration Service</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+<span>Temporary Residency Card (Посвідка на проживання)</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+<span>Direct factory payroll &amp; verifiable corporate taxes</span>
+</li>
+</ul>
+</div>
+<!-- Module 3: Bilateral Labor Treaties -->
+<div class="border border-outline-variant p-space-lg rounded-DEFAULT bg-surface-bright space-y-space-sm">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono border-b border-outline-variant/60 pb-2">
+<span class="text-secondary font-bold">INTERGOVERNMENTAL</span>
+<span class="text-on-surface-variant">BILATERAL DECREES</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Bilateral Consular Agreements</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Every candidate pipeline operates under active intergovernmental labor protocols between Ukraine and designated origin nations (Uzbekistan, India, Nepal, Bangladesh), certified through diplomatic consular corridors.
+          </p>
+<div class="grid grid-cols-2 gap-2 text-label-sm font-label-sm font-mono">
+<div class="p-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest">
+<div class="font-bold text-on-surface">TASHKENT DESK</div>
+<div class="text-[10px] text-secondary font-semibold">Active Pipeline</div>
+</div>
+<div class="p-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest">
+<div class="font-bold text-on-surface">NEW DELHI DESK</div>
+<div class="text-[10px] text-secondary font-semibold">Active Pipeline</div>
+</div>
+<div class="p-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest">
+<div class="font-bold text-on-surface">KATHMANDU DESK</div>
+<div class="text-[10px] text-secondary font-semibold">Active Pipeline</div>
+</div>
+<div class="p-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest">
+<div class="font-bold text-on-surface">DHAKA DESK</div>
+<div class="text-[10px] text-secondary font-semibold">Active Pipeline</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. MILESTONE-GATED 4-TRANCHE COMMERCIAL ARCHITECTURE (€900 / SPECIALIST) -->
+<section class="space-y-space-lg" id="financial">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm border-b border-outline-variant pb-space-sm">
+<div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-secondary font-mono font-bold">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+            ZERO UPFRONT RETENTION • MILESTONE PERFORMANCE GATES
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+            4-Tranche Transparent Commercial Architecture (€900 Total)
+          </h2>
+</div>
+<div class="text-label-sm font-label-sm font-mono text-on-surface-variant text-right">
+<div>TOTAL RECRUITMENT &amp; TRANSIT FEE: <span class="font-bold text-primary text-headline-sm">€900 / SPECIALIST</span></div>
+<div class="text-secondary font-semibold">90-DAY FREE REPLACEMENT • 48H STANDBY DISPATCH</div>
+</div>
+</div>
+<!-- 4 High Contrast Milestone Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter-desktop">
+<!-- Tranche 01 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-sm flex flex-col justify-between relative">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono text-on-surface-variant">
+<span>TRANCHE 01</span>
+<span class="bg-surface-container px-2 py-0.5 font-bold text-primary">25%</span>
+</div>
+<div class="text-headline-md font-headline-md font-mono font-bold text-on-surface">€225.00</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Video Dossier &amp; Trade Lab Sign-Off</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Invoiced exclusively after enterprise technical committee reviews certified 4K weld/machining test video and signs off on candidate selection dossier.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/40 font-mono text-label-sm text-on-surface-variant">
+<span class="text-secondary font-bold">Deliverable:</span> DIN ISO Lab Telemetry &amp; Signed Candidate Acceptance Form.
+          </div>
+</div>
+<!-- Tranche 02 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-sm flex flex-col justify-between relative">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono text-on-surface-variant">
+<span>TRANCHE 02</span>
+<span class="bg-surface-container px-2 py-0.5 font-bold text-primary">25%</span>
+</div>
+<div class="text-headline-md font-headline-md font-mono font-bold text-on-surface">€225.00</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">State Work Permit Issuance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Payable upon official issuance of Ukrainian State Employment Center Work Permit (Дозвіл на працю) for 12–36 months registered to client enterprise LLC.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/40 font-mono text-label-sm text-on-surface-variant">
+<span class="text-secondary font-bold">Deliverable:</span> Certified Electronic Work Permit Document from State Center.
+          </div>
+</div>
+<!-- Tranche 03 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-sm flex flex-col justify-between relative">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono text-on-surface-variant">
+<span>TRANCHE 03</span>
+<span class="bg-surface-container px-2 py-0.5 font-bold text-primary">25%</span>
+</div>
+<div class="text-headline-md font-headline-md font-mono font-bold text-on-surface">€225.00</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Moldovan Transit &amp; Consular Passage</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Disbursed upon verified consular visa stamp and green corridor border passage (Tashkent ➔ Chisinau Hub ➔ Odesa transit clearance).
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/40 font-mono text-label-sm text-on-surface-variant">
+<span class="text-secondary font-bold">Deliverable:</span> State Border Guard entry telemetry &amp; verified travel logistics manifest.
+          </div>
+</div>
+<!-- Tranche 04 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-sm flex flex-col justify-between relative">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between text-label-sm font-label-sm font-mono text-on-surface-variant">
+<span>TRANCHE 04</span>
+<span class="bg-surface-container px-2 py-0.5 font-bold text-primary">25%</span>
+</div>
+<div class="text-headline-md font-headline-md font-mono font-bold text-on-surface">€225.00</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Factory Onboarding &amp; Shift 01</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Released exclusively following on-site factory integration, certified occupational physical exam, and completion of the first working shift.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/40 font-mono text-label-sm text-on-surface-variant">
+<span class="text-secondary font-bold">Deliverable:</span> Signed Factory Acceptance Act &amp; Shift Timecard Confirmation.
+          </div>
+</div>
+</div>
+<!-- Warranty & Standby Banner Strip -->
+<div class="bg-surface-container-lowest border-l-4 border-secondary border-t border-r border-b border-outline-variant p-space-md flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md rounded-DEFAULT">
+<div class="flex items-center gap-space-md">
+<div class="p-2 bg-surface-container-low text-secondary rounded-DEFAULT">
+<span class="material-symbols-outlined text-[28px]">verified</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">
+              90-Day Free Replacement Warranty &amp; 48-Hour Standby Dispatch
+            </div>
+<div class="font-body-md text-body-md text-on-surface-variant">
+              If any deployed specialist fails plant quality inspection, medical re-check, or requests repatriation within 90 days, an audited replacement is dispatched from our transit staging reserve within 48 hours at zero supplemental cost.
+            </div>
+</div>
+</div>
+<div class="font-mono text-label-sm bg-surface-container px-3 py-1.5 rounded-DEFAULT border border-outline-variant text-on-surface font-bold whitespace-nowrap">
+          SLA GUARANTEED IN B2B CONTRACT
+        </div>
+</div>
+</section>
+<!-- 5. TAX OPTIMIZATION BENTO (60-DAY TAX HOLIDAY BREAKDOWN) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop" id="tax">
+<div class="lg:col-span-6 bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-base">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2 text-secondary font-mono text-label-sm font-label-sm font-bold">
+<span class="material-symbols-outlined text-[16px]">savings</span>
+            FISCAL DISCIPLINE • 60-DAY TAX HOLIDAY
+          </div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+            Zero Fiscal Overhead During Processing
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Under Ukrainian fiscal law, enterprise tax liabilities (Єдиний соціальний внесок 22%, ПДФО 18%, Військовий збір 1.5%) commence strictly on Day 1 of official factory shift entry following residency registration.
+          </p>
+</div>
+<div class="space-y-space-sm pt-space-xs">
+<div class="flex items-start gap-space-sm p-space-sm bg-surface-container-low border border-outline-variant rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">0 UAH Payroll Taxes During Screening &amp; Transit</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Employer incurs zero payroll tax burden during the 30–45 day consular, background, and transit cycle.</div>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-sm bg-surface-container-low border border-outline-variant rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">Pre-Calculated Fixed B2B Cost Allocation</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">All procurement and transit services booked directly as official business operational deductible expenses (OPEX).</div>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-sm bg-surface-container-low border border-outline-variant rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">Direct Corporate Contract with Foreign National</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Full statutory transparency under State Tax Service of Ukraine, eliminating staffing intermediary risks.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side-by-Side Fiscal Comparison Table -->
+<div class="lg:col-span-6 bg-surface-container-lowest border border-outline-variant p-space-lg rounded-DEFAULT space-y-space-base flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Fiscal Comparison Matrix</h3>
+<span class="font-mono text-label-sm font-label-sm text-on-surface-variant">PER 10-SPECIALIST BATCH</span>
+</div>
+<div class="overflow-x-auto pt-space-sm">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="border-b border-outline font-mono text-label-sm text-on-surface-variant uppercase">
+<th class="py-2">Metric / Stage</th>
+<th class="py-2 text-error">Domestic Sourcing</th>
+<th class="py-2 text-secondary font-bold">Recruiter I Club</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 font-mono">
+<tr>
+<td class="py-3 text-on-surface font-sans">Upfront Retainer Fee</td>
+<td class="py-3 text-error">€4,500 – €7,000</td>
+<td class="py-3 text-secondary font-bold">€0.00 (Milestone Gated)</td>
+</tr>
+<tr>
+<td class="py-3 text-on-surface font-sans">Mobilization Risk (ТЦК Summons)</td>
+<td class="py-3 text-error">High (Daily Draft Risk)</td>
+<td class="py-3 text-secondary font-bold">0% (Article 23 Immunity)</td>
+</tr>
+<tr>
+<td class="py-3 text-on-surface font-sans">Tax Overhead Pre-Factory</td>
+<td class="py-3 text-on-surface-variant">Immediate Payroll Add</td>
+<td class="py-3 text-secondary font-bold">0 UAH (60-Day Holiday)</td>
+</tr>
+<tr>
+<td class="py-3 text-on-surface font-sans">Technical Qualification Proof</td>
+<td class="py-3 text-on-surface-variant">Self-reported Resume</td>
+<td class="py-3 text-secondary font-bold">4K Video + DIN ISO NDT</td>
+</tr>
+<tr>
+<td class="py-3 text-on-surface font-sans">Replacement Guarantee</td>
+<td class="py-3 text-on-surface-variant">14–30 Days (Limited)</td>
+<td class="py-3 text-secondary font-bold">90 Days / 48h Dispatch</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container border border-outline-variant rounded-DEFAULT text-label-sm font-label-sm font-mono flex items-center justify-between text-on-surface">
+<span>NET SAVINGS PER 10 WORKERS:</span>
+<span class="text-secondary font-bold text-headline-sm">~ 340,000 UAH SAVED</span>
+</div>
+</div>
+</section>
+<!-- 6. PRE-AUDITED CANDIDATE DOSSIERS & AUDIT LAB TELEMETRY -->
+<section class="space-y-space-md" id="catalog">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm border-b border-outline-variant pb-space-sm">
+<div>
+<div class="text-label-sm font-label-sm text-secondary font-mono font-bold">SOVEREIGN TALENT POOL • REAL-TIME AUDIT TELEMETRY</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+            Pre-Audited Industrial Candidate Dossiers
+          </h2>
+</div>
+<!-- Discipline Filter Tabs -->
+<div class="flex flex-wrap items-center gap-1 bg-surface-container p-1 rounded-DEFAULT border border-outline-variant text-label-sm font-label-sm">
+<button class="px-3 py-1.5 bg-primary text-on-primary font-semibold rounded-DEFAULT">6G Pipe Welders (14)</button>
+<button class="px-3 py-1.5 text-on-surface hover:bg-surface-container-low rounded-DEFAULT transition-colors">5-Axis CNC Machinists (9)</button>
+<button class="px-3 py-1.5 text-on-surface hover:bg-surface-container-low rounded-DEFAULT transition-colors">Heavy Logistics (18)</button>
+<button class="px-3 py-1.5 text-on-surface hover:bg-surface-container-low rounded-DEFAULT transition-colors">Agrotechnicians (12)</button>
+</div>
+</div>
+<!-- Dossier Grid (4 Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-desktop">
+<!-- Dossier 1: Dilshod Tashbaev -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-space-md space-y-space-sm flex flex-col justify-between hover:border-primary transition-colors">
+<div class="space-y-space-xs">
+<div class="flex justify-between items-center text-label-sm font-label-sm font-mono">
+<span class="bg-surface-container px-1.5 py-0.5 text-on-surface">#RC-901</span>
+<span class="text-secondary font-bold">READY IN 24D</span>
+</div>
+<div class="w-full h-40 bg-surface-container-low rounded-DEFAULT overflow-hidden border border-outline-variant relative">
+<img class="w-full h-full object-cover" data-alt="Clear frontal portrait of candidate Dilshod T., a licensed senior pipe welder from Uzbekistan standing in clean industrial workshop wearing protective welding gear and glasses. Precision industrial background, ultra-sharp detail, high key lighting, crisp corporate technical style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4-CELCRU3icPvl8iPPNyLpVMSno5CvK3UO6lYV5c0YufBIbl3hvrR8nl_ltQdm7jtM2eU64DQ7EMs2ngbfE6JWEozz-bb3Lbue8FI0pB-6baGGURXvfi5WGk3hDi4DARuHH_WPut2gx4uusAfeciFQDEjQ6RgQbjvx3CUb05wRRLmYMGf6tVozX8DRZ_pnC3KTsIeafacprZ0O6e5RCQLF5rDP1EJSe5H660DNaqdMZMkrC_GN9qQQJAFIBQbkJZ7rLdE5CJD1BbS"/>
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary font-mono text-[9px] px-1.5 py-0.5">
+                NDT: 9.9/10
+              </div>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">Dilshod Tashbaev</div>
+<div class="font-label-sm text-label-sm font-mono text-on-surface-variant">Master 6G Pipe &amp; Vessel Welder</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-1">9 yrs exp • Tashkent Desk • DIN ISO 9606-1</div>
+</div>
+</div>
+<div class="space-y-2 pt-2 border-t border-outline-variant/50">
+<div class="flex justify-between text-label-sm font-label-sm font-mono">
+<span>Ultrasound Defect:</span>
+<span class="font-bold text-secondary">0.00%</span>
+</div>
+<button class="w-full py-1.5 bg-primary text-on-primary font-label-sm font-label-sm font-bold rounded-DEFAULT uppercase tracking-wider hover:bg-on-primary-fixed-variant">
+              Inspect 4K Video Dossier
+            </button>
+</div>
+</div>
+<!-- Dossier 2: Rajesh N. -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-space-md space-y-space-sm flex flex-col justify-between hover:border-primary transition-colors">
+<div class="space-y-space-xs">
+<div class="flex justify-between items-center text-label-sm font-label-sm font-mono">
+<span class="bg-surface-container px-1.5 py-0.5 text-on-surface">#RC-902</span>
+<span class="text-secondary font-bold">READY IN 28D</span>
+</div>
+<div class="w-full h-40 bg-surface-container-low rounded-DEFAULT overflow-hidden border border-outline-variant relative">
+<img class="w-full h-full object-cover" data-alt="Professional identification portrait of Rajesh N., a precision 5-axis CNC operator from India, wearing clean workshop uniform in front of modern computer numeric control machinery. Bright crisp industrial light, sharp focus, sovereign documentation layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIZ_GUoyzaY5p-IPKRjn6or6ldP4D8QWlGpfyaOigkHFEX6dLPSwjhPnrNpS1P86QfbBDlLpQisG1netMBpZ4fJUgKLyOHgro57FZ2WwMzgJCstT1YqyFdJgAl-qCvNPOZFStQayIoBjj5Hks51ZApr6I1SZBTUWGkoWw6t2dlhSqm4GYUbGln3EoQPXlproALHf9AkBBpwjJRmuQEvayCI4eXpBPr_MUBfxwaeKRFu3FhcMjX0KVAvNtC6h7Ql_IEPK77loG2x_u1"/>
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary font-mono text-[9px] px-1.5 py-0.5">
+                TOL: ±0.005mm
+              </div>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">Rajesh N.</div>
+<div class="font-label-sm text-label-sm font-mono text-on-surface-variant">5-Axis CNC Milling Machinist</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-1">7 yrs exp • New Delhi Desk • Siemens Sinumerik</div>
+</div>
+</div>
+<div class="space-y-2 pt-2 border-t border-outline-variant/50">
+<div class="flex justify-between text-label-sm font-label-sm font-mono">
+<span>Calibration Test:</span>
+<span class="font-bold text-secondary">PASSED 100%</span>
+</div>
+<button class="w-full py-1.5 bg-primary text-on-primary font-label-sm font-label-sm font-bold rounded-DEFAULT uppercase tracking-wider hover:bg-on-primary-fixed-variant">
+              Inspect 4K Video Dossier
+            </button>
+</div>
+</div>
+<!-- Dossier 3: Bikash T. -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-space-md space-y-space-sm flex flex-col justify-between hover:border-primary transition-colors">
+<div class="space-y-space-xs">
+<div class="flex justify-between items-center text-label-sm font-label-sm font-mono">
+<span class="bg-surface-container px-1.5 py-0.5 text-on-surface">#RC-903</span>
+<span class="text-secondary font-bold">READY IN 31D</span>
+</div>
+<div class="w-full h-40 bg-surface-container-low rounded-DEFAULT overflow-hidden border border-outline-variant relative">
+<img class="w-full h-full object-cover" data-alt="Identification photo of Bikash T., a certified heavy logistics and reach-stacker driver from Nepal, wearing high visibility industrial vest with logistics terminal in the background. High contrast, precise engineering lighting, light mode clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEOeYkhY0bsSgh99TAJI1pjqqIuPvScq-0vtcZlKlNpLjsKxfgdJuoCiPLH7Ua9ZQr9hgecaJN03sENmi-LYM9gPattx24eG582RXIvfK5e5ba_A-9MORySECZRWlleoSrc5Yovh0I2wv6CV_AWvT39hWgSKozk25mYC-u25NHzSq3PS6wC1RA2PUZDxpFl-TH8myW3R6YKr4A8Efs6gd25Grip_Jx5j6L-hVMu8atZ4XNOHMDIZvHxApiAfQvGAW1JzV13VN90vGp"/>
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary font-mono text-[9px] px-1.5 py-0.5">
+                CLASS: 45-TON
+              </div>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">Bikash T.</div>
+<div class="font-label-sm text-label-sm font-mono text-on-surface-variant">Heavy Reach-Stacker / Logistics</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-1">6 yrs exp • Kathmandu Desk • Kalmar / Linde Cert</div>
+</div>
+</div>
+<div class="space-y-2 pt-2 border-t border-outline-variant/50">
+<div class="flex justify-between text-label-sm font-label-sm font-mono">
+<span>Safety Record:</span>
+<span class="font-bold text-secondary">0 INCIDENTS</span>
+</div>
+<button class="w-full py-1.5 bg-primary text-on-primary font-label-sm font-label-sm font-bold rounded-DEFAULT uppercase tracking-wider hover:bg-on-primary-fixed-variant">
+              Inspect 4K Video Dossier
+            </button>
+</div>
+</div>
+<!-- Dossier 4: Faruk H. -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-space-md space-y-space-sm flex flex-col justify-between hover:border-primary transition-colors">
+<div class="space-y-space-xs">
+<div class="flex justify-between items-center text-label-sm font-label-sm font-mono">
+<span class="bg-surface-container px-1.5 py-0.5 text-on-surface">#RC-904</span>
+<span class="text-secondary font-bold">READY IN 26D</span>
+</div>
+<div class="w-full h-40 bg-surface-container-low rounded-DEFAULT overflow-hidden border border-outline-variant relative">
+<img class="w-full h-full object-cover" data-alt="Portrait of Faruk H., a professional agrotechnician and combine harvester mechanic from Bangladesh standing beside modern agricultural machinery. Technical attire, clear bright light, structured Swiss-style engineering aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDceboXQGCYcD5NbaPXPP5gbnfdb6yyejYPk7POA8SuzBtah_5DP1S3ZMFIczTjvcNBz1fW8A0lWz1ySJGyr6HPR3vWT53oJ1FyZf9HlvhxBYia0J70hXM1J_n1JATSGXxEqffTwu1utBGGhx584-Zc92A2SWTmLFj4QaxryD-2Ht9s0y9esBgeee5QX7OUFcfAfqI-SWssEie4r46_L8_Ip0DC5GRKy5S2BkscubZeDXBJUO1DeEu8F3d14Yd6up1-WSG2bJpT30a6"/>
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary font-mono text-[9px] px-1.5 py-0.5">
+                HYDRAULIC CERT
+              </div>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">Faruk H.</div>
+<div class="font-label-sm text-label-sm font-mono text-on-surface-variant">Industrial Agrotechnician &amp; Diesel</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-1">8 yrs exp • Dhaka Desk • CLAAS / John Deere</div>
+</div>
+</div>
+<div class="space-y-2 pt-2 border-t border-outline-variant/50">
+<div class="flex justify-between text-label-sm font-label-sm font-mono">
+<span>Engine Overhaul QA:</span>
+<span class="font-bold text-secondary">PASSED 9.8/10</span>
+</div>
+<button class="w-full py-1.5 bg-primary text-on-primary font-label-sm font-label-sm font-bold rounded-DEFAULT uppercase tracking-wider hover:bg-on-primary-fixed-variant">
+              Inspect 4K Video Dossier
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. ENTERPRISE QUOTA INTAKE & DEPLOYMENT TIMELINE CALCULATOR -->
+<section class="border border-outline-variant bg-surface-container-lowest rounded-DEFAULT overflow-hidden" id="quota">
+<div class="grid grid-cols-1 lg:grid-cols-12">
+<!-- Left Explainer & Consular Timeline -->
+<div class="lg:col-span-5 bg-primary-container p-space-xl text-on-primary space-y-space-base flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-outline/30">
+<div class="space-y-space-sm">
+<div class="inline-flex items-center gap-2 px-2 py-1 bg-primary text-secondary-fixed text-label-sm font-label-sm font-mono border border-outline/40">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              DIRECT ACCREDITATION DESK
+            </div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-surface-container-lowest tracking-tight">
+              Calculate Deployment Timeline &amp; Enterprise Quota
+            </h2>
+<p class="font-body-md text-body-md text-on-primary-container">
+              Submit your enterprise staffing requisition to receive an immediate deployment schedule with State Employment Center slot allocations, consular timeline, and contractual quota reservation.
+            </p>
+<!-- Consular Pipeline Timeline Milestones -->
+<div class="space-y-3 pt-space-sm font-mono text-label-sm text-surface-variant">
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary border border-outline/40 flex items-center justify-center text-secondary-fixed font-bold text-[12px]">01</span>
+<div>
+<div class="text-surface-container-lowest font-bold">Tashkent / Consular Testing (Day 1–7)</div>
+<div class="text-[11px] text-outline-variant">Trade lab QA, 4K weld video &amp; medical clearance.</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary border border-outline/40 flex items-center justify-center text-secondary-fixed font-bold text-[12px]">02</span>
+<div>
+<div class="text-surface-container-lowest font-bold">State Work Permit Processing (Day 8–18)</div>
+<div class="text-[11px] text-outline-variant">KYC verification with State Employment Center (КМУ).</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary border border-outline/40 flex items-center justify-center text-secondary-fixed font-bold text-[12px]">03</span>
+<div>
+<div class="text-surface-container-lowest font-bold">Green Corridor Chisinau Transit (Day 19–26)</div>
+<div class="text-[11px] text-outline-variant">Moldova transit hub, consular visa stamp, border escort.</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary border border-outline/40 flex items-center justify-center text-secondary-fixed font-bold text-[12px]">04</span>
+<div>
+<div class="text-surface-container-lowest font-bold">Factory Floor Shift 01 (Day 27–32)</div>
+<div class="text-[11px] text-outline-variant">Onboarding, safety protocol &amp; plant QA integration.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-md border-t border-outline/30 text-label-sm font-label-sm text-on-primary-container font-mono">
+            State License № 1428 • 100% Article 23 Compliant • 0% Conscription Risk
+          </div>
+</div>
+<!-- Right: Direct Enterprise Quota Intake Form -->
+<div class="lg:col-span-7 p-space-xl space-y-space-base bg-surface-bright">
+<div class="border-b border-outline-variant pb-space-xs">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Enterprise Quota Requisition Form</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direct processing under bilateral consular quotas for registered Ukrainian enterprises.</p>
+</div>
+<form class="space-y-space-md" onsubmit="event.preventDefault(); alert('Quota requisition submitted to State Pipeline Telemetry Desk. An Enterprise Account Executive will contact your legal representative within 2 hours.');">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">Enterprise Full Legal Name (ТОВ / ПрАТ)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0" placeholder='e.g. ТОВ "Дніпро Метал Пром"' required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">EDRPOU Code (ЄДРПОУ - 8 Digits)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0 font-mono" pattern="[0-9]{8}" placeholder="e.g. 38492014" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">Facility Region (Oblast)</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0">
+<option>Dnipropetrovsk Oblast</option>
+<option>Kyiv &amp; Kyiv Oblast</option>
+<option>Poltava Oblast</option>
+<option>Lviv &amp; Western Hub</option>
+<option>Odesa &amp; Southern Port Corridor</option>
+<option>Vinnytsia / Cherkasy / Central</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">Required Trade Discipline</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0">
+<option>6G Pipe &amp; Structural Welders</option>
+<option>5-Axis CNC Milling Operators</option>
+<option>Heavy Equipment &amp; Logistics</option>
+<option>Precision Agrotechnicians</option>
+<option>Multi-Trade Industrial Squad</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">Initial Headcount Quota</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0 font-mono">
+<option>5 – 10 Specialists</option>
+<option>11 – 25 Specialists (1 Shift)</option>
+<option>26 – 50 Specialists (Full Facility)</option>
+<option>50+ Enterprise Block</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">Director / Executive Contact</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0" placeholder="Full Name &amp; Official Title" required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block font-label-sm text-label-sm uppercase text-on-surface-variant">Official Corporate Email / Phone</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-2 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0 font-mono" placeholder="director@enterprise.ua | +380" required="" type="text"/>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-low border border-outline-variant rounded-DEFAULT text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<input class="rounded-DEFAULT text-primary focus:ring-0 border-outline-variant" id="legal-ack" required="" type="checkbox"/>
+<label class="cursor-pointer" for="legal-ack">
+                I verify enterprise status and request bilateral labor quota allocation under Article 23 Mobilization Immunity protocols.
+              </label>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 px-6 rounded-DEFAULT font-label-md font-label-md font-bold uppercase tracking-wider hover:bg-on-primary-fixed-variant transition-colors flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">calculate</span>
+              Submit Requisition &amp; Calculate Deployment Timeline
+            </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- SHARED COMPONENT: Footer (from Shared Components JSON) -->
+<footer class="w-full border-t border-outline-variant dark:border-outline max-w-grid-max-width mx-auto px-margin-desktop py-space-2xl bg-surface-container-lowest dark:bg-inverse-surface mt-auto">
+<div class="flex flex-col space-y-space-lg">
+<!-- Top Row: Brand & Regulatory Links -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-base pb-space-lg border-b border-outline-variant/40">
+<div>
+<div class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-inverse-on-surface uppercase">
+            Recruiter I Club
+          </div>
+<div class="text-label-sm font-label-sm text-secondary font-mono">
+            State Employment Service of Ukraine • Accredited Placement Operator
+          </div>
+</div>
+<!-- Dynamic Link Set from JSON -->
+<div class="flex flex-wrap gap-x-6 gap-y-2 text-label-sm font-label-sm">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">Consular Pipeline Telemetry</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">Quota Calculator</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">Bilateral Labor Agreements</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">ISO 9001 Welding Audit Protocol</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">Mobilization Exemption Dossiers</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">Privacy &amp; Enterprise Security</a>
+</div>
+</div>
+<!-- Statutory Disclaimer and Immutable License Notice from JSON -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center text-body-sm font-body-sm text-on-surface-variant gap-space-sm font-mono">
+<p class="max-w-4xl">
+          © 2025 Recruiter I Club. State Employment Service License № 1428. Regulated by Law of Ukraine 'On Employment'. Article 23 Mobilization Compliance Certified.
+        </p>
+<div class="flex items-center gap-2 text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-on-surface font-semibold">TASHKENT • CHISINAU • KYIV</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- LIGHTWEIGHT INTERACTIVITY SCRIPT FOR AI SIMULATOR -->
+<script>
+    function updateSim() {
+      const slider = document.getElementById('sim-slider');
+      const countDisplay = document.getElementById('sim-headcount-val');
+      const feeDisplay = document.getElementById('sim-total-fee');
+      
+      if (slider && countDisplay && feeDisplay) {
+        const count = parseInt(slider.value, 10);
+        countDisplay.textContent = count;
+        const total = count * 900;
+        feeDisplay.textContent = '€' + total.toLocaleString();
+      }
+    }
+  </script>
+</body></html>
