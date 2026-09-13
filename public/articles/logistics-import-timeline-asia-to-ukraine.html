@@ -413,22 +413,6 @@
           Маєте запитання за цією статтею чи потрібен індивідуальний розрахунок строків та кошторису для вашого підприємства?
         </p>
 
-        <!-- Quick 1-click Choice Pills -->
-        <div class="flex flex-wrap gap-1.5 pt-1" id="teaser-pills-container">
-          <button onclick="openAiChatWithQuery('Як працює захист за ст. 23 ЗУ?')" class="px-2.5 py-1 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/40 text-[11px] font-semibold transition">
-            🛡 Захист від мобілізації
-          </button>
-          <button onclick="openAiChatWithQuery('Розрахувати кошторис для мого підприємства')" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-emerald-500 text-slate-200 hover:text-white border border-white/20 text-[11px] font-semibold transition">
-            ⚡ Кошторис під ключ
-          </button>
-          <button onclick="openAiChatWithQuery('Які терміни приїзду робітників з Азії?')" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-emerald-500 text-slate-200 hover:text-white border border-white/20 text-[11px] font-semibold transition">
-            ⏱ Терміни приїзду
-          </button>
-          <button onclick="openAiChatWithQuery('Маю спеціальне юридичне запитання')" class="px-2.5 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/40 text-[11px] font-semibold transition">
-            💬 Задати питання
-          </button>
-        </div>
-
         <!-- Quick Direct Input inside Teaser -->
         <div class="flex gap-1.5 pt-1">
           <input id="teaser-quick-input" type="text" placeholder="Ваше запитання до координатора..." class="flex-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-emerald-400" onkeydown="if(event.key==='Enter') sendTeaserQuickMessage()">
@@ -468,61 +452,10 @@
         <button onclick="toggleAiChat()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
       </div>
 
-      <div id="ai-chat-messages" class="p-4 space-y-3 h-72 overflow-y-auto bg-slate-50 text-xs">
+      <div id="ai-chat-messages" class="p-4 space-y-3 h-96 overflow-y-auto bg-slate-50 text-xs">
         <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">
           👋 Вітаю! Я інтелектуальний B2B-консультант <strong>Recruiter I Club</strong>. Допоможу вам розрахувати строки та вартість імпорту персоналу для вашого підприємства згідно законодавства України (ст. 23 ЗУ).
         </div>
-        <div class="text-[11px] text-slate-500 font-bold uppercase font-mono">Швидкі питання для консультації:</div>
-        <div class="flex flex-col gap-1.5">
-          <button onclick="sendQuickAiQuery('Скільки коштує найняти 10 робітників під ключ?')" class="text-left p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-medium border border-emerald-200 transition">
-            ⚡ Скільки коштує найняти 10 робітників під ключ?
-          </button>
-          <button onclick="sendQuickAiQuery('Як працює захист від мобілізації (ст. 23 ЗУ)?')" class="text-left p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium border border-slate-200 transition">
-            🛡 Як працює захист від мобілізації (ст. 23 ЗУ)?
-          </button>
-          <button onclick="sendQuickAiQuery('Які терміни приїзду першої групи робітників?')" class="text-left p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium border border-slate-200 transition">
-            ⏱ Які терміни приїзду робітників з Узбекистану та Індії?
-          </button>
-          <button onclick="sendQuickAiQuery('Коли сплачується комісія агенції?')" class="text-left p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 font-medium border border-amber-200 transition">
-            💳 Коли сплачується комісія агенції? (Оплата в кінці)
-          </button>
-        </div>
-      </div>
-
-      <!-- Inline Lead Capture inside Chat with Messenger Selection -->
-      <div id="chat-lead-box" class="p-3 bg-gradient-to-b from-amber-50 to-emerald-50/40 border-t border-amber-200/80 text-xs">
-        <div class="font-bold text-slate-800 mb-1.5 flex items-center justify-between">
-          <span class="flex items-center gap-1">
-            <span>📲 Отримати кошторис та КП за 15 хв:</span>
-          </span>
-          <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono font-extrabold">0 грн</span>
-        </div>
-        
-        <!-- Messenger selector pills -->
-        <div class="flex items-center gap-1.5 mb-2">
-          <button type="button" onclick="selectChatMessenger('whatsapp')" id="msg-opt-whatsapp" class="flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-emerald-600 text-white border-emerald-600 shadow-2xs">
-            <span>🟢 WhatsApp</span>
-          </button>
-          <button type="button" onclick="selectChatMessenger('telegram')" id="msg-opt-telegram" class="flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-white text-slate-700 border-slate-300 hover:bg-slate-50">
-            <span>🔵 Telegram</span>
-          </button>
-          <button type="button" onclick="selectChatMessenger('phone')" id="msg-opt-phone" class="flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-white text-slate-700 border-slate-300 hover:bg-slate-50">
-            <span>📞 Дзвінок</span>
-          </button>
-        </div>
-
-        <div class="flex gap-1.5">
-          <input id="chat-lead-phone" type="tel" placeholder="+380 (__) ___-__-__" class="flex-1 px-2.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-emerald-500 font-mono bg-white shadow-2xs">
-          <button onclick="submitChatLead()" id="chat-lead-btn" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-md flex items-center gap-1">
-            <span>Надіслати</span>
-            <span>➔</span>
-          </button>
-        </div>
-        <div class="text-[10px] text-slate-500 mt-1 flex items-center justify-between">
-          <span>🔒 Конфіденційно · Оплата тільки в кінці</span>
-          <span id="messenger-target-hint" class="text-emerald-700 font-medium">Розрахунок у WhatsApp</span>
-        </div>
-      </div>
 
       <div class="p-3 bg-white border-t border-slate-200 flex gap-2">
         <input id="ai-user-input" type="text" placeholder="Напишіть ваше запитання..." class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-growth" onkeydown="if(event.key==='Enter') sendAiMessage()">

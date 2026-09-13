@@ -207,10 +207,10 @@ export class ChatSessionService {
       }
     }
 
-    // 5. Phone detection
-    const phoneMatch = text.match(/(?:\+?38)?(?:0\d{9}|\(0\d{2}\)\s*\d{3}[-\s]?\d{2}[-\s]?\d{2})/);
+    // 5. Phone detection (flexible regex for Ukrainian and international numbers)
+    const phoneMatch = text.match(/(?:\+?38)?\s*(?:\(?0\d{2}\)?|\b0\d{2}\b)\s*\d{3}[-\s]?\d{2}[-\s]?\d{2}|\b0\d{9}\b|\+?\d{10,13}\b/);
     if (phoneMatch) {
-      p.phone = phoneMatch[0];
+      p.phone = phoneMatch[0].replace(/[\s\(\)-]/g, '');
     }
   }
 

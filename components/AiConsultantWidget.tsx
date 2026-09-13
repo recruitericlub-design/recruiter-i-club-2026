@@ -196,19 +196,6 @@ export default function AiConsultantWidget() {
               }`}
             >
               {m.content}
-              {m.quickReplies && m.quickReplies.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 pt-2.5 mt-2.5 border-t border-white/[0.08]">
-                  {m.quickReplies.map((qr, qIdx) => (
-                    <button
-                      key={qIdx}
-                      onClick={() => handleSend(qr)}
-                      className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 text-[11px] font-semibold transition-colors"
-                    >
-                      {qr}
-                    </button>
-                  ))}
-                </div>
-              )}
               {m.modelUsed && m.role === 'assistant' && (
                 <div className="mt-2.5 pt-2 border-t border-white/[0.06] text-[10px] text-slate-400 flex items-center justify-between">
                   <span className="flex items-center gap-1 text-amber-400/80">
@@ -245,19 +232,6 @@ export default function AiConsultantWidget() {
           </div>
         )}
         <div ref={messagesEndRef} />
-      </div>
-
-      {/* Quick Prompts */}
-      <div className="px-4 py-2 bg-slate-950/40 border-t border-white/[0.05] flex items-center gap-2 overflow-x-auto no-scrollbar">
-        {quickPrompts.map((p, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSend(p)}
-            className="whitespace-nowrap px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-amber-500/15 text-slate-300 hover:text-amber-300 border border-white/[0.06] text-[11px] font-medium transition-colors"
-          >
-            {p}
-          </button>
-        ))}
       </div>
 
       {/* Input Field */}
