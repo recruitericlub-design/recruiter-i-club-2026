@@ -359,7 +359,7 @@
     }
   </style>
 </head>
-<body class="bg-warm-paper text-ink-black antialiased">
+<body class="bg-warm-paper text-ink-black antialiased overflow-x-hidden w-full">
 
   <!-- 1. Top Sovereign Banner -->
   <div class="bg-corporate-navy text-white text-[11px] sm:text-xs py-2 px-4 border-b border-amber-500/30">
@@ -396,36 +396,44 @@
         <a href="blog.html" class="text-emerald-growth font-bold hover:text-deep-emerald transition-colors flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>База знань</a>
         <a href="#portal" class="hover:text-emerald-growth transition-colors">Особистий кабінет</a>
         <a href="#guarantees" class="hover:text-emerald-growth transition-colors">Гарантії</a>
-        <a href="#chronicle" class="hover:text-emerald-growth transition-colors">Кейс 21 день</a>
+        <a href="#chronicle" class="hover:text-emerald-growth transition-colors whitespace-nowrap">Кейс 21 день</a>
         <a href="#team" class="hover:text-emerald-growth transition-colors">Команда</a>
         <a href="#faq" class="hover:text-emerald-growth transition-colors">FAQ</a>
       </nav>
 
       <!-- Action Area -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
         <!-- Trilingual Language Switcher (UA / RU / EN) -->
-        <div class="inline-flex items-center p-0.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600 shrink-0 select-none mr-1 sm:mr-3" id="lang-switcher">
-          <button type="button" onclick="setSiteLanguage('uk')" id="site-lang-uk" class="px-2.5 py-1 rounded-full transition-all duration-200 bg-white text-emerald-700 shadow-xs">UA</button>
-          <button type="button" onclick="setSiteLanguage('ru')" id="site-lang-ru" class="px-2.5 py-1 rounded-full transition-all duration-200 hover:text-slate-900 text-slate-600">RU</button>
-          <button type="button" onclick="setSiteLanguage('en')" id="site-lang-en" class="px-2.5 py-1 rounded-full transition-all duration-200 hover:text-slate-900 text-slate-600">EN</button>
+        <div class="inline-flex items-center p-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] sm:text-[11px] font-bold text-slate-600 shrink-0 select-none" id="lang-switcher">
+          <button type="button" onclick="setSiteLanguage('uk')" id="site-lang-uk" class="px-2 sm:px-2.5 py-1 rounded-full transition-all duration-200 bg-white text-emerald-700 shadow-xs">UA</button>
+          <button type="button" onclick="setSiteLanguage('ru')" id="site-lang-ru" class="px-1.5 sm:px-2.5 py-1 rounded-full transition-all duration-200 hover:text-slate-900 text-slate-600">RU</button>
+          <button type="button" onclick="setSiteLanguage('en')" id="site-lang-en" class="px-1.5 sm:px-2.5 py-1 rounded-full transition-all duration-200 hover:text-slate-900 text-slate-600">EN</button>
         </div>
 
-        <div class="hidden sm:flex flex-col text-right mr-3 font-sans">
+        <!-- Phone button on mobile, text on desktop -->
+        <a href="tel:+380442994820" class="sm:hidden flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs shadow-xs" title="Зателефонувати">
+          📞
+        </a>
+        <div class="hidden sm:flex flex-col text-right mr-1 font-sans">
           <span class="text-[10px] text-slate-400 uppercase font-medium" data-i18n="header_consultation">Консультація директорів:</span>
           <a href="tel:+380442994820" class="text-xs font-bold text-ink-black hover:text-emerald-growth transition-colors">+380 (44) 299-48-20</a>
         </div>
 
-        <!-- Portal Link to standalone CRM in new tab -->
-        <a href="candidates_database.html" target="_blank" class="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-button text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition-all shadow-2xs shrink-0">
+        <!-- Portal Link to standalone CRM in new tab (desktop) -->
+        <a href="candidates_database.html" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-button text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition-all shadow-2xs shrink-0">
           <span>📱</span>
-          <span class="hidden md:inline">Увійти в</span> <span>Кабінет</span>
+          <span>Кабінет</span>
         </a>
 
-        <!-- Main Audit Button -->
-        <a href="#audit" class="inline-flex items-center justify-center rounded-button font-bold text-xs md:text-sm px-3 py-1.5 sm:px-5 sm:py-2.5 bg-emerald-growth text-white hover:bg-deep-emerald shadow-md shadow-emerald-900/10 transition-all hover:-translate-y-0.5 shrink-0 whitespace-nowrap">
-          <span class="sm:hidden">Аудит (0 грн)</span>
-          <span class="hidden sm:inline">Замовити аудит (0 грн)</span>
+        <!-- Main Audit Button (desktop/tablet) -->
+        <a href="#audit" class="hidden sm:inline-flex items-center justify-center rounded-button font-bold text-xs md:text-sm px-4 py-2 sm:px-5 sm:py-2.5 bg-emerald-growth text-white hover:bg-deep-emerald shadow-md shadow-emerald-900/10 transition-all hover:-translate-y-0.5 shrink-0 whitespace-nowrap">
+          <span>Замовити аудит (0 грн)</span>
         </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button type="button" onclick="toggleMobileMenu()" class="xl:hidden flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition" aria-label="Меню">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
       </div>
 
     </div>
@@ -580,7 +588,7 @@
       
       <div class="max-w-3xl mb-12">
         <span class="inline-block rounded-button uppercase tracking-wide bg-emerald-growth/10 text-emerald-growth border border-emerald-growth/20 text-xs font-bold px-3 py-1 mb-3">
-          Демонстраційна вітрина (Питання №2)
+          Презентаційна вітрина кандидатів
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-ink-black tracking-tight mb-3">
           Презентаційна вітрина кандидатів
@@ -769,9 +777,112 @@
         </p>
       </div>
 
-      <!-- Exact Working Mockup Mounted Directly & Harmonized -->
-      <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#0b192c]">
-        <iframe src="smartphone_demo.html" class="w-full h-[1120px] sm:h-[1160px] lg:h-[1090px] border-0 block" title="Особистий кабінет роботодавця" loading="eager"></iframe>
+      <!-- High-Performance Native CRM Simulator Dashboard (Fast, Responsive, Zero-Lag) -->
+      <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-slate-900/90 backdrop-blur-xl">
+        <!-- Simulator Window Header Bar -->
+        <div class="px-4 py-3 bg-slate-950/80 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            </div>
+            <div class="flex items-center gap-2 pl-2 border-l border-slate-800">
+              <span class="text-xs font-mono font-bold text-slate-300">ТОВ «УКРБУДІНВЕСТ-МОНОЛІТ»</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wide bg-amber-400/20 text-amber-300 border border-amber-400/30">ДЕМО-ДОСТУП</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 text-xs font-mono text-slate-300">
+            <span>В БАЗІ: <strong class="text-sky-400">124</strong></span>
+            <span>|</span>
+            <span>НАКАЗ ДЦЗ: <strong class="text-emerald-400">18</strong></span>
+            <span>|</span>
+            <span class="hidden sm:inline">КУРАТОР 24/7: <strong class="text-amber-400">Оксана Ковальчук</strong></span>
+          </div>
+        </div>
+
+        <!-- Live Candidate Pipeline Cards -->
+        <div class="p-4 sm:p-6 lg:p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            
+            <!-- Stage 1 -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/40 transition">
+              <div class="flex items-center justify-between text-[11px] mb-2">
+                <span class="text-amber-400 font-bold">🇺🇿 UZB-9102</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px]">Trade-Test 9.8/10</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm mb-0.5">Ільхом Бабаєв</h4>
+              <p class="text-xs text-slate-400 mb-3">Бригадир арматурників (34 р.)</p>
+              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-slate-300 mb-3">
+                <span class="text-emerald-400 font-bold">● Статус:</span> Документи в ДЦЗ погоджено
+              </div>
+              <button onclick="openRequestModal('Ільхом Бабаєв (Досьє)')" class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition">
+                Переглянути досьє
+              </button>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/40 transition">
+              <div class="flex items-center justify-between text-[11px] mb-2">
+                <span class="text-sky-400 font-bold">🇮🇳 IND-8492</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px]">Trade-Test 9.9/10</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm mb-0.5">Раджеш Кумар</h4>
+              <p class="text-xs text-slate-400 mb-3">Зварювальник MIG/MAG (29 р.)</p>
+              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-slate-300 mb-3">
+                <span class="text-sky-400 font-bold">● Статус:</span> Віза D-04 отримана (Транзит)
+              </div>
+              <button onclick="openRequestModal('Раджеш Кумар (Досьє)')" class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition">
+                Переглянути досьє
+              </button>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/40 transition">
+              <div class="flex items-center justify-between text-[11px] mb-2">
+                <span class="text-amber-400 font-bold">🇺🇿 UZB-6104</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px]">Trade-Test 9.6/10</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm mb-0.5">Хасан Махмудов</h4>
+              <p class="text-xs text-slate-400 mb-3">Оператор верстатів ЧПК (31 р.)</p>
+              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-slate-300 mb-3">
+                <span class="text-amber-400 font-bold">● Статус:</span> Відеофіксація випробувань
+              </div>
+              <button onclick="openRequestModal('Хасан Махмудов (Досьє)')" class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition">
+                Переглянути досьє
+              </button>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/40 transition">
+              <div class="flex items-center justify-between text-[11px] mb-2">
+                <span class="text-sky-400 font-bold">🇮🇳 IND-4421</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px]">Trade-Test 9.9/10</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm mb-0.5">Суніл Шарма</h4>
+              <p class="text-xs text-slate-400 mb-3">Водій навантажувача / WMS (28 р.)</p>
+              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-slate-300 mb-3">
+                <span class="text-purple-400 font-bold">● Статус:</span> Прибуття на завод через 4 дні
+              </div>
+              <button onclick="openRequestModal('Суніл Шарма (Досьє)')" class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition">
+                Переглянути досьє
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Simulator Action Controls -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 border-t border-white/10">
+            <a href="smartphone_demo.html" target="_blank" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50">
+              <span>📱 Запустити повноекранний симулятор смартфона</span>
+              <span>➔</span>
+            </a>
+            <a href="candidates_database.html" target="_blank" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-slate-200 hover:text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 border border-white/10">
+              <span>📊 Відкрити повний реєстр кандидатів (120+)</span>
+              <span>➔</span>
+            </a>
+          </div>
+        </div>
       </div>
 
       <!-- Bottom Commercial Assurance & Fullscreen Access Bar -->
@@ -869,7 +980,7 @@
       
       <div class="max-w-3xl mb-14">
         <span class="inline-block rounded-button uppercase tracking-wide bg-amber-100 text-amber-900 border border-amber-300 text-xs font-extrabold tracking-wide px-3.5 py-1 mb-3">
-          РЕАЛЬНИЙ БІЗНЕС-КЕЙС (ПИТАННЯ №11)
+          РЕАЛЬНИЙ БІЗНЕС-КЕЙС
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-ink-black tracking-tight mb-3">
           Фотохроніка рекорду: 21 день від заявки до першої зміни
@@ -1215,7 +1326,7 @@
       
       <div class="text-center mb-14">
         <span class="inline-block rounded-button uppercase tracking-wide bg-emerald-growth/10 text-emerald-growth border border-emerald-growth/20 text-xs font-bold px-3.5 py-1 mb-3">
-          ВІДПОВІДІ НА ГОЛОВНІ СТРАХИ ДИРЕКТОРА (ПИТАННЯ №6)
+          ЧАСТІ ЗАПИТАННЯ ТА ЮРИДИЧНІ РОЗ'ЯСНЕННЯ
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-ink-black tracking-tight mb-3">
           Часті запитання та юридичні роз'яснення
@@ -1547,178 +1658,7 @@
     </div>
   </section>
 
-  <section id="knowledge-base" class="py-20 bg-gradient-to-b from-warm-paper via-white to-warm-paper border-b border-slate-200/80">
-    <div class="max-w-[1400px] mx-auto px-6">
-      
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          БАЗА ЗНАНЬ ТА ЧАСТІ ЗАПИТАННЯ РОБОТОДАВЦІВ
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-ink-black tracking-tight mb-5">
-          Все, що важливо знати про <span class="text-emerald-growth">імпорт та легалізацію</span> персоналу
-        </h2>
-        <p class="text-base text-slate-600 leading-relaxed font-normal">
-          Прозорі юридичні відповіді на ключові фінансові, міграційні та логістичні питання для власників і HR-директорів підприємств України.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
-
-        <!-- FAQ Item 1 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-emerald-100/70 text-emerald-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-emerald-200">
-              01
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-emerald-800 transition-colors">
-                Коли сплачується комісія агенції за підбір персоналу?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                <strong class="text-emerald-700">Залізне правило Recruiter I Club:</strong> комісію агенції роботодавець сплачує виключно <strong>в кінці</strong> — після того, як працівник фактично прибув на ваше підприємство, пройшов інструктаж і вийшов на свою першу зміну. Жодних прихованих передоплат за послуги рекрутингу.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 2 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-amber-100/70 text-amber-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-amber-200">
-              02
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-amber-800 transition-colors">
-                Хто оплачує авіаквитки працівникам (туди і назад)?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Працівник купує авіаквитки <strong>виключно за власні кошти</strong>. Це його особиста фінансова відповідальність і найкраща мотивація сумлінно відпрацювати весь контракт без самовільного залишення робочого місця. Роботодавець не витрачає бюджет на перельоти.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 3 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-emerald-100/70 text-emerald-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-emerald-200">
-              03
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-emerald-800 transition-colors">
-                Чи підлягають іноземні працівники мобілізації в Україні?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                <strong>Ні.</strong> Відповідно до <strong>Статті 23 Закону України «Про мобілізаційну підготовку та мобілізацію»</strong>, іноземні громадяни не підлягають військовому обліку та призову. Ваші виробничі процеси та графіки змін на 100% захищені від раптових кадрових втрат.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 4 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-slate-100 text-slate-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-slate-200">
-              04
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-emerald-800 transition-colors">
-                Які реальні терміни оформлення та прибуття робітників?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Стандартний повний цикл «під ключ» триває <strong>від 21 до 35 днів</strong>: практичний trade-test у Ташкенті/Делі (2-4 дні) ➔ наказ ДЦЗ про видачу дозволу на застосування праці (7-10 днів) ➔ консульська віза D-04 ➔ безпечний наземний трансфер через Молдову на ваш завод.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 5 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-emerald-100/70 text-emerald-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-emerald-200">
-              05
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-emerald-800 transition-colors">
-                Що відбувається, якщо працівник не підійшов або захворів?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Діє <strong>100% юридична гарантія заміни за договором</strong>. Якщо спеціаліст не відповідає підтвердженій кваліфікації протягом випробувального терміну або виник форс-мажор — миттєво надаємо рівноцінного спеціаліста з резерву без додаткових оплат або повертаємо кошти.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 6 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-sky-100/70 text-sky-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-sky-200">
-              06
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-sky-800 transition-colors">
-                Як організована логістика в умовах закритого неба?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Ми організовуємо прямий переліт до міжнародного аеропорту Кишинів (Молдова), де працює наш власний координаційний хаб під керівництвом Станіслава Лухменка. Далі — супроводжуваний автобусний трансфер «зеленим коридором» до Одеси або вашого об'єкта.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 7 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-amber-100/70 text-amber-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-amber-200">
-              07
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-amber-800 transition-colors">
-                З яких країн залучаються працівники та які професії?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                <strong>80% запитів закриває Узбекистан</strong> (російськомовні, швидка адаптація, зрозумілий менталітет, висока працьовитість). Також залучаємо кадри з Індії, Бангладеш та Непалу під масові фізичні навантаження. Професії: будівельники, зварювальники MIG/MAG, пакувальники, різноробочі, верстатники.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 8 -->
-        <div class="tactile-card p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500/50 transition-all group">
-          <div class="flex items-start gap-4">
-            <span class="w-10 h-10 rounded-2xl bg-emerald-100/70 text-emerald-800 font-mono font-extrabold flex items-center justify-center shrink-0 text-sm border border-emerald-200">
-              08
-            </span>
-            <div class="space-y-2">
-              <h3 class="text-base sm:text-lg font-extrabold text-ink-black group-hover:text-emerald-800 transition-colors">
-                Скільки коштує попередній аудит кадрової потреби?
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                <strong>0 грн.</strong> Спочатку ми беремо вашу заявку, за 24–48 годин перевіряємо через наші центри відбору в Азії наявність реальних кандидатів під ваші вимоги, і якщо закрити заявку реально — надаємо точний персональний кошторис. Якщо ні — чесно відмовляємо одразу.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Quick Action CTA inside FAQ -->
-      <div class="mt-14 max-w-2xl mx-auto text-center bg-white p-8 rounded-3xl border border-slate-200/80 shadow-md">
-        <h4 class="text-lg sm:text-xl font-black text-ink-black mb-2">Залишилися специфічні запитання щодо вашого виробництва?</h4>
-        <p class="text-xs sm:text-sm text-slate-500 mb-6 leading-relaxed">Керуючий проектами Роман Яновський або міграційний юрист Владлен Пономаренко проконсультують вас особисто.</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="#audit" class="w-full sm:w-auto inline-flex items-center justify-center rounded-button font-bold text-xs sm:text-sm px-6 py-3 bg-emerald-growth text-white hover:bg-deep-emerald shadow-md transition-all">
-            Замовити аудит заявки (0 грн)
-          </a>
-          <a href="tel:+380442994820" class="w-full sm:w-auto inline-flex items-center justify-center rounded-button font-bold text-xs sm:text-sm px-6 py-3 bg-slate-100 text-slate-800 hover:bg-slate-200 transition-all border border-slate-200">
-            📞 +380 (44) 299-48-20
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
+  
 
 
   <!-- 11. Footer (Strictly from Blueprint Question #7) -->
@@ -1730,7 +1670,6 @@
         <div class="md:col-span-2">
           <div class="mb-4">
             <div class="flex items-center gap-3 px-4 py-2.5 rounded-full bg-slate-950 border border-amber-500/40 shadow-xl inline-flex">
-              <img src="/images/logo/riclub_master_badge_3d.png" alt="Recruiter I Club B2B" class="h-10 sm:h-12 md:h-14 w-auto object-contain rounded-xl shadow-lg border border-amber-500/30 transition-transform duration-300 group-hover:scale-105">
               <img src="/images/logo/riclub_master_badge_3d.png" alt="Recruiter I Club B2B" class="h-10 sm:h-12 md:h-14 w-auto object-contain rounded-xl shadow-lg border border-amber-500/30 transition-transform duration-300 group-hover:scale-105">
             </div>
           </div>
@@ -1779,39 +1718,85 @@
     </div>
   </footer>
 
-  <!-- 12. Smart AI-Consultant Widget 24/7 (Proactive & CRM Connected) -->
+  <!-- 12. Smart AI-Consultant Widget 24/7 (Proactive, Sound Alert & CRM Connected) -->
   <div id="ai-widget" class="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50">
-    <!-- Proactive Teaser Bubble (slides in after 5.5s or scroll) -->
-    <div id="ai-teaser-bubble" class="hidden mb-3 max-w-[330px] bg-corporate-navy text-white p-3.5 rounded-2xl shadow-2xl border border-emerald-500/60 transition-all transform animate-in fade-in slide-in-from-bottom-3 duration-300">
-      <div class="flex items-start gap-2.5">
-        <img src="images/logo/riclub_gold_seal_3d.png" alt="AI" class="w-8 h-8 rounded-full border border-amber-400 shrink-0 mt-0.5 shadow-md">
-        <div class="text-xs">
-          <div class="font-extrabold text-amber-300 flex items-center gap-1.5">
-            <span>AI-Консультант Recruiter I Club</span>
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+    <!-- Proactive Teaser Bubble (slides in proactively after 2.6s or scroll with "ПУНЬ!" sound) -->
+    <div id="ai-teaser-bubble" class="hidden mb-3 w-[330px] sm:w-[360px] bg-corporate-navy/95 backdrop-blur-md text-white p-4 rounded-3xl shadow-2xl border-2 border-emerald-500/80 transition-all transform animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <!-- Teaser Header -->
+      <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="relative">
+            <img src="images/logo/riclub_gold_seal_3d.png" alt="AI" class="w-8 h-8 rounded-full border border-amber-400 shrink-0 shadow-md">
+            <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-corporate-navy animate-pulse"></span>
           </div>
-          <p class="text-slate-200 mt-1 leading-snug" id="teaser-text">
-            👋 Вітаємо! Шукаєте перевірених робітників зі 100% захистом від мобілізації (ст. 23 ЗУ)? Допомогти підібрати людей чи прорахувати вартість під ключ?
-          </p>
-          <div class="mt-2.5 flex items-center gap-2">
-            <button onclick="openAiChatWithQuery('Розрахувати кошторис для мого підприємства')" class="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[11px] transition shadow-xs">
-              ⚡ Розрахувати вартість (0 грн)
-            </button>
-            <button onclick="dismissTeaser()" class="text-slate-400 hover:text-white text-[11px]">
-              Пізніше
-            </button>
+          <div>
+            <div class="font-extrabold text-xs text-amber-300 flex items-center gap-1.5" id="teaser-header-title">
+              <span>AI-Координатор Recruiter I Club</span>
+            </div>
+            <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-1" id="teaser-header-status">
+              <span>●</span> <span>В мережі · відповідає за 30 сек</span>
+            </div>
           </div>
+        </div>
+        <button onclick="dismissTeaser()" class="text-slate-400 hover:text-white text-base font-bold w-6 h-6 flex items-center justify-center rounded-lg hover:bg-white/10 transition" title="Згорнути">✕</button>
+      </div>
+
+      <!-- Live Typing Indicator (simulates active typing on entry) -->
+      <div id="teaser-typing-indicator" class="py-2 px-3 bg-white/5 rounded-2xl flex items-center gap-2 text-xs text-emerald-300 mb-2">
+        <span class="flex gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" style="animation-delay: 0ms"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" style="animation-delay: 150ms"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" style="animation-delay: 300ms"></span>
+        </span>
+        <span class="font-mono text-[11px]" id="teaser-typing-text">Координатор друкує повідомлення...</span>
+      </div>
+
+      <!-- Main Interactive Content (revealed dynamically) -->
+      <div id="teaser-main-content" class="text-xs space-y-2.5">
+        <p class="text-slate-100 leading-snug font-normal" id="teaser-text">
+          👋 <strong>Вітаю! Я Оксана, координатор Recruiter I Club.</strong><br>
+          На яку ділянку та скільки робітників потрібно вашому підприємству? Зорієнтую за строками та наявністю людей (ст. 23 ЗУ — 100% захист).
+        </p>
+
+        <!-- Quick 1-click Choice Pills -->
+        <div class="flex flex-wrap gap-1.5 pt-1" id="teaser-pills-container">
+          <button onclick="openAiChatWithQuery('Потрібні робітники на завод / виробництво')" class="px-2.5 py-1 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/40 text-[11px] font-semibold transition">
+            🏭 Завод / Виробництво
+          </button>
+          <button onclick="openAiChatWithQuery('Потрібні люди на будівництво')" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-emerald-500 text-slate-200 hover:text-white border border-white/20 text-[11px] font-semibold transition">
+            🏗 Будівництво
+          </button>
+          <button onclick="openAiChatWithQuery('Потрібні працівники на склад / в агросектор')" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-emerald-500 text-slate-200 hover:text-white border border-white/20 text-[11px] font-semibold transition">
+            🌾 Склад / Агро
+          </button>
+          <button onclick="openAiChatWithQuery('Маю питання щодо підбору та умов')" class="px-2.5 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/40 text-[11px] font-semibold transition">
+            💬 Задати питання
+          </button>
+        </div>
+
+        <!-- Quick Direct Input inside Teaser -->
+        <div class="flex gap-1.5 pt-1">
+          <input id="teaser-quick-input" type="text" placeholder="Спеціальність або кількість людей..." class="flex-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-emerald-400" onkeydown="if(event.key==='Enter') sendTeaserQuickMessage()">
+          <button onclick="sendTeaserQuickMessage()" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition shadow-md flex items-center justify-center">
+            ➔
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Collapsed Toggle Button -->
-    <button onclick="toggleAiChat()" id="ai-toggle-btn" class="flex items-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-corporate-navy text-white border-2 border-emerald-500 shadow-2xl hover:scale-105 transition-all group">
+    <!-- Collapsed Toggle Button with Notification Badge & Pulse -->
+    <button onclick="toggleAiChat()" id="ai-toggle-btn" class="relative flex items-center gap-2.5 px-4 py-3 rounded-full bg-corporate-navy text-white border-2 border-emerald-500 shadow-2xl hover:scale-105 transition-all group">
+      <!-- Unread indicator badge -->
+      <span id="ai-unread-badge" class="absolute -top-1.5 -right-1.5 flex h-5 w-5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-5 w-5 bg-red-600 text-white text-[10px] font-extrabold items-center justify-center border-2 border-corporate-navy shadow-md">1</span>
+      </span>
+
       <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-emerald-500"></span>
       </span>
-      <span class="font-bold text-xs tracking-wide">AI-Консультант 24/7</span>
+      <span class="font-extrabold text-xs tracking-wide">AI-Консультант 24/7</span>
       <span class="hidden sm:inline text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-extrabold tracking-wide">Розрахунок</span>
     </button>
 
@@ -2107,28 +2092,103 @@
 
       showSuccessModal(`Дякуємо, ${name}! Запит на анкету за профілем "${candidateTarget}" надіслано в CRM. Куратор бази відбере кандидатів та зв'яжеться з вами за номером ${phone}.`);
     }
+    // Soft acoustic notification sound (WhatsApp Pop / Chime)
+    function playNotificationSound() {
+      try {
+        const audio = new Audio('/audio/whatsapp_notification.wav');
+        audio.volume = 0.85;
+        const p = audio.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            try {
+              const AudioCtx = window.AudioContext || window.webkitAudioContext;
+              if (!AudioCtx) return;
+              if (!window._riclubAudioCtx) window._riclubAudioCtx = new AudioCtx();
+              const ctx = window._riclubAudioCtx;
+              if (ctx.state === 'suspended') ctx.resume();
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+              osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+              gain.gain.setValueAtTime(0.15, ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start();
+              osc.stop(ctx.currentTime + 0.16);
+            } catch (e) {}
+          });
+        }
+      } catch (e) {
+        console.log('Notification sound error:', e);
+      }
+    }
+
+    // Auto-unlock audio context on user interaction (scroll, touch, mouse, key)
+    function unlockAudioEngine() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx && !window._riclubAudioCtx) {
+          window._riclubAudioCtx = new AudioCtx();
+        }
+        if (window._riclubAudioCtx && window._riclubAudioCtx.state === 'suspended') {
+          window._riclubAudioCtx.resume();
+        }
+      } catch(e){}
+    }
+    ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
+    });
 
     function toggleAiChat() {
       const box = document.getElementById('ai-chat-box');
       const teaser = document.getElementById('ai-teaser-bubble');
-      if (box) box.classList.toggle('hidden');
+      const btn = document.getElementById('ai-toggle-btn');
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.add('hidden');
       if (teaser) teaser.classList.add('hidden');
+      if (box) {
+        const isOpening = box.classList.contains('hidden');
+        if (isOpening) {
+          box.classList.remove('hidden');
+          if (btn) btn.classList.add('hidden');
+        } else {
+          box.classList.add('hidden');
+          if (btn) btn.classList.remove('hidden');
+        }
+      }
     }
 
     function dismissTeaser() {
       const teaser = document.getElementById('ai-teaser-bubble');
       if (teaser) teaser.classList.add('hidden');
-      sessionStorage.setItem('riclub_ai_teaser_dismissed', '1');
+      const btn = document.getElementById('ai-toggle-btn');
+      if (btn) btn.classList.remove('hidden');
+      // Keep unread badge pulsing on toggle button to still attract attention
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.remove('hidden');
     }
 
     function openAiChatWithQuery(q) {
       const box = document.getElementById('ai-chat-box');
       const teaser = document.getElementById('ai-teaser-bubble');
-      if (box && box.classList.contains('hidden')) {
-        box.classList.remove('hidden');
-      }
+      const btn = document.getElementById('ai-toggle-btn');
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.add('hidden');
       if (teaser) teaser.classList.add('hidden');
+      if (box) box.classList.remove('hidden');
+      if (btn) btn.classList.add('hidden');
       postChatUserMessage(q);
+    }
+
+    function sendTeaserQuickMessage() {
+      const input = document.getElementById('teaser-quick-input');
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = '';
+      openAiChatWithQuery(val);
     }
 
     async function sendAiMessage() {
@@ -2142,11 +2202,6 @@
     function sendQuickAiQuery(text) {
       postChatUserMessage(text);
     }
-
-    async function postChatUserMessage(text) {
-      const container = document.getElementById('ai-chat-messages');
-      container.innerHTML += `<div class="text-right"><span class="bg-emerald-600 text-white px-3 py-1.5 rounded-2xl inline-block text-xs font-medium">${text}</span></div>`;
-      container.scrollTop = container.scrollHeight;
 
     let selectedChatMessenger = 'whatsapp';
     let chatConversationContext = [];
@@ -2170,7 +2225,6 @@
         else hint.textContent = 'Дзвінок керуючого';
       }
     }
-
     async function postChatUserMessage(text) {
       chatConversationContext.push(`Користувач: ${text}`);
       const container = document.getElementById('ai-chat-messages');
@@ -2179,7 +2233,7 @@
 
       // Typing indicator
       const typingId = 'typing-' + Date.now();
-      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Консультант формує відповідь...</div>`;
+      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Координатор формує відповідь...</div>`;
       container.scrollTop = container.scrollHeight;
 
       try {
@@ -2191,14 +2245,28 @@
         const data = await res.json();
         document.getElementById(typingId)?.remove();
 
-        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати точний кошторис під ваше ТОВ/ПП та зафіксувати квоту, вкажіть ваш контактний номер телефону нижче:';
-        chatConversationContext.push(`Консультант: ${reply.substring(0, 150)}...`);
-        // Format markdown bold
+        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати точні строки під ваше підприємство, уточніть: на яку ділянку та скільки робітників потрібно?';
+        chatConversationContext.push(`Координатор: ${reply.substring(0, 150)}...`);
+        
+        playNotificationSound();
+
         const formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${formattedReply}</div>`;
+        let replyHtml = `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${formattedReply}`;
+        
+        // Render dynamic interactive quick-reply chips
+        if (data.quickReplies && data.quickReplies.length > 0) {
+          replyHtml += `<div class="flex flex-wrap gap-1.5 pt-2 mt-2 border-t border-slate-100">`;
+          data.quickReplies.forEach(qr => {
+            const escapedQr = qr.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+            replyHtml += `<button type="button" onclick="this.parentElement.remove(); postChatUserMessage('${escapedQr}')" class="px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-900 border border-emerald-300 text-[11px] font-semibold transition shadow-2xs">${qr}</button>`;
+          });
+          replyHtml += `</div>`;
+        }
+        replyHtml += `</div>`;
+        
+        container.innerHTML += replyHtml;
         container.scrollTop = container.scrollHeight;
         
-        // Highlight lead form
         const leadBox = document.getElementById('chat-lead-box');
         if (leadBox) {
           leadBox.classList.remove('hidden');
@@ -2207,14 +2275,14 @@
         }
       } catch (err) {
         document.getElementById(typingId)?.remove();
-        let fallback = 'Дякую за запитання! Щоб отримати офіційний розрахунок та перелік кандидатів під ваше підприємство у WhatsApp чи Telegram, вкажіть ваш номер телефону нижче:';
+        let fallback = 'Дякую за запитання! Щоб розрахувати точні строки прибуття робітників під ваше підприємство, уточніть: на яку саме ділянку та скільки людей потрібно?';
         if (text.includes('комісія') || text.includes('оплата')) {
-          fallback = '<strong>Залізне правило Recruiter I Club:</strong> комісію агенції ви сплачуєте <strong>виключно в кінці</strong> — після прибуття працівника та виходу на зміну. До цього — жодних передоплат за підбір!';
+          fallback = 'Комісію агенції ви сплачуєте **виключно в кінці** — після виходу людей на зміну. Скільки робітників потрібно у першу партію?';
         } else if (text.includes('мобіліз') || text.includes('ст 23')) {
-          fallback = 'Згідно зі <strong>Статтею 23 Закону України</strong>, іноземні громадяни не підлягають військовому обліку та призову. 100% захист від простою ваших змін 24/7.';
+          fallback = 'Іноземні робітники мають 100% захист від мобілізації за ст. 23 ЗУ (ТЦК не має права їх призивати). На яку спеціальність шукаєте працівників?';
         }
-        chatConversationContext.push(`Консультант: ${fallback}`);
-        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${fallback}</div>`;
+        chatConversationContext.push(`Координатор: ${fallback}`);
+        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${fallback.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
         container.scrollTop = container.scrollHeight;
       }
     }
@@ -2269,28 +2337,50 @@
       phoneInput.value = '';
     }
 
-    // Proactive AI engagement: trigger teaser after 5.5 seconds or on scroll
-    (function initProactiveAi() {
-      let triggered = false;
-      const triggerTeaser = () => {
-        if (triggered) return;
-        if (sessionStorage.getItem('riclub_ai_teaser_dismissed')) return;
-        const teaser = document.getElementById('ai-teaser-bubble');
-        const box = document.getElementById('ai-chat-box');
-        if (teaser && box && box.classList.contains('hidden')) {
-          teaser.classList.remove('hidden');
-          triggered = true;
-        }
-      };
+    // Proactive AI engagement with Sound, Typing simulation & Attention Badge
+    let proactiveAiTriggered = false;
+    function triggerProactiveAi() {
+      if (proactiveAiTriggered) return;
+      proactiveAiTriggered = true;
 
-      setTimeout(triggerTeaser, 5500);
+      const chatBox = document.getElementById('ai-chat-box');
+      if (chatBox && !chatBox.classList.contains('hidden')) return;
 
-      window.addEventListener('scroll', () => {
-        if (!triggered && window.scrollY > 400) {
-          triggerTeaser();
-        }
-      }, { passive: true });
-    })();
+      const teaser = document.getElementById('ai-teaser-bubble');
+      if (!teaser) return;
+
+      // 1. Play "ПУНЬ!" sound notification
+      unlockAudioEngine();
+      playNotificationSound();
+
+      // 2. Reveal teaser with smooth entrance
+      teaser.classList.remove('hidden');
+
+      // 3. Show typing indicator for 750ms, then reveal greeting & second soft chime
+      const typingEl = document.getElementById('teaser-typing-indicator');
+      const contentEl = document.getElementById('teaser-main-content');
+      if (typingEl && contentEl) {
+        typingEl.classList.remove('hidden');
+        contentEl.classList.add('hidden');
+        setTimeout(() => {
+          typingEl.classList.add('hidden');
+          contentEl.classList.remove('hidden');
+          playNotificationSound();
+        }, 750);
+      }
+
+      // 4. Activate unread badge on collapsed button
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.remove('hidden');
+    }
+
+    // Trigger proactively after 2.6s OR on scroll > 120px
+    setTimeout(triggerProactiveAi, 2600);
+    window.addEventListener('scroll', () => {
+      if (!proactiveAiTriggered && window.scrollY > 120) {
+        triggerProactiveAi();
+      }
+    }, { passive: true });
 
     /* Interactive 3D Logistics Network Mesh Animation in Hero */
     (function initHeroNetwork() {
@@ -2512,7 +2602,12 @@
         showcase_title: "Вітрина верифікованих кандидатів",
         showcase_subtitle: "Фахівці з практичними trade-тестами та відеозвітами з Ташкента та Делі, готові до виїзду",
         kb_title: "База знань з міжнародного рекрутингу 2026",
-        kb_subtitle: "17 офіційних юридичних, податкових та економічних гайдів для CEO, CFO та директорів з виробництва"
+        kb_subtitle: "17 офіційних юридичних, податкових та економічних гайдів для CEO, CFO та директорів з виробництва",
+        teaser_title: "AI-Координатор Recruiter I Club",
+        teaser_status: "В мережі · відповідає за 30 сек",
+        teaser_typing: "Координатор друкує повідомлення...",
+        teaser_greeting: "👋 <strong>Вітаю! Я Оксана, координатор Recruiter I Club.</strong><br>На яку ділянку та скільки робітників потрібно вашому підприємству? Зорієнтую за строками та наявністю людей (ст. 23 ЗУ — 100% захист).",
+        teaser_placeholder: "Спеціальність або кількість людей..."
       },
       ru: {
         banner_operator: "ОФИЦИАЛЬНЫЙ B2B-ОПЕРАТОР В УКРАИНЕ · ЛИЦЕНЗИЯ №1428",
@@ -2540,7 +2635,12 @@
         showcase_title: "Витрина верифицированных кандидатов",
         showcase_subtitle: "Специалисты с практическими trade-тестами и видеоотчетами из Ташкента и Дели, готовые к выезду",
         kb_title: "База знаний по международному найму 2026",
-        kb_subtitle: "17 официальных юридических, налоговых и экономических разборов для CEO, CFO и директоров заводов"
+        kb_subtitle: "17 официальных юридических, налоговых и экономических разборов для CEO, CFO и директоров заводов",
+        teaser_title: "AI-Координатор Recruiter I Club",
+        teaser_status: "В сети · отвечает за 30 сек",
+        teaser_typing: "Координатор печатает сообщение...",
+        teaser_greeting: "👋 <strong>Здравствуйте! Я Оксана, координатор Recruiter I Club.</strong><br>На какой участок и сколько рабочих требуется предприятию? Сориентирую по срокам прибытия и наличию людей (ст. 23 ЗУ — 100% защита).",
+        teaser_placeholder: "Специальность или количество человек..."
       },
       en: {
         banner_operator: "OFFICIAL B2B RECRUITER IN UKRAINE · LICENSE #1428",
@@ -2568,7 +2668,12 @@
         showcase_title: "Verified Asian Candidate Showcase",
         showcase_subtitle: "Certified professionals with video trade-tests and background vetting ready for deployment",
         kb_title: "International Staffing Knowledge Base 2026",
-        kb_subtitle: "17 comprehensive legal, taxation, and economic operational manuals for CEOs and Plant Directors"
+        kb_subtitle: "17 comprehensive legal, taxation, and economic operational manuals for CEOs and Plant Directors",
+        teaser_title: "Recruiter I Club AI Coordinator",
+        teaser_status: "Online · replies within 30s",
+        teaser_typing: "Coordinator is typing a message...",
+        teaser_greeting: "👋 <strong>Hello! I am Oksana, coordinator at Recruiter I Club.</strong><br>What trade and how many workers does your facility need? I will guide you on deployment timelines and mobilization exemption (Art. 23).",
+        teaser_placeholder: "Trade or number of workers needed..."
       }
     };
 
@@ -2626,6 +2731,22 @@
       const heroCandidatesBtn = document.querySelector('section a[href="#showcase"] span');
       if (heroCandidatesBtn) heroCandidatesBtn.textContent = d.hero_btn_candidates;
 
+      // AI Teaser & Widget Localization
+      const teaserText = document.getElementById('teaser-text');
+      if (teaserText && d.teaser_greeting) teaserText.innerHTML = d.teaser_greeting;
+
+      const teaserTyping = document.getElementById('teaser-typing-text');
+      if (teaserTyping && d.teaser_typing) teaserTyping.textContent = d.teaser_typing;
+
+      const teaserInput = document.getElementById('teaser-quick-input');
+      if (teaserInput && d.teaser_placeholder) teaserInput.placeholder = d.teaser_placeholder;
+
+      const teaserHeader = document.getElementById('teaser-header-title');
+      if (teaserHeader && d.teaser_title) teaserHeader.innerHTML = `<span>${d.teaser_title}</span>`;
+
+      const teaserStatus = document.getElementById('teaser-header-status');
+      if (teaserStatus && d.teaser_status) teaserStatus.innerHTML = `<span>●</span> <span>${d.teaser_status}</span>`;
+
       // Store preference
       localStorage.setItem('riclub_site_lang', lang);
     }
@@ -2640,6 +2761,84 @@
         setSiteLanguage(langToUse);
       }
     });
+  </script>
+
+
+  <!-- Mobile Slide-out Navigation Drawer -->
+  <div id="mobile-drawer" class="fixed inset-0 z-[100] bg-slate-950/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 xl:hidden hidden">
+    <div id="mobile-drawer-content" class="absolute top-0 right-0 w-[86%] max-w-[340px] h-full bg-white shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+          <img src="/images/logo/riclub_master_badge_3d.png" alt="Recruiter I Club" class="h-9 w-auto rounded-lg">
+          <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 text-xl font-bold">&times;</button>
+        </div>
+        <nav class="flex flex-col gap-3 text-sm font-bold text-slate-800">
+          <a href="#showcase" onclick="toggleMobileMenu()" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 transition">
+            <span class="text-emerald-600 text-base">👥</span>
+            <span>Вітрина кандидатів</span>
+          </a>
+          <a href="blog.html" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 text-emerald-700 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>База знань (17 статей)</span>
+          </a>
+          <a href="#portal" onclick="toggleMobileMenu()" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 transition">
+            <span class="text-amber-600 text-base">💻</span>
+            <span>Особистий кабінет</span>
+          </a>
+          <a href="#guarantees" onclick="toggleMobileMenu()" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 transition">
+            <span class="text-blue-600 text-base">🛡️</span>
+            <span>Гарантії безпеки</span>
+          </a>
+          <a href="#chronicle" onclick="toggleMobileMenu()" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 transition">
+            <span class="text-purple-600 text-base">⏱️</span>
+            <span>Кейс 21 день</span>
+          </a>
+          <a href="#team" onclick="toggleMobileMenu()" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 transition">
+            <span class="text-teal-600 text-base">👔</span>
+            <span>Команда та хаби в Азії</span>
+          </a>
+          <a href="#faq" onclick="toggleMobileMenu()" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-slate-50 transition">
+            <span class="text-slate-600 text-base">❓</span>
+            <span>Часті запитання (FAQ)</span>
+          </a>
+          <a href="candidates_database.html" target="_blank" class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 transition mt-2">
+            <span class="text-base">📱</span>
+            <span>Відкрити базу кандидатів (120+)</span>
+          </a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-slate-100 space-y-2.5">
+        <a href="tel:+380442994820" class="block text-center text-xs font-extrabold text-slate-900 bg-slate-100 py-3 rounded-xl">
+          📞 +380 (44) 299-48-20
+        </a>
+        <a href="#audit" onclick="toggleMobileMenu()" class="block text-center text-xs font-extrabold text-white bg-emerald-growth hover:bg-deep-emerald py-3 rounded-xl shadow-md">
+          Замовити аудит (0 грн)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      const content = document.getElementById('mobile-drawer-content');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          drawer.classList.remove('pointer-events-none', 'opacity-0');
+          drawer.classList.add('opacity-100');
+          content.classList.remove('translate-x-full');
+        });
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('opacity-0');
+        content.classList.add('translate-x-full');
+        setTimeout(() => {
+          drawer.classList.add('pointer-events-none', 'hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      }
+    }
   </script>
 
 </body>

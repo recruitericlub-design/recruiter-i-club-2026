@@ -8,14 +8,16 @@ interface Message {
   role: 'assistant' | 'user';
   content: string;
   modelUsed?: string;
+  quickReplies?: string[];
 }
 
 export default function AiConsultantWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Вітаю! Я інтелектуальний AI-радник Recruiter I Club. Підкажу точну смету відбору (від $500/людина), терміни прибуття з 7 країн-донорів або деталі транзиту через Молдову.\n\nЗадайте питання або оберіть швидку тему нижче:',
-      modelUsed: 'Smart Core Engine (Gemini Ready)'
+      content: '👋 Вітаю! Я Оксана Ковальчук, провідний B2B-координатор Recruiter I Club.\n\nПідкажу наявність бригад та строки виходу на зміну (ст. 23 ЗУ — 100% захист від мобілізації). На яку саме ділянку вам потрібні робітники і скільки людей?',
+      modelUsed: 'Smart Core Engine (Gemini Ready)',
+      quickReplies: ['🏭 Завод / Виробництво', '🏗 Будівництво', '🌾 Склад / Агро']
     }
   ]);
   const [input, setInput] = useState('');
@@ -66,9 +68,15 @@ export default function AiConsultantWidget() {
 
       const data = await res.json();
       if (data.reply) {
+        try {
+          const snd = new Audio('/audio/whatsapp_notification.wav');
+          snd.volume = 0.8;
+          snd.play().catch(() => {});
+        } catch (e) {}
+
         setMessages([
           ...newMessages,
-          { role: 'assistant', content: data.reply, modelUsed: data.modelUsed }
+          { role: 'assistant', content: data.reply, modelUsed: data.modelUsed, quickReplies: data.quickReplies }
         ]);
         if (data.modelUsed) setCurrentModel(data.modelUsed);
       } else {
@@ -186,6 +194,19 @@ export default function AiConsultantWidget() {
               }`}
             >
               {m.content}
+              {m.quickReplies && m.quickReplies.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 pt-2.5 mt-2.5 border-t border-white/[0.08]">
+                  {m.quickReplies.map((qr, qIdx) => (
+                    <button
+                      key={qIdx}
+                      onClick={() => handleSend(qr)}
+                      className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 text-[11px] font-semibold transition-colors"
+                    >
+                      {qr}
+                    </button>
+                  ))}
+                </div>
+              )}
               {m.modelUsed && m.role === 'assistant' && (
                 <div className="mt-2.5 pt-2 border-t border-white/[0.06] text-[10px] text-slate-400 flex items-center justify-between">
                   <span className="flex items-center gap-1 text-amber-400/80">

@@ -195,7 +195,7 @@
     }
     .cand-card:hover { border-color: rgba(6, 182, 212, 0.35); transform: translateY(-2px); }
     .cand-card.approved { border-color: #10b981; }
-    .cand-img-box { height: 170px; position: relative; background: #1e293b; overflow: hidden; }
+    .cand-img-box { height: 170px; min-height: 170px; flex-shrink: 0; position: relative; background: #1e293b; overflow: hidden; }
     .cand-img-box img { width: 100%; height: 100%; object-fit: cover; }
     .cand-pill-top {
       position: absolute; top: 8px; left: 8px; background: rgba(0, 0, 0, 0.75); padding: 3px 8px;
@@ -275,13 +275,17 @@
   <div class="app-root">
     <header class="topbar">
       <div class="topbar-left">
-        <a href="/" class="brand-box" style="text-decoration:none; display:flex; align-items:center;" title="На головний сайт">
-          <img src="/images/logo/riclub_master_badge_3d.png" alt="Recruiter I Club B2B" style="height:48px; width:auto; border-radius:12px; border:1px solid rgba(245,158,11,0.4); box-shadow:0 4px 12px rgba(0,0,0,0.3); transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        <a href="/" style="display:flex; align-items:center; gap:6px; padding:6px 12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:8px; color:#cbd5e1; font-size:11px; font-weight:700; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.color='#fff'; this.style.borderColor='#10b981'" onmouseout="this.style.color='#cbd5e1'; this.style.borderColor='rgba(255,255,255,0.18)'">
+          <span>←</span>
+          <span>На головний сайт</span>
+        </a>
+        <a href="/" class="brand-box" style="text-decoration:none; display:flex; align-items:center;" title="Recruiter I Club">
+          <img src="/images/logo/riclub_master_badge_3d.png" alt="Recruiter I Club B2B" style="height:42px; width:auto; border-radius:10px; border:1px solid rgba(245,158,11,0.4); box-shadow:0 4px 12px rgba(0,0,0,0.3);">
         </a>
         <div class="client-badge">
           <div class="status-dot"></div>
           <strong>ТОВ «УКРБУДІНВЕСТ-МОНОЛІТ»</strong>
-          <span style="color:#64748b; font-family:monospace;">#UA-8942</span>
+          <span style="padding:2px 6px; border-radius:4px; background:rgba(245,158,11,0.2); color:#fbbf24; font-size:10px; font-weight:800; border:1px solid rgba(245,158,11,0.3);">ДЕМО-РЕЖИМ</span>
         </div>
       </div>
       <div class="topbar-right">
@@ -291,6 +295,11 @@
           <span>ЗАТВЕРДЖЕНО: <strong id="approvedCount" style="color:#10b981;">0</strong></span>
           <span>|</span>
           <span>ДЦЗ: <strong id="dtszCount" style="color:#06b6d4;">0</strong></span>
+        </div>
+        <div style="display:inline-flex; align-items:center; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:2px; font-size:10px; font-weight:700;">
+          <button style="padding:4px 8px; border-radius:6px; background:#10b981; color:#0f172a; font-weight:800;">UA</button>
+          <button style="padding:4px 8px; border-radius:6px; color:#94a3b8;">RU</button>
+          <button style="padding:4px 8px; border-radius:6px; color:#94a3b8;">EN</button>
         </div>
         <button onclick="showManagerContact()" class="manager-pill">
           <div class="manager-avatar">ОК</div>

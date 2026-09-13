@@ -123,6 +123,20 @@
       transform: translateY(-2px);
       box-shadow: 0 15px 30px -6px rgba(15, 23, 42, 0.08);
     }
+      .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      padding-left: 0.75rem;
+      border-left: 4px solid #059669;
+      line-height: 1.3;
+    }
+    .article-content p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
   </style>
 </head>
 <body class="bg-warm-paper text-ink-black antialiased flex flex-col min-h-screen">
@@ -219,8 +233,8 @@
 
       <!-- Author Bio Card -->
       <div class="flex items-center gap-3 mt-6 pt-4 border-t border-slate-100">
-        <div class="w-10 h-10 rounded-full bg-slate-950 text-amber-400 font-black flex items-center justify-center text-sm shadow border border-amber-500/40">
-          С
+        <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-emerald-500 shrink-0 shadow-md">
+          <img src="/team/stanislav_lukhmenko.jpg" alt="Станіслав Лухменко" class="w-full h-full object-cover">
         </div>
         <div>
           <div class="text-xs font-bold text-ink-black">Станіслав Лухменко</div>
@@ -346,41 +360,86 @@
     </div>
   </footer>
 
-  <!-- 12. Smart Proactive AI-Consultant Widget 24/7 -->
+    <!-- 12. Smart Proactive AI-Consultant Widget 24/7 (Audio-Enabled & Leadgen) -->
   <div id="ai-widget" class="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50">
-    
-    <!-- Proactive Teaser Bubble (slides in after 6 seconds) -->
-    <div id="ai-teaser-bubble" class="hidden mb-3 max-w-[320px] bg-corporate-navy text-white p-3.5 rounded-2xl shadow-2xl border border-emerald-500/60 animate-bounce-short transition-all">
-      <div class="flex items-start gap-2.5">
-        <img src="/images/logo/riclub_gold_seal_3d.png" alt="AI" class="w-8 h-8 rounded-full border border-amber-400 shrink-0 mt-0.5">
-        <div class="text-xs">
-          <div class="font-extrabold text-amber-300 flex items-center gap-1.5">
-            <span>AI-Консультант Recruiter I Club</span>
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+    <!-- Proactive Teaser Bubble (slides in proactively after 2.6s or scroll with "ПУНЬ!" sound) -->
+    <div id="ai-teaser-bubble" class="hidden mb-3 w-[330px] sm:w-[360px] bg-corporate-navy/95 backdrop-blur-md text-white p-4 rounded-3xl shadow-2xl border-2 border-emerald-500/80 transition-all transform animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <!-- Teaser Header -->
+      <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="relative">
+            <img src="/images/logo/riclub_gold_seal_3d.png" alt="AI" class="w-8 h-8 rounded-full border border-amber-400 shrink-0 shadow-md">
+            <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-corporate-navy animate-pulse"></span>
           </div>
-          <p class="text-slate-200 mt-1 leading-snug" id="teaser-text">
-            Маєте питання щодо статті чи розрахунку сметы для вашого підприємства?
-          </p>
-          <div class="mt-2.5 flex items-center gap-2">
-            <button onclick="openAiChatWithQuery('Розрахувати кошторис для мого ТОВ')" class="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[11px] transition">
-              ⚡ Розрахувати вартість
-            </button>
-            <button onclick="dismissTeaser()" class="text-slate-400 hover:text-white text-[11px]">
-              Пізніше
-            </button>
+          <div>
+            <div class="font-extrabold text-xs text-amber-300 flex items-center gap-1.5" id="teaser-header-title">
+              <span>AI-Координатор Recruiter I Club</span>
+            </div>
+            <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-1" id="teaser-header-status">
+              <span>●</span> <span>В мережі · відповідає за 30 сек</span>
+            </div>
           </div>
+        </div>
+        <button onclick="dismissTeaser()" class="text-slate-400 hover:text-white text-base font-bold w-6 h-6 flex items-center justify-center rounded-lg hover:bg-white/10 transition" title="Згорнути">✕</button>
+      </div>
+
+      <!-- Live Typing Indicator -->
+      <div id="teaser-typing-indicator" class="py-2 px-3 bg-white/5 rounded-2xl flex items-center gap-2 text-xs text-emerald-300 mb-2">
+        <span class="flex gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" style="animation-delay: 0ms"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" style="animation-delay: 150ms"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" style="animation-delay: 300ms"></span>
+        </span>
+        <span class="font-mono text-[11px]" id="teaser-typing-text">Координатор друкує повідомлення...</span>
+      </div>
+
+      <!-- Main Interactive Content -->
+      <div id="teaser-main-content" class="text-xs space-y-2.5">
+        <p class="text-slate-100 leading-snug font-normal" id="teaser-text">
+          👋 <strong>Вітаю! Я черговий онлайн-координатор Recruiter I Club.</strong><br>
+          Маєте запитання за цією статтею чи потрібен індивідуальний розрахунок строків та кошторису для вашого підприємства?
+        </p>
+
+        <!-- Quick 1-click Choice Pills -->
+        <div class="flex flex-wrap gap-1.5 pt-1" id="teaser-pills-container">
+          <button onclick="openAiChatWithQuery('Як працює захист за ст. 23 ЗУ?')" class="px-2.5 py-1 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/40 text-[11px] font-semibold transition">
+            🛡 Захист від мобілізації
+          </button>
+          <button onclick="openAiChatWithQuery('Розрахувати кошторис для мого підприємства')" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-emerald-500 text-slate-200 hover:text-white border border-white/20 text-[11px] font-semibold transition">
+            ⚡ Кошторис під ключ
+          </button>
+          <button onclick="openAiChatWithQuery('Які терміни приїзду робітників з Азії?')" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-emerald-500 text-slate-200 hover:text-white border border-white/20 text-[11px] font-semibold transition">
+            ⏱ Терміни приїзду
+          </button>
+          <button onclick="openAiChatWithQuery('Маю спеціальне юридичне запитання')" class="px-2.5 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/40 text-[11px] font-semibold transition">
+            💬 Задати питання
+          </button>
+        </div>
+
+        <!-- Quick Direct Input inside Teaser -->
+        <div class="flex gap-1.5 pt-1">
+          <input id="teaser-quick-input" type="text" placeholder="Ваше запитання до координатора..." class="flex-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-emerald-400" onkeydown="if(event.key==='Enter') sendTeaserQuickMessage()">
+          <button onclick="sendTeaserQuickMessage()" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition shadow-md flex items-center justify-center">
+            ➔
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Collapsed Toggle Button -->
-    <button onclick="toggleAiChat()" id="ai-toggle-btn" class="flex items-center gap-2.5 px-4 py-3 rounded-full bg-corporate-navy text-white border-2 border-emerald-500 shadow-2xl hover:scale-105 transition-all group">
-      <span class="relative flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+    <!-- Collapsed Toggle Button with Notification Badge & Pulse -->
+    <button onclick="toggleAiChat()" id="ai-toggle-btn" class="relative flex items-center gap-2.5 px-4 py-3 rounded-full bg-corporate-navy text-white border-2 border-emerald-500 shadow-2xl hover:scale-105 transition-all group">
+      <!-- Unread indicator badge -->
+      <span id="ai-unread-badge" class="absolute -top-1.5 -right-1.5 flex h-5 w-5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-5 w-5 bg-red-600 text-white text-[10px] font-extrabold items-center justify-center border-2 border-corporate-navy shadow-md">1</span>
       </span>
-      <span class="font-bold text-xs tracking-wide">AI-Консультант 24/7</span>
-      <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-extrabold tracking-wide">Розрахунок</span>
+
+      <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-emerald-500"></span>
+      </span>
+      <span class="font-extrabold text-xs tracking-wide">AI-Консультант 24/7</span>
+      <span class="hidden sm:inline text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-extrabold tracking-wide">Розрахунок</span>
     </button>
 
     <!-- Chat Modal Window -->
@@ -411,10 +470,13 @@
           <button onclick="sendQuickAiQuery('Які терміни приїзду першої групи робітників?')" class="text-left p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium border border-slate-200 transition">
             ⏱ Які терміни приїзду робітників з Узбекистану та Індії?
           </button>
+          <button onclick="sendQuickAiQuery('Коли сплачується комісія агенції?')" class="text-left p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 font-medium border border-amber-200 transition">
+            💳 Коли сплачується комісія агенції? (Оплата в кінці)
+          </button>
         </div>
       </div>
 
-            <!-- Inline Lead Capture inside Chat with Messenger Selection -->
+      <!-- Inline Lead Capture inside Chat with Messenger Selection -->
       <div id="chat-lead-box" class="p-3 bg-gradient-to-b from-amber-50 to-emerald-50/40 border-t border-amber-200/80 text-xs">
         <div class="font-bold text-slate-800 mb-1.5 flex items-center justify-between">
           <span class="flex items-center gap-1">
@@ -456,88 +518,57 @@
     </div>
   </div>
 
-  <!-- Client-side Scripts -->
   <script>
-    const translations = {
-      ua: {
-        title: "Логістичний коридор Кишинів – Одеса – Київ: організований трансфер робітників 2026",
-        subtitle: "Як влаштована логістика під час закритого неба: авіарейси до Кишинева (RMO), автобусний трансфер через КПП Паланка, супровід координатора та доставка на завод.",
-        category: "Міжнародна логістика",
-        author_role: "Директор з міжнародної логістики",
-      },
-      ru: {
-        title: "Логистический коридор Кишинев – Одесса – Киев: организованный трансфер рабочих 2026",
-        subtitle: "Как устроена логистика при закрытом небе: авиаперелет в Кишинев (RMO), автобусный трансфер через КПП Паланка, сопровождение и доставка на завод.",
-        category: "Международная логистика",
-        author_role: "Директор по международной логистике",
-      },
-      en: {
-        title: "Chisinau – Odesa – Kyiv Transit Corridor: Ground Transport Operations 2026",
-        subtitle: "Cross-border transit logistics: flight arrivals at Chisinau (RMO), bonded bus transit via Palanca border crossing, and factory gate delivery.",
-        category: "International Logistics",
-        author_role: "Director of International Logistics",
-      }
-    };
-
-    function switchArticleLang(lang) {
-      ['ua', 'ru', 'en'].forEach(l => {
-        const btn = document.getElementById('tab-lang-' + l);
-        const hdrBtn = document.getElementById('hdr-lang-' + l);
-        const content = document.getElementById('content-' + l);
-        
-        if (l === lang) {
-          if (btn) btn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 bg-emerald-600 text-white shadow-xs';
-          if (hdrBtn) hdrBtn.className = 'px-2.5 py-1 rounded-full transition-all duration-200 bg-white text-emerald-700 shadow-xs';
-          if (content) content.classList.remove('hidden');
-        } else {
-          if (btn) btn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 bg-white text-slate-700 hover:bg-slate-200';
-          if (hdrBtn) hdrBtn.className = 'px-2.5 py-1 rounded-full transition-all duration-200 hover:text-slate-900 text-slate-600';
-          if (content) content.classList.add('hidden');
+    // Soft acoustic notification sound (WhatsApp Pop / Chime)
+    function playNotificationSound() {
+      try {
+        const audio = new Audio('/audio/whatsapp_notification.wav');
+        audio.volume = 0.85;
+        const p = audio.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            try {
+              const AudioCtx = window.AudioContext || window.webkitAudioContext;
+              if (!AudioCtx) return;
+              if (!window._riclubAudioCtx) window._riclubAudioCtx = new AudioCtx();
+              const ctx = window._riclubAudioCtx;
+              if (ctx.state === 'suspended') ctx.resume();
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+              osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+              gain.gain.setValueAtTime(0.15, ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start();
+              osc.stop(ctx.currentTime + 0.16);
+            } catch (e) {}
+          });
         }
-      });
-
-      const t = translations[lang];
-      if (t) {
-        const elTitle = document.getElementById('article-title');
-        const elSub = document.getElementById('article-subtitle');
-        const elCat = document.getElementById('article-category');
-        const elRole = document.getElementById('author-role');
-        const elBreadcrumb = document.getElementById('breadcrumb-title');
-
-        if (elTitle) elTitle.textContent = t.title;
-        if (elSub) elSub.textContent = t.subtitle;
-        if (elCat) elCat.textContent = t.category;
-        if (elRole) elRole.textContent = t.author_role;
-        if (elBreadcrumb) elBreadcrumb.textContent = t.title;
-        document.title = t.title + " | Recruiter I Club";
+      } catch (e) {
+        console.log('Notification sound error:', e);
       }
-
-      localStorage.setItem('riclub_article_lang', lang);
     }
 
-    // Auto-detect language
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const queryLang = urlParams.get('lang');
-      const savedLang = localStorage.getItem('riclub_article_lang') || 'ua';
-      const langToUse = (queryLang === 'ru' || queryLang === 'en' || queryLang === 'ua' || queryLang === 'uk') 
-                        ? (queryLang === 'uk' ? 'ua' : queryLang) 
-                        : savedLang;
-      if (langToUse && langToUse !== 'ua') {
-        switchArticleLang(langToUse);
-      }
-
-      // Proactive AI trigger: show teaser after 6 seconds
-      setTimeout(() => {
-        const teaser = document.getElementById('ai-teaser-bubble');
-        const box = document.getElementById('ai-chat-box');
-        if (teaser && box && box.classList.contains('hidden')) {
-          teaser.classList.remove('hidden');
+    // Auto-unlock audio context on user interaction
+    function unlockAudioEngine() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx && !window._riclubAudioCtx) {
+          window._riclubAudioCtx = new AudioCtx();
         }
-      }, 6000);
+        if (window._riclubAudioCtx && window._riclubAudioCtx.state === 'suspended') {
+          window._riclubAudioCtx.resume();
+        }
+      } catch(e){}
+    }
+    ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
     });
 
-        let selectedChatMessenger = 'whatsapp';
+    let selectedChatMessenger = 'whatsapp';
     let chatConversationContext = [];
 
     function selectChatMessenger(ch) {
@@ -563,18 +594,50 @@
     function toggleAiChat() {
       const box = document.getElementById('ai-chat-box');
       const teaser = document.getElementById('ai-teaser-bubble');
-      if (box) box.classList.toggle('hidden');
+      const btn = document.getElementById('ai-toggle-btn');
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.add('hidden');
       if (teaser) teaser.classList.add('hidden');
+      if (box) {
+        const isOpening = box.classList.contains('hidden');
+        if (isOpening) {
+          box.classList.remove('hidden');
+          if (btn) btn.classList.add('hidden');
+        } else {
+          box.classList.add('hidden');
+          if (btn) btn.classList.remove('hidden');
+        }
+      }
     }
 
     function dismissTeaser() {
       const teaser = document.getElementById('ai-teaser-bubble');
       if (teaser) teaser.classList.add('hidden');
+      const btn = document.getElementById('ai-toggle-btn');
+      if (btn) btn.classList.remove('hidden');
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.remove('hidden');
     }
 
     function openAiChatWithQuery(q) {
-      toggleAiChat();
-      sendQuickAiQuery(q);
+      const box = document.getElementById('ai-chat-box');
+      const teaser = document.getElementById('ai-teaser-bubble');
+      const btn = document.getElementById('ai-toggle-btn');
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.add('hidden');
+      if (teaser) teaser.classList.add('hidden');
+      if (box) box.classList.remove('hidden');
+      if (btn) btn.classList.add('hidden');
+      postChatUserMessage(q);
+    }
+
+    function sendTeaserQuickMessage() {
+      const input = document.getElementById('teaser-quick-input');
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = '';
+      openAiChatWithQuery(val);
     }
 
     async function sendAiMessage() {
@@ -588,7 +651,6 @@
     function sendQuickAiQuery(text) {
       postChatUserMessage(text);
     }
-
     async function postChatUserMessage(text) {
       chatConversationContext.push(`Користувач: ${text}`);
       const container = document.getElementById('ai-chat-messages');
@@ -597,7 +659,7 @@
 
       // Typing indicator
       const typingId = 'typing-' + Date.now();
-      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Консультант формує відповідь...</div>`;
+      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Координатор формує відповідь...</div>`;
       container.scrollTop = container.scrollHeight;
 
       try {
@@ -609,12 +671,28 @@
         const data = await res.json();
         document.getElementById(typingId)?.remove();
 
-        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати точний кошторис під ваше ТОВ/ПП та зафіксувати квоту, вкажіть ваш контактний номер телефону нижче:';
-        chatConversationContext.push(`Консультант: ${reply.substring(0, 150)}...`);
-        const formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${formattedReply}</div>`;
-        container.scrollTop = container.scrollHeight;
+        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати точні строки під ваше підприємство, уточніть: на яку ділянку та скільки робітників потрібно?';
+        chatConversationContext.push(`Координатор: ${reply.substring(0, 150)}...`);
+        
+        playNotificationSound();
 
+        const formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        let replyHtml = `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${formattedReply}`;
+        
+        // Render dynamic interactive quick-reply chips
+        if (data.quickReplies && data.quickReplies.length > 0) {
+          replyHtml += `<div class="flex flex-wrap gap-1.5 pt-2 mt-2 border-t border-slate-100">`;
+          data.quickReplies.forEach(qr => {
+            const escapedQr = qr.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+            replyHtml += `<button type="button" onclick="this.parentElement.remove(); postChatUserMessage('${escapedQr}')" class="px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-900 border border-emerald-300 text-[11px] font-semibold transition shadow-2xs">${qr}</button>`;
+          });
+          replyHtml += `</div>`;
+        }
+        replyHtml += `</div>`;
+        
+        container.innerHTML += replyHtml;
+        container.scrollTop = container.scrollHeight;
+        
         const leadBox = document.getElementById('chat-lead-box');
         if (leadBox) {
           leadBox.classList.remove('hidden');
@@ -623,14 +701,14 @@
         }
       } catch (err) {
         document.getElementById(typingId)?.remove();
-        let fallback = 'Дякую за запитання! Щоб отримати офіційний розрахунок та перелік кандидатів під ваше підприємство у WhatsApp чи Telegram, вкажіть ваш номер телефону нижче:';
+        let fallback = 'Дякую за запитання! Щоб розрахувати точні строки прибуття робітників під ваше підприємство, уточніть: на яку саме ділянку та скільки людей потрібно?';
         if (text.includes('комісія') || text.includes('оплата')) {
-          fallback = '<strong>Залізне правило Recruiter I Club:</strong> комісію агенції ви сплачуєте <strong>виключно в кінці</strong> — після прибуття працівника та виходу на зміну. До цього — жодних передоплат за підбір!';
+          fallback = 'Комісію агенції ви сплачуєте **виключно в кінці** — після виходу людей на зміну. Скільки робітників потрібно у першу партію?';
         } else if (text.includes('мобіліз') || text.includes('ст 23')) {
-          fallback = 'Згідно зі <strong>Статтею 23 Закону України</strong>, іноземні громадяни не підлягають військовому обліку та призову. 100% захист від простою ваших змін 24/7.';
+          fallback = 'Іноземні робітники мають 100% захист від мобілізації за ст. 23 ЗУ (ТЦК не має права їх призивати). На яку спеціальність шукаєте працівників?';
         }
-        chatConversationContext.push(`Консультант: ${fallback}`);
-        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${fallback}</div>`;
+        chatConversationContext.push(`Координатор: ${fallback}`);
+        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${fallback.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
         container.scrollTop = container.scrollHeight;
       }
     }
@@ -691,6 +769,51 @@
       container.scrollTop = container.scrollHeight;
       phoneInput.value = '';
     }
+
+    // Proactive AI engagement with Sound, Typing simulation & Attention Badge
+    let proactiveAiTriggered = false;
+    function triggerProactiveAi() {
+      if (proactiveAiTriggered) return;
+      proactiveAiTriggered = true;
+
+      const chatBox = document.getElementById('ai-chat-box');
+      if (chatBox && !chatBox.classList.contains('hidden')) return;
+
+      const teaser = document.getElementById('ai-teaser-bubble');
+      if (!teaser) return;
+
+      // 1. Play "ПУНЬ!" sound notification
+      unlockAudioEngine();
+      playNotificationSound();
+
+      // 2. Reveal teaser with smooth entrance
+      teaser.classList.remove('hidden');
+
+      // 3. Show typing indicator for 750ms, then reveal greeting & second soft chime
+      const typingEl = document.getElementById('teaser-typing-indicator');
+      const contentEl = document.getElementById('teaser-main-content');
+      if (typingEl && contentEl) {
+        typingEl.classList.remove('hidden');
+        contentEl.classList.add('hidden');
+        setTimeout(() => {
+          typingEl.classList.add('hidden');
+          contentEl.classList.remove('hidden');
+          playNotificationSound();
+        }, 750);
+      }
+
+      // 4. Activate unread badge on collapsed button
+      const badge = document.getElementById('ai-unread-badge');
+      if (badge) badge.classList.remove('hidden');
+    }
+
+    // Trigger proactively after 2.6s OR on scroll > 120px
+    setTimeout(triggerProactiveAi, 2600);
+    window.addEventListener('scroll', () => {
+      if (!proactiveAiTriggered && window.scrollY > 120) {
+        triggerProactiveAi();
+      }
+    }, { passive: true });
   </script>
 
 </body>
