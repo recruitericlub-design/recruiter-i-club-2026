@@ -71,8 +71,8 @@ export default function AiConsultantWidget() {
       const data = await res.json();
       if (data.reply) {
         try {
-          const snd = new Audio('/audio/whatsapp_notification.wav');
-          snd.volume = 0.8;
+          const snd = new Audio('/audio/whatsapp_notification.mp3');
+          snd.volume = 0.95;
           snd.play().catch(() => {});
         } catch (e) {}
 

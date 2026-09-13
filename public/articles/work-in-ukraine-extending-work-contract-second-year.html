@@ -467,82 +467,91 @@
       }
     }
 
-    // Audio Engine: Authentic acoustic WhatsApp chime with gesture fallback
-    let _audioPrimed = false;
-    const preloadedWhatsAppAudio = new Audio('/audio/whatsapp_notification.wav');
-    preloadedWhatsAppAudio.volume = 1.0;
-    preloadedWhatsAppAudio.preload = 'auto';
+        // Bulletproof Audio Engine for Authentic WhatsApp Message Tone
+    let _audioUnlocked = false;
+    let _audioCtx = null;
+    let _audioBuffer = null;
+    let _soundPendingOnFirstGesture = false;
 
-    function unlockAudioEngine() {
-      if (_audioPrimed) return;
-      _audioPrimed = true;
+    // Load AudioContext and decode sound buffer for zero-latency instant playback
+    function initAudioEngine() {
       try {
-        preloadedWhatsAppAudio.load();
-      } catch (e) {}
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx && !_audioCtx) {
+          _audioCtx = new AudioCtx();
+        }
+        if (_audioCtx && !_audioBuffer) {
+          fetch('/audio/whatsapp_notification.mp3')
+            .then(r => r.arrayBuffer())
+            .then(buf => _audioCtx.decodeAudioData(buf))
+            .then(decoded => { _audioBuffer = decoded; })
+            .catch(() => {});
+        }
+      } catch(e) {}
     }
 
-    ['pointerdown', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
-      window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
-    });
+    function unlockAudioEngine() {
+      if (!_audioUnlocked) {
+        try {
+          if (_audioCtx && _audioCtx.state === 'suspended') {
+            _audioCtx.resume();
+          }
+          _audioUnlocked = true;
+        } catch(e) {}
+      }
 
-    function playNotificationSound() {
-      try {
-        const audio = new Audio('/audio/whatsapp_notification.wav');
-        audio.volume = 1.0;
-        const p = audio.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            // If browser autoplay policy delayed sound, fire immediately upon first user touch or scroll
-            const playOnceOnTouch = () => {
-              const retryAudio = new Audio('/audio/whatsapp_notification.wav');
-              retryAudio.volume = 1.0;
-              retryAudio.play().catch(() => {});
-              ['click', 'touchstart', 'scroll'].forEach(ev => window.removeEventListener(ev, playOnceOnTouch));
-            };
-            ['click', 'touchstart', 'scroll'].forEach(ev => window.addEventListener(ev, playOnceOnTouch, { once: true, passive: true }));
-          });
-        }
-      } catch (e) {
-        console.log('Notification sound error:', e);
+      // If proactive greeting was triggered while browser audio was locked, play it immediately upon first gesture!
+      if (_soundPendingOnFirstGesture) {
+        _soundPendingOnFirstGesture = false;
+        playNotificationSound();
       }
     }
 
-    // Auto-unlock audio context on user interaction
-    function unlockAudioEngine() {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (AudioCtx && !window._riclubAudioCtx) {
-          window._riclubAudioCtx = new AudioCtx();
-        }
-        if (window._riclubAudioCtx && window._riclubAudioCtx.state === 'suspended') {
-          window._riclubAudioCtx.resume();
-        }
-      } catch(e){}
-    }
-    ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
-      window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
+    // Listen to all possible user gestures to unlock audio instantly
+    ['pointerdown', 'touchstart', 'mousedown', 'mousemove', 'scroll', 'wheel', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, unlockAudioEngine, { passive: true });
     });
 
-    let selectedChatMessenger = 'whatsapp';
-    let chatConversationContext = [];
+    // Initialize as soon as script runs
+    initAudioEngine();
 
-    function selectChatMessenger(ch) {
-      selectedChatMessenger = ch;
-      const opts = ['whatsapp', 'telegram', 'phone'];
-      opts.forEach(o => {
-        const btn = document.getElementById('msg-opt-' + o);
-        if (!btn) return;
-        if (o === ch) {
-          btn.className = 'flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-emerald-600 text-white border-emerald-600 shadow-2xs';
-        } else {
-          btn.className = 'flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-white text-slate-700 border-slate-300 hover:bg-slate-50';
+    function playNotificationSound() {
+      let played = false;
+
+      // Tier 1: Web Audio API AudioBuffer (highest fidelity, zero lag, bypasses element restrictions once resumed)
+      if (_audioCtx && _audioBuffer && _audioCtx.state === 'running') {
+        try {
+          const src = _audioCtx.createBufferSource();
+          const gain = _audioCtx.createGain();
+          gain.gain.value = 0.95;
+          src.buffer = _audioBuffer;
+          src.connect(gain);
+          gain.connect(_audioCtx.destination);
+          src.start(0);
+          played = true;
+        } catch(e) {}
+      }
+
+      // Tier 2: HTML5 Audio
+      try {
+        const snd = new Audio('/audio/whatsapp_notification.mp3');
+        snd.volume = 0.95;
+        const p = snd.play();
+        if (p !== undefined) {
+          p.then(() => {
+            played = true;
+          }).catch(err => {
+            // Autoplay blocked by browser policy before first user gesture:
+            // Mark sound as pending so it fires the EXACT MILLISECOND user touches or moves!
+            if (!played) {
+              _soundPendingOnFirstGesture = true;
+            }
+          });
         }
-      });
-      const hint = document.getElementById('messenger-target-hint');
-      if (hint) {
-        if (ch === 'whatsapp') hint.textContent = 'Розрахунок у WhatsApp';
-        else if (ch === 'telegram') hint.textContent = 'Розрахунок у Telegram';
-        else hint.textContent = 'Дзвінок керуючого';
+      } catch(e) {
+        if (!played) {
+          _soundPendingOnFirstGesture = true;
+        }
       }
     }
 
@@ -766,9 +775,9 @@
     }
 
     // Trigger proactively after 2.6s OR on scroll > 120px
-    setTimeout(triggerProactiveAi, 2600);
+    setTimeout(triggerProactiveAi, 2400);
     window.addEventListener('scroll', () => {
-      if (!proactiveAiTriggered && window.scrollY > 120) {
+      if (!proactiveAiTriggered && window.scrollY > 40) {
         triggerProactiveAi();
       }
     }, { passive: true });
