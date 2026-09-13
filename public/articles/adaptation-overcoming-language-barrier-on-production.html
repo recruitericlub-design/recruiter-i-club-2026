@@ -518,32 +518,53 @@
   </div>
 
   <script>
-    // Soft acoustic notification sound (WhatsApp Pop / Chime)
+    // Session ID management (persists across page reloads, expires on browser close or 30m TTL)
+    function getChatSessionId() {
+      try {
+        let sid = sessionStorage.getItem('riclub_chat_session_id');
+        if (!sid) {
+          sid = 'sess_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8);
+          sessionStorage.setItem('riclub_chat_session_id', sid);
+        }
+        return sid;
+      } catch (e) {
+        return 'sess_fallback_' + Date.now().toString(36);
+      }
+    }
+
+    // Audio Engine: Authentic acoustic WhatsApp chime with gesture fallback
+    let _audioPrimed = false;
+    const preloadedWhatsAppAudio = new Audio('/audio/whatsapp_notification.wav');
+    preloadedWhatsAppAudio.volume = 1.0;
+    preloadedWhatsAppAudio.preload = 'auto';
+
+    function unlockAudioEngine() {
+      if (_audioPrimed) return;
+      _audioPrimed = true;
+      try {
+        preloadedWhatsAppAudio.load();
+      } catch (e) {}
+    }
+
+    ['pointerdown', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
+    });
+
     function playNotificationSound() {
       try {
         const audio = new Audio('/audio/whatsapp_notification.wav');
-        audio.volume = 0.85;
+        audio.volume = 1.0;
         const p = audio.play();
         if (p !== undefined) {
           p.catch(() => {
-            try {
-              const AudioCtx = window.AudioContext || window.webkitAudioContext;
-              if (!AudioCtx) return;
-              if (!window._riclubAudioCtx) window._riclubAudioCtx = new AudioCtx();
-              const ctx = window._riclubAudioCtx;
-              if (ctx.state === 'suspended') ctx.resume();
-              const osc = ctx.createOscillator();
-              const gain = ctx.createGain();
-              osc.type = 'sine';
-              osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-              osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
-              gain.gain.setValueAtTime(0.15, ctx.currentTime);
-              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-              osc.connect(gain);
-              gain.connect(ctx.destination);
-              osc.start();
-              osc.stop(ctx.currentTime + 0.16);
-            } catch (e) {}
+            // If browser autoplay policy delayed sound, fire immediately upon first user touch or scroll
+            const playOnceOnTouch = () => {
+              const retryAudio = new Audio('/audio/whatsapp_notification.wav');
+              retryAudio.volume = 1.0;
+              retryAudio.play().catch(() => {});
+              ['click', 'touchstart', 'scroll'].forEach(ev => window.removeEventListener(ev, playOnceOnTouch));
+            };
+            ['click', 'touchstart', 'scroll'].forEach(ev => window.addEventListener(ev, playOnceOnTouch, { once: true, passive: true }));
           });
         }
       } catch (e) {
@@ -651,27 +672,31 @@
       postChatUserMessage(text);
     }
     async function postChatUserMessage(text) {
-      chatConversationContext.push(`Користувач: ${text}`);
+      chatConversationContext.push({ role: 'user', content: text });
       const container = document.getElementById('ai-chat-messages');
       container.innerHTML += `<div class="text-right"><span class="bg-emerald-600 text-white px-3 py-1.5 rounded-2xl inline-block text-xs font-medium">${text}</span></div>`;
       container.scrollTop = container.scrollHeight;
 
       // Typing indicator
       const typingId = 'typing-' + Date.now();
-      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Координатор формує відповідь...</div>`;
+      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Оксана формує відповідь...</div>`;
       container.scrollTop = container.scrollHeight;
 
       try {
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text })
+          body: JSON.stringify({
+            message: text,
+            sessionId: getChatSessionId(),
+            history: chatConversationContext.slice(-10)
+          })
         });
         const data = await res.json();
         document.getElementById(typingId)?.remove();
 
-        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати точні строки під ваше підприємство, уточніть: на яку ділянку та скільки робітників потрібно?';
-        chatConversationContext.push(`Координатор: ${reply.substring(0, 150)}...`);
+        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати строки під ваше підприємство, підкажіть: на яку саме ділянку та скільки робітників потрібно?';
+        chatConversationContext.push({ role: 'assistant', content: reply });
         
         playNotificationSound();
 
@@ -682,7 +707,7 @@
         if (data.quickReplies && data.quickReplies.length > 0) {
           replyHtml += `<div class="flex flex-wrap gap-1.5 pt-2 mt-2 border-t border-slate-100">`;
           data.quickReplies.forEach(qr => {
-            const escapedQr = qr.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+            const escapedQr = qr.replace(/"/g, '&quot;').replace(/'/g, "\'");
             replyHtml += `<button type="button" onclick="this.parentElement.remove(); postChatUserMessage('${escapedQr}')" class="px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-900 border border-emerald-300 text-[11px] font-semibold transition shadow-2xs">${qr}</button>`;
           });
           replyHtml += `</div>`;
@@ -701,12 +726,14 @@
       } catch (err) {
         document.getElementById(typingId)?.remove();
         let fallback = 'Дякую за запитання! Щоб розрахувати точні строки прибуття робітників під ваше підприємство, уточніть: на яку саме ділянку та скільки людей потрібно?';
-        if (text.includes('комісія') || text.includes('оплата')) {
+        if (text.toLowerCase().includes('кита')) {
+          fallback = 'З Китаю ми робітників не залучаємо через візові обмеження. Натомість швидко закриваємо ці вакансії майстрами з Узбекистану (21–30 днів) та Індії. Яка спеціальність потрібна?';
+        } else if (text.includes('комісія') || text.includes('оплата')) {
           fallback = 'Комісію агенції ви сплачуєте **виключно в кінці** — після виходу людей на зміну. Скільки робітників потрібно у першу партію?';
         } else if (text.includes('мобіліз') || text.includes('ст 23')) {
           fallback = 'Іноземні робітники мають 100% захист від мобілізації за ст. 23 ЗУ (ТЦК не має права їх призивати). На яку спеціальність шукаєте працівників?';
         }
-        chatConversationContext.push(`Координатор: ${fallback}`);
+        chatConversationContext.push({ role: 'assistant', content: fallback });
         container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${fallback.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
         container.scrollTop = container.scrollHeight;
       }
@@ -728,7 +755,7 @@
       }
 
       let detectedCount = 5;
-      const allText = chatConversationContext.join(' ');
+      const allText = chatConversationContext.map(m => (typeof m === 'string' ? m : m.content || '')).join(' ');
       const match = allText.match(/(\d{1,3})\s*(чол|люд|робітник|працівник|человек|рабоч)/i);
       if (match && parseInt(match[1])) {
         detectedCount = parseInt(match[1]);
@@ -745,7 +772,7 @@
             phone: phone,
             company: "ТОВ (База знань)",
             headcount: detectedCount,
-            message: `[Канал: ${channelName}] Запит індивідуального кошторису (Zero Price Policy). Стаття: ${window.location.pathname}. Діалог: ${chatConversationContext.slice(-4).join(' ➔ ')}`,
+            message: `[Канал: ${channelName}] Запит індивідуального кошторису (Zero Price Policy). Стаття: ${window.location.pathname}. Діалог: ${chatConversationContext.slice(-4).map(m => (typeof m === 'string' ? m : `${m.role === 'user' ? 'Клієнт' : 'Оксана'}: ${m.content}`)).join(' ➔ ')}`,
             utm_source: "article-ai-chat",
             utm_campaign: "leadgen_no_prices",
             utm_medium: "consultant-widget"
@@ -768,8 +795,7 @@
       container.scrollTop = container.scrollHeight;
       phoneInput.value = '';
     }
-
-    // Proactive AI engagement with Sound, Typing simulation & Attention Badge
+    // Proactive AI engagement with Attention-grabbing WhatsApp Sound & Badge
     let proactiveAiTriggered = false;
     function triggerProactiveAi() {
       if (proactiveAiTriggered) return;
@@ -781,14 +807,13 @@
       const teaser = document.getElementById('ai-teaser-bubble');
       if (!teaser) return;
 
-      // 1. Play "ПУНЬ!" sound notification
-      unlockAudioEngine();
+      // 1. Play rich WhatsApp pop sound notification
       playNotificationSound();
 
       // 2. Reveal teaser with smooth entrance
       teaser.classList.remove('hidden');
 
-      // 3. Show typing indicator for 750ms, then reveal greeting & second soft chime
+      // 3. Show typing indicator for 650ms, then reveal greeting message
       const typingEl = document.getElementById('teaser-typing-indicator');
       const contentEl = document.getElementById('teaser-main-content');
       if (typingEl && contentEl) {
@@ -797,8 +822,7 @@
         setTimeout(() => {
           typingEl.classList.add('hidden');
           contentEl.classList.remove('hidden');
-          playNotificationSound();
-        }, 750);
+        }, 650);
       }
 
       // 4. Activate unread badge on collapsed button
