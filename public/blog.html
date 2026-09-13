@@ -729,8 +729,13 @@
       </div>
 
       <div id="ai-chat-messages" class="p-4 space-y-3 h-80 sm:h-96 overflow-y-auto bg-slate-50 text-xs flex-1">
-        <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">
-          👋 Вітаю! Я інтелектуальний B2B-консультант <strong>Recruiter I Club</strong>. Допоможу вам розібратися в законодавстві (ст. 23 ЗУ), податках або розрахувати точну вартість приїзду робітників.
+        <div id="initial-typing-indicator" class="flex items-center gap-2.5 bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs w-fit text-slate-500 font-medium">
+          <span class="inline-flex gap-1 items-center">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]"></span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]"></span>
+          </span>
+          <span class="text-xs text-slate-600 font-semibold">Оксана Ковальчук друкує...</span>
         </div>
       </div>
 
@@ -856,9 +861,14 @@
         if (isOpening) {
           box.classList.remove('hidden');
           if (btn) btn.classList.add('hidden');
+          if (!greetingDelivered) {
+            proactiveAiTriggered = true;
+            deliverGreetingMessage();
+          }
         } else {
           box.classList.add('hidden');
           if (btn) btn.classList.remove('hidden');
+          if (badge) badge.classList.remove('hidden');
         }
       }
     }
@@ -1028,45 +1038,78 @@
       container.scrollTop = container.scrollHeight;
       phoneInput.value = '';
     }
-    // Proactive AI engagement with Attention-grabbing WhatsApp Sound & Badge
+        // Proactive Auto-Open AI Chat with Live Typing Simulation & WhatsApp Sound
     let proactiveAiTriggered = false;
+    let greetingDelivered = false;
+
+    function deliverGreetingMessage() {
+      if (greetingDelivered) return;
+      greetingDelivered = true;
+
+      const messagesContainer = document.getElementById('ai-chat-messages');
+      const inputField = document.getElementById('ai-user-input');
+      if (!messagesContainer) return;
+
+      const typingEl = document.getElementById('initial-typing-indicator');
+      if (typingEl) typingEl.remove();
+
+      const greetingHtml = `
+        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed text-xs animate-fadeIn">
+          👋 Вітаю! Я Оксана, B2B-координатор <strong>Recruiter I Club</strong>.<br><br>
+          Допоможу вам підібрати перевірений персонал з Узбекистану та країн Азії (ст. 23 ЗУ — 100% захист від мобілізації). На яку саме ділянку та скільки робітників потрібно вашому підприємству?
+        </div>
+      `;
+      messagesContainer.innerHTML = greetingHtml;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      // Accompany message arrival with authentic WhatsApp chime!
+      playNotificationSound();
+
+      // Focus input field on desktop so user can immediately reply
+      if (inputField && window.innerWidth >= 768) {
+        try { inputField.focus(); } catch(e){}
+      }
+    }
+
     function triggerProactiveAi() {
       if (proactiveAiTriggered) return;
       proactiveAiTriggered = true;
 
       const chatBox = document.getElementById('ai-chat-box');
-      if (chatBox && !chatBox.classList.contains('hidden')) return;
-
+      const toggleBtn = document.getElementById('ai-toggle-btn');
       const teaser = document.getElementById('ai-teaser-bubble');
-      if (!teaser) return;
+      const messagesContainer = document.getElementById('ai-chat-messages');
 
-      // 1. Play rich WhatsApp pop sound notification
-      playNotificationSound();
+      if (teaser) teaser.classList.add('hidden');
 
-      // 2. Reveal teaser with smooth entrance
-      teaser.classList.remove('hidden');
+      // 1. Auto-open the actual chat window smoothly
+      if (chatBox) {
+        chatBox.classList.remove('hidden');
+        if (toggleBtn) toggleBtn.classList.add('hidden');
 
-      // 3. Show typing indicator for 650ms, then reveal greeting message
-      const typingEl = document.getElementById('teaser-typing-indicator');
-      const contentEl = document.getElementById('teaser-main-content');
-      if (typingEl && contentEl) {
-        typingEl.classList.remove('hidden');
-        contentEl.classList.add('hidden');
-        setTimeout(() => {
-          typingEl.classList.add('hidden');
-          contentEl.classList.remove('hidden');
-        }, 650);
+        // 2. Show live typing simulation: "Оксана Ковальчук друкує... •••"
+        if (messagesContainer && !greetingDelivered) {
+          messagesContainer.innerHTML = `
+            <div id="initial-typing-indicator" class="flex items-center gap-2.5 bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs w-fit text-slate-500 font-medium">
+              <span class="inline-flex gap-1 items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]"></span>
+              </span>
+              <span class="text-xs text-slate-600 font-semibold">Оксана Ковальчук друкує...</span>
+            </div>
+          `;
+
+          // 3. After realistic typing (1.4s), deliver message accompanied by WhatsApp sound
+          setTimeout(deliverGreetingMessage, 1400);
+        }
       }
-
-      // 4. Activate unread badge on collapsed button
-      const badge = document.getElementById('ai-unread-badge');
-      if (badge) badge.classList.remove('hidden');
     }
 
-    // Trigger proactively after 2.6s OR on scroll > 120px
-    setTimeout(triggerProactiveAi, 2400);
+    // Auto-trigger proactively after 1.8s OR on first scroll > 30px
+    setTimeout(triggerProactiveAi, 1800);
     window.addEventListener('scroll', () => {
-      if (!proactiveAiTriggered && window.scrollY > 40) {
+      if (!proactiveAiTriggered && window.scrollY > 30) {
         triggerProactiveAi();
       }
     }, { passive: true });
