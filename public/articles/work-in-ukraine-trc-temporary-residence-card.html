@@ -417,12 +417,38 @@
         </div>
       </div>
 
-      <!-- Lead submission form inside chat -->
-      <div id="chat-lead-box" class="hidden p-3 bg-amber-50 border-t border-amber-200 text-xs">
-        <div class="font-bold text-slate-800 mb-1">Отримайте офіційний розрахунок та КП:</div>
+            <!-- Inline Lead Capture inside Chat with Messenger Selection -->
+      <div id="chat-lead-box" class="p-3 bg-gradient-to-b from-amber-50 to-emerald-50/40 border-t border-amber-200/80 text-xs">
+        <div class="font-bold text-slate-800 mb-1.5 flex items-center justify-between">
+          <span class="flex items-center gap-1">
+            <span>📲 Отримати кошторис та КП за 15 хв:</span>
+          </span>
+          <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono font-extrabold">0 грн</span>
+        </div>
+        
+        <!-- Messenger selector pills -->
+        <div class="flex items-center gap-1.5 mb-2">
+          <button type="button" onclick="selectChatMessenger('whatsapp')" id="msg-opt-whatsapp" class="flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-emerald-600 text-white border-emerald-600 shadow-2xs">
+            <span>🟢 WhatsApp</span>
+          </button>
+          <button type="button" onclick="selectChatMessenger('telegram')" id="msg-opt-telegram" class="flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-white text-slate-700 border-slate-300 hover:bg-slate-50">
+            <span>🔵 Telegram</span>
+          </button>
+          <button type="button" onclick="selectChatMessenger('phone')" id="msg-opt-phone" class="flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-white text-slate-700 border-slate-300 hover:bg-slate-50">
+            <span>📞 Дзвінок</span>
+          </button>
+        </div>
+
         <div class="flex gap-1.5">
-          <input id="chat-lead-phone" type="tel" placeholder="+380 (__) ___-__-__" class="flex-1 px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-emerald-500">
-          <button onclick="submitChatLead()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs transition">Надіслати</button>
+          <input id="chat-lead-phone" type="tel" placeholder="+380 (__) ___-__-__" class="flex-1 px-2.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-emerald-500 font-mono bg-white shadow-2xs">
+          <button onclick="submitChatLead()" id="chat-lead-btn" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-md flex items-center gap-1">
+            <span>Надіслати</span>
+            <span>➔</span>
+          </button>
+        </div>
+        <div class="text-[10px] text-slate-500 mt-1 flex items-center justify-between">
+          <span>🔒 Конфіденційно · Оплата тільки в кінці</span>
+          <span id="messenger-target-hint" class="text-emerald-700 font-medium">Розрахунок у WhatsApp</span>
         </div>
       </div>
 
@@ -514,6 +540,29 @@
       }, 6000);
     });
 
+        let selectedChatMessenger = 'whatsapp';
+    let chatConversationContext = [];
+
+    function selectChatMessenger(ch) {
+      selectedChatMessenger = ch;
+      const opts = ['whatsapp', 'telegram', 'phone'];
+      opts.forEach(o => {
+        const btn = document.getElementById('msg-opt-' + o);
+        if (!btn) return;
+        if (o === ch) {
+          btn.className = 'flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-emerald-600 text-white border-emerald-600 shadow-2xs';
+        } else {
+          btn.className = 'flex-1 py-1 px-1.5 rounded-lg border text-[11px] font-bold transition flex items-center justify-center gap-1 bg-white text-slate-700 border-slate-300 hover:bg-slate-50';
+        }
+      });
+      const hint = document.getElementById('messenger-target-hint');
+      if (hint) {
+        if (ch === 'whatsapp') hint.textContent = 'Розрахунок у WhatsApp';
+        else if (ch === 'telegram') hint.textContent = 'Розрахунок у Telegram';
+        else hint.textContent = 'Дзвінок керуючого';
+      }
+    }
+
     function toggleAiChat() {
       const box = document.getElementById('ai-chat-box');
       const teaser = document.getElementById('ai-teaser-bubble');
@@ -544,13 +593,14 @@
     }
 
     async function postChatUserMessage(text) {
+      chatConversationContext.push(`Користувач: ${text}`);
       const container = document.getElementById('ai-chat-messages');
       container.innerHTML += `<div class="text-right"><span class="bg-emerald-600 text-white px-3 py-1.5 rounded-2xl inline-block text-xs font-medium">${text}</span></div>`;
       container.scrollTop = container.scrollHeight;
 
       // Typing indicator
       const typingId = 'typing-' + Date.now();
-      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Консультант друкує...</div>`;
+      container.innerHTML += `<div id="${typingId}" class="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-2xl inline-block text-xs font-medium animate-pulse">Консультант формує відповідь...</div>`;
       container.scrollTop = container.scrollHeight;
 
       try {
@@ -562,16 +612,28 @@
         const data = await res.json();
         document.getElementById(typingId)?.remove();
 
-        const reply = data.reply || 'Дякую за запитання! Щоб підготувати офіційний розрахунок для вашого підприємства, вкажіть контактний номер телефону нижче:';
-        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">${reply}</div>`;
+        const reply = data.reply || 'Дякую за запитання! Щоб розрахувати точний кошторис під ваше ТОВ/ПП та зафіксувати квоту, вкажіть ваш контактний номер телефону нижче:';
+        chatConversationContext.push(`Консультант: ${reply.substring(0, 150)}...`);
+        const formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${formattedReply}</div>`;
         container.scrollTop = container.scrollHeight;
 
-        // Show lead submission box
-        document.getElementById('chat-lead-box')?.classList.remove('hidden');
+        const leadBox = document.getElementById('chat-lead-box');
+        if (leadBox) {
+          leadBox.classList.remove('hidden');
+          leadBox.classList.add('animate-pulse');
+          setTimeout(() => leadBox.classList.remove('animate-pulse'), 1200);
+        }
       } catch (err) {
         document.getElementById(typingId)?.remove();
-        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">Для точного прорахунку сметы та броні слотів залиште ваш контактний телефон — міграційний юрист надішле розрахунок:</div>`;
-        document.getElementById('chat-lead-box')?.classList.remove('hidden');
+        let fallback = 'Дякую за запитання! Щоб отримати офіційний розрахунок та перелік кандидатів під ваше підприємство у WhatsApp чи Telegram, вкажіть ваш номер телефону нижче:';
+        if (text.includes('комісія') || text.includes('оплата')) {
+          fallback = '<strong>Залізне правило Recruiter I Club:</strong> комісію агенції ви сплачуєте <strong>виключно в кінці</strong> — після прибуття працівника та виходу на зміну. До цього — жодних передоплат за підбір!';
+        } else if (text.includes('мобіліз') || text.includes('ст 23')) {
+          fallback = 'Згідно зі <strong>Статтею 23 Закону України</strong>, іноземні громадяни не підлягають військовому обліку та призову. 100% захист від простою ваших змін 24/7.';
+        }
+        chatConversationContext.push(`Консультант: ${fallback}`);
+        container.innerHTML += `<div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs leading-relaxed">${fallback}</div>`;
         container.scrollTop = container.scrollHeight;
       }
     }
@@ -581,20 +643,37 @@
       const phone = phoneInput.value.trim();
       if (!phone || phone.length < 7) {
         alert('Будь ласка, вкажіть коректний контактний номер телефону.');
+        phoneInput.focus();
         return;
       }
+
+      const btn = document.getElementById('chat-lead-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span>';
+      }
+
+      let detectedCount = 5;
+      const allText = chatConversationContext.join(' ');
+      const match = allText.match(/(\d{1,3})\s*(чол|люд|робітник|працівник|человек|рабоч)/i);
+      if (match && parseInt(match[1])) {
+        detectedCount = parseInt(match[1]);
+      }
+
+      const channelName = selectedChatMessenger === 'whatsapp' ? 'WhatsApp' : selectedChatMessenger === 'telegram' ? 'Telegram' : 'Дзвінок';
 
       try {
         await fetch('https://online-crm.onrender.com/api/webhooks/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: "Клієнт з AI-Консультанта (Стаття: work-in-ukraine-trc-temporary-residence-card)",
+            name: `Замовник з AI-Чату (${channelName})`,
             phone: phone,
-            company: "Запит з Бази знань 2026",
-            message: "Користувач читав статтю 'Біометрична Посвідка на тимчасове проживання (ВНЖ) в Україні: оформлення в ДМС 2026' та запросив розрахунок через AI-чат",
+            company: "ТОВ (База знань)",
+            headcount: detectedCount,
+            message: `[Канал: ${channelName}] Запит індивідуального кошторису (Zero Price Policy). Стаття: ${window.location.pathname}. Діалог: ${chatConversationContext.slice(-4).join(' ➔ ')}`,
             utm_source: "article-ai-chat",
-            utm_campaign: "work-in-ukraine-trc-temporary-residence-card",
+            utm_campaign: "leadgen_no_prices",
             utm_medium: "consultant-widget"
           })
         });
@@ -602,10 +681,17 @@
         console.warn('CRM dispatch error:', e);
       }
 
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Надіслано ✓</span>';
+      }
+
       const container = document.getElementById('ai-chat-messages');
-      container.innerHTML += `<div class="bg-emerald-50 text-emerald-900 border border-emerald-200 p-3 rounded-2xl shadow-2xs font-medium">✅ Дякуємо! Ваш номер <strong>${phone}</strong> передано черговому координатору. Протягом 15 хвилин ми підготуємо детальний кошторис та зв'яжемося з вами!</div>`;
+      container.innerHTML += `<div class="bg-emerald-50 text-emerald-900 border border-emerald-200 p-3.5 rounded-2xl shadow-2xs font-medium leading-relaxed">
+        ✅ <strong>Дякуємо! Ваш запит прийнято.</strong><br>
+        Номер <strong>${phone}</strong> передано черговому координатору проєктів. Ми сформуємо точний офіційний розрахунок та надішлемо вам у <strong>${channelName}</strong> протягом 10–15 хвилин!
+      </div>`;
       container.scrollTop = container.scrollHeight;
-      document.getElementById('chat-lead-box')?.classList.add('hidden');
       phoneInput.value = '';
     }
   </script>
