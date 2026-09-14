@@ -22,6 +22,10 @@ export default function Navbar() {
     { name: 'Trade Tests', href: '/trade-tests' },
   ];
 
+  if (pathname?.startsWith('/portal')) {
+    return null;
+  }
+
   return (
     <>
       {/* Top Telemetry & National Standards Ribbon */}

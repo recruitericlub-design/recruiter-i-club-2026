@@ -186,7 +186,7 @@ export default function QuotaBookingModal({ isOpen, onClose }: QuotaBookingModal
               <p>Менеджер клубу зв&apos;яжеться з вами протягом 15 хвилин для узгодження договору.</p>
               <div className="flex justify-center gap-3 pt-1">
                 <a 
-                  href="https://t.me" 
+                  href="https://t.me/recruiter_i_club" 
                   target="_blank" 
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
@@ -196,7 +196,7 @@ export default function QuotaBookingModal({ isOpen, onClose }: QuotaBookingModal
                 </a>
                 <span>·</span>
                 <a 
-                  href="https://wa.me" 
+                  href="https://wa.me/380678004040" 
                   target="_blank" 
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 hover:text-emerald-700"

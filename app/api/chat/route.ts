@@ -5,7 +5,7 @@ import { ChatSessionService } from '@/lib/chatSessions';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { message, sessionId, history, customApiKey } = body;
+    const { message, sessionId, history } = body;
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
@@ -141,8 +141,7 @@ ${formattedHistory}
 
     const { text, modelUsed } = await ModelRouterService.generateContentWithFailover(
       systemPrompt,
-      fallbackFn,
-      customApiKey
+      fallbackFn
     );
 
     // Record assistant reply into session

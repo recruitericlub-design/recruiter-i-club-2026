@@ -64,7 +64,6 @@ export default function AiConsultantWidget() {
           message: query,
           sessionId: typeof window !== 'undefined' ? (sessionStorage.getItem('riclub_portal_session_id') || 'portal_' + Date.now()) : undefined,
           history: newMessages.slice(-10),
-          customApiKey: apiKey.trim() || undefined
         })
       });
 

@@ -90,7 +90,7 @@ export default function ArticleDetailPage({ params }: Props) {
             "publisher": {
               "@type": "Organization",
               "name": "Recruiter I Club",
-              "url": "https://recruiter-i-club-2026.vercel.app"
+              "url": "https://www.recruiter-i.club"
             },
             "inLanguage": "uk-UA"
           }),

@@ -2,12 +2,18 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Sparkles, MessageSquare, Send, X, PhoneCall, Phone, ShieldCheck } from 'lucide-react';
 import AiWorkforceAuditModal from './AiWorkforceAuditModal';
 
 export default function FloatingLeadBar() {
+  const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  if (pathname?.startsWith('/portal')) {
+    return null;
+  }
 
   return (
     <>
@@ -66,7 +72,7 @@ export default function FloatingLeadBar() {
               </a>
 
               <a
-                href="https://t.me"
+                href="https://t.me/recruiter_i_club"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] flex items-center justify-center gap-1 transition-all"

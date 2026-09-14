@@ -1,9 +1,17 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Lock } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith('/portal')) {
+    return null;
+  }
   return (
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -73,7 +81,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 text-slate-300">
                 <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>b2b@recruitericlub.com.ua</span>
+                <span>b2b@recruiter-i.club</span>
               </div>
               <div className="pt-2">
                 <Link

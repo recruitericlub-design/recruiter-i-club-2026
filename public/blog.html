@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>База знань та юридичний комплаєнс: Все про найм іноземного персоналу в Україні | Recruiter I Club</title>
   <meta name="description" content="Повний експертний портал для роботодавців: офіційні розрахунки вартості найму, податкове навантаження 2026, стаття 23 ЗУ про мобілізацію, логістика Кишинів-Одеса та trade-тести.">
-  <link rel="canonical" href="https://recruiter-i-club-2026.vercel.app/blog.html">
+  <link rel="canonical" href="https://www.recruiter-i.club/blog.html">
 
   <meta property="og:title" content="База знань: Імпорт робітничого персоналу в Україну 2026">
   <meta property="og:description" content="Офіційні гайди, кошториси, податки, дозвіл ДЦЗ та логістика під ключ для виробничих підприємств.">
-  <meta property="og:url" content="https://recruiter-i-club-2026.vercel.app/blog.html">
-  <meta property="og:image" content="https://recruiter-i-club-2026.vercel.app/images/logo/og_share_preview.png">
+  <meta property="og:url" content="https://www.recruiter-i.club/blog.html">
+  <meta property="og:image" content="https://www.recruiter-i.club/images/logo/og_share_preview.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,7 +84,7 @@
         <nav class="hidden md:flex items-center gap-5 text-xs sm:text-sm font-semibold text-slate-700">
           <a href="/blog.html" class="text-emerald-growth font-bold">База знань</a>
           <a href="/index.html#showcase" class="hover:text-emerald-growth transition">Вітрина кандидатів</a>
-          <a href="/candidates_database.html" target="_blank" class="hover:text-emerald-growth transition">CRM Портал</a>
+          <a href="/portal" target="_blank" class="hover:text-emerald-growth transition">CRM Портал</a>
         </nav>
 
         <!-- Trilingual Switcher -->
@@ -581,39 +581,52 @@
   </footer>
 
   <script>
+    // Mapping: filter button key → substrings that match card data-category values
+    var CATEGORY_MAP = {
+      'Юриспруденція': ['Юрид', 'Дозв', 'Захист', 'Комплаєнс', 'Перебув', 'Документ', 'ТРК', 'ТРП', 'Віза', 'Продовж'],
+      'Податки':       ['Фінанс', 'Кошторис', 'Податк', 'ФОП', 'ROI', 'Економ', 'Ціни', 'Вартість'],
+      'Логістика':     ['Логіст', 'Транзит', 'Коридор', 'Терм', 'Строк'],
+      'Галузі':        ['Будівн', 'Виробн', 'Текстил', 'Агро', 'Галуз', 'ЧПК'],
+      'Адаптація':     ['Адапт', 'Контракт', 'Договір', 'Мова', 'Робота в Укра', 'Зарплат', 'Проживан']
+    };
+
     function filterCategory(cat) {
-      const cards = document.querySelectorAll('.article-card');
-      const buttons = document.querySelectorAll('.cat-btn');
-      
-      buttons.forEach(btn => {
-        if (btn.getAttribute('data-cat') === cat) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
+      var cards = document.querySelectorAll('.article-card');
+      var buttons = document.querySelectorAll('.cat-btn');
+
+      buttons.forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-cat') === cat);
       });
 
-      cards.forEach(card => {
-        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+      var keywords = (cat !== 'all') ? (CATEGORY_MAP[cat] || [cat]) : null;
+
+      cards.forEach(function(card) {
+        if (cat === 'all') {
           card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+          return;
         }
+        var cardCat = card.getAttribute('data-category') || '';
+        var match = keywords.some(function(kw) {
+          return cardCat.toLowerCase().indexOf(kw.toLowerCase()) !== -1;
+        });
+        card.style.display = match ? 'flex' : 'none';
       });
     }
 
     function searchArticles() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.article-card');
+      var input = document.getElementById('searchInput').value.toLowerCase();
+      var cards = document.querySelectorAll('.article-card');
 
-      cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        if (text.includes(input)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
+      cards.forEach(function(card) {
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(input) ? 'flex' : 'none';
       });
+
+      if (input.length > 0) {
+        document.querySelectorAll('.cat-btn').forEach(function(btn) {
+          btn.classList.remove('active');
+        });
+      }
     }
   </script>
 

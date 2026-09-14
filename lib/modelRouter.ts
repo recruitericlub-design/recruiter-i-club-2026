@@ -1,4 +1,4 @@
-﻿import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export interface ModelConfig {
   id: string;
@@ -15,27 +15,12 @@ export class ModelRouterService {
   private static genAI = new GoogleGenerativeAI(ModelRouterService.apiKey);
   private static lastResetDate: string = new Date().toISOString().slice(0, 10);
 
-  // Каскад моделей за пріоритетом (підтримка як 2026 серій, так і чинних моделей Google AI Studio)
+  // Verified high-performance models available in Google AI Studio
   private static models: ModelConfig[] = [
-    { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-3.5-flash', name: 'Gemini 3.5 Flash', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-2.5-flash-lite', name: 'Gemini 2.5 Flash Lite', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro', rpmLimit: 10, rpdLimit: 1000, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-3.5-flash-lite', name: 'Gemini 3.5 Flash Lite', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
-    { id: 'gemini-3.1-flash-lite', name: 'Gemini 3.1 Flash Lite', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false }
+    { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash (Ultra Fast)', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
+    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash (2026 Core)', rpmLimit: 15, rpdLimit: 1500, currentRpd: 0, rpmWindow: [], isExhausted: false },
+    { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro (Deep Reasoning)', rpmLimit: 10, rpdLimit: 1000, currentRpd: 0, rpmWindow: [], isExhausted: false }
   ];
-
-  /**
-   * Оновлення ключа, якщо він переданий динамічно
-   */
-  public static setApiKey(key: string) {
-    if (key && key !== ModelRouterService.apiKey) {
-      ModelRouterService.apiKey = key;
-      ModelRouterService.genAI = new GoogleGenerativeAI(key);
-    }
-  }
 
   /**
    * Отримання поточної телеметрії каскаду
@@ -56,15 +41,13 @@ export class ModelRouterService {
    */
   public static async generateContentWithFailover(
     prompt: string,
-    fallbackFn: () => string,
-    customApiKey?: string
+    fallbackFn: () => string
   ): Promise<{ text: string; modelUsed: string }> {
     ModelRouterService.checkMidnightReset();
 
-    if (customApiKey) {
-      ModelRouterService.setApiKey(customApiKey);
-    } else if (process.env.GEMINI_API_KEY) {
-      ModelRouterService.setApiKey(process.env.GEMINI_API_KEY);
+    if (!ModelRouterService.apiKey && process.env.GEMINI_API_KEY) {
+      ModelRouterService.apiKey = process.env.GEMINI_API_KEY;
+      ModelRouterService.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     }
 
     if (!ModelRouterService.apiKey) {
