@@ -6,22 +6,34 @@ export interface BrandLogoProps {
   variant?: 'light' | 'dark' | string;
 }
 
-export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '', size = 'md', variant = 'light' }) => {
-  const sizeClasses: Record<string, string> = {
-    sm: 'h-8 sm:h-10',
-    md: 'h-10 sm:h-12 md:h-14',
-    lg: 'h-14 sm:h-16 md:h-20'
+export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '', size = 'md' }) => {
+  const sealSizes: Record<string, string> = {
+    sm: 'h-8 sm:h-9',
+    md: 'h-9 sm:h-11 md:h-12',
+    lg: 'h-12 sm:h-14 md:h-16'
   };
 
-  const actualSize = sizeClasses[size] || sizeClasses.md;
+  const actualSize = sealSizes[size] || sealSizes.md;
 
   return (
-    <a href="/" className={`relative flex items-center shrink-0 group select-none transition-transform duration-300 hover:scale-[1.03] ${className}`} title="Recruiter I Club">
+    <a 
+      href="/" 
+      className={`relative flex items-center gap-2.5 sm:gap-3 shrink-0 group select-none transition-all duration-300 ${className}`} 
+      title="Recruiter I Club — Міжнародний B2B Рекрутинг"
+    >
       <img
-        src="/images/logo/riclub_master_badge_3d.png"
-        alt="Recruiter I Club B2B"
-        className={`${actualSize} w-auto object-contain rounded-xl shadow-lg border border-amber-500/40 transition-all duration-300 group-hover:border-amber-400`}
+        src="/images/logo/riclub_gold_seal_3d.png"
+        alt="Recruiter I Club"
+        className={`${actualSize} w-auto object-contain drop-shadow-[0_2px_8px_rgba(217,119,6,0.3)] transition-transform duration-300 group-hover:scale-105`}
       />
+      <div className="flex flex-col justify-center">
+        <span className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 leading-tight">
+          RECRUITER <span className="text-amber-500">I</span> CLUB
+        </span>
+        <span className="text-[8px] sm:text-[9.5px] uppercase font-bold tracking-widest text-slate-500 leading-none mt-0.5">
+          Міжнародний оператор
+        </span>
+      </div>
     </a>
   );
 };

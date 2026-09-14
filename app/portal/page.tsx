@@ -7,28 +7,31 @@ import {
   CheckCircle2, 
   FileText, 
   Eye, 
-  Download,
-  Users,
-  Briefcase,
-  ShieldCheck,
-  Video,
-  ExternalLink,
-  Search,
-  Filter,
-  Check,
-  X,
-  PlusCircle,
-  Building2,
-  Phone,
-  ArrowRight,
-  LogOut,
-  Sparkles,
-  Clock,
-  UserCheck,
-  Plane,
-  Factory,
-  ChevronRight,
-  AlertCircle
+  Download, 
+  Users, 
+  Briefcase, 
+  ShieldCheck, 
+  Video, 
+  ExternalLink, 
+  Search, 
+  Check, 
+  X, 
+  PlusCircle, 
+  Building2, 
+  Phone, 
+  ArrowRight, 
+  LogOut, 
+  Sparkles, 
+  Clock, 
+  UserCheck, 
+  Plane, 
+  Factory, 
+  ChevronRight, 
+  AlertCircle,
+  Key,
+  HelpCircle,
+  Send,
+  MessageSquare
 } from 'lucide-react';
 
 interface Candidate {
@@ -65,12 +68,20 @@ export default function EmployerPortalPage() {
   // Session & Auth state
   const [user, setUser] = useState<UserSession | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
-  const [authTab, setAuthTab] = useState<'login' | 'register'>('login');
+  const [authTab, setAuthTab] = useState<'login' | 'request'>('login');
   const [loginPhone, setLoginPhone] = useState('');
-  const [regCompany, setRegCompany] = useState('');
+  const [loginPin, setLoginPin] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authPendingInfo, setAuthPendingInfo] = useState<{ companyName?: string; message?: string } | null>(null);
+
+  // Request Access Form state
+  const [reqCompany, setRegCompany] = useState('');
   const [regName, setRegName] = useState('');
   const [regPhone, setRegPhone] = useState('');
-  const [authError, setAuthError] = useState('');
+  const [regIndustry, setRegIndustry] = useState('Виробництво / Завод');
+  const [regWorkers, setRegWorkers] = useState('10–15 осіб');
+  const [regSuccessMsg, setRegSuccessMsg] = useState('');
+  const [regPinHint, setRegPinHint] = useState('');
 
   // Portal Data state
   const [activeTab, setActiveTab] = useState<'my' | 'all' | 'docs' | 'request'>('my');
@@ -93,6 +104,13 @@ export default function EmployerPortalPage() {
   // Candidate Details Modal
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
   const [actionSuccessMsg, setActionSuccessMsg] = useState('');
+
+  // Styled Rejection Modal state (replacing prompt)
+  const [rejectModalOpen, setRejectModalOpen] = useState(false);
+  const [candidateToReject, setCandidateToReject] = useState<Candidate | null>(null);
+  const [rejectReason, setRejectReason] = useState('Невідповідність кваліфікації / розряду');
+  const [customRejectReason, setCustomRejectReason] = useState('');
+  const [rejectSubmitting, setRejectSubmitting] = useState(false);
 
   // Requisition Form state
   const [reqProfession, setReqProfession] = useState('');
@@ -140,6 +158,7 @@ export default function EmployerPortalPage() {
   const handleDemoLogin = async () => {
     setAuthLoading(true);
     setAuthError('');
+    setAuthPendingInfo(null);
     try {
       const res = await fetch('/api/portal/auth', {
         method: 'POST',
@@ -163,53 +182,77 @@ export default function EmployerPortalPage() {
   const handlePhoneLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!loginPhone.trim()) return;
-    setAuthLoading(true);
-    setAuthError('');
-    try {
-      const res = await fetch('/api/portal/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'login', phone: loginPhone.trim() })
-      });
-      const data = await res.json();
-      if (data.success && data.user) {
-        setUser(data.user);
-        localStorage.setItem('riclub_employer_session', JSON.stringify(data.user));
-      } else {
-        setAuthError(data.error || 'Підприємство з таким номером не знайдено');
-      }
-    } catch (e) {
-      setAuthError('Мережева помилка підключення');
-    } finally {
-      setAuthLoading(false);
+    if (!loginPin.trim()) {
+      setAuthError('Введіть 4-значний PIN-код доступу');
+      return;
     }
-  };
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!regCompany.trim() || !regPhone.trim()) return;
     setAuthLoading(true);
     setAuthError('');
+    setAuthPendingInfo(null);
+
     try {
       const res = await fetch('/api/portal/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          action: 'register',
-          companyName: regCompany.trim(),
-          contactName: regName.trim() || 'Керівник',
-          phone: regPhone.trim()
+          action: 'login', 
+          phone: loginPhone.trim(),
+          pin: loginPin.trim()
         })
       });
       const data = await res.json();
+
       if (data.success && data.user) {
         setUser(data.user);
         localStorage.setItem('riclub_employer_session', JSON.stringify(data.user));
+      } else if (data.pendingApproval) {
+        setAuthPendingInfo({
+          companyName: data.companyName,
+          message: data.error
+        });
+      } else if (data.notFound) {
+        setAuthError('Підприємство з таким номером не знайдено в базі роботодавців.');
+        setRegPhone(loginPhone.trim());
       } else {
-        setAuthError(data.error || 'Помилка реєстрації');
+        setAuthError(data.error || 'Помилка авторизації');
       }
     } catch (e) {
-      setAuthError('Мережева помилка реєстрації');
+      setAuthError('Мережева помилка зв’язку з CRM');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleRequestAccess = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reqCompany.trim() || !regPhone.trim()) return;
+    setAuthLoading(true);
+    setAuthError('');
+    setRegSuccessMsg('');
+
+    try {
+      const res = await fetch('/api/portal/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          action: 'request_access',
+          companyName: reqCompany.trim(),
+          contactName: regName.trim() || 'Керівник',
+          phone: regPhone.trim(),
+          industry: regIndustry,
+          workersNeeded: regWorkers
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setRegSuccessMsg(data.message || 'Заявку успішно зареєстровано в CRM!');
+        if (data.pinHint) setRegPinHint(data.pinHint);
+      } else {
+        setAuthError(data.error || 'Помилка оформлення заявки');
+      }
+    } catch (e) {
+      setAuthError('Мережева помилка реєстрації заявки');
     } finally {
       setAuthLoading(false);
     }
@@ -235,8 +278,8 @@ export default function EmployerPortalPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setActionSuccessMsg(`✅ Фахівця ${candidate.name} успішно затверджено!`);
-        setTimeout(() => setActionSuccessMsg(''), 4000);
+        setActionSuccessMsg(`✅ Фахівця ${candidate.name} успішно затверджено на оформлення!`);
+        setTimeout(() => setActionSuccessMsg(''), 5000);
         fetchCandidates(user.companyId);
         if (selectedCandidate?.id === candidate.id) {
           setSelectedCandidate(prev => prev ? { ...prev, status: 'Затверджено замовником' } : null);
@@ -247,10 +290,17 @@ export default function EmployerPortalPage() {
     }
   };
 
-  const handleRejectCandidate = async (candidate: Candidate) => {
-    if (!user) return;
-    const reason = prompt(`Вкажіть причину запиту заміни для ${candidate.name}:`, 'Невідповідність розряду / зміна графіка');
-    if (reason === null) return;
+  const openRejectModal = (candidate: Candidate) => {
+    setCandidateToReject(candidate);
+    setRejectReason('Невідповідність кваліфікації / розряду');
+    setCustomRejectReason('');
+    setRejectModalOpen(true);
+  };
+
+  const confirmReject = async () => {
+    if (!user || !candidateToReject) return;
+    setRejectSubmitting(true);
+    const finalReason = rejectReason === 'Інше' ? (customRejectReason || 'Інша причина') : rejectReason;
 
     try {
       const res = await fetch('/api/portal/action', {
@@ -258,23 +308,27 @@ export default function EmployerPortalPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'reject',
-          candidateId: candidate.id,
+          candidateId: candidateToReject.id,
           companyId: user.companyId,
           companyName: user.companyName,
-          reason
+          reason: finalReason
         })
       });
       const data = await res.json();
       if (data.success) {
-        setActionSuccessMsg(`❌ Запит на заміну ${candidate.name} передано куратору.`);
-        setTimeout(() => setActionSuccessMsg(''), 4000);
+        setActionSuccessMsg(`⚠️ Запит на заміну фахівця ${candidateToReject.name} передано координатору (гарантія 48 год).`);
+        setTimeout(() => setActionSuccessMsg(''), 5000);
         fetchCandidates(user.companyId);
-        if (selectedCandidate?.id === candidate.id) {
-          setSelectedCandidate(prev => prev ? { ...prev, status: 'Потрібна заміна / Відхилено' } : null);
+        setRejectModalOpen(false);
+        setCandidateToReject(null);
+        if (selectedCandidate?.id === candidateToReject.id) {
+          setSelectedCandidate(null);
         }
       }
     } catch (e) {
-      alert('Помилка надсилання запиту');
+      alert('Помилка передачі запиту');
+    } finally {
+      setRejectSubmitting(false);
     }
   };
 
@@ -293,13 +347,13 @@ export default function EmployerPortalPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setActionSuccessMsg(`🎯 Фахівця ${candidate.name} прикріплено до вашого підприємства!`);
-        setTimeout(() => setActionSuccessMsg(''), 4000);
+        setActionSuccessMsg(`📌 Фахівця ${candidate.name} заброньовано у ваш штат!`);
+        setTimeout(() => setActionSuccessMsg(''), 5000);
         fetchCandidates(user.companyId);
         setActiveTab('my');
       }
     } catch (e) {
-      alert('Помилка прикріплення кандидата');
+      alert('Помилка бронювання кандидата');
     }
   };
 
@@ -326,7 +380,8 @@ export default function EmployerPortalPage() {
       });
       const data = await res.json();
       if (data.success) {
-        alert(data.message || 'Заявку передано в CRM!');
+        setActionSuccessMsg(`📋 ${data.message || 'Заявку на нову бригаду передано координатору!'}`);
+        setTimeout(() => setActionSuccessMsg(''), 6000);
         setReqProfession('');
         setReqCity('');
         setReqSalary('');
@@ -360,7 +415,7 @@ export default function EmployerPortalPage() {
     const s = (status || '').toLowerCase();
     if (s.includes('працевлаш') || s.includes('змін')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
     if (s.includes('затвердж') || s.includes('готов')) return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-    if (s.includes('віз') || s.includes('дороз') || s.includes('транзит')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+    if (s.includes('віз') || s.includes('дороз') || s.includes('транзит') || s.includes('дозв')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
     if (s.includes('відхил') || s.includes('замін')) return 'bg-rose-500/20 text-rose-300 border-rose-500/30';
     return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
   };
@@ -379,50 +434,57 @@ export default function EmployerPortalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-slate-100 pb-20 selection:bg-emerald-500 selection:text-slate-950 font-sans">
+    <div className="min-h-screen bg-[#070b14] text-slate-100 pb-28 md:pb-20 selection:bg-amber-500 selection:text-slate-950 font-sans">
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-[#090e1a]/90 backdrop-blur-md border-b border-white/[0.08] px-4 sm:px-6 py-3.5">
+      <header className="sticky top-0 z-40 bg-[#090e1a]/95 backdrop-blur-md border-b border-white/[0.08] px-4 sm:px-6 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2.5">
-              <img src="/images/logo/riclub_gold_seal_3d.png" alt="Recruiter I Club" className="w-8 h-8 rounded-full border border-amber-400/40 shadow-sm" />
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <img 
+                src="/images/logo/riclub_gold_seal_3d.png" 
+                alt="Recruiter I Club" 
+                className="w-8 h-8 object-contain drop-shadow-[0_2px_6px_rgba(217,119,6,0.35)] transition-transform duration-300 group-hover:scale-105" 
+              />
               <div>
-                <span className="font-extrabold text-xs tracking-wider text-white uppercase block leading-tight">Recruiter I Club</span>
-                <span className="text-[10px] text-amber-400 font-mono block">B2B Portal · Neon CRM Realtime</span>
+                <span className="font-extrabold text-xs tracking-wider text-white uppercase block leading-tight">
+                  RECRUITER <span className="text-amber-400">I</span> CLUB
+                </span>
+                <span className="text-[9.5px] text-slate-400 font-mono block">Закритий кабінет роботодавця</span>
               </div>
             </Link>
           </div>
 
-          {/* User Session Info or Login button */}
-          <div className="flex items-center gap-2">
+          {/* User Session Info or Demo Button */}
+          <div className="flex items-center gap-3">
             {user ? (
-              <div className="flex items-center gap-2">
-                <div className="text-right">
-                  <div className="text-[11px] sm:text-xs font-bold text-white flex items-center gap-1.5 justify-end">
+              <div className="flex items-center gap-3">
+                <div className="text-right hidden sm:block">
+                  <div className="text-xs font-bold text-white flex items-center gap-1.5 justify-end">
                     <Building2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span className="truncate max-w-[130px] sm:max-w-[240px]">{user.companyName}</span>
+                    <span className="truncate max-w-[200px]">{user.companyName}</span>
                     {user.isDemo && (
                       <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1 py-0.5 rounded font-mono font-extrabold shrink-0">DEMO</span>
                     )}
                   </div>
-                  <div className="text-[9px] sm:text-[10px] text-slate-400 font-mono truncate max-w-[140px] sm:max-w-none">{user.contactName} · {user.phone}</div>
+                  <div className="text-[10px] text-slate-400 font-mono">{user.contactName} · {user.phone}</div>
                 </div>
                 <button
                   onClick={handleLogout}
                   title="Вийти з кабінету"
-                  className="p-2 rounded-xl bg-white/[0.04] hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-white/[0.08] transition"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.04] hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-white/[0.08] transition text-xs"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Вийти</span>
                 </button>
               </div>
             ) : (
               <button
                 onClick={handleDemoLogin}
                 disabled={authLoading}
-                className="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold transition flex items-center gap-1.5 shadow-md shadow-emerald-500/20"
+                className="px-3.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-bold transition flex items-center gap-1.5"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Вхід роботодавця</span>
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>Демо-вхід (ТОВ Інвест)</span>
               </button>
             )}
           </div>
@@ -434,140 +496,246 @@ export default function EmployerPortalPage() {
         
         {/* ACTION SUCCESS BANNER */}
         {actionSuccessMsg && (
-          <div className="p-3.5 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-xs font-semibold flex items-center justify-between gap-3 animate-fadeIn">
-            <span>{actionSuccessMsg}</span>
-            <button onClick={() => setActionSuccessMsg('')} className="text-emerald-300 hover:text-white font-bold">✕</button>
+          <div className="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-xs font-bold flex items-center justify-between gap-3 animate-fadeIn shadow-lg shadow-emerald-500/10">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>{actionSuccessMsg}</span>
+            </div>
+            <button onClick={() => setActionSuccessMsg('')} className="text-emerald-300 hover:text-white font-bold p-1">✕</button>
           </div>
         )}
 
-        {/* NOT LOGGED IN HERO & LOGIN DRAWER */}
+        {/* NOT LOGGED IN HERO & LOGIN / REQUEST FORM */}
         {!user ? (
-          <div className="max-w-xl mx-auto my-6 sm:my-12 p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-amber-500/20 shadow-2xl space-y-6">
+          <div className="max-w-xl mx-auto my-6 sm:my-10 p-6 sm:p-8 rounded-3xl bg-slate-900/95 border border-amber-500/25 shadow-2xl space-y-6">
             <div className="text-center space-y-2">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-[11px] font-mono font-bold">
                 <Lock className="w-3 h-3" />
-                <span>Авторизація B2B Клієнта 2026</span>
+                <span>Закритий B2B-доступ лише для верифікованих підприємств</span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-white">
+              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                 Особистий кабінет роботодавця
               </h1>
-              <p className="text-xs text-slate-400">
-                Прямий доступ до закріплених кандидатів з Узбекистану та Азії (ст. 23 ЗУ — 100% захист від призову), відео Trade-тестів та статусів віз у реальному часі.
+              <p className="text-xs text-slate-400 leading-relaxed max-w-md mx-auto">
+                База кандидатів з Узбекистану, Індії та Азії. Доступ надається виключно після узгодження договору з координатором клубу.
               </p>
             </div>
 
-            {/* Instant Demo Button */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/60 to-slate-900 border border-emerald-500/30 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold text-emerald-400 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> Швидка оцінка для керівників:
-                </span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold">17 закріплених працівників</span>
+            {/* PENDING APPROVAL ALERT */}
+            {authPendingInfo && (
+              <div className="p-4 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs space-y-2">
+                <div className="flex items-center gap-2 font-bold text-amber-300">
+                  <Clock className="w-4 h-4 shrink-0 text-amber-400" />
+                  <span>Кабінет для «{authPendingInfo.companyName}» на стадії активації</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  {authPendingInfo.message || 'Заявку прийнято. Доступ відкривається автоматично після підтвердження договору та внесення в базу роботодавців.'}
+                </p>
+                <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between text-[11px]">
+                  <span>Потрібна термінова активація?</span>
+                  <a href="tel:+380678004040" className="text-amber-400 font-bold hover:underline">+38 (067) 800-40-40</a>
+                </div>
               </div>
-              <button
-                onClick={handleDemoLogin}
-                disabled={authLoading}
-                className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-[0.99]"
-              >
-                {authLoading ? 'Підключення до CRM...' : '⚡ Демо-вхід в 1 клік (ТОВ «Агро-Переробка»)'}
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+            )}
 
-            {/* Auth Tabs */}
-            <div className="border-t border-white/10 pt-5 space-y-4">
+            {/* Auth Switcher: Login with PIN vs Request Access */}
+            <div className="space-y-4">
               <div className="flex rounded-xl bg-slate-950 p-1 border border-white/[0.08]">
                 <button
-                  onClick={() => setAuthTab('login')}
+                  onClick={() => { setAuthTab('login'); setAuthError(''); }}
                   className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${
                     authTab === 'login' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  Вхід за номером телефону
+                  Увійти (Телефон + PIN)
                 </button>
                 <button
-                  onClick={() => setAuthTab('register')}
+                  onClick={() => { setAuthTab('request'); setAuthError(''); }}
                   className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${
-                    authTab === 'register' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
+                    authTab === 'request' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  Швидка реєстрація підприємства
+                  Подати заявку на доступ
                 </button>
               </div>
 
               {authError && (
-                <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/30 text-rose-200 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>{authError}</span>
+                <div className="p-3.5 rounded-xl bg-rose-500/20 border border-rose-500/30 text-rose-200 text-xs flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <div>{authError}</div>
+                    {authError.includes('не знайдено') && (
+                      <button 
+                        onClick={() => setAuthTab('request')}
+                        className="text-amber-400 underline font-bold text-[11px] block mt-1"
+                      >
+                        Перейти до форми заявки на підключення ➔
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
 
               {authTab === 'login' ? (
-                <form onSubmit={handlePhoneLogin} className="space-y-3">
+                /* TAB: LOGIN WITH PHONE + PIN */
+                <form onSubmit={handlePhoneLogin} className="space-y-3.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-400 mb-1">НОМЕР ТЕЛЕФОНУ (WhatsApp / Telegram)</label>
+                    <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                      НОМЕР ТЕЛЕФОНУ ПІДПРИЄМСТВА *
+                    </label>
                     <input
                       type="tel"
                       required
-                      placeholder="+380..."
+                      placeholder="+38 (067) 000-00-00"
                       value={loginPhone}
                       onChange={(e) => setLoginPhone(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400 font-mono"
                     />
                   </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-[11px] font-bold text-slate-300">
+                        ПЕРСОНАЛЬНИЙ 4-ЗНАЧНИЙ PIN-КОД ДОСТУПУ *
+                      </label>
+                      <span className="text-[10px] text-amber-400/80 font-mono">надається координатором</span>
+                    </div>
+                    <div className="relative">
+                      <Key className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="password"
+                        maxLength={6}
+                        required
+                        placeholder="••••"
+                        value={loginPin}
+                        onChange={(e) => setLoginPin(e.target.value)}
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-sm text-white focus:outline-none focus:border-amber-400 font-mono tracking-widest text-center"
+                      />
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
                     disabled={authLoading}
-                    className="w-full py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] text-white font-bold text-xs transition border border-white/10 flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-[0.99]"
                   >
-                    <span>Увійти в кабінет</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    {authLoading ? 'Звірка з базою CRM...' : 'Увійти в кабінет роботодавця'}
+                    <ArrowRight className="w-4 h-4" />
                   </button>
+
+                  <div className="pt-2 text-center">
+                    <button
+                      type="button"
+                      onClick={() => setAuthTab('request')}
+                      className="text-[11px] text-slate-400 hover:text-amber-400 transition"
+                    >
+                      Ще не маєте PIN-коду? <span className="underline font-semibold">Подайте заявку на підключення</span>
+                    </button>
+                  </div>
                 </form>
               ) : (
-                <form onSubmit={handleRegister} className="space-y-3">
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-400 mb-1">НАЗВА ПІДПРИЄМСТВА (ТОВ / ПП)</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="ТОВ «Буд-Інвест» або Фабрика..."
-                      value={regCompany}
-                      onChange={(e) => setRegCompany(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-400 mb-1">ВАШЕ ІМ'Я</label>
-                      <input
-                        type="text"
-                        placeholder="Олександр, директор"
-                        value={regName}
-                        onChange={(e) => setRegName(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
+                /* TAB: REQUEST ACCESS APPLICATION */
+                <div>
+                  {regSuccessMsg ? (
+                    <div className="p-5 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 text-center space-y-3">
+                      <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-xl">
+                        ✓
+                      </div>
+                      <h3 className="text-sm font-bold text-white">Заявку прийнято в обробку CRM</h3>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        {regSuccessMsg}
+                      </p>
+                      {regPinHint && (
+                        <div className="p-2.5 rounded-xl bg-slate-950 border border-white/10 font-mono text-xs text-amber-300">
+                          Ваш тимчасовий PIN: <strong className="text-white text-sm">{regPinHint}</strong> (збережіть його)
+                        </div>
+                      )}
+                      <button
+                        onClick={() => { setRegSuccessMsg(''); setAuthTab('login'); }}
+                        className="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold"
+                      >
+                        Перейти до форми входу ➔
+                      </button>
                     </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-400 mb-1">ТЕЛЕФОН (WhatsApp)</label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="+380..."
-                        value={regPhone}
-                        onChange={(e) => setRegPhone(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
-                      />
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={authLoading}
-                    className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow-md shadow-amber-500/20"
-                  >
-                    Зареєструвати підприємство та відкрити кабінет ➔
-                  </button>
-                </form>
+                  ) : (
+                    <form onSubmit={handleRequestAccess} className="space-y-3">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 mb-1">НАЗВА ПІДПРИЄМСТВА (ТОВ / ПП) *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="ТОВ «Буд-Інвест» або Завод..."
+                          value={reqCompany}
+                          onChange={(e) => setRegCompany(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-300 mb-1">КОНТАКТНА ОСОБА (ПІБ)</label>
+                          <input
+                            type="text"
+                            placeholder="Олександр Васильович, директор"
+                            value={regName}
+                            onChange={(e) => setRegName(e.target.value)}
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-300 mb-1">ТЕЛЕФОН (WhatsApp/Telegram) *</label>
+                          <input
+                            type="tel"
+                            required
+                            placeholder="+380..."
+                            value={regPhone}
+                            onChange={(e) => setRegPhone(e.target.value)}
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-300 mb-1">ГАЛУЗЬ ДІЯЛЬНОСТІ</label>
+                          <select
+                            value={regIndustry}
+                            onChange={(e) => setRegIndustry(e.target.value)}
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
+                          >
+                            <option>Виробництво / Завод</option>
+                            <option>Будівництво / Монтаж</option>
+                            <option>Склад / WMS / Логістика</option>
+                            <option>Агро / Теплиці / Переробка</option>
+                            <option>Текстиль / Швейний цех</option>
+                            <option>Інша галузь</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-300 mb-1">ПОТРІБНО РОБІТНИКІВ</label>
+                          <select
+                            value={regWorkers}
+                            onChange={(e) => setRegWorkers(e.target.value)}
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
+                          >
+                            <option>3–5 працівників</option>
+                            <option>10–15 працівників</option>
+                            <option>20–50 працівників</option>
+                            <option>50+ фахівців (бригада під ключ)</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={authLoading}
+                        className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm transition shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2"
+                      >
+                        {authLoading ? 'Реєстрація заявки в CRM...' : 'Подати заявку на відкриття кабінету ➔'}
+                      </button>
+                    </form>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -575,7 +743,7 @@ export default function EmployerPortalPage() {
           /* LOGGED IN WORKSPACE */
           <div className="space-y-6">
 
-            {/* BENTO STATS METRICS (Responsive 2x2 or 4x1) */}
+            {/* BENTO STATS METRICS */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
               <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-900/80 border border-white/[0.08] flex items-center gap-3 shadow-sm">
                 <div className="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
@@ -583,7 +751,7 @@ export default function EmployerPortalPage() {
                 </div>
                 <div>
                   <div className="text-[10px] sm:text-xs text-slate-400 font-medium">Закріплено за вами</div>
-                  <div className="text-lg sm:text-2xl font-black text-white font-mono">{metrics.myTotal} <span className="text-xs font-normal text-slate-400">осіб</span></div>
+                  <div className="text-lg sm:text-2xl font-black text-white font-mono">{myCandidates.length} <span className="text-xs font-normal text-slate-400">осіб</span></div>
                 </div>
               </div>
 
@@ -593,7 +761,10 @@ export default function EmployerPortalPage() {
                 </div>
                 <div>
                   <div className="text-[10px] sm:text-xs text-slate-400 font-medium">Працюють на зміні</div>
-                  <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono">{metrics.myActiveOnShift} <span className="text-xs font-normal text-slate-400">людей</span></div>
+                  <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono">
+                    {myCandidates.filter(c => (c.status || '').toLowerCase().includes('змін') || (c.status || '').toLowerCase().includes('працевлаш')).length}
+                    <span className="text-xs font-normal text-slate-400"> людей</span>
+                  </div>
                 </div>
               </div>
 
@@ -602,8 +773,11 @@ export default function EmployerPortalPage() {
                   <Plane className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-[10px] sm:text-xs text-slate-400 font-medium">В дорозі / Віза D</div>
-                  <div className="text-lg sm:text-2xl font-black text-amber-400 font-mono">{metrics.myInTransit} <span className="text-xs font-normal text-slate-400">осіб</span></div>
+                  <div className="text-[10px] sm:text-xs text-slate-400 font-medium">Оформлення / Віза D</div>
+                  <div className="text-lg sm:text-2xl font-black text-amber-400 font-mono">
+                    {myCandidates.filter(c => (c.status || '').toLowerCase().includes('віз') || (c.status || '').toLowerCase().includes('дозв') || (c.status || '').toLowerCase().includes('скринінг')).length}
+                    <span className="text-xs font-normal text-slate-400"> осіб</span>
+                  </div>
                 </div>
               </div>
 
@@ -612,14 +786,14 @@ export default function EmployerPortalPage() {
                   <UserCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-[10px] sm:text-xs text-slate-400 font-medium">Загальна база CRM</div>
-                  <div className="text-lg sm:text-2xl font-black text-purple-300 font-mono">{metrics.allTotal} <span className="text-xs font-normal text-slate-400">анкет</span></div>
+                  <div className="text-[10px] sm:text-xs text-slate-400 font-medium">Загальний пул CRM</div>
+                  <div className="text-lg sm:text-2xl font-black text-purple-300 font-mono">{allCandidates.length} <span className="text-xs font-normal text-slate-400">анкет</span></div>
                 </div>
               </div>
             </div>
 
-            {/* STICKY SEGMENT TABS (Mobile-friendly thumb taps) */}
-            <div className="sticky top-[61px] z-30 bg-[#070b14]/95 backdrop-blur-sm py-2">
+            {/* STICKY SEGMENT TABS (Desktop + Tablet) */}
+            <div className="sticky top-[58px] z-30 bg-[#070b14]/95 backdrop-blur-sm py-2">
               <div className="flex gap-1.5 overflow-x-auto no-scrollbar p-1 rounded-2xl bg-slate-950 border border-white/[0.08]">
                 <button
                   onClick={() => setActiveTab('my')}
@@ -660,7 +834,7 @@ export default function EmployerPortalPage() {
                   }`}
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  <span>Договори та рахунки</span>
+                  <span>Офіційні документи</span>
                 </button>
 
                 <button
@@ -672,8 +846,7 @@ export default function EmployerPortalPage() {
                   }`}
                 >
                   <PlusCircle className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Подати нову заявку</span>
-                  <span className="sm:hidden">Заявка</span>
+                  <span>Замовити нову бригаду</span>
                 </button>
               </div>
             </div>
@@ -688,7 +861,7 @@ export default function EmployerPortalPage() {
                     <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
-                      placeholder={activeTab === 'my' ? "Пошук серед закріплених фахівців (ім'я, фах)..." : "Пошук по всій базі кандидатів CRM..."}
+                      placeholder={activeTab === 'my' ? "Пошук серед закріплених працівників (ім'я, фах)..." : "Пошук по всій базі кандидатів CRM..."}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-400"
@@ -697,7 +870,7 @@ export default function EmployerPortalPage() {
 
                   {/* Country pills */}
                   <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
-                    {['all', 'Узбекистан', 'Індія', 'Бангладеш', 'Туреччина', 'Україна'].map(c => (
+                    {['all', 'Узбекистан', 'Індія', 'Бангладеш'].map(c => (
                       <button
                         key={c}
                         onClick={() => setSelectedCountry(c)}
@@ -716,7 +889,7 @@ export default function EmployerPortalPage() {
                 {/* CANDIDATES GRID */}
                 {loading ? (
                   <div className="py-16 text-center text-slate-400 text-xs animate-pulse">
-                    Оновлення кандидатів з Neon CRM...
+                    Синхронізація кандидатів з Neon CRM...
                   </div>
                 ) : filteredCandidates.length === 0 ? (
                   <div className="py-16 text-center space-y-3 rounded-3xl bg-slate-900/40 border border-white/[0.06]">
@@ -748,101 +921,77 @@ export default function EmployerPortalPage() {
                           key={cand.id}
                           className="rounded-2xl bg-slate-900/85 border border-white/[0.08] hover:border-amber-400/40 transition-all duration-200 p-4 sm:p-5 flex flex-col justify-between space-y-4 shadow-md group"
                         >
-                          {/* Card Top */}
                           <div className="space-y-3">
                             <div className="flex items-start justify-between gap-2">
                               <div className="flex items-center gap-2.5">
-                                <div className="w-10 h-10 rounded-xl bg-slate-950 border border-white/15 flex items-center justify-center text-xl shrink-0 shadow-xs">
+                                <div className="w-10 h-10 rounded-xl bg-slate-800 border border-white/10 flex items-center justify-center text-lg font-bold text-slate-300">
                                   {flag}
                                 </div>
                                 <div>
-                                  <h3 className="font-extrabold text-sm text-white group-hover:text-amber-300 transition-colors leading-tight">
+                                  <h4 className="text-sm font-bold text-white group-hover:text-amber-400 transition leading-snug">
                                     {cand.name}
-                                  </h3>
-                                  <div className="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5">
+                                  </h4>
+                                  <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
                                     <span>{cand.country}</span>
-                                    {cand.experienceYears && (
-                                      <span>· {cand.experienceYears} р. досвіду</span>
-                                    )}
+                                    <span>·</span>
+                                    <span>{cand.experienceYears ? `${cand.experienceYears} р. досвіду` : 'Перевірений'}</span>
                                   </div>
                                 </div>
                               </div>
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${statusBadge} shrink-0`}>
+                                {cand.status}
+                              </span>
                             </div>
 
-                            {/* Profession banner */}
-                            <div className="p-2.5 rounded-xl bg-slate-950/70 border border-white/[0.06]">
-                              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-extrabold">Спеціальність</div>
-                              <div className="font-bold text-xs sm:text-[13px] text-slate-200 mt-0.5 leading-snug">
+                            <div>
+                              <div className="text-xs font-semibold text-slate-200 line-clamp-2">
                                 {cand.profession}
                               </div>
+                              {cand.skills && (
+                                <div className="text-[11px] text-slate-400 mt-1 line-clamp-2 bg-slate-950/60 p-2 rounded-lg border border-white/[0.04]">
+                                  🛠 {cand.skills}
+                                </div>
+                              )}
                             </div>
-
-                            {/* Status badge */}
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${statusBadge}`}>
-                                ● {cand.status || 'Скринінг'}
-                              </span>
-                              <span className="text-[10px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 px-2 py-0.5 rounded font-mono font-medium flex items-center gap-1">
-                                <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                                <span>ст. 23 ЗУ</span>
-                              </span>
-                            </div>
-
-                            {/* Skills tags */}
-                            {cand.skills && (
-                              <div className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
-                                <span className="font-semibold text-slate-300">Навички: </span>
-                                {cand.skills}
-                              </div>
-                            )}
                           </div>
 
-                          {/* Card Bottom Actions */}
                           <div className="pt-3 border-t border-white/[0.06] flex items-center gap-2">
-                            {activeTab === 'my' ? (
-                              <>
-                                <button
-                                  onClick={() => handleApproveCandidate(cand)}
-                                  className="flex-1 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95"
-                                >
-                                  <Check className="w-3.5 h-3.5" />
-                                  <span>Затвердити</span>
-                                </button>
-                                <button
-                                  onClick={() => handleRejectCandidate(cand)}
-                                  className="py-2 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 hover:text-rose-200 border border-rose-500/30 text-xs font-bold transition"
-                                  title="Запросити заміну"
-                                >
-                                  Заміна
-                                </button>
-                              </>
-                            ) : (
-                              <>
-                                {isAssignedToMe ? (
-                                  <span className="flex-1 py-2 text-center text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
-                                    ✓ Вже закріплений за вами
-                                  </span>
-                                ) : (
-                                  <button
-                                    onClick={() => handleAssignCandidate(cand)}
-                                    className="flex-1 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95"
-                                  >
-                                    <UserCheck className="w-3.5 h-3.5" />
-                                    <span>Закріпити за мною</span>
-                                  </button>
-                                )}
-                              </>
-                            )}
-
                             <button
                               onClick={() => setSelectedCandidate(cand)}
-                              className="p-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 hover:text-white border border-white/[0.08] transition"
-                              title="Деталі анкети та Trade Test"
+                              className="flex-1 py-2 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1.5"
                             >
-                              <Eye className="w-4 h-4" />
+                              <Eye className="w-3.5 h-3.5 text-amber-400" />
+                              <span>Анкета</span>
                             </button>
-                          </div>
 
+                            {activeTab === 'my' ? (
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  onClick={() => handleApproveCandidate(cand)}
+                                  title="Затвердити кандидата"
+                                  className="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm"
+                                >
+                                  <Check className="w-3.5 h-3.5" />
+                                  <span className="hidden sm:inline">Погодити</span>
+                                </button>
+                                <button
+                                  onClick={() => openRejectModal(cand)}
+                                  title="Запит на заміну"
+                                  className="py-2 px-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold transition"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                onClick={() => handleAssignCandidate(cand)}
+                                className="py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-md shadow-amber-500/20"
+                              >
+                                <PlusCircle className="w-3.5 h-3.5" />
+                                <span>Забронювати</span>
+                              </button>
+                            )}
+                          </div>
                         </div>
                       );
                     })}
@@ -851,251 +1000,371 @@ export default function EmployerPortalPage() {
               </div>
             )}
 
-            {/* TAB 3: CONTRACTS & DOCUMENTS */}
+            {/* TAB 3: OFFICIAL DOCUMENTS & CONTRACTS */}
             {activeTab === 'docs' && (
-              <div className="max-w-3xl mx-auto space-y-4">
-                <div className="p-6 rounded-3xl bg-slate-900/80 border border-white/[0.08] space-y-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="text-[11px] text-amber-400 font-mono font-bold uppercase">Юридична чистота</div>
-                      <h2 className="text-base sm:text-lg font-black text-white">Офіційний договір та акти виконання</h2>
-                      <p className="text-xs text-slate-400 mt-1">
-                        Договір укладено згідно з Ліцензією Мінсоцполітики №1428. Оплата послуг агенції — виключно після фактичного виходу працівника на зміну.
-                      </p>
-                    </div>
-                    <span className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-extrabold">
-                      ● Чинний договір
-                    </span>
-                  </div>
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-200 text-xs flex items-center gap-3">
+                  <ShieldCheck className="w-5 h-5 text-blue-400 shrink-0" />
+                  <span>
+                    Усі документи відповідають Закону України «Про зайнятість населення» та Ліцензії Мінсоцполітики №1428. Кожен працівник оформлюється офіційно в штат вашого ТОВ/ПП.
+                  </span>
+                </div>
 
-                  <div className="space-y-3">
-                    <div className="p-3.5 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                          <FileText className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-white">Договір_поставки_персоналу_2026.pdf</div>
-                          <div className="text-[10px] text-slate-400">Підписано ЕЦП · 380 КБ</div>
-                        </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    {
+                      title: 'Типовий B2B договір на підбір персоналу',
+                      desc: 'Гарантія безкоштовної заміни протягом 48 годин, 100% захист від мобілізації (ст. 23 ЗУ).',
+                      type: 'PDF · 280 KB',
+                      badge: 'Офіційний договір'
+                    },
+                    {
+                      title: 'Форма дозволу на застосування праці іноземців',
+                      desc: 'Затверджений бланк Державної служби зайнятості України (наказ Мінекономіки).',
+                      type: 'DOCX · 145 KB',
+                      badge: 'Держпраці / ДЦЗ'
+                    },
+                    {
+                      title: 'Шаблон трудового контракту з іноземним працівником',
+                      desc: 'Двомовний контракт (українська / узбецька / англійська) для реєстрації в ДПС.',
+                      type: 'DOCX · 190 KB',
+                      badge: 'Кадровий облік'
+                    },
+                    {
+                      title: 'Пам’ятка зустрічі та адаптації на виробництві',
+                      desc: 'Інструкція для майстрів цеху: мовний мікро-словник, розселення, ТБ і охорона праці.',
+                      type: 'PDF · 520 KB',
+                      badge: 'Адаптація 360'
+                    }
+                  ].map((doc, idx) => (
+                    <div key={idx} className="p-5 rounded-2xl bg-slate-900/80 border border-white/[0.08] flex items-start justify-between gap-4">
+                      <div className="space-y-1.5">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-amber-400 font-mono">
+                          {doc.badge}
+                        </span>
+                        <h4 className="text-sm font-bold text-white">{doc.title}</h4>
+                        <p className="text-xs text-slate-400 leading-relaxed">{doc.desc}</p>
+                        <span className="text-[11px] text-slate-500 font-mono block">{doc.type}</span>
                       </div>
-                      <a
-                        href="/articles/legal-guide-foreign-worker-hiring-ukraine-2026.html"
-                        className="px-3 py-1.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] text-xs font-bold text-white transition flex items-center gap-1.5"
+                      <button
+                        onClick={() => {
+                          alert(`📄 Зразок документу «${doc.title}» доступний у вашого персонального координатора клубу.`);
+                        }}
+                        className="p-2.5 rounded-xl bg-white/[0.06] hover:bg-amber-500 hover:text-slate-950 text-slate-300 transition shrink-0"
+                        title="Завантажити зразок"
                       >
-                        <Download className="w-3 h-3" />
-                        <span className="hidden sm:inline">Завантажити</span>
-                      </a>
+                        <Download className="w-4 h-4" />
+                      </button>
                     </div>
-
-                    <div className="p-3.5 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                          <ShieldCheck className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-white">Витяг_ст23_Звільнення_від_мобілізації.pdf</div>
-                          <div className="text-[10px] text-slate-400">Офіційне юридичне роз'яснення для ТЦК та СП · 240 КБ</div>
-                        </div>
-                      </div>
-                      <a
-                        href="/articles/article-23-law-ukraine-mobilization-exemption.html"
-                        className="px-3 py-1.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] text-xs font-bold text-white transition flex items-center gap-1.5"
-                      >
-                        <Download className="w-3 h-3" />
-                        <span className="hidden sm:inline">Завантажити</span>
-                      </a>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}
 
-            {/* TAB 4: SUBMIT NEW REQUISITION */}
+            {/* TAB 4: NEW REQUISITION FORM */}
             {activeTab === 'request' && (
-              <div className="max-w-2xl mx-auto">
-                <form onSubmit={handleRequisitionSubmit} className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-amber-500/20 shadow-2xl space-y-4">
-                  <div className="space-y-1">
-                    <div className="text-[11px] font-mono text-emerald-400 font-extrabold uppercase">Пул кандидатів за 21–30 днів</div>
-                    <h2 className="text-lg sm:text-xl font-black text-white">Подати нову заявку на підбір робітників</h2>
-                    <p className="text-xs text-slate-400">
-                      Заявка миттєво з'явиться в Канбан-воронці чергового рекрутера CRM.
-                    </p>
+              <div className="max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-white/10 space-y-6">
+                <div className="space-y-1">
+                  <h3 className="text-lg font-bold text-white">Замовити нову бригаду або добір фахівців</h3>
+                  <p className="text-xs text-slate-400">
+                    Специфікація автоматично потрапляє до відповідального координатора вашого підприємства в CRM.
+                  </p>
+                </div>
+
+                <form onSubmit={handleRequisitionSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">СПЕЦІАЛЬНІСТЬ / ПОСАДА *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Напр. Зварювальники MIG/MAG або Пакувальники"
+                      value={reqProfession}
+                      onChange={(e) => setReqProfession(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
+                    />
                   </div>
 
-                  <div className="space-y-3 pt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-1">НЕОБХІДНА СПЕЦІАЛЬНІСТЬ</label>
+                      <label className="block text-xs font-bold text-slate-300 mb-1">КІЛЬКІСТЬ ЛЮДЕЙ (ЧОЛ) *</label>
                       <input
-                        type="text"
+                        type="number"
+                        min="1"
+                        max="100"
                         required
-                        placeholder="Напр: Зварювальники 135/136, Муляри, Пакувальники, Токарі..."
-                        value={reqProfession}
-                        onChange={(e) => setReqProfession(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
+                        value={reqHeadcount}
+                        onChange={(e) => setReqHeadcount(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400 font-mono"
                       />
                     </div>
-
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-300 mb-1">КІЛЬКІСТЬ (ОСІБ)</label>
-                        <input
-                          type="number"
-                          min="1"
-                          required
-                          value={reqHeadcount}
-                          onChange={(e) => setReqHeadcount(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-slate-300 mb-1">МІСТО / ОБ'ЄКТ</label>
-                        <input
-                          type="text"
-                          placeholder="Київ, Львів, Дніпро..."
-                          value={reqCity}
-                          onChange={(e) => setReqCity(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
-                        />
-                      </div>
-                    </div>
-
                     <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-1">ПРОПОНОВАНА ЗАРПЛАТА (ГРН/МІС АБО СТАВКА/ГОД)</label>
+                      <label className="block text-xs font-bold text-slate-300 mb-1">МІСТО / ЛОКАЦІЯ РОБІТ</label>
                       <input
                         type="text"
-                        placeholder="25 000 – 35 000 грн або 180 грн/год"
-                        value={reqSalary}
-                        onChange={(e) => setReqSalary(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400"
+                        placeholder="м. Київ / Київська обл."
+                        value={reqCity}
+                        onChange={(e) => setReqCity(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
                       />
                     </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-1">ОСОБЛИВІ ВИМОГИ / ПРОЖИВАННЯ</label>
-                      <textarea
-                        rows={3}
-                        placeholder="Наявність гуртожитку, графік роботи 6/1, специфічні навички..."
-                        value={reqComment}
-                        onChange={(e) => setReqComment(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={reqSubmitting}
-                      className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition shadow-lg shadow-emerald-500/20"
-                    >
-                      {reqSubmitting ? 'Передача в CRM...' : 'Надіслати заявку куратору (0 грн передоплати) ➔'}
-                    </button>
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">ПРОПОНОВАНА СТАВКА / ЗАРПЛАТА НА РУКИ (ГРН)</label>
+                    <input
+                      type="text"
+                      placeholder="28 000 – 35 000 грн + житло"
+                      value={reqSalary}
+                      onChange={(e) => setReqSalary(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">ДОДАТКОВІ ВИМОГИ (ЗМІНИ, ЖИТЛО, РОЗРЯД)</label>
+                    <textarea
+                      rows={3}
+                      placeholder="Вкажіть специфіку верстатів, графік (день/ніч), чи надається гуртожиток..."
+                      value={reqComment}
+                      onChange={(e) => setReqComment(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={reqSubmitting}
+                    className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm transition shadow-lg shadow-emerald-500/20"
+                  >
+                    {reqSubmitting ? 'Передача заявки в CRM...' : 'Надіслати заявку на формування бригади ➔'}
+                  </button>
                 </form>
               </div>
             )}
-
           </div>
         )}
-
       </main>
 
-      {/* CANDIDATE DETAILS MODAL / DRAWER */}
-      {selectedCandidate && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="w-full max-w-xl max-h-[90vh] bg-slate-900 border border-white/15 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 overflow-y-auto space-y-4 shadow-2xl animate-fadeIn">
-            
-            <div className="flex items-start justify-between gap-3 pb-3 border-b border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-slate-950 border border-white/20 flex items-center justify-center text-2xl shrink-0">
-                  {getCountryFlag(selectedCandidate.country)}
-                </div>
-                <div>
-                  <h3 className="text-base font-extrabold text-white">{selectedCandidate.name}</h3>
-                  <div className="text-xs text-slate-400">{selectedCandidate.country} · {selectedCandidate.experienceYears || '5+'} р. досвіду</div>
-                </div>
+      {/* STYLED REJECTION MODAL (REPLACING NATIVE PROMPT) */}
+      {rejectModalOpen && candidateToReject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="w-full max-w-md rounded-3xl bg-slate-900 border border-white/15 p-6 shadow-2xl text-slate-100 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-rose-400 font-bold text-sm">
+                <AlertCircle className="w-4 h-4" />
+                <span>Запит на заміну кандидата</span>
               </div>
               <button 
-                onClick={() => setSelectedCandidate(null)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white text-lg font-bold"
+                onClick={() => setRejectModalOpen(false)}
+                className="text-slate-400 hover:text-white"
               >
                 ✕
               </button>
             </div>
 
-            {/* Profession & status */}
-            <div className="space-y-2">
-              <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Кваліфікація</div>
-              <div className="p-3 rounded-xl bg-slate-950 border border-white/10 font-bold text-xs text-white">
-                {selectedCandidate.profession}
+            <div>
+              <h4 className="text-base font-bold text-white">{candidateToReject.name}</h4>
+              <p className="text-xs text-slate-400">{candidateToReject.profession} ({candidateToReject.country})</p>
+            </div>
+
+            <div className="space-y-2 text-xs">
+              <label className="block font-bold text-slate-300">Оберіть причину заміни:</label>
+              {[
+                'Невідповідність кваліфікації / розряду',
+                'Зміна виробничого графіка чи обсягів',
+                'Потрібен інший спеціаліст у цей цех',
+                'Інше'
+              ].map((r) => (
+                <label 
+                  key={r} 
+                  className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition ${
+                    rejectReason === r ? 'bg-amber-500/15 border-amber-500/40 text-amber-200' : 'bg-slate-950/60 border-white/[0.06] text-slate-300'
+                  }`}
+                >
+                  <input 
+                    type="radio" 
+                    name="reason" 
+                    checked={rejectReason === r} 
+                    onChange={() => setRejectReason(r)}
+                    className="text-amber-500"
+                  />
+                  <span>{r}</span>
+                </label>
+              ))}
+
+              {rejectReason === 'Інше' && (
+                <input
+                  type="text"
+                  placeholder="Вкажіть детальну причину..."
+                  value={customRejectReason}
+                  onChange={(e) => setCustomRejectReason(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/15 text-xs text-white mt-2"
+                />
+              )}
+            </div>
+
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300/90 leading-relaxed">
+              🛡 За договором гарантія заміни становить 48 годин без додаткової комісії.
+            </div>
+
+            <div className="flex gap-2.5 pt-2">
+              <button
+                type="button"
+                onClick={() => setRejectModalOpen(false)}
+                className="flex-1 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 font-bold text-xs"
+              >
+                Скасувати
+              </button>
+              <button
+                type="button"
+                disabled={rejectSubmitting}
+                onClick={confirmReject}
+                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-md shadow-rose-600/20"
+              >
+                {rejectSubmitting ? 'Обробка...' : 'Підтвердити заміну'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CANDIDATE DETAILS MODAL */}
+      {selectedCandidate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-slate-900 border border-white/15 p-5 sm:p-7 shadow-2xl text-slate-100 space-y-5">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-white/10 flex items-center justify-center text-2xl font-bold">
+                  {getCountryFlag(selectedCandidate.country)}
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-white">{selectedCandidate.name}</h3>
+                  <div className="text-xs text-slate-400">{selectedCandidate.country} · {selectedCandidate.profession}</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSelectedCandidate(null)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/[0.06] grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Статус у воронці</span>
+                <span className="text-amber-400 font-bold">{selectedCandidate.status}</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Досвід роботи</span>
+                <span className="text-white font-bold">{selectedCandidate.experienceYears || '3+'} років</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Очікувана зарплата</span>
+                <span className="text-emerald-400 font-bold">{selectedCandidate.salaryExpectation || 'за сіткою підприємства'}</span>
               </div>
             </div>
 
-            {/* Legal Status Guarantee */}
-            <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center gap-3">
-              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
-              <div className="text-xs text-emerald-200">
-                <span className="font-bold">100% Захист від мобілізації:</span> Кандидат є іноземним громадянином і не підлягає військовому обліку в Україні (ст. 23 ЗУ).
-              </div>
-            </div>
-
-            {/* Skills & bio */}
             {selectedCandidate.skills && (
               <div className="space-y-1.5">
-                <div className="text-xs font-bold text-slate-300">Професійні навички:</div>
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-slate-300 leading-relaxed">
+                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">Кваліфікація та навички:</h4>
+                <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.06] text-xs text-slate-300 leading-relaxed">
                   {selectedCandidate.skills}
                 </div>
               </div>
             )}
 
-            {selectedCandidate.languages && (
-              <div className="text-xs text-slate-400">
-                <span className="font-bold text-slate-300">Мови:</span> {selectedCandidate.languages}
+            {selectedCandidate.bio && (
+              <div className="space-y-1.5">
+                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">Резюме та біографія:</h4>
+                <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.06] text-xs text-slate-400 leading-relaxed whitespace-pre-line">
+                  {selectedCandidate.bio}
+                </div>
               </div>
             )}
 
-            {/* Video Trade Test */}
-            {selectedCandidate.videoUrl ? (
-              <a
-                href={selectedCandidate.videoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-2.5 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/40 text-blue-300 text-xs font-bold flex items-center justify-center gap-2 transition"
-              >
-                <Video className="w-4 h-4 text-blue-400" />
-                <span>Дивитися практичний іспит (Trade Test)</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            ) : (
-              <div className="text-[11px] text-slate-500 italic p-2 rounded-lg bg-slate-950/40 text-center">
-                Відео Trade Test підтверджено методистом у Ташкенті / Делі.
-              </div>
-            )}
-
-            {/* Modal Actions */}
-            <div className="pt-3 border-t border-white/10 flex items-center gap-2">
-              <button
-                onClick={() => {
-                  handleApproveCandidate(selectedCandidate);
-                  setSelectedCandidate(null);
-                }}
-                className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition flex items-center justify-center gap-1.5"
-              >
-                <Check className="w-4 h-4" />
-                <span>Затвердити працівника</span>
-              </button>
-              <button
-                onClick={() => setSelectedCandidate(null)}
-                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition"
-              >
-                Закрити
-              </button>
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              {selectedCandidate.companyId === user?.companyId ? (
+                <>
+                  <button
+                    onClick={() => {
+                      handleApproveCandidate(selectedCandidate);
+                    }}
+                    className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/20"
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>Погодити кандидата на виїзд</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      openRejectModal(selectedCandidate);
+                    }}
+                    className="py-2.5 px-4 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 font-bold text-xs transition"
+                  >
+                    Запит на заміну
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    handleAssignCandidate(selectedCandidate);
+                    setSelectedCandidate(null);
+                  }}
+                  className="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>Забронювати у штат підприємства</span>
+                </button>
+              )}
             </div>
-
           </div>
         </div>
       )}
 
+      {/* MOBILE BOTTOM NAVIGATION BAR (iOS / Android App feel) */}
+      {user && (
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#090e1a]/95 backdrop-blur-md border-t border-white/10 px-2 py-1.5 flex items-center justify-around text-[10px] font-bold">
+          <button
+            onClick={() => setActiveTab('my')}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition ${
+              activeTab === 'my' ? 'text-emerald-400' : 'text-slate-400'
+            }`}
+          >
+            <Users className="w-5 h-5" />
+            <span>Мої ({myCandidates.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition ${
+              activeTab === 'all' ? 'text-amber-400' : 'text-slate-400'
+            }`}
+          >
+            <Briefcase className="w-5 h-5" />
+            <span>База ({allCandidates.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('docs')}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition ${
+              activeTab === 'docs' ? 'text-blue-400' : 'text-slate-400'
+            }`}
+          >
+            <FileText className="w-5 h-5" />
+            <span>Документи</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('request')}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition ${
+              activeTab === 'request' ? 'text-white' : 'text-slate-400'
+            }`}
+          >
+            <PlusCircle className="w-5 h-5" />
+            <span>Замовити</span>
+          </button>
+        </nav>
+      )}
     </div>
   );
 }
