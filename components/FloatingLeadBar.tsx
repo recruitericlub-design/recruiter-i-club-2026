@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Sparkles, MessageSquare, Send, X, PhoneCall, Phone, ShieldCheck } from 'lucide-react';
+import { Sparkles, MessageSquare, Send, X, PhoneCall, Phone, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import AiWorkforceAuditModal from './AiWorkforceAuditModal';
 
 export default function FloatingLeadBar() {
@@ -63,13 +63,13 @@ export default function FloatingLeadBar() {
                 <span>Аудит</span>
               </button>
 
-              <a
-                href="tel:+380678004040"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] flex items-center justify-center gap-1 transition-all"
               >
-                <Phone className="w-3 h-3 text-blue-600" />
-                <span>Дзвінок</span>
-              </a>
+                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                <span>Заявка</span>
+              </button>
 
               <a
                 href="https://t.me/recruiter_i_club"

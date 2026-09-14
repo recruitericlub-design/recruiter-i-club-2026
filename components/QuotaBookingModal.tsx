@@ -6,9 +6,10 @@ import { X, CheckCircle2, ShieldCheck, Zap, Lock, CreditCard, Send, MessageSquar
 interface QuotaBookingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  preselectedCategory?: string;
 }
 
-export default function QuotaBookingModal({ isOpen, onClose }: QuotaBookingModalProps) {
+export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory }: QuotaBookingModalProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ export default function QuotaBookingModal({ isOpen, onClose }: QuotaBookingModal
     name: '',
     phone: '',
     workersCount: '15',
-    category: 'Пакувальники / Склад (WMS)',
+    category: preselectedCategory || 'Пакувальники / Склад (WMS)',
     urgency: '1 місяць (експрес)',
   });
 

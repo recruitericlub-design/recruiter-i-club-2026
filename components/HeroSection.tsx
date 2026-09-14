@@ -1,0 +1,179 @@
+'use client';
+
+import React, { useState } from 'react';
+import QuotaBookingModal from './QuotaBookingModal';
+
+export default function HeroSection() {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  return (
+    <>
+      <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 overflow-hidden bg-warm-paper border-b border-slate-200/70">
+        {/* Ambient 3D Glowing Orbs */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-emerald-500/10 filter blur-[100px] pointer-events-none ambient-orb-1"></div>
+        <div className="absolute top-1/3 -right-32 w-[480px] h-[480px] rounded-full bg-amber-400/10 filter blur-[120px] pointer-events-none ambient-orb-2"></div>
+        <div className="absolute -bottom-24 left-1/4 w-[520px] h-[350px] rounded-full bg-sky-400/10 filter blur-[110px] pointer-events-none"></div>
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+            
+            {/* Left: Pitch & Strategy */}
+            <div className="w-full lg:w-[50%] flex flex-col items-start text-left z-10">
+              
+              {/* Green Pill Badge */}
+              <span className="inline-flex items-center gap-2 rounded-full uppercase tracking-wide bg-emerald-50 text-emerald-800 border border-emerald-300/80 text-xs font-bold px-3.5 py-1.5 mb-5 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Узбекистан та Азія → Україна · під ключ за 21–30 днів</span>
+              </span>
+
+              {/* Exact Headline */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900 tracking-tight leading-[1.18] mb-5">
+                Підбір та легалізація робітничого персоналу з Узбекистану та країн Азії <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«під ключ»</span>
+              </h1>
+
+              {/* Exact Subtitle */}
+              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium mb-6">
+                Закриваємо дефіцит від 3 до 50+ робітників для виробництв, складів, будівництва та агросектору. Дисциплінований персонал на контракти 1–2 роки без ризику мобілізації та простою змін.
+              </p>
+
+              {/* 3 Bullets of Trust */}
+              <div className="space-y-3 mb-8 w-full">
+                <div className="flex items-start gap-3 bg-white/80 p-3.5 rounded-xl border border-slate-200/80 shadow-xs">
+                  <span className="text-lg mt-0.5">🔍</span>
+                  <div>
+                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">Безкоштовний аудит вашого запиту:</strong>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">Спочатку ретельно оцінюємо вакансію та перевіряємо наявність людей у наших тестових центрах. Якщо не зможемо — чесно кажемо одразу до підписання договору.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-white/80 p-3.5 rounded-xl border border-slate-200/80 shadow-xs">
+                  <span className="text-lg mt-0.5">🛡️</span>
+                  <div>
+                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">Наперед — лише прямі витрати на документи та логістику:</strong>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">Ви покриваєте лише фактичні витрати на офіційне оформлення. Комісію агенції ви сплачуєте лише тоді, коли працівник вже прибув на ваше виробництво.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-white/80 p-3.5 rounded-xl border border-slate-200/80 shadow-xs">
+                  <span className="text-lg mt-0.5">🔄</span>
+                  <div>
+                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">Гарантія безкоштовної заміни за договором:</strong>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">Якщо працівник не підійшов майстру або захворів — оперативно надаємо безкоштовну заміну без повторних комісій агенції.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-auto">
+                <a 
+                  href="#audit" 
+                  className="inline-flex items-center justify-center rounded-full font-bold text-sm px-7 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/15 transition-all hover:-translate-y-0.5 text-center cursor-pointer"
+                >
+                  Замовити безкоштовний аудит запиту
+                </a>
+                <a 
+                  href="#chronicle" 
+                  className="inline-flex items-center justify-center rounded-full font-bold text-sm px-6 py-3.5 bg-white text-slate-900 border border-slate-300 hover:bg-slate-50 transition-all shadow-xs gap-2 text-center"
+                >
+                  <span>Як влаштований процес</span>
+                  <span>➔</span>
+                </a>
+              </div>
+
+            </div>
+
+            {/* Right: 4-Profession Mosaic Cluster */}
+            <div className="w-full lg:w-[50%]">
+              <div className="relative bg-white p-3 sm:p-4 rounded-3xl border border-slate-200 shadow-xl">
+                
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  
+                  {/* Profession 1: Welder */}
+                  <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
+                    <img 
+                      src="/workers/welder_jasur_29.jpg" 
+                      alt="Зварювальники з Азії" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                      <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
+                        🥽 Зварювальники
+                      </span>
+                      <span className="text-amber-400 font-sans text-[10px] font-bold tracking-wide">ISO 9606-1</span>
+                    </div>
+                  </div>
+
+                  {/* Profession 2: Construction */}
+                  <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
+                    <img 
+                      src="/workers/builder_ilkhom_34.jpg" 
+                      alt="Будівельники та арматурники" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                      <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
+                        🏗️ Будівництво
+                      </span>
+                      <span className="text-emerald-400 font-sans text-[10px] font-bold tracking-wide">180 кг/год</span>
+                    </div>
+                  </div>
+
+                  {/* Profession 3: Warehouse */}
+                  <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
+                    <img 
+                      src="/workers/forklift_driver.jpg" 
+                      alt="Складські робітники та карщики" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                      <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
+                        🚜 Склад / WMS
+                      </span>
+                      <span className="text-sky-400 font-sans text-[10px] font-bold tracking-wide">Штабелери</span>
+                    </div>
+                  </div>
+
+                  {/* Profession 4: CNC Operator */}
+                  <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
+                    <img 
+                      src="/workers/cnc_hasan.jpg" 
+                      alt="Оператори ЧПК" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                      <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
+                        ⚙️ Виробництво
+                      </span>
+                      <span className="text-amber-400 font-sans text-[10px] font-bold tracking-wide">ЧПК верстати</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Bottom Live Telemetry Pill */}
+                <div className="mt-3.5 p-3 bg-slate-900 rounded-xl flex items-center justify-between text-white font-bold text-xs tracking-wide">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Пул відбору в Азії: <strong className="text-amber-400">120+ кандидатів</strong></span>
+                  </div>
+                  <span className="text-slate-400 text-[11px]">Оновлено сьогодні</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <QuotaBookingModal 
+        isOpen={isBookingOpen} 
+        onClose={() => setIsBookingOpen(false)} 
+      />
+    </>
+  );
+}

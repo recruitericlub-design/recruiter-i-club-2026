@@ -532,8 +532,8 @@ export default function EmployerPortalPage() {
                   {authPendingInfo.message || 'Заявку прийнято. Доступ відкривається автоматично після підтвердження договору та внесення в базу роботодавців.'}
                 </p>
                 <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between text-[11px]">
-                  <span>Потрібна термінова активація?</span>
-                  <a href="tel:+380678004040" className="text-amber-400 font-bold hover:underline">+38 (067) 800-40-40</a>
+                  <span>Статус активації:</span>
+                  <span className="text-amber-400 font-bold">Очікуйте сповіщення від координатора</span>
                 </div>
               </div>
             )}

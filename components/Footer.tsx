@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Lock } from 'lucide-react';
+import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Lock, CheckCircle2 } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 
 export default function Footer() {
@@ -76,8 +76,8 @@ export default function Footer() {
                 <span>Київ, вул. Велика Васильківська, 72</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
-                <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <a href="tel:+380678004040" className="hover:text-white transition-colors">+38 (067) 800-40-40</a>
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>Прийом заявок: онлайн 24/7</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
                 <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />

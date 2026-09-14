@@ -265,10 +265,10 @@ export default function AboutPage() {
         </div>
         <div className="flex items-center gap-3">
           <a
-            href="tel:+380678004040"
+            href="/#audit"
             className="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-lg transition-transform active:scale-95 whitespace-nowrap"
           >
-            Записатися на зустріч
+            Записатися на зустріч / Подати заявку
           </a>
         </div>
       </div>

@@ -46,13 +46,13 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            <a 
-              href="tel:+380678004040" 
-              className="inline-flex items-center gap-1.5 font-bold text-white hover:text-emerald-400 transition-colors"
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-1.5 font-bold text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer"
             >
-              <Phone className="w-3.5 h-3.5 text-emerald-400" />
-              <span>+38 (067) 800-40-40</span>
-            </a>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Прийом заявок на персонал</span>
+            </button>
             <span className="text-slate-600 hidden sm:inline">|</span>
             <Link 
               href="/portal"
@@ -140,10 +140,16 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
-              <div className="flex items-center justify-between px-4 py-2 bg-slate-50 rounded-lg text-xs">
-                <span className="text-slate-500">Пряма консультація:</span>
-                <a href="tel:+380678004040" className="font-bold text-slate-900">+38 (067) 800-40-40</a>
-              </div>
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsModalOpen(true);
+                }}
+                className="flex items-center justify-between px-4 py-2.5 bg-emerald-50 text-emerald-800 rounded-lg text-xs font-bold"
+              >
+                <span>Прийом заявок онлайн:</span>
+                <span className="underline">Заповнити форму ➔</span>
+              </button>
               <Link
                 href="/portal"
                 onClick={() => setIsMobileMenuOpen(false)}
