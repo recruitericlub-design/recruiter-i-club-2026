@@ -205,7 +205,7 @@ export default function AiConsultantWidget() {
                     onClick={() => setIsModalOpen(true)}
                     className="underline hover:text-amber-300 font-semibold"
                   >
-                    Зафіксувати квоту без передплати ➔
+                    Зафіксувати квоту ➔
                   </button>
                 </div>
               )}

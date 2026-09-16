@@ -317,7 +317,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                 : 'Кожен працівник пройшов практичний іспит (Trade Test) на камеру, медичну комісію та перевірку безпеки. '
               }
               <span className="font-semibold text-slate-900">
-                {isRu ? 'Бронирование квоты — без предоплаты' : 'Бронювання квоти — без передплати'}
+                {isRu ? 'Бронирование квоты' : 'Бронювання квоти'}
               </span>
               {isRu
                 ? ', полное сопровождение и бесплатная замена за 48 часов по договору.'
@@ -438,7 +438,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
           <span>{isRu ? "Найдено анкет:" : "Знайдено анкет:"} <strong className="text-slate-900">{filteredCandidates.length}</strong></span>
           <span className="text-emerald-700 font-bold flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            {isRu ? "Квота сентября открыта (без предоплаты)" : "Квота вересня відкрита (без передплати)"}
+            {isRu ? "Квота сентября открыта" : "Квота вересня відкрита"}
           </span>
         </div>
 
@@ -721,7 +721,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                 onClick={() => handleBook(dossierWorker)}
                 className="py-2.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md flex items-center gap-2 transition-all active:scale-95"
               >
-                <span>{isRu ? "Забронировать работника (без предоплаты)" : "Забронювати працівника (без передплати)"}</span>
+                <span>{isRu ? "Забронировать работника" : "Забронювати працівника"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

@@ -230,7 +230,7 @@ export default function Navbar() {
                 }}
                 className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md"
               >
-                Отримати анкети кандидатів (без передплати)
+                Отримати анкети кандидатів
               </button>
             </div>
           </div>

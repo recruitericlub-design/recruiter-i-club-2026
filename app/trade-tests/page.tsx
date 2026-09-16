@@ -203,7 +203,7 @@ export default function TradeTestsPage() {
                 onClick={() => setIsModalOpen(true)}
                 className="w-full py-3 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
               >
-                <span>Замовити таких фахівців (без передплати)</span>
+                <span>Замовити таких фахівців</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

@@ -206,7 +206,7 @@ export default function CountryDetailPage({ params }: { params: { country: strin
         <div className="pt-2 flex flex-wrap items-center gap-4">
           <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center gap-2">
             <Zap className="w-4 h-4 text-amber-400" />
-            <span>Вартість рекрутингу під ключ: від $500 / особа · Бронювання квоти без передплати</span>
+            <span>Вартість рекрутингу під ключ: від $500 / робітник</span>
           </div>
         </div>
       </div>
@@ -280,7 +280,7 @@ export default function CountryDetailPage({ params }: { params: { country: strin
               href="/calculator"
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-amber-500/20"
             >
-              <span>Розрахувати квоту та забронювати (без передплати)</span>
+              <span>Розрахувати квоту та забронювати</span>
             </Link>
           </div>
 

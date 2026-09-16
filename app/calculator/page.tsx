@@ -140,10 +140,6 @@ export default function CalculatorPage() {
                 <strong className="text-white font-mono">від $500 / робітник</strong>
               </div>
               <div className="flex justify-between">
-                <span>Передплата за бронь:</span>
-                <strong className="text-emerald-400 font-mono">0 € (Без передплати)</strong>
-              </div>
-              <div className="flex justify-between">
                 <span>Термін виходу на об’єкт:</span>
                 <strong className="text-emerald-400 font-mono">20–45 днів</strong>
               </div>
@@ -159,7 +155,7 @@ export default function CalculatorPage() {
               onClick={() => setIsModalOpen(true)}
               className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2"
             >
-              <span>Забронювати квоту (без передплати)</span>
+              <span>Забронювати квоту</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
