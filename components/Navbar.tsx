@@ -14,12 +14,13 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Головна', href: '/' },
-    { name: 'Каталог персоналу', href: '/#catalog' },
+    { name: 'Професії', href: '/professions' },
+    { name: 'Країни', href: '/countries' },
+    { name: 'Каталог', href: '/#catalog' },
     { name: 'Гарантії', href: '/#guarantees' },
     { name: 'База знань', href: '/blog' },
-    { name: 'Калькулятор ROI', href: '/calculator' },
+    { name: 'Калькулятор', href: '/calculator' },
     { name: 'Команда', href: '/about' },
-    { name: 'Trade Tests', href: '/trade-tests' },
   ];
 
   if (pathname?.startsWith('/portal')) {
