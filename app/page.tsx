@@ -8,6 +8,7 @@ import TeamSection from '@/components/TeamSection';
 import FaqSection from '@/components/FaqSection';
 import AuditSection from '@/components/AuditSection';
 import KnowledgeBaseSection from '@/components/KnowledgeBaseSection';
+import ProfessionsShowcaseSection from '@/components/ProfessionsShowcaseSection';
 
 export const metadata: Metadata = {
   title: 'Працевлаштування іноземців в Україні — Підбір персоналу та дозвіл на роботу | Recruiter I Club',
@@ -165,6 +166,9 @@ export default function HomePage() {
         <div id="catalog">
           <WorkerCatalogSection />
         </div>
+
+        {/* 2.5. Professions & Specializations Programmatic Showcase */}
+        <ProfessionsShowcaseSection />
 
         {/* 3. CRM Employer Portal Simulator */}
         <PortalPreviewSection />
