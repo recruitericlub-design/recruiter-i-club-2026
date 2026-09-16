@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   keywords: 'дозвіл на працевлаштування іноземців, працевлаштування іноземців в україні, підбір персоналу, рекрутингова агенція, аутсорсингова компанія, аутстафінг персоналу, дозвіл на роботу іноземця, робітники з азії, працівники з індії, персонал з узбекистану, оренда персоналу, стаття 23 зу мобілізація, recruiter i club',
   alternates: {
     canonical: 'https://www.recruiter-i.club/',
+    languages: {
+      'uk-UA': 'https://www.recruiter-i.club/',
+      'ru-UA': 'https://www.recruiter-i.club/ru',
+      'x-default': 'https://www.recruiter-i.club/',
+    },
   },
   openGraph: {
     title: 'Працевлаштування іноземців в Україні | Рекрутингова агенція Recruiter I Club',
