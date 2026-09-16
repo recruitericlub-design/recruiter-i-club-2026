@@ -20,9 +20,43 @@ import {
   GraduationCap
 } from 'lucide-react';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: 'Керівництво та Команда | Recruiter I Club 2026',
   description: 'Керівництво клубу: Роман Яновський, Станіслав Лухменко та експертна команда юристів, інженерів і координаторів логістики міжнародного найму в Україну.',
+  keywords: [
+    'роман яновський',
+    'станіслав лухменко',
+    'recruiter i club керівництво',
+    'команда рекрутингової агенції',
+    'міжнародний рекрутинг україна'
+  ],
+  alternates: {
+    canonical: 'https://www.recruiter-i.club/about',
+  },
+  openGraph: {
+    title: 'Керівництво та Команда | Recruiter I Club',
+    description: 'Особиста публічна відповідальність засновників за кожним B2B-контрактом на залучення персоналу з Азії.',
+    url: 'https://www.recruiter-i.club/about',
+    siteName: 'Recruiter I Club',
+    locale: 'uk_UA',
+    type: 'profile',
+    images: [
+      {
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Керівництво Recruiter I Club',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Керівництво та Команда — Recruiter I Club',
+    description: 'Роман Яновський та Станіслав Лухменко: відкрите керівництво рекрутингової платформи.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+  },
 };
 
 export default function AboutPage() {
@@ -90,8 +124,37 @@ export default function AboutPage() {
     }
   ];
 
+  const aboutSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    'mainEntity': {
+      '@type': 'Organization',
+      'name': 'Recruiter I Club',
+      'url': 'https://www.recruiter-i.club',
+      'logo': 'https://www.recruiter-i.club/images/logo/riclub_gold_seal_3d.png',
+      'founder': [
+        {
+          '@type': 'Person',
+          'name': 'Роман Яновський',
+          'jobTitle': 'Засновник & Керуючий партнер',
+          'image': 'https://www.recruiter-i.club/team/roman_yanovskyi_studio.jpg',
+        },
+        {
+          '@type': 'Person',
+          'name': 'Станіслав Лухменко',
+          'jobTitle': 'Співзасновник & Директор з логістики',
+          'image': 'https://www.recruiter-i.club/team/stanislav_lukhmenko_studio.jpg',
+        }
+      ]
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">

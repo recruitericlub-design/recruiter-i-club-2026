@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export default function ChronicleSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
   const isRu = locale === 'ru';
@@ -102,10 +103,12 @@ export default function ChronicleSection({ locale = 'uk' }: { locale?: 'uk' | 'r
             >
               <div>
                 <div className="relative rounded-xl overflow-hidden h-36 mb-3 border border-slate-200">
-                  <img 
+                  <Image 
                     src={step.img} 
                     alt={step.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                    className="object-cover"
                   />
                   <div className="absolute top-2 left-2 bg-slate-900/90 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded">
                     {step.day}

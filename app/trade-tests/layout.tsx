@@ -12,8 +12,23 @@ export const metadata: Metadata = {
     title: 'Відеозвіти Trade-Tests та Трансферу | Recruiter I Club',
     description: 'Реальні відеоіспити кандидатів та супроводу груп працівників на підприємства України.',
     url: 'https://www.recruiter-i.club/trade-tests',
+    siteName: 'Recruiter I Club',
     locale: 'uk_UA',
     type: 'website',
+    images: [
+      {
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Відеозвіти практичних Trade-Tests робітників',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Відеозвіти Trade-Tests та Трансферу — Recruiter I Club',
+    description: 'Відеофіксація практичних іспитів зварювальників та організованого прибуття на заводи України.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
   },
 };
 

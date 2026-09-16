@@ -2,9 +2,43 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Globe, Clock, CheckCircle2, Shield, DollarSign } from 'lucide-react';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: 'Країни-донори іноземного персоналу | Recruiter I Club 2026',
   description: 'Повний каталог країн для залучення робочої сили в Україну: Індія, Узбекистан, Казахстан, Бангладеш, Непал, В\'єтнам, Філіппіни. Терміни, зарплати, специфіка.',
+  keywords: [
+    'країни донори персоналу',
+    'робітники з узбекистану',
+    'персонал з індії',
+    'робітники з непалу',
+    'імпорт персоналу в україну'
+  ],
+  alternates: {
+    canonical: 'https://www.recruiter-i.club/countries',
+  },
+  openGraph: {
+    title: 'Країни-донори іноземного персоналу | Recruiter I Club',
+    description: 'Офіційні логістичні коридори рекрутингу з Індії, Узбекистану, Непалу, Бангладеш та Казахстану.',
+    url: 'https://www.recruiter-i.club/countries',
+    siteName: 'Recruiter I Club',
+    locale: 'uk_UA',
+    type: 'website',
+    images: [
+      {
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Країни-донори іноземного персоналу',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Країни-донори іноземного персоналу — Recruiter I Club',
+    description: 'Порівняння ринків праці Азії: терміни, специфіка, кваліфікація.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+  },
 };
 
 export default function CountriesCatalogPage() {

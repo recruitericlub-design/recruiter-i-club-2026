@@ -24,6 +24,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '', size = 'md
       <img
         src="/images/logo/riclub_gold_seal_3d.png"
         alt="Recruiter I Club"
+        width={48}
+        height={48}
         className={`${actualSize} w-auto object-contain drop-shadow-[0_2px_8px_rgba(217,119,6,0.3)] transition-transform duration-300 group-hover:scale-105`}
       />
       <div className="flex flex-col justify-center">

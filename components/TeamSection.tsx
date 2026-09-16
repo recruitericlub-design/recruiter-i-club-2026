@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export default function TeamSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
   const isRu = locale === 'ru';
@@ -183,7 +184,7 @@ export default function TeamSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
               <div>
                 <div className="flex items-center gap-4 mb-4">
                   <div className={`relative w-16 h-16 rounded-2xl overflow-hidden border-2 ${lead.border} shrink-0 shadow-md`}>
-                    <img src={lead.img} alt={lead.name} className="w-full h-full object-cover" />
+                    <Image src={lead.img} alt={lead.name} width={64} height={64} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h3 className="font-extrabold text-slate-900 text-base">{lead.name}</h3>

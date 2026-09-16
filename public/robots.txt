@@ -1,15 +1,23 @@
-# Robots.txt for Recruiter I Club (recruiter-i-club-2026)
+# Robots.txt for Recruiter I Club (https://www.recruiter-i.club)
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /portal
+Disallow: /portal/
 Disallow: /scratch/
 
 # Search Engine Crawlers
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /portal
+Disallow: /portal/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
+Disallow: /portal
+Disallow: /portal/
 
 # Sitemap
 Sitemap: https://www.recruiter-i.club/sitemap.xml

@@ -10,10 +10,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl + '/ru', lastModified: now, changeFrequency: 'daily' as const, priority: 0.95 },
     { url: baseUrl + '/professions', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
     { url: baseUrl + '/countries', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
-    { url: baseUrl + '/blog', lastModified: now, changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: baseUrl + '/calculator', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.85 },
     { url: baseUrl + '/trade-tests', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.85 },
+    { url: baseUrl + '/blog', lastModified: now, changeFrequency: 'daily' as const, priority: 0.85 },
     { url: baseUrl + '/about', lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: baseUrl + '/portal', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
   ];
 
   const countries = ['india', 'uzbekistan', 'kazakhstan', 'nepal', 'bangladesh', 'vietnam', 'philippines'];

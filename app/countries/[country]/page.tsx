@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { 
   ArrowLeft, 
   CheckCircle2, 
@@ -146,6 +147,45 @@ export function generateStaticParams() {
   return Object.keys(hubsData).map((country) => ({
     country,
   }));
+}
+
+export async function generateMetadata({ params }: { params: { country: string } }): Promise<Metadata> {
+  const hub = hubsData[params.country];
+  if (!hub) return {};
+
+  const title = `Робітники з ${hub.country} в Україну — Підбір, візи D-03, Trade-тести`;
+  const description = `Офіційний рекрутинг персоналу з ${hub.country} під ключ: ${hub.roles.slice(0, 3).join(', ')}. Термін прибуття: ${hub.timing}. 100% захист від мобілізації (ст. 23 ЗУ).`;
+
+  return {
+    title,
+    description,
+    keywords: `робітники з ${hub.country}, персонал з ${hub.country}, рекрутинг ${hub.country} україна, віза d-03, дозвіл на роботу держпраці, recruiter i club`,
+    alternates: {
+      canonical: `https://www.recruiter-i.club/countries/${params.country}`,
+    },
+    openGraph: {
+      title: `${title} | Recruiter I Club`,
+      description,
+      url: `https://www.recruiter-i.club/countries/${params.country}`,
+      siteName: 'Recruiter I Club',
+      locale: 'uk_UA',
+      type: 'website',
+      images: [
+        {
+          url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+          width: 1200,
+          height: 630,
+          alt: `Рекрутинг працівників з ${hub.country} в Україну`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Recruiter I Club`,
+      description,
+      images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+    },
+  };
 }
 
 export default function CountryDetailPage({ params }: { params: { country: string } }) {

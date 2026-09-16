@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import QuotaBookingModal from './QuotaBookingModal';
 
 export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
@@ -123,10 +124,12 @@ export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
                   
                   {/* Profession 1: Welder */}
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
-                    <img 
+                    <Image 
                       src="/workers/welder_jasur_29.jpg" 
                       alt={isRu ? 'Сварщики из Азии' : 'Зварювальники з Азії'} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
@@ -139,10 +142,12 @@ export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
 
                   {/* Profession 2: Construction */}
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
-                    <img 
+                    <Image 
                       src="/workers/builder_ilkhom_34.jpg" 
                       alt={isRu ? 'Строители и арматурщики' : 'Будівельники та арматурники'} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
@@ -157,10 +162,12 @@ export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
 
                   {/* Profession 3: Warehouse */}
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
-                    <img 
+                    <Image 
                       src="/workers/forklift_driver.jpg" 
                       alt={isRu ? 'Складские рабочие и карщики' : 'Складські робітники та карщики'} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
@@ -175,10 +182,12 @@ export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
 
                   {/* Profession 4: CNC Operator */}
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
-                    <img 
+                    <Image 
                       src="/workers/cnc_hasan.jpg" 
                       alt={isRu ? 'Операторы ЧПУ' : 'Оператори ЧПК'} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">

@@ -32,6 +32,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Recruiter I Club',
       locale: 'uk_UA',
       type: 'website',
+      images: [
+        {
+          url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+          width: 1200,
+          height: 630,
+          alt: item.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: item.seoTitle,
+      description: item.seoDescription,
+      images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
     },
   };
 }

@@ -38,19 +38,32 @@ export function generateMetadata({ params }: Props): Metadata {
     title: `${article.title} | Recruiter I Club`,
     description: article.summary,
     keywords: keywords,
+    alternates: {
+      canonical: `https://www.recruiter-i.club/blog/${params.slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.summary,
+      url: `https://www.recruiter-i.club/blog/${params.slug}`,
       type: 'article',
       publishedTime: '2026-09-08T08:00:00.000Z',
       authors: [article.author.name],
       locale: 'uk_UA',
       siteName: 'Recruiter I Club — Платформа імпорту персоналу',
+      images: [
+        {
+          url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.summary,
+      images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
     },
   };
 }
@@ -159,7 +172,7 @@ export default function ArticleDetailPage({ params }: Props) {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            h1: ({ node, ...props }) => <h1 className="text-2xl font-black text-slate-900 mt-8 mb-4" {...props} />,
+            h1: ({ node, ...props }) => <h2 className="text-2xl font-black text-slate-900 mt-8 mb-4" {...props} />,
             h2: ({ node, ...props }) => <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200" {...props} />,
             h3: ({ node, ...props }) => <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-6 mb-3" {...props} />,
             h4: ({ node, ...props }) => <h4 className="text-base font-bold text-slate-900 mt-4 mb-2" {...props} />,
