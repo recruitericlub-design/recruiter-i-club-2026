@@ -72,7 +72,7 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
               Фіксація ціни <span className="text-blue-700">від $500</span> / працівник
             </h3>
             <p className="text-xs text-slate-600 mb-6 leading-relaxed">
-              Передплата всього <span className="text-emerald-700 font-bold">€50</span> за фіксацію слоту в квоті, бронювання кандидатів та формування пакету документів для Держпраці.
+              Фіксація слоту в квоті, бронювання кандидатів та формування пакету документів для Держпраці <span className="text-emerald-700 font-bold">без передплати</span>.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -158,7 +158,7 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-start gap-2.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <span>
-                  Передплата €50 зараховується у фінальний розрахунок. 100% повернення у разі непогодження кандидатур.
+                  Жодних оплат наперед. Комісія агентства сплачується строго за договором після успішного виходу людей на зміну.
                 </span>
               </div>
 
@@ -168,7 +168,7 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
                 className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
               >
                 <CreditCard className="w-4 h-4" />
-                <span>{isSubmitting ? 'Реєстрація квоти...' : 'Зафіксувати квоту (€50) та отримати договір'}</span>
+                <span>{isSubmitting ? 'Реєстрація квоти...' : 'Зафіксувати квоту (без передплати) та отримати договір'}</span>
               </button>
             </form>
           </div>

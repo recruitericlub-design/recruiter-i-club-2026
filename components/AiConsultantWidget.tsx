@@ -141,7 +141,7 @@ export default function AiConsultantWidget() {
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-all shadow-md shadow-amber-500/20"
           >
             <Zap className="w-3 h-3" />
-            <span>Бронь €50</span>
+            <span>Бронювання</span>
           </button>
         </div>
       </div>
@@ -205,7 +205,7 @@ export default function AiConsultantWidget() {
                     onClick={() => setIsModalOpen(true)}
                     className="underline hover:text-amber-300 font-semibold"
                   >
-                    Зафіксувати квоту €50 ➔
+                    Зафіксувати квоту без передплати ➔
                   </button>
                 </div>
               )}

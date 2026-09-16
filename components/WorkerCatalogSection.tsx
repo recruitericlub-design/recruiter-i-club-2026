@@ -317,7 +317,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                 : 'Кожен працівник пройшов практичний іспит (Trade Test) на камеру, медичну комісію та перевірку безпеки. '
               }
               <span className="font-semibold text-slate-900">
-                {isRu ? 'Бронь квоты — всего €50' : 'Бронь квоти — всього €50'}
+                {isRu ? 'Бронирование квоты — без предоплаты' : 'Бронювання квоти — без передплати'}
               </span>
               {isRu
                 ? ', полное сопровождение и бесплатная замена за 48 часов по договору.'
@@ -438,7 +438,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
           <span>{isRu ? "Найдено анкет:" : "Знайдено анкет:"} <strong className="text-slate-900">{filteredCandidates.length}</strong></span>
           <span className="text-emerald-700 font-bold flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            {isRu ? "Квота сентября открыта (бронь €50)" : "Квота вересня відкрита (бронь €50)"}
+            {isRu ? "Квота сентября открыта (без предоплаты)" : "Квота вересня відкрита (без передплати)"}
           </span>
         </div>
 
@@ -549,7 +549,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                     }}
                     className="w-full py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs shadow transition-all duration-200 flex items-center justify-center gap-1 group-hover:bg-emerald-600"
                   >
-                    <span>{isRu ? "Бронь €50" : "Бронь €50"}</span>
+                    <span>{isRu ? "Забронировать" : "Забронювати"}</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -721,7 +721,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                 onClick={() => handleBook(dossierWorker)}
                 className="py-2.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md flex items-center gap-2 transition-all active:scale-95"
               >
-                <span>Забронювати працівника (€50)</span>
+                <span>{isRu ? "Забронировать работника (без предоплаты)" : "Забронювати працівника (без передплати)"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
