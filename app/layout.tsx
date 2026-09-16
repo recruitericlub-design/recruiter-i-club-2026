@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     locale: 'uk_UA',
     type: 'website',
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'google-site-verification-recruiter-i-club',
+  },
 };
 
 export default function RootLayout({

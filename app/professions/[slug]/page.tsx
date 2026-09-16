@@ -40,31 +40,50 @@ export default function ProfessionDetailPage({ params }: Props) {
   const item = PROFESSIONS_DATA[params.slug];
   if (!item) notFound();
 
+  const schemas: any[] = [
+    {
+      '@type': 'Service',
+      'name': item.title,
+      'provider': {
+        '@type': 'EmploymentAgency',
+        'name': 'Recruiter I Club',
+        'url': 'https://www.recruiter-i.club/',
+      },
+      'description': item.seoDescription,
+      'areaServed': 'Ukraine',
+      'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': item.title,
+        'itemListElement': [
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': `Офіційний підбір: ${item.title}`,
+              'description': item.tradeTestSpec,
+            },
+          },
+        ],
+      },
+    },
+  ];
+
+  if (item.videoSample) {
+    schemas.push({
+      '@type': 'VideoObject',
+      'name': item.videoSample.title,
+      'description': item.videoSample.description,
+      'thumbnailUrl': [item.videoSample.thumbnailUrl],
+      'uploadDate': item.videoSample.uploadDate,
+      'duration': item.videoSample.duration,
+      'contentUrl': `https://www.recruiter-i.club${item.videoSample.videoUrl}`,
+      'embedUrl': `https://www.recruiter-i.club${item.videoSample.videoUrl}`,
+    });
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Service',
-    'name': item.title,
-    'provider': {
-      '@type': 'EmploymentAgency',
-      'name': 'Recruiter I Club',
-      'url': 'https://www.recruiter-i.club/',
-    },
-    'description': item.seoDescription,
-    'areaServed': 'Ukraine',
-    'hasOfferCatalog': {
-      '@type': 'OfferCatalog',
-      'name': item.title,
-      'itemListElement': [
-        {
-          '@type': 'Offer',
-          'itemOffered': {
-            '@type': 'Service',
-            'name': `Офіційний підбір: ${item.title}`,
-            'description': item.tradeTestSpec,
-          },
-        },
-      ],
-    },
+    '@graph': schemas,
   };
 
   return (
@@ -154,6 +173,37 @@ export default function ProfessionDetailPage({ params }: Props) {
                   </li>
                 ))}
               </ul>
+
+              {item.videoSample && (
+                <div className="mt-6 pt-6 border-t border-slate-100">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      Відеозапис випробування
+                    </span>
+                    <Link 
+                      href="/trade-tests"
+                      className="text-[11px] font-bold text-emerald-600 hover:text-emerald-700 underline"
+                    >
+                      Всі відео Trade-Tests →
+                    </Link>
+                  </div>
+                  <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-inner">
+                    <video 
+                      controls 
+                      preload="metadata" 
+                      poster={item.videoSample.thumbnailUrl} 
+                      className="w-full h-auto aspect-video max-h-56 object-cover"
+                    >
+                      <source src={item.videoSample.videoUrl} type="video/mp4" />
+                      Ваш браузер не підтримує відтворення відео.
+                    </video>
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-2 italic">
+                    {item.videoSample.description}
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="tactile-card rounded-3xl p-8 bg-white">

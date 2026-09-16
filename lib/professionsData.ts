@@ -17,6 +17,14 @@ export interface ProfessionItem {
   advantages: string[];
   responsibilities: string[];
   faq: { q: string; a: string }[];
+  videoSample?: {
+    title: string;
+    description: string;
+    videoUrl: string;
+    thumbnailUrl: string;
+    uploadDate: string;
+    duration: string;
+  };
 }
 
 export const PROFESSIONS_DATA: Record<string, ProfessionItem> = {
@@ -55,7 +63,15 @@ export const PROFESSIONS_DATA: Record<string, ProfessionItem> = {
         q: 'Чи підлягають іноземні зварювальники мобілізації?',
         a: 'Ні. Згідно зі ст. 23 Закону України «Про мобілізаційну підготовку та мобілізацію», іноземні громадяни не є військовозобов’язаними.'
       }
-    ]
+    ],
+    videoSample: {
+      title: 'Практичний Trade-Test зварювальника MIG/MAG в акредитованому хабі',
+      description: 'Відеофіксація складання нормативу напівавтоматичного зварювання товстостінної сталі та контроль зварювального шва за стандартом ISO 9606.',
+      videoUrl: '/work-samples/welder_trade_test_1.mp4',
+      thumbnailUrl: 'https://www.recruiter-i.club/work-samples/photo_2026-08-24_15-37-22.jpg',
+      uploadDate: '2026-08-24T12:00:00+02:00',
+      duration: 'PT28S'
+    }
   },
   'armaturnyky-monolitnyky': {
     slug: 'armaturnyky-monolitnyky',
@@ -88,7 +104,15 @@ export const PROFESSIONS_DATA: Record<string, ProfessionItem> = {
         q: 'Чи є у бригади свій інструмент?',
         a: 'Бригада прибуває зі своїм спеціалізованим ручним інструментом (арматурні гачки, спецодяг), важке обладнання надає забудовник.'
       }
-    ]
+    ],
+    videoSample: {
+      title: 'Прибуття та розміщення будівельної бригади на об’єкті замовника',
+      description: 'Відеофіксація спецтрансферу та прибуття закордонних робітників безпосередньо на будівельно-виробничий комплекс в Україні.',
+      videoUrl: '/videos/arrival_in_ukraine.mp4',
+      thumbnailUrl: 'https://www.recruiter-i.club/workers/builder_ilkhom_34.jpg',
+      uploadDate: '2026-08-20T10:00:00+02:00',
+      duration: 'PT34S'
+    }
   },
   'vodiiv-navantazhuvacha': {
     slug: 'vodiiv-navantazhuvacha',
@@ -187,7 +211,15 @@ export const PROFESSIONS_DATA: Record<string, ProfessionItem> = {
         q: 'Чи є мовний бар’єр під час роботи з накладними?',
         a: 'Робітники бездоганно розпізнають артикули, цифри та штрихкоди, а бригадири вільно спілкуються з керівництвом складу.'
       }
-    ]
+    ],
+    videoSample: {
+      title: 'Trade-Test слюсарно-складальних та пакувальних операцій',
+      description: 'Відеоіспит нормативу швидкості збирання вузлів за інструкцією та контролю виробничого такту.',
+      videoUrl: '/work-samples/assembly_line_test.mp4',
+      thumbnailUrl: 'https://www.recruiter-i.club/work-samples/photo_2026-08-24_15-37-39.jpg',
+      uploadDate: '2026-08-18T14:30:00+02:00',
+      duration: 'PT44S'
+    }
   },
   'robitnyky-v-teplytsi-ahro': {
     slug: 'robitnyky-v-teplytsi-ahro',
