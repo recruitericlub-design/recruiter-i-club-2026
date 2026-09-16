@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import QuotaBookingModal from './QuotaBookingModal';
 
-export default function HeroSection() {
+export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const isRu = locale === 'ru';
 
   return (
     <>
@@ -23,17 +24,28 @@ export default function HeroSection() {
               {/* Green Pill Badge */}
               <span className="inline-flex items-center gap-2 rounded-full uppercase tracking-wide bg-emerald-50 text-emerald-800 border border-emerald-300/80 text-xs font-bold px-3.5 py-1.5 mb-5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Узбекистан та Азія → Україна · під ключ за 21–30 днів</span>
+                <span>{isRu ? 'Узбекистан и Азия → Украина · под ключ за 21–30 дней' : 'Узбекистан та Азія → Україна · під ключ за 21–30 днів'}</span>
               </span>
 
               {/* Exact Headline */}
               <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900 tracking-tight leading-[1.18] mb-5">
-                Підбір та легалізація робітничого персоналу з Узбекистану та країн Азії <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«під ключ»</span>
+                {isRu ? (
+                  <>
+                    Подбор и легализация рабочего персонала из Узбекистана и стран Азии <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«под ключ»</span>
+                  </>
+                ) : (
+                  <>
+                    Підбір та легалізація робітничого персоналу з Узбекистану та країн Азії <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«під ключ»</span>
+                  </>
+                )}
               </h1>
 
               {/* Exact Subtitle */}
               <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium mb-6">
-                Закриваємо дефіцит від 3 до 50+ робітників для виробництв, складів, будівництва та агросектору. Дисциплінований персонал на контракти 1–2 роки без ризику мобілізації та простою змін.
+                {isRu 
+                  ? 'Закрываем дефицит от 3 до 50+ рабочих для производств, складов, строительства и агросектора. Дисциплинированный персонал на контракты 1–2 года без риска мобилизации и простоя смен.'
+                  : 'Закриваємо дефіцит від 3 до 50+ робітників для виробництв, складів, будівництва та агросектору. Дисциплінований персонал на контракти 1–2 роки без ризику мобілізації та простою змін.'
+                }
               </p>
 
               {/* 3 Bullets of Trust */}
@@ -41,24 +53,45 @@ export default function HeroSection() {
                 <div className="flex items-start gap-3 bg-white/80 p-3.5 rounded-xl border border-slate-200/80 shadow-xs">
                   <span className="text-lg mt-0.5">🔍</span>
                   <div>
-                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">Безкоштовний аудит вашого запиту:</strong>
-                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">Спочатку ретельно оцінюємо вакансію та перевіряємо наявність людей у наших тестових центрах. Якщо не зможемо — чесно кажемо одразу до підписання договору.</p>
+                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">
+                      {isRu ? 'Бесплатный аудит вашего запроса:' : 'Безкоштовний аудит вашого запиту:'}
+                    </strong>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">
+                      {isRu 
+                        ? 'Сначала тщательно оцениваем вакансию и проверяем наличие людей в наших тестовых центрах. Если не сможем — честно говорим сразу до подписания договора.'
+                        : 'Спочатку ретельно оцінюємо вакансію та перевіряємо наявність людей у наших тестових центрах. Якщо не зможемо — чесно кажемо одразу до підписання договору.'
+                      }
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 bg-white/80 p-3.5 rounded-xl border border-slate-200/80 shadow-xs">
                   <span className="text-lg mt-0.5">🛡️</span>
                   <div>
-                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">Наперед — лише прямі витрати на документи та логістику:</strong>
-                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">Ви покриваєте лише фактичні витрати на офіційне оформлення. Комісію агенції ви сплачуєте лише тоді, коли працівник вже прибув на ваше виробництво.</p>
+                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">
+                      {isRu ? 'Наперед — только прямые расходы на документы и логистику:' : 'Наперед — лише прямі витрати на документи та логістику:'}
+                    </strong>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">
+                      {isRu
+                        ? 'Вы покрываете только фактические расходы на официальное оформление. Комиссию агентства вы оплачиваете только тогда, когда работник уже прибыл на ваше производство.'
+                        : 'Ви покриваєте лише фактичні витрати на офіційне оформлення. Комісію агенції ви сплачуєте лише тоді, коли працівник вже прибув на ваше виробництво.'
+                      }
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 bg-white/80 p-3.5 rounded-xl border border-slate-200/80 shadow-xs">
                   <span className="text-lg mt-0.5">🔄</span>
                   <div>
-                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">Гарантія безкоштовної заміни за договором:</strong>
-                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">Якщо працівник не підійшов майстру або захворів — оперативно надаємо безкоштовну заміну без повторних комісій агенції.</p>
+                    <strong className="text-xs sm:text-sm text-slate-900 font-bold">
+                      {isRu ? 'Гарантия бесплатной замены по договору:' : 'Гарантія безкоштовної заміни за договором:'}
+                    </strong>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-normal">
+                      {isRu
+                        ? 'Если работник не подошел мастеру или заболел — оперативно предоставляем бесплатную замену без повторных комиссий агентства.'
+                        : 'Якщо працівник не підійшов майстру або захворів — оперативно надаємо безкоштовну заміну без повторних комісій агенції.'
+                      }
+                    </p>
                   </div>
                 </div>
               </div>
@@ -69,13 +102,13 @@ export default function HeroSection() {
                   href="#audit" 
                   className="inline-flex items-center justify-center rounded-full font-bold text-sm px-7 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/15 transition-all hover:-translate-y-0.5 text-center cursor-pointer"
                 >
-                  Замовити безкоштовний аудит запиту
+                  {isRu ? 'Заказать бесплатный аудит запроса' : 'Замовити безкоштовний аудит запиту'}
                 </a>
                 <a 
                   href="#chronicle" 
                   className="inline-flex items-center justify-center rounded-full font-bold text-sm px-6 py-3.5 bg-white text-slate-900 border border-slate-300 hover:bg-slate-50 transition-all shadow-xs gap-2 text-center"
                 >
-                  <span>Як влаштований процес</span>
+                  <span>{isRu ? 'Как устроен процесс' : 'Як влаштований процес'}</span>
                   <span>➔</span>
                 </a>
               </div>
@@ -92,13 +125,13 @@ export default function HeroSection() {
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
                     <img 
                       src="/workers/welder_jasur_29.jpg" 
-                      alt="Зварювальники з Азії" 
+                      alt={isRu ? 'Сварщики из Азии' : 'Зварювальники з Азії'} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                       <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
-                        🥽 Зварювальники
+                        {isRu ? '🥽 Сварщики' : '🥽 Зварювальники'}
                       </span>
                       <span className="text-amber-400 font-sans text-[10px] font-bold tracking-wide">ISO 9606-1</span>
                     </div>
@@ -108,15 +141,17 @@ export default function HeroSection() {
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
                     <img 
                       src="/workers/builder_ilkhom_34.jpg" 
-                      alt="Будівельники та арматурники" 
+                      alt={isRu ? 'Строители и арматурщики' : 'Будівельники та арматурники'} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                       <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
-                        🏗️ Будівництво
+                        {isRu ? '🏗️ Строительство' : '🏗️ Будівництво'}
                       </span>
-                      <span className="text-emerald-400 font-sans text-[10px] font-bold tracking-wide">180 кг/год</span>
+                      <span className="text-emerald-400 font-sans text-[10px] font-bold tracking-wide">
+                        {isRu ? '180 кг/час' : '180 кг/год'}
+                      </span>
                     </div>
                   </div>
 
@@ -124,15 +159,17 @@ export default function HeroSection() {
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
                     <img 
                       src="/workers/forklift_driver.jpg" 
-                      alt="Складські робітники та карщики" 
+                      alt={isRu ? 'Складские рабочие и карщики' : 'Складські робітники та карщики'} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                       <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
-                        🚜 Склад / WMS
+                        {isRu ? '🚜 Склад / WMS' : '🚜 Склад / WMS'}
                       </span>
-                      <span className="text-sky-400 font-sans text-[10px] font-bold tracking-wide">Штабелери</span>
+                      <span className="text-sky-400 font-sans text-[10px] font-bold tracking-wide">
+                        {isRu ? 'Штабелеры' : 'Штабелери'}
+                      </span>
                     </div>
                   </div>
 
@@ -140,15 +177,17 @@ export default function HeroSection() {
                   <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 group border border-slate-200 shadow-xs">
                     <img 
                       src="/workers/cnc_hasan.jpg" 
-                      alt="Оператори ЧПК" 
+                      alt={isRu ? 'Операторы ЧПУ' : 'Оператори ЧПК'} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                       <span className="bg-slate-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-md border border-slate-700">
-                        ⚙️ Виробництво
+                        {isRu ? '⚙️ Производство' : '⚙️ Виробництво'}
                       </span>
-                      <span className="text-amber-400 font-sans text-[10px] font-bold tracking-wide">ЧПК верстати</span>
+                      <span className="text-amber-400 font-sans text-[10px] font-bold tracking-wide">
+                        {isRu ? 'ЧПУ станки' : 'ЧПК верстати'}
+                      </span>
                     </div>
                   </div>
 
@@ -158,9 +197,17 @@ export default function HeroSection() {
                 <div className="mt-3.5 p-3 bg-slate-900 rounded-xl flex items-center justify-between text-white font-bold text-xs tracking-wide">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>Пул відбору в Азії: <strong className="text-amber-400">120+ кандидатів</strong></span>
+                    <span>
+                      {isRu ? (
+                        <>Пул отбора в Азии: <strong className="text-amber-400">120+ кандидатов</strong></>
+                      ) : (
+                        <>Пул відбору в Азії: <strong className="text-amber-400">120+ кандидатів</strong></>
+                      )}
+                    </span>
                   </div>
-                  <span className="text-slate-400 text-[11px]">Оновлено сьогодні</span>
+                  <span className="text-slate-400 text-[11px]">
+                    {isRu ? 'Обновлено сегодня' : 'Оновлено сьогодні'}
+                  </span>
                 </div>
 
               </div>

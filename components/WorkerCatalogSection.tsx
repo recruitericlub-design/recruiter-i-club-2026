@@ -269,7 +269,8 @@ const CANDIDATES: WorkerCandidate[] = [
   },
 ];
 
-export default function WorkerCatalogSection() {
+export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
+  const isRu = locale === 'ru';
   const [activeCategory, setActiveCategory] = useState<'all' | 'welding' | 'cnc' | 'logistics' | 'agro_construction'>('all');
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -305,14 +306,23 @@ export default function WorkerCatalogSection() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
               <ShieldCheck className="w-4 h-4 text-blue-600" />
-              Каталог перевірених працівників (Trade Test Verified)
+              {isRu ? 'Каталог проверенных работников (Trade Test Verified)' : 'Каталог перевірених працівників (Trade Test Verified)'}
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Готові кандидати з підтвердженою кваліфікацією
+              {isRu ? 'Готовые кандидаты с подтвержденной квалификацией' : 'Готові кандидати з підтвердженою кваліфікацією'}
             </h2>
             <p className="mt-3 text-base text-slate-600">
-              Кожен працівник пройшов практичний іспит (Trade Test) на камеру, медичну комісію та перевірку безпеки. 
-              <span className="font-semibold text-slate-900"> Бронь квоти — всього €50</span>, повний супровід та безкоштовна заміна за 48 годин за договором.
+              {isRu 
+                ? 'Каждый работник прошел практический экзамен (Trade Test) на камеру, медицинскую комиссию и проверку безопасности. '
+                : 'Кожен працівник пройшов практичний іспит (Trade Test) на камеру, медичну комісію та перевірку безпеки. '
+              }
+              <span className="font-semibold text-slate-900">
+                {isRu ? 'Бронь квоты — всего €50' : 'Бронь квоти — всього €50'}
+              </span>
+              {isRu
+                ? ', полное сопровождение и бесплатная замена за 48 часов по договору.'
+                : ', повний супровід та безкоштовна заміна за 48 годин за договором.'
+              }
             </p>
           </div>
 
@@ -321,7 +331,7 @@ export default function WorkerCatalogSection() {
               onClick={() => setIsBookingOpen(true)}
               className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2 whitespace-nowrap"
             >
-              <span>Замовити підбір під ТЗ</span>
+              <span>{isRu ? 'Заказать подбор под ТЗ' : 'Замовити підбір під ТЗ'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -336,7 +346,7 @@ export default function WorkerCatalogSection() {
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="Пошук за спеціальністю, ім'ям або навичкою (напр. зварювальник, ЧПК, пакувальник)..."
+                placeholder={isRu ? "Поиск по специальности, имени или навыку (напр. сварщик, ЧПУ, упаковщик)..." : "Пошук за спеціальністю, ім'ям або навичкою (напр. зварювальник, ЧПК, пакувальник)..."}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
@@ -352,15 +362,15 @@ export default function WorkerCatalogSection() {
             </div>
 
             <div className="sm:col-span-4 flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-300">
-              <span className="text-[11px] font-bold text-slate-500 pl-2">Країна:</span>
+              <span className="text-[11px] font-bold text-slate-500 pl-2">{isRu ? "Страна:" : "Країна:"}</span>
               <select
                 value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}
                 className="flex-1 bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer py-1.5 pr-2"
               >
-                <option value="all">Всі країни ({CANDIDATES.length})</option>
+                <option value="all">{isRu ? `Все страны (${CANDIDATES.length})` : `Всі країни (${CANDIDATES.length})`}</option>
                 <option value="uz">🇺🇿 Узбекистан</option>
-                <option value="in">🇮🇳 Індія</option>
+                <option value="in">{isRu ? "🇮🇳 Индия" : "🇮🇳 Індія"}</option>
                 <option value="np">🇳🇵 Непал</option>
                 <option value="bd">🇧🇩 Бангладеш</option>
               </select>
@@ -377,7 +387,7 @@ export default function WorkerCatalogSection() {
                   : 'bg-white text-slate-600 hover:bg-slate-200 border border-slate-200'
               }`}
             >
-              Всі спеціальності ({CANDIDATES.length})
+              {isRu ? `Все специальности (${CANDIDATES.length})` : `Всі спеціальності (${CANDIDATES.length})`}
             </button>
             <button
               onClick={() => setActiveCategory('welding')}
@@ -387,7 +397,7 @@ export default function WorkerCatalogSection() {
                   : 'bg-white text-slate-600 hover:bg-slate-200 border border-slate-200'
               }`}
             >
-              Зварювальники MIG/TIG (2)
+              {isRu ? "Сварщики MIG/TIG (2)" : "Зварювальники MIG/TIG (2)"}
             </button>
             <button
               onClick={() => setActiveCategory('cnc')}
@@ -397,7 +407,7 @@ export default function WorkerCatalogSection() {
                   : 'bg-white text-slate-600 hover:bg-slate-200 border border-slate-200'
               }`}
             >
-              Оператори ЧПК & Електрики (3)
+              {isRu ? "Операторы ЧПУ & Электрики (3)" : "Оператори ЧПК & Електрики (3)"}
             </button>
             <button
               onClick={() => setActiveCategory('logistics')}
@@ -407,7 +417,7 @@ export default function WorkerCatalogSection() {
                   : 'bg-white text-slate-600 hover:bg-slate-200 border border-slate-200'
               }`}
             >
-              Склад & Конвеєр (3)
+              {isRu ? "Склад & Конвейер (3)" : "Склад & Конвеєр (3)"}
             </button>
             <button
               onClick={() => setActiveCategory('agro_construction')}
@@ -417,7 +427,7 @@ export default function WorkerCatalogSection() {
                   : 'bg-white text-slate-600 hover:bg-slate-200 border border-slate-200'
               }`}
             >
-              Агро & Будівництво (2)
+              {isRu ? "Агро & Строительство (2)" : "Агро & Будівництво (2)"}
             </button>
           </div>
 
@@ -425,10 +435,10 @@ export default function WorkerCatalogSection() {
 
         {/* Results Counter */}
         <div className="flex items-center justify-between text-xs text-slate-500 mb-6">
-          <span>Знайдено анкет: <strong className="text-slate-900">{filteredCandidates.length}</strong></span>
+          <span>{isRu ? "Найдено анкет:" : "Знайдено анкет:"} <strong className="text-slate-900">{filteredCandidates.length}</strong></span>
           <span className="text-emerald-700 font-bold flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Квота вересня відкрита (бронь €50)
+            {isRu ? "Квота сентября открыта (бронь €50)" : "Квота вересня відкрита (бронь €50)"}
           </span>
         </div>
 
@@ -485,19 +495,19 @@ export default function WorkerCatalogSection() {
                   </div>
 
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500">Досвід:</span>
+                    <span className="text-slate-500">{isRu ? "Опыт:" : "Досвід:"}</span>
                     <span className="font-semibold text-slate-800">{worker.experience}</span>
                   </div>
 
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500">Очікуваний оклад:</span>
+                    <span className="text-slate-500">{isRu ? "Ожидаемый оклад:" : "Очікуваний оклад:"}</span>
                     <span className="font-bold text-slate-900 bg-amber-50 text-amber-900 px-2 py-0.5 rounded">
                       {worker.salaryExpectation}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500">Термін виходу:</span>
+                    <span className="text-slate-500">{isRu ? "Срок выхода:" : "Термін виходу:"}</span>
                     <span className="font-medium text-slate-700 flex items-center gap-1">
                       <Clock className="w-3 h-3 text-slate-400" />
                       {worker.arrivalDays}
@@ -527,7 +537,7 @@ export default function WorkerCatalogSection() {
                     }}
                     className="w-full py-2 px-2.5 rounded-xl border border-slate-200 hover:border-slate-400 text-slate-700 font-bold text-xs flex items-center justify-center gap-1 transition-colors"
                   >
-                    <span>Досьє</span>
+                    <span>{isRu ? "Досье" : "Досьє"}</span>
                     <FileText className="w-3 h-3 text-slate-500" />
                   </button>
 
@@ -539,7 +549,7 @@ export default function WorkerCatalogSection() {
                     }}
                     className="w-full py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs shadow transition-all duration-200 flex items-center justify-center gap-1 group-hover:bg-emerald-600"
                   >
-                    <span>Бронь €50</span>
+                    <span>{isRu ? "Бронь €50" : "Бронь €50"}</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -553,18 +563,20 @@ export default function WorkerCatalogSection() {
         <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-2">
             <h3 className="text-xl sm:text-2xl font-black">
-              Потрібна партія від 10 до 100 робітників під ключ?
+              {isRu ? "Нужна партия от 10 до 100 рабочих под ключ?" : "Потрібна партія від 10 до 100 робітників під ключ?"}
             </h3>
             <p className="text-slate-300 text-xs sm:text-sm max-w-2xl">
-              Організовуємо виїзний або відео-відбір на акредитованих полігонах в Ташкенті, Делі та Катманду. 
-              Ви отримуєте індивідуальні відеозвіти та договори на пряме працевлаштування в штат вашого підприємства.
+              {isRu
+                ? "Организуем выездной или видео-отбор на аккредитованных полигонах в Ташкенте, Дели и Катманду. Вы получаете индивидуальные видеоотчеты и договоры на прямое трудоустройство в штат вашего предприятия."
+                : "Організовуємо виїзний або відео-відбір на акредитованих полігонах в Ташкенті, Делі та Катманду. Ви отримуєте індивідуальні відеозвіти та договори на пряме працевлаштування в штат вашого підприємства."
+              }
             </p>
           </div>
           <button
             onClick={() => setIsBookingOpen(true)}
             className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm whitespace-nowrap shadow-lg transition-transform active:scale-95"
           >
-            Замовити масовий підбір
+            {isRu ? "Заказать массовый подбор" : "Замовити масовий підбір"}
           </button>
         </div>
 

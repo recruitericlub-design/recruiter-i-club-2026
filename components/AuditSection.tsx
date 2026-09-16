@@ -3,7 +3,9 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, ShieldCheck, MessageSquare } from 'lucide-react';
 
-export default function AuditSection() {
+export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
+  const isRu = locale === 'ru';
+
   const [formData, setFormData] = useState({
     name: '',
     specialization: '',
@@ -24,7 +26,7 @@ export default function AuditSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          source: 'homepage_audit_section',
+          source: isRu ? 'homepage_audit_section_ru' : 'homepage_audit_section_uk',
           workersNeeded: formData.headcount,
           industry: formData.specialization
         })
@@ -49,125 +51,124 @@ export default function AuditSection() {
           
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="inline-block rounded-full uppercase tracking-wide bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold px-4 py-1.5 mb-3">
-              БЕЗКОШТОВНИЙ АУДИТ ТА КОШТОРИС
+              {isRu ? 'БЕСПЛАТНЫЙ АУДИТ И СМЕТА' : 'БЕЗКОШТОВНИЙ АУДИТ ТА КОШТОРИС'}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-              Готові закрити кадровий дефіцит без ризиків?
+              {isRu 
+                ? 'Готовы закрыть кадровый дефицит без рисков?'
+                : 'Готові закрити кадровий дефіцит без ризиків?'
+              }
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Отримайте безкоштовний аудит вашого запиту: перевіримо наявність вільних людей у тестових центрах та підготуємо індивідуальний кошторис доставки на ваше підприємство.
+              {isRu
+                ? 'Получите бесплатный аудит вашего запроса: проверим наличие свободных людей в центрах отбора и подготовим индивидуальную смету доставки на ваше предприятие.'
+                : 'Отримайте безкоштовний аудит вашого запиту: перевіримо наявність вільних людей у тестових центрах та підготуємо індивідуальний кошторис доставки на ваше підприємство.'
+              }
             </p>
           </div>
 
           {submitted ? (
-            <div className="text-center py-10 bg-emerald-50 rounded-2xl border border-emerald-200 p-8">
-              <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">Дякуємо! Заявку успішно прийнято</h3>
-              <p className="text-sm text-slate-600 max-w-md mx-auto mb-4">
-                Номер заявки: <strong className="text-emerald-700 font-mono">{responseInfo?.leadId || 'LEAD-OK'}</strong>. Куратор зв'яжеться з вами протягом 15 хвилин для узгодження параметрів.
+            <div className="p-8 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-4">
+              <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
+              <h3 className="text-xl font-black text-emerald-950">
+                {isRu ? 'Заявка успешно принята!' : 'Заявку успішно прийнято!'}
+              </h3>
+              <p className="text-sm text-emerald-800 max-w-md mx-auto">
+                {isRu
+                  ? 'Ведущий координатор свяжется с вами в течение 30 минут с подробным расчетом сметы и досье кандидатов.'
+                  : 'Провідний координатор зв’яжеться з вами протягом 30 хвилин з детальним розрахунком кошторису та досьє кандидатів.'
+                }
               </p>
-              {responseInfo?.telegramLink && (
-                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-                  <a 
-                    href={responseInfo.telegramLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0088cc] hover:bg-[#0077b5] text-white font-bold text-sm shadow-md transition"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Відкрити діалог у Telegram</span>
-                  </a>
-                </div>
-              )}
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto">
-              
+            <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isRu ? 'Компания / ООО' : 'Компанія / ТОВ'}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    placeholder={isRu ? 'Название предприятия' : 'Назва підприємства'}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isRu ? 'Ваше имя' : 'Ваше ім’я'}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder={isRu ? 'Имя директора или HRD' : 'Ім’я директора або HRD'}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isRu ? 'Телефон (WhatsApp / Telegram)' : 'Телефон (WhatsApp / Telegram)'}
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="+380 ..."
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isRu ? 'Количество рабочих' : 'Кількість робітників'}
+                  </label>
+                  <select
+                    value={formData.headcount}
+                    onChange={(e) => setFormData({ ...formData, headcount: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                  >
+                    <option value="">{isRu ? 'Выберите количество' : 'Оберіть кількість'}</option>
+                    <option value="3-5">{isRu ? '3 – 5 человек' : '3 – 5 працівників'}</option>
+                    <option value="5-10">{isRu ? '5 – 10 человек' : '5 – 10 працівників'}</option>
+                    <option value="10-25">{isRu ? '10 – 25 человек' : '10 – 25 працівників'}</option>
+                    <option value="25-50">{isRu ? '25 – 50 человек' : '25 – 50 працівників'}</option>
+                    <option value="50+">{isRu ? '50+ человек (бригада)' : '50+ працівників (бригада)'}</option>
+                  </select>
+                </div>
+              </div>
+
               <div>
-                <label className="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">
-                  Ваше ім'я та посада
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  {isRu ? 'Специальность / Сфера' : 'Спеціальність / Сфера'}
                 </label>
-                <input 
-                  type="text" 
-                  required 
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Олександр, директор з виробництва" 
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 bg-slate-50/50"
+                <input
+                  type="text"
+                  value={formData.specialization}
+                  onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
+                  placeholder={isRu ? 'Например: Сварщики MIG, арматурщики, комплектовщики' : 'Наприклад: Зварювальники MIG, арматурники, комплектувальники'}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">
-                    Спеціалізація працівників
-                  </label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={formData.specialization}
-                    onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
-                    placeholder="Зварювальники, арматурники, різноробочі" 
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 bg-slate-50/50"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">
-                    Необхідна кількість людей
-                  </label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={formData.headcount}
-                    onChange={(e) => setFormData({ ...formData, headcount: e.target.value })}
-                    placeholder="Напр: 10 або 25 людей" 
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 bg-slate-50/50"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">
-                    Контактний номер телефону (для дзвінка / месенджера)
-                  </label>
-                  <input 
-                    type="tel" 
-                    required 
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+380" 
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-mono focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 bg-slate-50/50"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-extrabold tracking-wide text-slate-700 uppercase mb-1">
-                    Підприємство або Email (опціонально)
-                  </label>
-                  <input 
-                    type="text" 
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    placeholder="ТОВ / Завод / email" 
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 bg-slate-50/50"
-                  />
-                </div>
-              </div>
-
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-base shadow-lg shadow-emerald-950/20 transition-all hover:scale-[1.01] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/20 transition active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>{loading ? 'Надсилаємо запит...' : 'Замовити безкоштовний аудит запиту (0 грн)'}</span>
+                <Send className="w-4 h-4" />
+                <span>{loading ? (isRu ? 'Отправка...' : 'Відправка...') : (isRu ? 'Получить расчет сметы и досье' : 'Отримати розрахунок кошторису та досьє')}</span>
               </button>
 
-              <p className="text-[11px] text-slate-500 text-center mt-3">
-                🔒 Жодного спаму. Консультація профільного спеціаліста без фінансових зобов'язань. Комісію сплачуєте лише після виходу робітників на зміну.
+              <p className="text-[11px] text-slate-400 text-center mt-2">
+                🔒 {isRu ? 'Конфиденциально. Мы не передаем данные третьим лицам.' : 'Конфіденційно. Ми не передаємо ваші дані третім особам.'}
               </p>
-
             </form>
           )}
 
