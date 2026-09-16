@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, Zap, Lock, CreditCard, Send, MessageSquare } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { X, CheckCircle2, ShieldCheck, Zap, Send, MessageSquare } from 'lucide-react';
 
 interface QuotaBookingModalProps {
   isOpen: boolean;
@@ -10,6 +11,9 @@ interface QuotaBookingModalProps {
 }
 
 export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory }: QuotaBookingModalProps) {
+  const pathname = usePathname();
+  const isRu = pathname?.startsWith('/ru');
+
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,8 +21,8 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
     name: '',
     phone: '',
     workersCount: '15',
-    category: preselectedCategory || 'Пакувальники / Склад (WMS)',
-    urgency: '1 місяць (експрес)',
+    category: preselectedCategory || (isRu ? 'Упаковщики / Склад (WMS)' : 'Пакувальники / Склад (WMS)'),
+    urgency: isRu ? '1 месяц (экспресс)' : '1 місяць (експрес)',
   });
 
   if (!isOpen) return null;
@@ -37,7 +41,7 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
           company: formData.company,
           workersNeeded: formData.workersCount,
           industry: formData.category,
-          source: 'quota_booking_modal_50eur'
+          source: isRu ? 'quota_lead_modal_ru' : 'quota_lead_modal_ua'
         })
       });
     } catch (err) {
@@ -49,13 +53,14 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
       <div className="relative w-full max-w-lg rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl text-slate-900">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+          title={isRu ? 'Закрыть' : 'Закрити'}
         >
           <X className="w-5 h-5" />
         </button>
@@ -65,25 +70,27 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
             {/* Header Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold uppercase tracking-wider mb-3">
               <Zap className="w-3.5 h-3.5 text-blue-600" />
-              Бронювання квоти на 2026 рік
+              {isRu ? 'Экспресс-подбор персонала 2026' : 'Експрес-підбір персоналу 2026'}
             </div>
 
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2">
-              Фіксація ціни <span className="text-blue-700">від $500</span> / працівник
+              {isRu ? 'Заявка на подбор персонала' : 'Заявка на підбір персоналу'}
             </h3>
             <p className="text-xs text-slate-600 mb-6 leading-relaxed">
-              Фіксація слоту в квоті, бронювання кандидатів та формування пакету документів для Держпраці.
+              {isRu 
+                ? 'Получите предварительный расчет сметы, сроки трансфера и первые видео-досье кандидатов в течение 24 часов.' 
+                : 'Отримайте попередній розрахунок кошторису, строки трансферу та перші відео-досьє кандидатів протягом 24 годин.'}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Назва підприємства / ТОВ *
+                  {isRu ? 'Название предприятия / ООО *' : 'Назва підприємства / ТОВ *'}
                 </label>
                 <input
                   required
                   type="text"
-                  placeholder="ТОВ «Агро-Пром Сервіс»"
+                  placeholder={isRu ? 'ООО «Агро-Пром Сервис»' : 'ТОВ «Агро-Пром Сервіс»'}
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
@@ -93,12 +100,12 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Контактна особа *
+                    {isRu ? 'Контактное лицо *' : 'Контактна особа *'}
                   </label>
                   <input
                     required
                     type="text"
-                    placeholder="Олександр Васильович"
+                    placeholder={isRu ? 'Александр Васильевич' : 'Олександр Васильович'}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
@@ -106,7 +113,7 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Телефон / Telegram *
+                    {isRu ? 'Телефон / Telegram *' : 'Телефон / Telegram *'}
                   </label>
                   <input
                     required
@@ -122,53 +129,73 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Спеціалізація
+                    {isRu ? 'Специализация' : 'Спеціалізація'}
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:bg-white focus:border-blue-600 focus:outline-none"
                   >
-                    <option>Пакувальники / Склад (WMS)</option>
-                    <option>Зварювальники (MIG/MAG 6G)</option>
-                    <option>Оператори верстатів ЧПК</option>
-                    <option>Сільськогосподарські робітники / Трактористи</option>
-                    <option>Будівельні фахівці / Арматурники</option>
-                    <option>Слюсарі-складальники</option>
+                    {isRu ? (
+                      <>
+                        <option>Упаковщики / Склад (WMS)</option>
+                        <option>Сварщики (MIG/MAG 6G)</option>
+                        <option>Операторы станков ЧПУ</option>
+                        <option>Сельскохозяйственные рабочие / Трактористы</option>
+                        <option>Строительные специалисты / Арматурщики</option>
+                        <option>Слесари-сборщики</option>
+                      </>
+                    ) : (
+                      <>
+                        <option>Пакувальники / Склад (WMS)</option>
+                        <option>Зварювальники (MIG/MAG 6G)</option>
+                        <option>Оператори верстатів ЧПК</option>
+                        <option>Сільськогосподарські робітники / Трактористи</option>
+                        <option>Будівельні фахівці / Арматурники</option>
+                        <option>Слюсарі-складальники</option>
+                      </>
+                    )}
                   </select>
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Кількість працівників
+                    {isRu ? 'Количество специалистов' : 'Кількість працівників'}
                   </label>
                   <select
                     value={formData.workersCount}
                     onChange={(e) => setFormData({ ...formData, workersCount: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:bg-white focus:border-blue-600 focus:outline-none"
                   >
-                    <option value="5">5 осіб (Пілотна партія)</option>
-                    <option value="15">15 осіб (Повна зміна)</option>
-                    <option value="30">30 осіб (Цех / Лінія)</option>
-                    <option value="50">50+ осіб (Масштабний проект)</option>
+                    <option value="5">{isRu ? '5 чел. (Пилотная группа)' : '5 осіб (Пілотна партія)'}</option>
+                    <option value="15">{isRu ? '15 чел. (Полная смена)' : '15 осіб (Повна зміна)'}</option>
+                    <option value="30">{isRu ? '30 чел. (Цех / Линия)' : '30 осіб (Цех / Лінія)'}</option>
+                    <option value="50">{isRu ? '50+ чел. (Масштабный проект)' : '50+ осіб (Масштабний проект)'}</option>
                   </select>
                 </div>
               </div>
 
-              {/* Legal Note */}
+              {/* Reassurance */}
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-start gap-2.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <span>
-                  Офіційний договір з ТОВ/ПП, супровід у Держпраці та закріплення кандидатів згідно з квотою.
+                  {isRu
+                    ? 'Конфиденциально. Официальная лицензия Минсоцполитики №1428. Расчет сметы и подбор без предварительных обязательств.'
+                    : 'Конфіденційно. Офіційна ліцензія Мінсоцполітики №1428. Розрахунок кошторису та підбір без попередніх зобов’язань.'
+                  }
                 </span>
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <CreditCard className="w-4 h-4" />
-                <span>{isSubmitting ? 'Реєстрація квоти...' : 'Зафіксувати квоту та отримати договір'}</span>
+                <Send className="w-4 h-4" />
+                <span>
+                  {isSubmitting 
+                    ? (isRu ? 'Отправка заявки...' : 'Відправка заявки...') 
+                    : (isRu ? 'Отправить заявку менеджеру' : 'Відправити заявку менеджеру')}
+                </span>
               </button>
             </form>
           </div>
@@ -178,13 +205,21 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-black text-slate-900">
-              Квоту успішно заброньовано!
+              {isRu ? 'Заявка успешно принята!' : 'Заявку успішно прийнято!'}
             </h3>
             <p className="text-sm text-slate-600 max-w-sm mx-auto">
-              Дякуємо, <strong className="text-slate-900">{formData.name}</strong>! Заявку на {formData.workersCount} фахівців ({formData.category}) для {formData.company} зареєстровано в CRM.
+              {isRu ? (
+                <>Спасибо, <strong className="text-slate-900">{formData.name}</strong>! Заявка на {formData.workersCount} специалистов ({formData.category}) для {formData.company} зарегистрирована.</>
+              ) : (
+                <>Дякуємо, <strong className="text-slate-900">{formData.name}</strong>! Заявку на {formData.workersCount} фахівців ({formData.category}) для {formData.company} зареєстровано.</>
+              )}
             </p>
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 max-w-sm mx-auto space-y-2">
-              <p>Менеджер клубу зв&apos;яжеться з вами протягом 15 хвилин для узгодження договору.</p>
+              <p>
+                {isRu 
+                  ? 'Дежурный координатор свяжется с вами в течение 15 минут для уточнения требований и передачи резюме.' 
+                  : 'Черговий координатор зв\'яжеться з вами протягом 15 хвилин для уточнення вимог та передачі резюме.'}
+              </p>
               <div className="flex justify-center gap-3 pt-1">
                 <a 
                   href="https://t.me/recruiter_i_club" 
@@ -212,9 +247,9 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
                 setSubmitted(false);
                 onClose();
               }}
-              className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition-colors"
+              className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition-colors cursor-pointer"
             >
-              Закрити вікно
+              {isRu ? 'Закрыть окно' : 'Закрити вікно'}
             </button>
           </div>
         )}

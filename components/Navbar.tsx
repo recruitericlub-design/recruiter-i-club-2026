@@ -62,13 +62,13 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 font-bold text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer"
+            <a 
+              href="tel:+380442994820"
+              className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white font-semibold transition-colors"
             >
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{isRu ? 'Прием заявок на персонал' : 'Прийом заявок на персонал'}</span>
-            </button>
+              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <span>+380 (44) 299-48-20</span>
+            </a>
             <span className="text-slate-600 hidden sm:inline">|</span>
             <Link 
               href="/portal"
@@ -77,21 +77,6 @@ export default function Navbar() {
               <UserCheck className="w-3.5 h-3.5" />
               <span>{isRu ? 'Кабинет заказчика (CRM)' : 'Кабінет замовника (CRM)'}</span>
             </Link>
-            <span className="text-slate-600 hidden sm:inline">|</span>
-            <div className="inline-flex items-center rounded-md border border-slate-700 bg-slate-800/90 text-[10px] font-bold overflow-hidden">
-              <Link
-                href="/"
-                className={`px-2 py-0.5 transition ${!isRu ? 'bg-amber-400 text-slate-950 font-black' : 'text-slate-400 hover:text-white'}`}
-              >
-                UA
-              </Link>
-              <Link
-                href="/ru"
-                className={`px-2 py-0.5 transition ${isRu ? 'bg-amber-400 text-slate-950 font-black' : 'text-slate-400 hover:text-white'}`}
-              >
-                RU
-              </Link>
-            </div>
           </div>
         </div>
       </div>
@@ -132,22 +117,22 @@ export default function Navbar() {
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all active:scale-95 flex items-center gap-2"
+                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all active:scale-95 flex items-center gap-2 cursor-pointer"
               >
-                <span>{isRu ? 'Получить анкеты' : 'Отримати анкети'}</span>
+                <span>{isRu ? 'Отправить заявку' : 'Відправити заявку'}</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
 
               <div className="flex items-center rounded-xl border border-slate-200 bg-slate-100 p-0.5 text-xs font-bold">
                 <Link
                   href="/"
-                  className={`px-2 py-1 rounded-lg transition ${!isRu ? 'bg-white shadow-xs text-blue-700 font-black' : 'text-slate-500 hover:text-slate-900'}`}
+                  className={`px-2.5 py-1 rounded-lg transition ${!isRu ? 'bg-white shadow-xs text-blue-700 font-black' : 'text-slate-500 hover:text-slate-900'}`}
                 >
                   UA
                 </Link>
                 <Link
                   href="/ru"
-                  className={`px-2 py-1 rounded-lg transition ${isRu ? 'bg-white shadow-xs text-blue-700 font-black' : 'text-slate-500 hover:text-slate-900'}`}
+                  className={`px-2.5 py-1 rounded-lg transition ${isRu ? 'bg-white shadow-xs text-blue-700 font-black' : 'text-slate-500 hover:text-slate-900'}`}
                 >
                   RU
                 </Link>
@@ -160,7 +145,7 @@ export default function Navbar() {
                 onClick={() => setIsModalOpen(true)}
                 className="px-3.5 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs"
               >
-                Анкети
+                {isRu ? 'Заявка' : 'Заявка'}
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -221,16 +206,16 @@ export default function Navbar() {
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50"
               >
                 <UserCheck className="w-4 h-4 text-blue-600" />
-                Особистий кабінет (CRM)
+                {isRu ? 'Кабинет заказчика (CRM)' : 'Особистий кабінет (CRM)'}
               </Link>
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   setIsModalOpen(true);
                 }}
-                className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md"
+                className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md cursor-pointer"
               >
-                Отримати анкети кандидатів
+                {isRu ? 'Отправить заявку на персонал' : 'Відправити заявку на персонал'}
               </button>
             </div>
           </div>
