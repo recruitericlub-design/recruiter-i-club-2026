@@ -93,7 +93,7 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     placeholder={isRu ? 'Название предприятия' : 'Назва підприємства'}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -106,7 +106,7 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder={isRu ? 'Имя директора или HRD' : 'Ім’я директора або HRD'}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+380 ..."
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
                   <select
                     value={formData.headcount}
                     onChange={(e) => setFormData({ ...formData, headcount: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none"
                   >
                     <option value="">{isRu ? 'Выберите количество' : 'Оберіть кількість'}</option>
                     <option value="3-5">{isRu ? '3 – 5 человек' : '3 – 5 працівників'}</option>
@@ -153,7 +153,7 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
                   value={formData.specialization}
                   onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
                   placeholder={isRu ? 'Например: Сварщики MIG, арматурщики, комплектовщики' : 'Наприклад: Зварювальники MIG, арматурники, комплектувальники'}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none"
                 />
               </div>
 

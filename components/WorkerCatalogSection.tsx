@@ -456,6 +456,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                   src={worker.photoUrl}
                   alt={worker.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
@@ -591,7 +592,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
             <div className="p-6 bg-slate-900 text-white flex items-start justify-between">
               <div className="flex items-center gap-4">
                 <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/20 shadow-md">
-                  <Image src={dossierWorker.photoUrl} alt={dossierWorker.name} fill className="object-cover" />
+                  <Image src={dossierWorker.photoUrl} alt={dossierWorker.name} fill sizes="64px" className="object-cover" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">

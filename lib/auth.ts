@@ -29,7 +29,11 @@ export function verifySessionToken(token: string): EmployerSession | null {
     const [base64Data, signature] = token.split('.');
     const expectedSignature = crypto.createHmac('sha256', SECRET).update(base64Data).digest('base64url');
     
-    if (signature !== expectedSignature) return null;
+    const sigBuffer = Buffer.from(signature);
+    const expBuffer = Buffer.from(expectedSignature);
+    if (sigBuffer.length !== expBuffer.length || !crypto.timingSafeEqual(sigBuffer, expBuffer)) {
+      return null;
+    }
     
     const jsonStr = Buffer.from(base64Data, 'base64url').toString('utf-8');
     const session: EmployerSession = JSON.parse(jsonStr);

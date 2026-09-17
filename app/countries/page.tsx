@@ -126,9 +126,9 @@ export default function CountriesCatalogPage() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl leading-none">{hub.flag}</span>
                   <div>
-                    <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">
+                    <h2 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">
                       {hub.country}
-                    </h3>
+                    </h2>
                     <span className="text-[11px] text-slate-400 font-mono">Хаб відбору</span>
                   </div>
                 </div>

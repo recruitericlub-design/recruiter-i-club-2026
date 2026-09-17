@@ -237,10 +237,10 @@ export default function CountryDetailPage({ params }: { params: { country: strin
           
           {/* Roles */}
           <div className="glass-card p-6 sm:p-8 rounded-3xl space-y-4">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg font-bold text-white flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-amber-400" />
               Затребувані спеціальності з цієї країни
-            </h3>
+            </h2>
             <div className="divide-y divide-white/[0.06]">
               {hub.roles.map((role: string, idx: number) => (
                 <div key={idx} className="py-3 flex items-center justify-between text-xs sm:text-sm text-slate-300">
@@ -253,10 +253,10 @@ export default function CountryDetailPage({ params }: { params: { country: strin
 
           {/* Transit Logistics */}
           <div className="glass-card p-6 sm:p-8 rounded-3xl space-y-4">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg font-bold text-white flex items-center gap-2">
               <Plane className="w-5 h-5 text-amber-400" />
               Маршрут доставки та супроводу
-            </h3>
+            </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
               {hub.transit}
             </p>
@@ -273,10 +273,10 @@ export default function CountryDetailPage({ params }: { params: { country: strin
           
           {/* Document list */}
           <div className="glass-card p-6 sm:p-8 rounded-3xl space-y-4">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg font-bold text-white flex items-center gap-2">
               <FileText className="w-5 h-5 text-amber-400" />
               Пакет документів для найму
-            </h3>
+            </h2>
             <ul className="space-y-3 text-xs text-slate-300">
               {hub.documents.map((doc: string, idx: number) => (
                 <li key={idx} className="flex items-start gap-2.5">

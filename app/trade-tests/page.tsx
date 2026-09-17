@@ -149,7 +149,14 @@ export default function TradeTestsPage() {
       </div>
 
       {/* Video Grid with Real HTML5 Players */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="space-y-6">
+        <div className="space-y-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Відеоматеріали та практичні випробування</span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            Відеозвіти атестацій та прибуття працівників в Україну
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredVideos.map((item) => (
           <div
             key={item.id}
@@ -209,6 +216,7 @@ export default function TradeTestsPage() {
             </div>
           </div>
         ))}
+        </div>
       </div>
 
       {/* Real Photos from Technical Inspections */}
@@ -228,6 +236,7 @@ export default function TradeTestsPage() {
                   src={photo.src}
                   alt={photo.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

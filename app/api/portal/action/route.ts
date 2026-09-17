@@ -9,8 +9,14 @@ export async function POST(req: NextRequest) {
 
     // 1. Session verification & multi-tenant isolation
     const session = getAuthenticatedEmployer(req);
-    const effectiveCompanyId = session?.companyId || companyId || '1e7c0ccf-9666-48db-b792-1be182f9a4fa';
-    const effectiveCompanyName = session?.companyName || companyName || 'Підприємство';
+    if (!session && !body.isDemo) {
+      return NextResponse.json(
+        { success: false, error: 'Необхідна авторизація в кабінеті роботодавця' },
+        { status: 401 }
+      );
+    }
+    const effectiveCompanyId = session ? session.companyId : '1e7c0ccf-9666-48db-b792-1be182f9a4fa';
+    const effectiveCompanyName = session ? session.companyName : 'Демо-підприємство';
 
     // 1. APPROVE CANDIDATE
     if (action === 'approve') {

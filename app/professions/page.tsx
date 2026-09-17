@@ -11,6 +11,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.recruiter-i.club/professions',
   },
+  openGraph: {
+    title: 'Каталог робітничих професій з Азії | Recruiter I Club',
+    description: 'Зварювальники 6G/MIG-MAG, арматурники, водії кари, оператори ЧПК. Професійні Trade Tests та гарантія заміни.',
+    url: 'https://www.recruiter-i.club/professions',
+    siteName: 'Recruiter I Club',
+    locale: 'uk_UA',
+    type: 'website',
+    images: [
+      {
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Каталог робітничих спеціальностей Recruiter I Club',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Каталог робітничих професій з Азії | Recruiter I Club',
+    description: 'Офіційний підбір лінійного персоналу для підприємств України під ключ.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+  },
 };
 
 export default function ProfessionsCatalogPage() {

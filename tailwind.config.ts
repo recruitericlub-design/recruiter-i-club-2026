@@ -31,8 +31,8 @@ const config: Config = {
         'hero': '2rem',
       },
       fontFamily: {
-        sans: ["'Plus Jakarta Sans'", "system-ui", "sans-serif"],
-        mono: ["'JetBrains Mono'", "monospace"],
+        sans: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "'JetBrains Mono'", "monospace"],
       },
       animation: {
         'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

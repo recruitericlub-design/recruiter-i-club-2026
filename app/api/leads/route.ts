@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { dbQuery } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -150,9 +151,19 @@ export async function POST(request: NextRequest) {
 // 3. SECURED GET ROUTE (Protected against data leaks)
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
-  const secret = process.env.CRM_INTERNAL_SECRET || 'riclub_sec_2026';
+  const secret = process.env.CRM_INTERNAL_SECRET;
   
-  if (!authHeader || authHeader !== `Bearer ${secret}`) {
+  if (!secret || !authHeader || !authHeader.startsWith('Bearer ')) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Access restricted to authenticated internal services' }, 
+      { status: 401 }
+    );
+  }
+
+  const token = authHeader.substring(7);
+  const tokenBuf = Buffer.from(token);
+  const secretBuf = Buffer.from(secret);
+  if (tokenBuf.length !== secretBuf.length || !crypto.timingSafeEqual(tokenBuf, secretBuf)) {
     return NextResponse.json(
       { error: 'Unauthorized: Access restricted to authenticated internal services' }, 
       { status: 401 }

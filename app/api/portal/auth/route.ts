@@ -1,6 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { dbQuery } from '@/lib/db';
 import { signSessionToken, verifySessionToken } from '@/lib/auth';
+
+// Rate limiting map for failed login attempts by phone
+const loginAttempts = new Map<string, { count: number; lockUntil: number }>();
+
+function checkRateLimit(phone: string): { allowed: boolean; remainingMinutes?: number } {
+  const now = Date.now();
+  const entry = loginAttempts.get(phone);
+  if (!entry) return { allowed: true };
+  if (now < entry.lockUntil) {
+    return { allowed: false, remainingMinutes: Math.ceil((entry.lockUntil - now) / 60000) };
+  }
+  if (now >= entry.lockUntil && entry.count >= 5) {
+    loginAttempts.delete(phone);
+  }
+  return { allowed: true };
+}
+
+function recordFailure(phone: string) {
+  const now = Date.now();
+  const entry = loginAttempts.get(phone) || { count: 0, lockUntil: 0 };
+  entry.count += 1;
+  if (entry.count >= 5) {
+    entry.lockUntil = now + 15 * 60 * 1000; // 15 min lock
+  }
+  loginAttempts.set(phone, entry);
+}
+
+function clearFailures(phone: string) {
+  loginAttempts.delete(phone);
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -79,7 +110,7 @@ export async function POST(req: NextRequest) {
       }
 
       const cleanPhone = phone.replace(/[^\d+]/g, '');
-      const otpCode = Math.floor(1000 + Math.random() * 9000).toString();
+      const otpCode = crypto.randomInt(1000, 10000).toString();
 
       const otpToken = signSessionToken({
         companyId: 'pending',
@@ -94,7 +125,7 @@ export async function POST(req: NextRequest) {
       const response = NextResponse.json({
         success: true,
         message: 'Код підтвердження надіслано в WhatsApp/Telegram',
-        otpHint: cleanPhone.includes('7174') || cleanPhone.includes('4040') || process.env.NODE_ENV !== 'production' ? otpCode : undefined
+        otpHint: process.env.NODE_ENV !== 'production' ? otpCode : undefined
       });
 
       response.cookies.set('riclub_otp', otpToken, {
@@ -126,6 +157,15 @@ export async function POST(req: NextRequest) {
 
       const cleanPhone = phone.replace(/[^\d+]/g, '');
       const cleanPin = pin.toString().trim();
+
+      // Check brute-force rate limit
+      const rateCheck = checkRateLimit(cleanPhone);
+      if (!rateCheck.allowed) {
+        return NextResponse.json({
+          success: false,
+          error: `Забагато невірних спроб входу. Спробуйте через ${rateCheck.remainingMinutes} хв або зверніться до координатора.`
+        }, { status: 429 });
+      }
 
       // Find company in CRM
       const companyRes = await dbQuery(`
@@ -188,16 +228,18 @@ export async function POST(req: NextRequest) {
 
       // 3. Verify PIN code
       const expectedPin = company.pinCode ? company.pinCode.toString().trim() : null;
-      const isMasterPin = cleanPin === '7788'; // Owner master override
-      const isCorrectPin = isMasterPin || (expectedPin && expectedPin === cleanPin);
+      const isCorrectPin = expectedPin && expectedPin === cleanPin;
 
       if (!isCorrectPin) {
+        recordFailure(cleanPhone);
         return NextResponse.json({
           success: false,
           invalidPin: true,
           error: 'Невірний PIN-код. Перевірте код у повідомленні від вашого координатора (або зверніться на гарячу лінію).'
         }, { status: 401 });
       }
+
+      clearFailures(cleanPhone);
 
       // Successful verified B2B authentication
       return createAuthResponse({
@@ -219,7 +261,7 @@ export async function POST(req: NextRequest) {
       }
 
       const cleanPhone = phone.replace(/[^\d+]/g, '');
-      const generatedPin = Math.floor(1000 + Math.random() * 9000).toString();
+      const generatedPin = crypto.randomInt(1000, 10000).toString();
 
       // Check if already exists
       const existingComp = await dbQuery(`

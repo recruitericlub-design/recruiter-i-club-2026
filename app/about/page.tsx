@@ -172,7 +172,11 @@ export default function AboutPage() {
       </div>
 
       {/* Two Main Founders Showcase */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="space-y-6">
+        <h2 className="text-xl sm:text-2xl font-black text-slate-900 text-center">
+          Засновники та керуючі партнери
+        </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {founders.map((founder, idx) => (
           <div 
             key={idx}
@@ -185,6 +189,7 @@ export default function AboutPage() {
                   src={founder.photo}
                   alt={founder.name}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
@@ -219,6 +224,7 @@ export default function AboutPage() {
             </div>
           </div>
         ))}
+        </div>
       </div>
 
       {/* Extended Department Team Section */}
@@ -244,7 +250,13 @@ export default function AboutPage() {
             >
               <div>
                 <div className="relative h-64 w-full bg-slate-100">
-                  <Image src={member.photo} alt={member.name} fill className="object-cover object-top" />
+                  <Image 
+                    src={member.photo} 
+                    alt={member.name} 
+                    fill 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover object-top" 
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent"></div>
                   <div className="absolute bottom-3 left-3 right-3 text-white">
                     <h3 className="font-bold text-base text-white">{member.name}</h3>
