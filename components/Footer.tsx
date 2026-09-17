@@ -64,7 +64,6 @@ export default function Footer() {
               <li><Link href="/countries/india" className="hover:text-white transition-colors">{isRu ? 'Индия (Сварщики 6G, ЧПУ)' : 'Індія (Зварювальники 6G, ЧПК)'}</Link></li>
               <li><Link href="/countries/nepal" className="hover:text-white transition-colors">{isRu ? 'Непал (Склады & Логистика)' : 'Непал (Склади & Логістика)'}</Link></li>
               <li><Link href="/countries/bangladesh" className="hover:text-white transition-colors">{isRu ? 'Бангладеш (Производство)' : 'Бангладеш (Виробництво)'}</Link></li>
-              <li><Link href="/countries/kazakhstan" className="hover:text-white transition-colors">{isRu ? 'Казахстан (Машиностроение)' : 'Казахстан (Машинобудування)'}</Link></li>
               <li><Link href="/countries/philippines" className="hover:text-white transition-colors">{isRu ? 'Филиппины (Англоязычные операторы)' : 'Філіппіни (Англомовні оператори)'}</Link></li>
             </ul>
           </div>

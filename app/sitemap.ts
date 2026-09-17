@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl + '/about', lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
   ];
 
-  const countries = ['india', 'uzbekistan', 'kazakhstan', 'nepal', 'bangladesh', 'vietnam', 'philippines'];
+  const countries = ['india', 'uzbekistan', 'nepal', 'bangladesh', 'philippines'];
   const countryPages = countries.map((c) => ({
     url: baseUrl + '/countries/' + c,
     lastModified: now,

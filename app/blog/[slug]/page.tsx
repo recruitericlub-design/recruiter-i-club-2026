@@ -211,24 +211,6 @@ export default function ArticleDetailPage({ params }: Props) {
         </ReactMarkdown>
       </div>
 
-      {/* Target SEO Keywords Footer Card */}
-      {(article.targetKeywordsUa || article.targetKeywordsRu) && (
-        <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200 text-xs space-y-2">
-          <span className="font-mono font-bold text-slate-500 uppercase text-[10px] tracking-wider block">
-            Семантичне ядро статті (SEO Clusters):
-          </span>
-          {article.targetKeywordsUa && (
-            <p className="text-slate-600">
-              <strong className="text-slate-800">Пошукові запити UA:</strong> {article.targetKeywordsUa}
-            </p>
-          )}
-          {article.targetKeywordsRu && (
-            <p className="text-slate-600">
-              <strong className="text-slate-800">Пошукові запити RU:</strong> {article.targetKeywordsRu}
-            </p>
-          )}
-        </div>
-      )}
 
       {/* FAQ Section */}
       {article.faq && article.faq.length > 0 && (

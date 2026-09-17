@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   Send, Bot, User, Sparkles, X, MessageSquare, Phone, 
@@ -20,13 +19,12 @@ export default function FloatingLeadBar() {
   const pathname = usePathname();
   const isRu = pathname?.startsWith('/ru');
 
-  // Widget state: 'teaser' | 'open' | 'collapsed'
-  const [widgetState, setWidgetState] = useState<'teaser' | 'open' | 'collapsed'>('collapsed');
-  const [isTypingInitial, setIsTypingInitial] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  // Start with 'teaser' mode so Oksana is visible to the visitor
+  const [widgetState, setWidgetState] = useState<'teaser' | 'open' | 'collapsed'>('teaser');
+  const [isTypingInitial, setIsTypingInitial] = useState(true);
+  const [hasPlayedSound, setHasPlayedSound] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Chat conversation state
   const initialGreeting = isRu
     ? '👋 Здравствуйте! Я Оксана, ведущий координатор Recruiter I Club.\n\nНа какой участок и сколько рабочих требуется предприятию? Сориентирую по срокам прибытия и наличию людей (ст. 23 ЗУ — 100% защита от мобилизации).'
     : '👋 Вітаю! Я Оксана, провідний координатор Recruiter I Club.\n\nНа яку ділянку та скільки робітників потрібно підприємству? Зорієнтую по строках прибуття та наявності людей (ст. 23 ЗУ — 100% захист від мобілізації).';
@@ -47,43 +45,51 @@ export default function FloatingLeadBar() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Play WhatsApp sound safely
   const playWhatsAppSound = () => {
     try {
       const audio = new Audio('/audio/whatsapp_notification.mp3');
       audio.volume = 0.85;
-      audio.play().catch(() => {});
+      const promise = audio.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => setHasPlayedSound(true))
+          .catch(() => {
+            // Audio autoplay blocked by browser policy, will play on next click
+          });
+      }
     } catch (e) {}
   };
 
-  // Entrance sequence: 1.2s typing -> 2.0s sound & show teaser
+  // Entrance sequence: typing for 1.2s, then reveal message & try audio
   useEffect(() => {
     if (pathname?.startsWith('/portal')) return;
 
-    // Check if user already dismissed in this session
-    const dismissed = sessionStorage.getItem('riclub_ai_dismissed');
-    if (dismissed) {
-      setWidgetState('collapsed');
-      return;
-    }
-
-    const t1 = setTimeout(() => {
-      setIsTypingInitial(true);
-      setWidgetState('teaser');
-    }, 1200);
-
-    const t2 = setTimeout(() => {
+    // Show typing simulation for 1.2s then reveal
+    const timer = setTimeout(() => {
       setIsTypingInitial(false);
       playWhatsAppSound();
-    }, 2200);
+    }, 1200);
+
+    // Also attach a one-time interaction listener to play sound on first user touch/click
+    const handleFirstInteraction = () => {
+      if (!hasPlayedSound) {
+        playWhatsAppSound();
+      }
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction, { once: true });
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true });
 
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      clearTimeout(timer);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
     };
-  }, [pathname]);
+  }, [pathname, hasPlayedSound]);
 
-  // Auto scroll chat
+  // Auto-scroll inside chat
   useEffect(() => {
     if (widgetState === 'open') {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -94,14 +100,17 @@ export default function FloatingLeadBar() {
     const textToSend = (queryText || input).trim();
     if (!textToSend || loading) return;
 
-    // Expand to full chat window if inside teaser
-    if (widgetState !== 'open') {
-      setWidgetState('open');
-    }
+    // Ensure audio plays and window is open
+    playWhatsAppSound();
+    setWidgetState('open');
 
     const newMsgs: ChatMessage[] = [
       ...messages,
-      { role: 'user', content: textToSend, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+      { 
+        role: 'user', 
+        content: textToSend, 
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+      }
     ];
     setMessages(newMsgs);
     if (!queryText) setInput('');
@@ -127,7 +136,7 @@ export default function FloatingLeadBar() {
             role: 'assistant',
             content: data.reply,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            quickReplies: data.quickReplies
+            quickReplies: data.quickReplies && data.quickReplies.length > 0 ? data.quickReplies : undefined
           }
         ]);
       } else {
@@ -160,7 +169,6 @@ export default function FloatingLeadBar() {
 
   const handleDismiss = () => {
     setWidgetState('collapsed');
-    sessionStorage.setItem('riclub_ai_dismissed', 'true');
   };
 
   if (pathname?.startsWith('/portal')) {
@@ -169,21 +177,24 @@ export default function FloatingLeadBar() {
 
   return (
     <>
-      <div className="fixed bottom-5 right-5 z-40 max-w-[390px] w-[calc(100%-2.5rem)] select-none">
+      <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50 max-w-[390px] w-[calc(100%-2rem)] select-none">
         
-        {/* State 1: Proactive Teaser Speech Bubble */}
+        {/* State 1: Proactive Teaser Speech Bubble (Visible on site entry) */}
         {widgetState === 'teaser' && (
-          <div className="bg-[#0b1324] border border-amber-500/30 rounded-3xl p-5 shadow-2xl shadow-black/70 backdrop-blur-xl text-white relative animate-fadeIn transition-all">
+          <div className="bg-[#0b1324]/95 border-2 border-amber-500/40 rounded-3xl p-5 shadow-2xl shadow-black/80 backdrop-blur-xl text-white relative animate-fadeIn transition-all">
             
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
-              <div className="flex items-center gap-3">
+              <div 
+                onClick={() => { setWidgetState('open'); playWhatsAppSound(); }} 
+                className="flex items-center gap-3 cursor-pointer group"
+              >
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-400 shrink-0 shadow-md">
+                  <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-amber-400 shrink-0 shadow-md">
                     <img
                       src="/team/oksana_kovalchuk.jpg"
                       alt="Оксана Ковальчук"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = '/images/logo/riclub_gold_seal_3d.png';
                       }}
@@ -192,11 +203,11 @@ export default function FloatingLeadBar() {
                   <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0b1324] animate-pulse"></span>
                 </div>
                 <div>
-                  <div className="font-extrabold text-xs text-white flex items-center gap-1.5">
+                  <div className="font-black text-xs text-white flex items-center gap-1.5">
                     <span>Оксана Ковальчук</span>
-                    <span className="text-[10px] px-1.5 py-0.2 bg-amber-400/20 text-amber-300 rounded font-semibold">AI B2B</span>
+                    <span className="text-[10px] px-1.5 py-0.5 bg-amber-400/20 text-amber-300 rounded font-bold">B2B AI</span>
                   </div>
-                  <div className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                  <div className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                     <span>{isRu ? 'В сети · отвечает за 30 сек' : 'В мережі · відповідає за 30 сек'}</span>
                   </div>
@@ -212,7 +223,7 @@ export default function FloatingLeadBar() {
               </button>
             </div>
 
-            {/* Content: Typing vs Speech */}
+            {/* Content: Typing vs Speech Bubble */}
             {isTypingInitial ? (
               <div className="py-3 px-4 bg-white/5 rounded-2xl flex items-center gap-2.5 text-xs text-emerald-300">
                 <span className="flex gap-1">
@@ -226,9 +237,14 @@ export default function FloatingLeadBar() {
               </div>
             ) : (
               <div className="space-y-3">
-                <p className="text-xs text-slate-100 leading-relaxed font-normal whitespace-pre-line">
-                  {initialGreeting}
-                </p>
+                <div 
+                  onClick={() => { setWidgetState('open'); playWhatsAppSound(); }} 
+                  className="cursor-pointer"
+                >
+                  <p className="text-xs text-slate-100 leading-relaxed font-normal whitespace-pre-line hover:text-white transition-colors">
+                    {initialGreeting}
+                  </p>
+                </div>
 
                 {/* Quick 1-click Pills */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
@@ -236,7 +252,7 @@ export default function FloatingLeadBar() {
                     <button
                       key={idx}
                       onClick={() => handleSendMessage(pill)}
-                      className="px-2.5 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 text-[11px] font-bold transition cursor-pointer"
+                      className="px-2.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 text-[11px] font-bold transition-all cursor-pointer shadow-xs active:scale-95"
                     >
                       {pill}
                     </button>
@@ -257,7 +273,7 @@ export default function FloatingLeadBar() {
                   />
                   <button
                     onClick={() => handleSendMessage()}
-                    className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition shadow-md flex items-center justify-center cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition shadow-md flex items-center justify-center cursor-pointer active:scale-95"
                   >
                     ➔
                   </button>
@@ -270,10 +286,10 @@ export default function FloatingLeadBar() {
 
         {/* State 2: Full Interactive Chat Dialog */}
         {widgetState === 'open' && (
-          <div className="bg-[#0b1324] border border-amber-500/30 rounded-3xl shadow-2xl shadow-black/80 backdrop-blur-2xl text-white overflow-hidden flex flex-col h-[520px] animate-fadeIn">
+          <div className="bg-[#0b1324] border-2 border-amber-500/40 rounded-3xl shadow-2xl shadow-black/90 backdrop-blur-2xl text-white overflow-hidden flex flex-col h-[530px] animate-fadeIn">
             
             {/* Header */}
-            <div className="px-4 py-3 bg-slate-950/90 border-b border-white/10 flex items-center justify-between">
+            <div className="px-4 py-3.5 bg-slate-950/95 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-amber-400 shrink-0">
@@ -296,7 +312,7 @@ export default function FloatingLeadBar() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setIsModalOpen(true)}
                   className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] transition shadow-sm cursor-pointer mr-1"
@@ -328,9 +344,9 @@ export default function FloatingLeadBar() {
                   className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl p-3.5 text-xs leading-relaxed whitespace-pre-line shadow-md ${
+                    className={`max-w-[88%] rounded-2xl p-3.5 text-xs leading-relaxed whitespace-pre-line shadow-md ${
                       m.role === 'user'
-                        ? 'bg-amber-500 text-slate-950 font-medium rounded-tr-xs'
+                        ? 'bg-amber-500 text-slate-950 font-semibold rounded-tr-xs'
                         : 'bg-slate-900 border border-white/10 text-slate-100 rounded-tl-xs'
                     }`}
                   >
@@ -343,7 +359,7 @@ export default function FloatingLeadBar() {
                           <button
                             key={qIdx}
                             onClick={() => handleSendMessage(qr)}
-                            className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 text-[10px] font-bold transition cursor-pointer"
+                            className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 text-[10px] font-bold transition cursor-pointer active:scale-95"
                           >
                             {qr}
                           </button>
@@ -360,7 +376,7 @@ export default function FloatingLeadBar() {
               ))}
 
               {loading && (
-                <div className="flex items-center gap-2 p-3 rounded-2xl bg-slate-900/80 border border-white/10 text-xs text-slate-400 max-w-[70%]">
+                <div className="flex items-center gap-2 p-3 rounded-2xl bg-slate-900/80 border border-white/10 text-xs text-slate-400 max-w-[75%]">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '0ms' }}></span>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '150ms' }}></span>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '300ms' }}></span>
@@ -389,7 +405,7 @@ export default function FloatingLeadBar() {
                 <button
                   type="submit"
                   disabled={loading || !input.trim()}
-                  className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-md disabled:opacity-40 cursor-pointer"
+                  className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-md disabled:opacity-40 cursor-pointer active:scale-95"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -419,14 +435,14 @@ export default function FloatingLeadBar() {
           </div>
         )}
 
-        {/* State 3: Collapsed Floating Button */}
+        {/* State 3: Collapsed Floating Trigger */}
         {widgetState === 'collapsed' && (
           <button
             onClick={() => {
               setWidgetState('open');
               playWhatsAppSound();
             }}
-            className="relative flex items-center gap-3 p-2.5 pr-4 rounded-full bg-[#0b1324] text-white border border-amber-500/40 shadow-2xl hover:border-amber-400 hover:scale-105 transition-all group cursor-pointer ml-auto"
+            className="relative flex items-center gap-3 p-2.5 pr-4 rounded-full bg-[#0b1324] text-white border-2 border-amber-500/50 shadow-2xl hover:border-amber-400 hover:scale-105 transition-all group cursor-pointer ml-auto"
           >
             {/* Red Unread Notification Badge */}
             <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5">
@@ -436,9 +452,9 @@ export default function FloatingLeadBar() {
               </span>
             </span>
 
-            {/* Avatar with pulsing dot */}
+            {/* Avatar with pulsing beacon */}
             <div className="relative">
-              <div className="w-8 h-8 rounded-full overflow-hidden border border-amber-400 shrink-0">
+              <div className="w-9 h-9 rounded-full overflow-hidden border border-amber-400 shrink-0">
                 <img
                   src="/team/oksana_kovalchuk.jpg"
                   alt="Оксана"
