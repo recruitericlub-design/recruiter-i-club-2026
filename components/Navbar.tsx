@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { ShieldCheck, ChevronRight, Menu, X, UserCheck, Phone, CheckCircle2 } from 'lucide-react';
 import QuotaBookingModal from './QuotaBookingModal';
 import BrandLogo from './BrandLogo';
+import SlavaUkrainiBadge from './SlavaUkrainiBadge';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -85,8 +86,12 @@ export default function Navbar() {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Bespoke Logo with Ukrainian Trident */}
-            <BrandLogo variant="dark" />
+            {/* Bespoke Logo with Ukrainian Trident & Slava Ukraini Emblem */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              <BrandLogo variant="dark" />
+              <div className="hidden sm:block h-8 w-px bg-slate-200"></div>
+              <SlavaUkrainiBadge size="md" className="hidden sm:inline-flex" />
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden xl:flex items-center gap-1">
@@ -217,6 +222,9 @@ export default function Navbar() {
               >
                 {isRu ? 'Отправить заявку на персонал' : 'Відправити заявку на персонал'}
               </button>
+              <div className="pt-2 flex justify-center">
+                <SlavaUkrainiBadge size="md" />
+              </div>
             </div>
           </div>
         )}

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Lock, CheckCircle2 } from 'lucide-react';
 import BrandLogo from './BrandLogo';
+import SlavaUkrainiBadge from './SlavaUkrainiBadge';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -20,7 +21,11 @@ export default function Footer() {
           
           {/* Col 1: Brand & Ukraine Mission */}
           <div className="lg:col-span-2 space-y-4">
-            <BrandLogo variant="light" />
+            <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+              <BrandLogo variant="light" />
+              <div className="hidden sm:block h-8 w-px bg-slate-800"></div>
+              <SlavaUkrainiBadge size="md" withGlow />
+            </div>
 
             <p className="text-slate-400 leading-relaxed max-w-sm">
               {isRu
@@ -115,7 +120,10 @@ export default function Footer() {
 
         {/* Bottom Strip */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
-          <p>© 2026 Recruiter I Club (ТОВ «Рекрутер Ай Клаб»). {isRu ? 'Все права защищены. Официальное трудоустройство иностранцев в Украине.' : 'Всі права захищені. Офіційне працевлаштування іноземців в Україні.'}</p>
+          <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
+            <SlavaUkrainiBadge size="sm" />
+            <p>© 2026 Recruiter I Club (ТОВ «Рекрутер Ай Клаб»). {isRu ? 'Все права защищены. Официальное трудоустройство иностранцев в Украине.' : 'Всі права захищені. Офіційне працевлаштування іноземців в Україні.'}</p>
+          </div>
           <div className="flex gap-6">
             <span>{isRu ? 'Защита от мобилизации (ст. 23 ЗУ)' : 'Захист від мобілізації (ст. 23 ЗУ)'}</span>
             <span>{isRu ? 'Договорная гарантия замены' : 'Договірна гарантія заміни'}</span>
