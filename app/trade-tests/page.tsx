@@ -5,10 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Play, CheckCircle2, ShieldCheck, Video, Bus, Wrench, FileCheck, Sparkles, ArrowRight } from 'lucide-react';
 import QuotaBookingModal from '@/components/QuotaBookingModal';
+import CandidateAccessModal from '@/components/CandidateAccessModal';
 
 export default function TradeTestsPage() {
   const [activeTab, setActiveTab] = useState<'all' | 'transfer' | 'trade_test'>('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
+  const [selectedVideoTitle, setSelectedVideoTitle] = useState('');
 
   const videoItems = [
     {
@@ -207,10 +210,13 @@ export default function TradeTestsPage() {
 
             <div className="p-6 pt-0">
               <button
-                onClick={() => setIsModalOpen(true)}
-                className="w-full py-3 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+                onClick={() => {
+                  setSelectedVideoTitle(item.title);
+                  setIsAccessModalOpen(true);
+                }}
+                className="w-full py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
               >
-                <span>Замовити таких фахівців</span>
+                <span>Отримати повний доступ до відео та досьє</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -269,6 +275,15 @@ export default function TradeTestsPage() {
           </button>
         </div>
       </div>
+
+      <CandidateAccessModal
+        isOpen={isAccessModalOpen}
+        onClose={() => {
+          setIsAccessModalOpen(false);
+          setSelectedVideoTitle('');
+        }}
+        profession={selectedVideoTitle || 'Trade-Test відео'}
+      />
 
       <QuotaBookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>

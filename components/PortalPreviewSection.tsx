@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Video, ArrowRight, UserCheck, Sparkles, FileText, CheckCircle2 } from 'lucide-react';
 import QuotaBookingModal from './QuotaBookingModal';
+import CandidateAccessModal from './CandidateAccessModal';
 
 export default function PortalPreviewSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
   const isRu = locale === 'ru';
@@ -222,10 +223,14 @@ export default function PortalPreviewSection({ locale = 'uk' }: { locale?: 'uk' 
         </div>
       </section>
 
-      <QuotaBookingModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        preselectedCategory={selectedCandidate || undefined}
+      <CandidateAccessModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedCandidate('');
+        }}
+        candidateName={selectedCandidate.split(' (')[0] || undefined}
+        profession={selectedCandidate.split(' (')[1]?.replace(')', '') || undefined}
       />
     </>
   );

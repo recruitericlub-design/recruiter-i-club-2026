@@ -22,6 +22,7 @@ import {
   UserCheck
 } from 'lucide-react';
 import QuotaBookingModal from './QuotaBookingModal';
+import CandidateAccessModal from './CandidateAccessModal';
 
 export interface WorkerCandidate {
   id: string;
@@ -277,6 +278,13 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
   const [dossierWorker, setDossierWorker] = useState<WorkerCandidate | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [videoModalUrl, setVideoModalUrl] = useState<string | null>(null);
+  const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
+  const [accessCandidate, setAccessCandidate] = useState<{ name: string; profession: string } | null>(null);
+
+  const handleOpenCandidateAccess = (worker: WorkerCandidate) => {
+    setAccessCandidate({ name: worker.name, profession: worker.specialty });
+    setIsAccessModalOpen(true);
+  };
 
   // Filter candidates dynamically
   const filteredCandidates = useMemo(() => {
@@ -448,7 +456,7 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
             <div 
               key={worker.id}
               className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
-              onClick={() => setDossierWorker(worker)}
+              onClick={() => handleOpenCandidateAccess(worker)}
             >
               {/* Card Photo Banner */}
               <div className="relative h-64 w-full overflow-hidden bg-slate-100">
@@ -534,11 +542,11 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setDossierWorker(worker);
+                      handleOpenCandidateAccess(worker);
                     }}
                     className="w-full py-2 px-2.5 rounded-xl border border-slate-200 hover:border-slate-400 text-slate-700 font-bold text-xs flex items-center justify-center gap-1 transition-colors"
                   >
-                    <span>{isRu ? "Досье" : "Досьє"}</span>
+                    <span>{isRu ? "Досье и видео" : "Досьє та відео"}</span>
                     <FileText className="w-3 h-3 text-slate-500" />
                   </button>
 
@@ -755,6 +763,17 @@ export default function WorkerCatalogSection({ locale = 'uk' }: { locale?: 'uk' 
           </div>
         </div>
       )}
+
+      {/* Candidate Access Request Modal (NDA Gated) */}
+      <CandidateAccessModal
+        isOpen={isAccessModalOpen}
+        onClose={() => {
+          setIsAccessModalOpen(false);
+          setAccessCandidate(null);
+        }}
+        candidateName={accessCandidate?.name}
+        profession={accessCandidate?.profession}
+      />
 
       {/* Booking Modal */}
       <QuotaBookingModal 
