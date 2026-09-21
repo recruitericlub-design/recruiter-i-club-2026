@@ -78,20 +78,27 @@ export default function Footer() {
             <h4 className="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-[11px]">
               {isRu ? 'Контакты' : 'Контакти'}
             </h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-slate-300">
-                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>{isRu ? 'Киев, ул. Большая Васильковская, 72' : 'Київ, вул. Велика Васильківська, 72'}</span>
+              <div className="space-y-3">
+                <a 
+                  href="tel:+380739475324" 
+                  className="flex items-center gap-2 text-slate-200 hover:text-amber-400 font-bold text-xs transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>+380 (73) 947-53-24</span>
+                </a>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>{isRu ? 'Киев, ул. Большая Васильковская, 72' : 'Київ, вул. Велика Васильківська, 72'}</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>{isRu ? 'Прием заявок: онлайн 24/7' : 'Прийом заявок: онлайн 24/7'}</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>b2b@recruiter-i.club</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-slate-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>{isRu ? 'Прием заявок: онлайн 24/7' : 'Прийом заявок: онлайн 24/7'}</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-300">
-                <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>b2b@recruiter-i.club</span>
-              </div>
-            </div>
           </div>
 
           {/* Col 5: Security / PIN Access */}

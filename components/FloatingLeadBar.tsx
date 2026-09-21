@@ -157,8 +157,8 @@ export default function FloatingLeadBar() {
         {
           role: 'assistant',
           content: isRu 
-            ? 'Для быстрого расчета стоимости и получения резюме звоните на нашу горячую линию: +380 (44) 299-48-20 или пишите в Telegram.' 
-            : 'Для швидкого розрахунку вартості та отримання резюме телефонуйте на нашу гарячу лінію: +380 (44) 299-48-20 або пишіть у Telegram.',
+            ? 'Для быстрого расчета стоимости и получения резюме звоните на нашу горячую линию: +380 (73) 947-53-24 или пишите в Telegram.' 
+            : 'Для швидкого розрахунку вартості та отримання резюме телефонуйте на нашу гарячу лінію: +380 (73) 947-53-24 або пишіть у Telegram.',
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
       ]);
@@ -414,11 +414,11 @@ export default function FloatingLeadBar() {
               {/* Bottom Quick Links */}
               <div className="flex items-center justify-between text-[10px] text-slate-400 pt-2 px-1">
                 <a 
-                  href="tel:+380442994820" 
-                  className="flex items-center gap-1 hover:text-white transition"
+                  href="tel:+380739475324" 
+                  className="flex items-center gap-2 text-xs font-bold text-slate-800 hover:text-emerald-700 transition"
                 >
-                  <Phone className="w-3 h-3 text-amber-400" />
-                  <span>+380 (44) 299-48-20</span>
+                  <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>+380 (73) 947-53-24</span>
                 </a>
                 <a 
                   href="https://t.me/recruiter_i_club" 

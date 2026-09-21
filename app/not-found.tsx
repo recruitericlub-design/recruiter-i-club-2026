@@ -61,11 +61,11 @@ export default function NotFound() {
           </Link>
           
           <a
-            href="tel:+380674686991"
+            href="tel:+380739475324"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-colors shadow-sm min-h-[44px]"
           >
             <PhoneCall className="w-4 h-4" />
-            (067) 468-69-91
+            <span>(073) 947-53-24</span>
           </a>
         </div>
       </div>

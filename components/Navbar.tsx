@@ -64,11 +64,11 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
             <a 
-              href="tel:+380442994820"
+              href="tel:+380739475324"
               className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white font-semibold transition-colors"
             >
               <Phone className="w-3.5 h-3.5 text-amber-400" />
-              <span>+380 (44) 299-48-20</span>
+              <span>+380 (73) 947-53-24</span>
             </a>
             <span className="text-slate-600 hidden sm:inline">|</span>
             <Link 
