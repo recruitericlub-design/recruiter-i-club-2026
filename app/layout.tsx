@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'google-site-verification-recruiter-i-club',
+    google: 'googledf1a957fbdbc5b1c',
   },
 };
 
