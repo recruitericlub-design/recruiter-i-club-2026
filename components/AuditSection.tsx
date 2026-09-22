@@ -146,13 +146,13 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  {isRu ? 'Специальность / Сфера' : 'Спеціальність / Сфера'}
+                  {isRu ? 'Специальность / Сфера деятельности' : 'Спеціальність / Сфера діяльності'}
                 </label>
                 <input
                   type="text"
                   value={formData.specialization}
                   onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
-                  placeholder={isRu ? 'Например: Сварщики MIG, арматурщики, комплектовщики' : 'Наприклад: Зварювальники MIG, арматурники, комплектувальники'}
+                  placeholder={isRu ? 'Например: Комплектовщики, склад, теплицы, производство, монолит' : 'Наприклад: Комплектувальники, склад, теплиці, виробництво, моноліт'}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none"
                 />
               </div>
@@ -163,12 +163,16 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
                 className="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/20 transition active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
-                <span>{loading ? (isRu ? 'Отправка...' : 'Відправка...') : (isRu ? 'Получить расчет сметы и досье' : 'Отримати розрахунок кошторису та досьє')}</span>
+                <span>{loading ? (isRu ? 'Отправка...' : 'Відправка...') : (isRu ? 'Получить расчет сметы и реальные сроки' : 'Отримати розрахунок кошторису та реальні строки')}</span>
               </button>
 
-              <p className="text-[11px] text-slate-400 text-center mt-2">
-                🔒 {isRu ? 'Конфиденциально. Мы не передаем данные третьим лицам.' : 'Конфіденційно. Ми не передаємо ваші дані третім особам.'}
-              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-500 text-center mt-3">
+                <span className="flex items-center gap-1">🔒 {isRu ? 'Конфиденциально' : 'Конфіденційно'}</span>
+                <span>•</span>
+                <span className="flex items-center gap-1">🛡️ {isRu ? 'Оплата комиссии по факту выхода' : 'Оплата комісії за фактом виходу'}</span>
+                <span>•</span>
+                <span className="flex items-center gap-1">📋 {isRu ? 'Лицензия Минсоцполитики №1428' : 'Ліцензія Мінсоцполітики №1428'}</span>
+              </div>
             </form>
           )}
 

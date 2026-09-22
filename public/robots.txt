@@ -19,5 +19,24 @@ Disallow: /api/
 Disallow: /portal
 Disallow: /portal/
 
+# AI Search Engine Crawlers (ChatGPT Search, Perplexity, Claude Search)
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /portal
+Disallow: /portal/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /portal
+Disallow: /portal/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /portal
+Disallow: /portal/
+
 # Sitemap
 Sitemap: https://www.recruiter-i.club/sitemap.xml

@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { PROFESSIONS_DATA } from '@/lib/professionsData';
 
+import { articlesData } from '@/lib/articlesData';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.recruiter-i.club';
   const now = new Date();
@@ -31,28 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const blogArticles = [
-    'legal-guide-foreign-worker-hiring-ukraine-2026',
-    'article-23-law-ukraine-mobilization-exemption',
-    'economic-efficiency-import-workers-roi-2026',
-    'pricing-cost-of-importing-workers-2026',
-    'taxes-foreign-employee-taxation-ukraine-2026',
-    'adaptation-overcoming-language-barrier-on-production',
-    'industries-construction-and-agriculture-workers',
-    'industries-manufacturing-and-textile-workers',
-    'legal-extending-work-permit-ukraine-lifehack',
-    'legal-work-permit-and-trc-guide',
-    'logistics-import-timeline-asia-to-ukraine',
-    'logistics-transit-corridor-chisinau-odesa',
-    'work-in-ukraine-extending-work-contract-second-year',
-    'work-in-ukraine-legal-guide-for-foreigners',
-    'work-in-ukraine-salary-accommodation-and-worker-rights',
-    'work-in-ukraine-trc-temporary-residence-card',
-    'work-in-ukraine-visa-d04-and-medical-requirements',
-  ];
-
-  const articlePages = blogArticles.map((slug) => ({
-    url: baseUrl + '/blog/' + slug,
+  const articlePages = articlesData.map((article) => ({
+    url: baseUrl + '/blog/' + article.slug,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.75,

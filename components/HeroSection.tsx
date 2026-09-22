@@ -25,18 +25,18 @@ export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
               {/* Green Pill Badge */}
               <span className="inline-flex items-center gap-2 rounded-full uppercase tracking-wide bg-emerald-50 text-emerald-800 border border-emerald-300/80 text-xs font-bold px-3.5 py-1.5 mb-5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>{isRu ? 'Узбекистан и Азия → Украина · под ключ за 21–30 дней' : 'Узбекистан та Азія → Україна · під ключ за 21–30 днів'}</span>
+                <span>{isRu ? 'Официальный завоз иностранцев и трудовых мигрантов в Украину' : 'Офіційний завіз іноземців та трудових мігрантів в Україну'}</span>
               </span>
 
               {/* Exact Headline */}
               <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900 tracking-tight leading-[1.18] mb-5">
                 {isRu ? (
                   <>
-                    Подбор и легализация рабочего персонала из Узбекистана и стран Азии <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«под ключ»</span>
+                    Подбор и завоз иностранцев на работу в Украину: трудовые мигранты из Азии <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«под ключ»</span>
                   </>
                 ) : (
                   <>
-                    Підбір та легалізація робітничого персоналу з Узбекистану та країн Азії <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«під ключ»</span>
+                    Підбір та завіз іноземців на роботу в Україну: трудові мігранти з Азії <span className="inline-block text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-3 py-0.5 rounded-xl whitespace-nowrap align-baseline shadow-xs">«під ключ»</span>
                   </>
                 )}
               </h1>
@@ -44,8 +44,8 @@ export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' })
               {/* Exact Subtitle */}
               <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium mb-6">
                 {isRu 
-                  ? 'Закрываем дефицит от 3 до 50+ рабочих для производств, складов, строительства и агросектора. Дисциплинированный персонал на контракты 1–2 года без риска мобилизации и простоя смен.'
-                  : 'Закриваємо дефіцит від 3 до 50+ робітників для виробництв, складів, будівництва та агросектору. Дисциплінований персонал на контракти 1–2 роки без ризику мобілізації та простою змін.'
+                  ? 'Легальный завоз рабочих и трудоустройство иностранцев в штат вашего предприятия. Закрываем дефицит от 3 до 50+ специалистов (сварщики, ЧПУ, склады, агро) со 100% защитой от мобилизации по ст. 23 ЗУ.'
+                  : 'Легальне завезення робітників та працевлаштування іноземців у штат вашого підприємства. Закриваємо дефіцит від 3 до 50+ фахівців (зварювальники, ЧПК, склади, агро) зі 100% захистом від мобілізації за ст. 23 ЗУ.'
                 }
               </p>
 
