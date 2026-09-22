@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'Відеозвіти Trade-Tests та Спецтрансферу робітників | Recruiter I Club',
+  title: 'Відеозвіти Trade-Tests та Спецтрансферу робітників',
   description: 'Відеодокази практичної кваліфікації зварювальників, будівельників, операторів та відеофіксація безпечного трансферу Кишинів — Україна.',
   keywords: 'trade test відео, відео зварювальників міг маг, трансфер робітників україна, випробування персоналу з азії, recruiter i club відео',
   alternates: {

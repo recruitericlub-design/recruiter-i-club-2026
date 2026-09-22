@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'Калькулятор вартості найму та окупності (ROI) персоналу з Азії | Recruiter I Club',
+  title: 'Калькулятор вартості найму та окупності (ROI) персоналу з Азії',
   description: 'Розрахуйте бюджет на залучення іноземних фахівців: зарплатний фонд, економія від простою цехів, терміни окупності та фіксація квоти.',
   keywords: [
     'калькулятор найму робітників',
@@ -43,5 +43,33 @@ export default function CalculatorLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      {/* Schema.org BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Головна",
+                "item": "https://www.recruiter-i.club/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Калькулятор окупності",
+                "item": "https://www.recruiter-i.club/calculator"
+              }
+            ]
+          }),
+        }}
+      />
+      {children}
+    </>
+  );
 }

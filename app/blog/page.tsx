@@ -6,7 +6,7 @@ import BlogCatalogClient from './BlogCatalogClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'База знань та експертні керівництва найму іноземців 2026 | Recruiter I Club',
+  title: 'База знань та експертні керівництва найму іноземців 2026',
   description: 'Повний каталог B2B та B2C статей: юридичний комплаєнс, дозвіл ДЦЗ, оподаткування ФОТ, візи D-04, захист від мобілізації та адаптація іноземного персоналу.',
   keywords: [
     'підбір іноземців на роботу в україну',
@@ -52,6 +52,30 @@ export const metadata: Metadata = {
 export default function BlogIndexPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
+      {/* Schema.org BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Головна",
+                "item": "https://www.recruiter-i.club/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "База знань",
+                "item": "https://www.recruiter-i.club/blog"
+              }
+            ]
+          }),
+        }}
+      />
       
       {/* Editorial Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">

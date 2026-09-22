@@ -21,7 +21,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const article = articlesData.find((a) => a.slug === params.slug);
   if (!article) {
     return {
-      title: 'Статтю не знайдено | Recruiter I Club',
+      title: 'Статтю не знайдено',
     };
   }
 
@@ -35,7 +35,7 @@ export function generateMetadata({ params }: Props): Metadata {
   ].filter(Boolean).join(', ');
 
   return {
-    title: `${article.title} | Recruiter I Club`,
+    title: article.title,
     description: article.summary,
     keywords: keywords,
     alternates: {

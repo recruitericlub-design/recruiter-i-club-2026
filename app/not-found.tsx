@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, Search, PhoneCall, Users } from 'lucide-react';
 
 export const metadata = {
-  title: 'Сторінку не знайдено (404) | Recruiter I Club',
+  title: 'Сторінку не знайдено (404)',
   description: 'Запитана сторінка не знайдена. Перейдіть до каталогу кандидатів або зв’яжіться з координатором.',
   robots: {
     index: false,

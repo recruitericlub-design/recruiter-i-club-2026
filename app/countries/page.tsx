@@ -5,7 +5,7 @@ import { ArrowRight, Globe, Clock, CheckCircle2, Shield, DollarSign } from 'luci
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Країни-донори іноземного персоналу | Recruiter I Club 2026',
+  title: 'Країни-донори іноземного персоналу 2026',
   description: 'Повний каталог країн для залучення робочої сили в Україну: Узбекистан, Індія, Бангладеш, Непал, Філіппіни. Терміни, зарплати, специфіка.',
   keywords: [
     'країни донори персоналу',
@@ -99,6 +99,30 @@ export default function CountriesCatalogPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+      {/* Schema.org BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Головна",
+                "item": "https://www.recruiter-i.club/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Країни найму",
+                "item": "https://www.recruiter-i.club/countries"
+              }
+            ]
+          }),
+        }}
+      />
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">

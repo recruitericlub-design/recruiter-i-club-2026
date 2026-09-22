@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Award } from 'lucide-reac
 import { PROFESSIONS_DATA } from '@/lib/professionsData';
 
 export const metadata: Metadata = {
-  title: 'Каталог робітничих професій з Азії для бізнесу України | Recruiter I Club',
+  title: 'Каталог робітничих професій з Азії для бізнесу України',
   description: 'Повний каталог кваліфікованого іноземного персоналу: зварювальники, арматурники, водії навантажувача, оператори ЧПК, фасувальники, робітники теплиць. Офіційний підбір під ключ.',
   keywords: 'підбір персоналу, робітничі спеціальності, зварювальники з узбекистану, будівельники з азії, складські працівники аутсорсинг, лінійний персонал україна',
   alternates: {
@@ -40,6 +40,30 @@ export default function ProfessionsCatalogPage() {
 
   return (
     <div className="bg-warm-paper min-h-screen py-16">
+      {/* Schema.org BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Головна",
+                "item": "https://www.recruiter-i.club/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Каталог професій",
+                "item": "https://www.recruiter-i.club/professions"
+              }
+            ]
+          }),
+        }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
