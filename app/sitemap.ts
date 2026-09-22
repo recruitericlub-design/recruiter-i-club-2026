@@ -40,5 +40,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  return [...staticPages, ...countryPages, ...professionPages, ...articlePages];
+  const documentPages = [
+    { url: baseUrl + '/documents/work-permit', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: baseUrl + '/documents/visa-d', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: baseUrl + '/documents/vnzh', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
+  ];
+
+  const industryPages = [
+    { url: baseUrl + '/industries/vyrobnytstvo', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: baseUrl + '/industries/lohistyka', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: baseUrl + '/industries/budivnytstvo', lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
+  ];
+
+  return [...staticPages, ...documentPages, ...industryPages, ...countryPages, ...professionPages, ...articlePages];
 }

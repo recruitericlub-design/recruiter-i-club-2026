@@ -17,10 +17,10 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-8">
           
           {/* Col 1: Brand & Ukraine Mission */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-3 xl:col-span-2 space-y-4">
             <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
               <BrandLogo variant="light" />
               <div className="hidden sm:block h-8 w-px bg-slate-800"></div>
@@ -56,6 +56,22 @@ export default function Footer() {
               <li><Link href="/countries" className="hover:text-white transition-colors">{isRu ? 'Страны-доноры' : 'Країни-донори'}</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">{isRu ? 'Команда и Основатели' : 'Команда та Засновники'}</Link></li>
               <li><Link href="/trade-tests" className="hover:text-white transition-colors">Trade Tests ({isRu ? 'Видео' : 'Відео'})</Link></li>
+              <li><Link href="/blog" className="hover:text-white transition-colors">{isRu ? 'Блог & База знаний' : 'Блог & База знань'}</Link></li>
+            </ul>
+          </div>
+
+          {/* Col: Legal Documents & Industries */}
+          <div>
+            <h4 className="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-[11px]">
+              {isRu ? 'Документы & Отрасли' : 'Документи & Галузі'}
+            </h4>
+            <ul className="space-y-2.5">
+              <li><Link href="/documents/work-permit" className="hover:text-white transition-colors text-emerald-400/90 hover:text-emerald-300 font-medium">{isRu ? 'Разрешение на работу (ГЦЗ)' : 'Дозвіл на роботу (ДЦЗ)'}</Link></li>
+              <li><Link href="/documents/visa-d" className="hover:text-white transition-colors">{isRu ? 'Рабочая виза D-04' : 'Робоча віза D-04'}</Link></li>
+              <li><Link href="/documents/vnzh" className="hover:text-white transition-colors">{isRu ? 'Вид на жительство (ВНЖ)' : 'Посвідка на проживання (ВНЖ)'}</Link></li>
+              <li className="pt-1 border-t border-slate-800"><Link href="/industries/vyrobnytstvo" className="hover:text-white transition-colors">{isRu ? 'Заводы и производство' : 'Заводи та виробництво'}</Link></li>
+              <li><Link href="/industries/lohistyka" className="hover:text-white transition-colors">{isRu ? 'Склады и логистика' : 'Склади та логістика'}</Link></li>
+              <li><Link href="/industries/budivnytstvo" className="hover:text-white transition-colors">{isRu ? 'Строительство и девелопмент' : 'Будівництво та девелопмент'}</Link></li>
             </ul>
           </div>
 
