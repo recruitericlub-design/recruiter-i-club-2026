@@ -61,9 +61,10 @@ const jsonLd = {
       'priceRange': '$$',
       'address': {
         '@type': 'PostalAddress',
-        'streetAddress': 'вул. Велика Васильківська, 72, БЦ «Олімпійський», 14 поверх',
-        'addressLocality': 'Київ',
-        'postalCode': '03150',
+        'streetAddress': 'вул. Узбекистанська, 1, кв. 11',
+        'addressLocality': 'Запоріжжя',
+        'addressRegion': 'Запорізька область',
+        'postalCode': '69000',
         'addressCountry': 'UA',
       },
       'geo': {

@@ -335,8 +335,8 @@ export default function AboutPage() {
       <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
         <div className="space-y-1 text-center md:text-left">
           <span className="text-amber-400 font-bold text-xs uppercase tracking-wider block">Офіційний зв&apos;язок з керівництвом</span>
-          <h3 className="text-xl sm:text-2xl font-black">Бажаєте провести B2B переговори у нашому офісі в Києві?</h3>
-          <p className="text-xs sm:text-sm text-slate-300">Приймальня керівництва: вул. Велика Васильківська, 72, Київ.</p>
+          <h3 className="text-xl sm:text-2xl font-black">Бажаєте провести B2B переговори з керівництвом?</h3>
+          <p className="text-xs sm:text-sm text-slate-300">Приймальня керівництва: вул. Узбекистанська, 1, Запоріжжя.</p>
         </div>
         <div className="flex items-center gap-3">
           <a

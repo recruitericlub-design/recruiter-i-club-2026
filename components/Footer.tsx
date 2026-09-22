@@ -104,7 +104,7 @@ export default function Footer() {
                 </a>
                 <div className="flex items-center gap-2 text-slate-300">
                   <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>{isRu ? 'Киев, ул. Большая Васильковская, 72' : 'Київ, вул. Велика Васильківська, 72'}</span>
+                  <span>{isRu ? 'Запорожье, ул. Узбекистанская, 1' : 'Запоріжжя, вул. Узбекистанська, 1'}</span>
                 </div>
                 <div className="flex items-center gap-2 text-slate-300">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
