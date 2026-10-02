@@ -18,6 +18,7 @@ export default function Navbar() {
   const navLinks = isRu
     ? [
         { name: 'Главная', href: '/ru' },
+        { name: 'Калькулятор', href: '/calculator' },
         { name: 'Профессии', href: '/professions' },
         { name: 'Страны', href: '/countries' },
         { name: 'Trade-Tests', href: '/trade-tests' },
@@ -27,6 +28,7 @@ export default function Navbar() {
       ]
     : [
         { name: 'Головна', href: '/' },
+        { name: 'Калькулятор', href: '/calculator' },
         { name: 'Професії', href: '/professions' },
         { name: 'Країни', href: '/countries' },
         { name: 'Trade-Tests', href: '/trade-tests' },

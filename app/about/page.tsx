@@ -331,12 +331,61 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Official Legal Registry & E-E-A-T Card */}
+      <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+          <div>
+            <span className="text-emerald-600 font-bold text-xs uppercase tracking-wider block">Юридична прозорість & E-E-A-T</span>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Офіційні реквізити суб&apos;єкта господарювання</h2>
+          </div>
+          <span className="px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-xs flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            100% Верифікований суб&apos;єкт
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+            <span className="font-semibold text-slate-400 block uppercase text-[10px]">Офіційний суб&apos;єкт</span>
+            <p className="font-bold text-slate-900 text-sm">ФОП Лухменко Станіслав Олександрович</p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+            <span className="font-semibold text-slate-400 block uppercase text-[10px]">ІПН / РНОКПП</span>
+            <p className="font-bold font-mono text-slate-900 text-sm">3534300652</p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+            <span className="font-semibold text-slate-400 block uppercase text-[10px]">Адреса реєстрації</span>
+            <p className="font-bold text-slate-900 text-xs">69083, м. Запоріжжя, вул. Узбекистанська, буд. 1, кв. 11</p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+            <span className="font-semibold text-slate-400 block uppercase text-[10px]">КВЕД діяльності</span>
+            <p className="font-bold text-slate-900 text-xs">78.10, 78.20, 78.30 (Агентства працевлаштування)</p>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-slate-500">
+            <FileCheck2 className="w-4 h-4 text-emerald-500" />
+            <span>Офіційний B2B договір з фіксацією безкоштовної заміни та пост-оплати комісії.</span>
+          </div>
+          <Link
+            href="/calculator"
+            className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1.5"
+          >
+            Розрахувати кошторис на онлайн-калькуляторі <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+
       {/* Official Corporate Inquiries Callout */}
       <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
         <div className="space-y-1 text-center md:text-left">
           <span className="text-amber-400 font-bold text-xs uppercase tracking-wider block">Офіційний зв&apos;язок з керівництвом</span>
           <h3 className="text-xl sm:text-2xl font-black">Бажаєте провести B2B переговори з керівництвом?</h3>
-          <p className="text-xs sm:text-sm text-slate-300">Приймальня керівництва: вул. Узбекистанська, 1, Запоріжжя.</p>
+          <p className="text-xs sm:text-sm text-slate-300">Приймальня керівництва: вул. Узбекистанська, 1, кв. 11, Запоріжжя.</p>
         </div>
         <div className="flex items-center gap-3">
           <a

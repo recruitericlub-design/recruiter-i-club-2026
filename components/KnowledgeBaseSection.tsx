@@ -7,54 +7,54 @@ export default function KnowledgeBaseSection({ locale = 'uk' }: { locale?: 'uk' 
   const articles = isRu
     ? [
         {
-          category: 'ФИНАНСЫ & СМЕТА',
+          category: 'АЛГОРИТМ И СМЕТА',
           year: '2026 ГОД',
-          title: 'Сколько стоит нанять рабочего из Азии: Расчет сметы от €850 и ROI за 14 дней',
-          desc: 'Подробный разбор затрат для финансовых директоров: сорсинг, госпошлина ДЦЗ, логистика Кишинев-Одесса и окупаемость без простоя оборудования.',
-          href: '/articles/pricing-cost-of-importing-workers-2026.html',
-          time: '4 мин чтения'
+          title: 'Завоз иностранцев и трудовые мигранты в Украину 2026: пошаговый алгоритм для работодателей',
+          desc: 'Официальный подбор, разрешения ГЦЗ, визы D-04, 100% защита от мобилизации по ст. 23 ЗУ. Финансовая модель от $500.',
+          href: '/blog/zaviz-inozemtsiv-trudovi-mihranty-v-ukrainu-2026',
+          time: '8 мин чтения'
         },
         {
-          category: 'НАЛОГИ & ФОТ 2026',
-          year: 'ЗАКОН №4695-IX',
-          title: 'Налогообложение зарплаты иностранца: НДФЛ 18%, Военный сбор 5%, ЕСВ 22% и лайфхак «0 грн»',
-          desc: 'Полные формулы начисления на минимальный оклад 8 647 грн и 20 000 грн. Как легально не платить налоги первые 60 дней во время оформления.',
-          href: '/articles/taxes-foreign-employee-taxation-ukraine-2026.html',
-          time: '4 мин чтения'
+          category: 'ОНЛАЙН КАЛЬКУЛЯТОР',
+          year: 'СМЕТА ОНЛАЙН',
+          title: 'Калькулятор стоимости завоза персонала: госпошлины, визы, трансфер и окупаемость',
+          desc: 'Интерактивный расчет расходов на 1, 5, 20 или 50 сотрудников под ключ с учетом всех госпошлин и сроков заезда.',
+          href: '/calculator',
+          time: '2 мин расчет'
         },
         {
-          category: 'ЮРИДИЧЕСКАЯ ЗАЩИТА',
-          year: 'СТАТЬЯ 23 ЗУ',
-          title: 'Защита от мобилизации (Статья 23 ЗУ): Почему иностранные рабочие не подлежат учету в ТЦК',
-          desc: 'Юридический комментарий адвоката Владлена Пономаренко: нормы законодательства, защита предприятия от внезапных изъятий кадров.',
-          href: '/articles/article-23-law-ukraine-mobilization-exemption.html',
-          time: '5 мин чтения'
+          category: 'МОДЕЛЬ 360 & АДАПТАЦИЯ',
+          year: 'ПРАКТИКА ЦЕХА',
+          title: 'Как преодолеть языковой барьер с рабочими из Азии: модель «Управление 360»',
+          desc: 'Руководство для мастеров цеха: двуязычные бригадиры, визуальный менеджмент 5S, аудио-переводчики и отсутствие брака.',
+          href: '/blog/adaptation-overcoming-language-barrier-on-production',
+          time: '6 мин чтения'
         }
       ]
     : [
         {
-          category: 'ФІНАНСИ & КОШТОРИС',
+          category: 'АЛГОРИТМ ТА КОШТОРИС',
           year: '2026 РІК',
-          title: 'Скільки коштує найняти робітника з Азії: Розрахунок кошторису від €850 та ROI за 14 днів',
-          desc: 'Детальний розбір витрат для фінансових директорів: сорсинг, держмито ДЦЗ, логістика Кишинів-Одеса та окупність без простою обладнання.',
-          href: '/articles/pricing-cost-of-importing-workers-2026.html',
-          time: '4 хв читання'
+          title: 'Завіз іноземців та підбір трудових мігрантів в Україну 2026: покроковий алгоритм для роботодавців',
+          desc: 'Офіційний підбір, дозволи ДЦЗ, візи D-04, 100% захист від мобілізації за ст. 23 ЗУ. Фінансова модель від $500.',
+          href: '/blog/zaviz-inozemtsiv-trudovi-mihranty-v-ukrainu-2026',
+          time: '8 хв читання'
         },
         {
-          category: 'ПОДАТКИ & ФОТ 2026',
-          year: 'ЗАКОН №4695-IX',
-          title: 'Оподаткування зарплати іноземця: ПДФО 18%, Військовий збір 5%, ЄСВ 22% та лайфхак «0 грн»',
-          desc: 'Повні формули нарахування на мінімальний оклад 8 647 грн та 20 000 грн. Як легально не платити податки перші 60 днів під час оформлення.',
-          href: '/articles/taxes-foreign-employee-taxation-ukraine-2026.html',
-          time: '4 хв читання'
+          category: 'ОНЛАЙН КАЛЬКУЛЯТОР',
+          year: 'КОШТОРИС ОНЛАЙН',
+          title: 'Калькулятор вартості завозу персоналу: держмито, візи, трансфер та окупність інвестицій',
+          desc: 'Інтерактивний розрахунок витрат на 1, 5, 20 або 50 співробітників під ключ з урахуванням держмит та строків заїзду.',
+          href: '/calculator',
+          time: '2 хв розрахунок'
         },
         {
-          category: 'ЮРИДИЧНИЙ ЗАХИСТ',
-          year: 'СТАТТЯ 23 ЗУ',
-          title: 'Захист від мобілізації (Стаття 23 ЗУ): Чому іноземні робітники не підлягають обліку в ТЦК',
-          desc: 'Юридичний коментар адвоката Владлена Пономаренка: норми законодавства, захист підприємства від раптових вилучень кадрів та правовий статус нерезидентів.',
-          href: '/articles/article-23-law-ukraine-mobilization-exemption.html',
-          time: '5 хв читання'
+          category: 'МОДЕЛЬ 360 & АДАПТАЦІЯ',
+          year: 'ПРАКТИКА ЦЕХУ',
+          title: 'Як подолати мовний бар\'єр із робітниками з Азії: модель «Управління 360»',
+          desc: 'Посібник для майстрів цеху: двомовні бригадири, візуальний менеджмент 5S, голосові AI-перекладачі та відсутність браку.',
+          href: '/blog/adaptation-overcoming-language-barrier-on-production',
+          time: '6 хв читання'
         }
       ];
 
@@ -114,6 +114,76 @@ export default function KnowledgeBaseSection({ locale = 'uk' }: { locale?: 'uk' 
               </div>
             </a>
           ))}
+        </div>
+
+        {/* Fast-Track SEO Internal Linking Strip */}
+        <div className="rounded-2xl bg-white border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-100">
+            <div>
+              <span className="text-emerald-700 font-bold text-[11px] uppercase tracking-wider block">
+                {isRu ? 'Официальные регламенты и отрасли найма' : 'Офіційні регламенти та галузі найму'}
+              </span>
+              <p className="text-slate-900 font-extrabold text-sm sm:text-base">
+                {isRu ? 'Нормативная документация и специализация предприятий' : 'Нормативна документація та спеціалізація підприємств'}
+              </p>
+            </div>
+            <Link
+              href="/calculator"
+              className="text-xs font-bold px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 transition-colors self-start sm:self-auto shrink-0 shadow-sm"
+            >
+              {isRu ? 'Онлайн-калькулятор сметы ➔' : 'Онлайн-калькулятор кошторису ➔'}
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 text-xs">
+            <Link 
+              href="/documents/work-permit" 
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200/60 transition-colors flex flex-col font-medium"
+            >
+              <span className="text-[10px] text-slate-400 font-mono">ДЕРЖПРАЦІ</span>
+              <span className="font-bold text-slate-900 mt-1">{isRu ? 'Разрешение ГЦЗ' : 'Дозвіл ДЦЗ'}</span>
+            </Link>
+
+            <Link 
+              href="/documents/visa-d" 
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200/60 transition-colors flex flex-col font-medium"
+            >
+              <span className="text-[10px] text-slate-400 font-mono">МЗС УКРАЇНИ</span>
+              <span className="font-bold text-slate-900 mt-1">{isRu ? 'Рабочая виза D-04' : 'Робоча віза D-04'}</span>
+            </Link>
+
+            <Link 
+              href="/documents/vnzh" 
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200/60 transition-colors flex flex-col font-medium"
+            >
+              <span className="text-[10px] text-slate-400 font-mono">ДМС УКРАЇНИ</span>
+              <span className="font-bold text-slate-900 mt-1">{isRu ? 'Посвідка ВНЖ' : 'Посвідка ВНЖ'}</span>
+            </Link>
+
+            <Link 
+              href="/industries/vyrobnytstvo" 
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200/60 transition-colors flex flex-col font-medium"
+            >
+              <span className="text-[10px] text-slate-400 font-mono">ГАЛУЗЬ №1</span>
+              <span className="font-bold text-slate-900 mt-1">{isRu ? 'Производство' : 'Виробництво'}</span>
+            </Link>
+
+            <Link 
+              href="/industries/lohistyka" 
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200/60 transition-colors flex flex-col font-medium"
+            >
+              <span className="text-[10px] text-slate-400 font-mono">ГАЛУЗЬ №2</span>
+              <span className="font-bold text-slate-900 mt-1">{isRu ? 'Склады / Логистика' : 'Склади / Логістика'}</span>
+            </Link>
+
+            <Link 
+              href="/industries/budivnytstvo" 
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200/60 transition-colors flex flex-col font-medium"
+            >
+              <span className="text-[10px] text-slate-400 font-mono">ГАЛУЗЬ №3</span>
+              <span className="font-bold text-slate-900 mt-1">{isRu ? 'Строительство' : 'Будівництво'}</span>
+            </Link>
+          </div>
         </div>
 
       </div>

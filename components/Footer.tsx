@@ -104,7 +104,11 @@ export default function Footer() {
                 </a>
                 <div className="flex items-center gap-2 text-slate-300">
                   <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>{isRu ? 'Запорожье, ул. Узбекистанская, 1' : 'Запоріжжя, вул. Узбекистанська, 1'}</span>
+                  <span>{isRu ? 'Запорожье, ул. Узбекистанская, 1, кв. 11' : 'Запоріжжя, вул. Узбекистанська, 1, кв. 11'}</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>ФОП Лухменко С. О. · ІПН 3534300652</span>
                 </div>
                 <div className="flex items-center gap-2 text-slate-300">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -145,7 +149,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
           <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
             <SlavaUkrainiBadge size="sm" />
-            <p>© 2026 Recruiter I Club (ТОВ «Рекрутер Ай Клаб»). {isRu ? 'Все права защищены. Официальное трудоустройство иностранцев в Украине.' : 'Всі права захищені. Офіційне працевлаштування іноземців в Україні.'}</p>
+            <p>© 2026 Recruiter I Club. {isRu ? 'Официальный B2B-оператор: ФОП Лухменко С. О. (ІПН 3534300652). Все права защищены.' : 'Офіційний B2B-оператор: ФОП Лухменко С. О. (ІПН 3534300652). Всі права захищені.'}</p>
           </div>
           <div className="flex gap-6">
             <span>{isRu ? 'Защита от мобилизации (ст. 23 ЗУ)' : 'Захист від мобілізації (ст. 23 ЗУ)'}</span>
