@@ -23,26 +23,26 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Трудоустройство иностранцев в Украине | Рекрутинговое агентство Recruiter I Club',
-    description: 'Официальный подбор персонала из Узбекистана и стран Азии для производств, строек и складов Украины. 100% защита от мобилизации (ст. 23 ЗУ). Лицензия Минсоцполитики №1428.',
+    title: 'Подбор и завоз персонала из Азии в Украину | Recruiter I Club',
+    description: 'Официальный подбор рабочих из Узбекистана, Индии и Бангладеш для производств, строек и складов. 100% защита от мобилизации (ст. 23 ЗУ). Оплата комиссии ТОЛЬКО после выхода на смену.',
     url: 'https://www.recruiter-i.club/ru',
     siteName: 'Recruiter I Club',
     locale: 'ru_UA',
     type: 'website',
     images: [
       {
-        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png?v=20261012',
         width: 1200,
         height: 630,
-        alt: 'Recruiter I Club — Подбор и легализация иностранного персонала в Украине',
+        alt: 'Recruiter I Club — Подбор и завоз персонала из Азии под ключ',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Трудоустройство иностранцев в Украине — Recruiter I Club',
-    description: 'Официальное разрешение на работу и подбор рабочих из Азии под ключ. 100% защита от мобилизации (ст. 23 ЗУ). Оплата комиссии только после выхода на смену.',
-    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+    title: 'Подбор и завоз персонала из Азии в Украину — Recruiter I Club',
+    description: 'Официальный подбор рабочих из Узбекистана, Индии и Бангладеш для производств, строек и складов. 100% защита от мобилизации (ст. 23 ЗУ). Оплата комиссии ТОЛЬКО после выхода на смену.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png?v=20261012'],
   },
 };
 

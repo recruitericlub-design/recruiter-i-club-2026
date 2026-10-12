@@ -53,26 +53,26 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Recruiter I Club — Легальні іноземні робітники для бізнесу України',
-    description: 'Офіційне працевлаштування в штат вашого ТОВ. Вартість від $500 за працівника. Заміна за 48 годин.',
+    title: 'Підбір та завіз персоналу з Азії в Україну | Recruiter I Club',
+    description: 'Офіційний підбір робітників з Узбекистану, Індії та Бангладеш для виробництв, складів і будівництва. 100% захист від мобілізації (ст. 23 ЗУ). Оплата комісії ТІЛЬКИ після виходу на зміну.',
     url: 'https://www.recruiter-i.club/',
     siteName: 'Recruiter I Club',
     locale: 'uk_UA',
     type: 'website',
     images: [
       {
-        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png?v=20261012',
         width: 1200,
         height: 630,
-        alt: 'Recruiter I Club — Підбір та легалізація іноземного персоналу в Україні',
+        alt: 'Recruiter I Club — Підбір та завіз персоналу з Азії під ключ',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Recruiter I Club — Підбір іноземного персоналу в Україні',
-    description: 'Легальний імпорт персоналу з Азії. Ліцензія Мінсоцполітики №1428. 100% захист від мобілізації (ст. 23 ЗУ).',
-    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+    title: 'Підбір та завіз персоналу з Азії в Україну — Recruiter I Club',
+    description: 'Офіційний підбір робітників з Узбекистану, Індії та Бангладеш для виробництв, складів і будівництва. 100% захист від мобілізації (ст. 23 ЗУ). Оплата комісії ТІЛЬКИ після виходу на зміну.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png?v=20261012'],
   },
   verification: {
     google: 'googledf1a957fbdbc5b1c',

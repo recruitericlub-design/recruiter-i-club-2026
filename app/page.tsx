@@ -23,26 +23,26 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Працевлаштування іноземців в Україні | Рекрутингова агенція Recruiter I Club',
-    description: 'Офіційний дозвіл на працевлаштування іноземців та підбір персоналу з Азії для виробництв, складів та будівництва України. Ліцензія Мінсоцполітики №1428.',
+    title: 'Підбір та завіз персоналу з Азії в Україну | Recruiter I Club',
+    description: 'Офіційний підбір робітників з Узбекистану, Індії та Бангладеш для виробництв, складів і будівництва. 100% захист від мобілізації (ст. 23 ЗУ). Оплата комісії ТІЛЬКИ після виходу на зміну.',
     url: 'https://www.recruiter-i.club/',
     siteName: 'Recruiter I Club',
     locale: 'uk_UA',
     type: 'website',
     images: [
       {
-        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png',
+        url: 'https://www.recruiter-i.club/images/logo/og_share_preview.png?v=20261012',
         width: 1200,
         height: 630,
-        alt: 'Recruiter I Club — Підбір та легалізація іноземного персоналу в Україні',
+        alt: 'Recruiter I Club — Підбір та завіз персоналу з Азії під ключ',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Працевлаштування іноземців в Україні — Recruiter I Club',
-    description: 'Офіційний дозвіл на працевлаштування іноземців під ключ. 100% захист від мобілізації (ст. 23 ЗУ). Оплата комісії тільки після виходу на зміну.',
-    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png'],
+    title: 'Підбір та завіз персоналу з Азії в Україну — Recruiter I Club',
+    description: 'Офіційний підбір робітників з Узбекистану, Індії та Бангладеш для виробництв, складів і будівництва. 100% захист від мобілізації (ст. 23 ЗУ). Оплата комісії ТІЛЬКИ після виходу на зміну.',
+    images: ['https://www.recruiter-i.club/images/logo/og_share_preview.png?v=20261012'],
   },
 };
 
