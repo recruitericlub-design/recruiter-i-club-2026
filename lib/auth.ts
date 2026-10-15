@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { NextRequest } from 'next/server';
 
-const SECRET = process.env.JWT_SECRET || process.env.CRM_INTERNAL_SECRET;
+const SECRET: string = process.env.JWT_SECRET || process.env.CRM_INTERNAL_SECRET || '';
 if (!SECRET) {
   throw new Error(
     '[auth] JWT_SECRET is not set. Generate a strong secret (e.g. `openssl rand -hex 32`) ' +
