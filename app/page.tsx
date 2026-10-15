@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/HeroSection';
+import TrustStatsStrip from '@/components/TrustStatsStrip';
 import WorkerCatalogSection from '@/components/WorkerCatalogSection';
 import PortalPreviewSection from '@/components/PortalPreviewSection';
 import GuaranteesSection from '@/components/GuaranteesSection';
@@ -167,6 +168,9 @@ export default function HomePage() {
       <div className="flex flex-col w-full">
         {/* 1. Hero Pitch & Profession Cluster */}
         <HeroSection />
+
+        {/* 1.5. Trust stats strip — key proof points above the fold */}
+        <TrustStatsStrip />
 
         {/* 2. Candidate Catalog & Live Trade Tests */}
         <div id="catalog">

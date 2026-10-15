@@ -23,6 +23,7 @@ export default function CandidateAccessModal({
   const [company, setCompany] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -43,7 +44,8 @@ export default function CandidateAccessModal({
           company: company.trim(),
           workersNeeded: 'Доступ до бази / відео Trade-Test',
           industry: profession ? `Запит відео: ${profession} (${candidateName || 'Загальна база'})` : 'Запит доступу до відео Trade-Test',
-          source: isRu ? 'trade_test_access_modal_ru' : 'trade_test_access_modal_ua'
+          source: isRu ? 'trade_test_access_modal_ru' : 'trade_test_access_modal_ua',
+          website
         })
       });
       setSubmitted(true);
@@ -106,6 +108,8 @@ export default function CandidateAccessModal({
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4 pt-1">
+            {/* Honeypot anti-spam: invisible to humans, bots fill it and get silently rejected */}
+            <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} autoComplete="off" tabIndex={-1} aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', opacity: 0 }} />
               <div>
                 <label className="block text-xs font-bold text-slate-200 mb-1.5">
                   {isRu ? 'Название компании / ООО *' : 'Назва компанії / ТОВ *'}

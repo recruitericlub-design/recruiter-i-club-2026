@@ -7,10 +7,29 @@ import QuotaBookingModal from './QuotaBookingModal';
 export default function HeroSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const isRu = locale === 'ru';
+  // Optional full-bleed hero video. Set NEXT_PUBLIC_HERO_VIDEO_URL to an .mp4
+  // (e.g. a workshop/factory clip) to enable. Empty = current static design.
+  const heroVideoUrl = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || '';
 
   return (
     <>
       <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 overflow-hidden bg-warm-paper border-b border-slate-200/70">
+        {heroVideoUrl && (
+          <>
+            <video
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              src={heroVideoUrl}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-hidden="true"
+            />
+            {/* Readability overlay: keeps text legible over motion */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#fbfaf7] via-[#fbfaf7]/85 to-[#fbfaf7]/40 pointer-events-none" />
+          </>
+        )}
         {/* Ambient 3D Glowing Orbs */}
         <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-emerald-500/10 filter blur-[100px] pointer-events-none ambient-orb-1"></div>
         <div className="absolute top-1/3 -right-32 w-[480px] h-[480px] rounded-full bg-amber-400/10 filter blur-[120px] pointer-events-none ambient-orb-2"></div>

@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ArrowLeft, Clock, ShieldCheck, User, ArrowRight, BookOpen, ChevronRight, Share2 } from 'lucide-react';
 import { articlesData } from '@/lib/articlesData';
+import { parseUkDate, toIsoDateOnly } from '@/lib/ukDate';
 
 interface Props {
   params: { slug: string };
@@ -82,6 +83,7 @@ export default function ArticleDetailPage({ params }: Props) {
 
   const isB2B = article.audience !== 'B2C';
 
+  const publishedDate = toIsoDateOnly(parseUkDate(article.date));
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       {/* Schema.org Article JSON-LD */}
@@ -93,8 +95,8 @@ export default function ArticleDetailPage({ params }: Props) {
             "@type": "TechArticle",
             "headline": article.title,
             "description": article.summary,
-            "datePublished": "2026-09-08T08:00:00+02:00",
-            "dateModified": "2026-09-09T10:00:00+02:00",
+            "datePublished": publishedDate,
+            "dateModified": publishedDate,
             "author": {
               "@type": "Person",
               "name": article.author.name,

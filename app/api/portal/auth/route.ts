@@ -3,34 +3,49 @@ import crypto from 'crypto';
 import { dbQuery } from '@/lib/db';
 import { signSessionToken, verifySessionToken } from '@/lib/auth';
 
-// Rate limiting map for failed login attempts by phone
-const loginAttempts = new Map<string, { count: number; lockUntil: number }>();
-
-function checkRateLimit(phone: string): { allowed: boolean; remainingMinutes?: number } {
-  const now = Date.now();
-  const entry = loginAttempts.get(phone);
-  if (!entry) return { allowed: true };
-  if (now < entry.lockUntil) {
-    return { allowed: false, remainingMinutes: Math.ceil((entry.lockUntil - now) / 60000) };
+// DB-backed rate limiting for failed login attempts (works across serverless instances).
+// Requires the "LoginAttempt" table (see MIGRATION_login_attempts.sql). Fails open if the
+// table does not exist yet, so login keeps working before the migration is applied.
+async function checkRateLimit(phone: string): Promise<{ allowed: boolean; remainingMinutes?: number }> {
+  try {
+    const res = await dbQuery(`SELECT attempts, "lockedUntil" FROM "LoginAttempt" WHERE phone = $1`, [phone]);
+    if (res.rows.length === 0) return { allowed: true };
+    const row = res.rows[0];
+    const now = Date.now();
+    if (row.lockedUntil && new Date(row.lockedUntil).getTime() > now) {
+      return { allowed: false, remainingMinutes: Math.ceil((new Date(row.lockedUntil).getTime() - now) / 60000) };
+    }
+    if (row.lockedUntil) {
+      await dbQuery(`DELETE FROM "LoginAttempt" WHERE phone = $1`, [phone]);
+    }
+    return { allowed: true };
+  } catch {
+    return { allowed: true };
   }
-  if (now >= entry.lockUntil && entry.count >= 5) {
-    loginAttempts.delete(phone);
-  }
-  return { allowed: true };
 }
 
-function recordFailure(phone: string) {
-  const now = Date.now();
-  const entry = loginAttempts.get(phone) || { count: 0, lockUntil: 0 };
-  entry.count += 1;
-  if (entry.count >= 5) {
-    entry.lockUntil = now + 15 * 60 * 1000; // 15 min lock
+async function recordFailure(phone: string) {
+  try {
+    const res = await dbQuery(`SELECT attempts FROM "LoginAttempt" WHERE phone = $1`, [phone]);
+    const attempts = (res.rows[0]?.attempts || 0) + 1;
+    const lockedUntil = attempts >= 5 ? new Date(Date.now() + 15 * 60 * 1000).toISOString() : null;
+    await dbQuery(
+      `INSERT INTO "LoginAttempt" (phone, attempts, "lockedUntil", "updatedAt")
+       VALUES ($1, $2, $3, NOW())
+       ON CONFLICT (phone) DO UPDATE SET attempts = $2, "lockedUntil" = $3, "updatedAt" = NOW()`,
+      [phone, attempts, lockedUntil]
+    );
+  } catch {
+    /* rate-limit storage unavailable — fail open */
   }
-  loginAttempts.set(phone, entry);
 }
 
-function clearFailures(phone: string) {
-  loginAttempts.delete(phone);
+async function clearFailures(phone: string) {
+  try {
+    await dbQuery(`DELETE FROM "LoginAttempt" WHERE phone = $1`, [phone]);
+  } catch {
+    /* ignore */
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -103,43 +118,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 2. SEND OTP CODE
-    if (action === 'send_otp') {
-      if (!phone) {
-        return NextResponse.json({ success: false, error: 'Вкажіть номер телефону' }, { status: 400 });
-      }
-
-      const cleanPhone = phone.replace(/[^\d+]/g, '');
-      const otpCode = crypto.randomInt(1000, 10000).toString();
-
-      const otpToken = signSessionToken({
-        companyId: 'pending',
-        contactId: 'pending',
-        companyName: 'pending',
-        contactName: 'pending',
-        phone: cleanPhone,
-        role: `otp_${otpCode}`,
-        isDemo: false
-      }, 10 * 60);
-
-      const response = NextResponse.json({
-        success: true,
-        message: 'Код підтвердження надіслано в WhatsApp/Telegram',
-        otpHint: process.env.NODE_ENV !== 'production' ? otpCode : undefined
-      });
-
-      response.cookies.set('riclub_otp', otpToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
-        maxAge: 600
-      });
-
-      return response;
-    }
-
-    // 3. SECURE B2B LOGIN (PHONE + CRM PIN-CODE)
+    // 2. SECURE B2B LOGIN (PHONE + CRM PIN-CODE)
     if (action === 'login') {
       const pin = body.pin || body.pinCode;
 
@@ -159,7 +138,7 @@ export async function POST(req: NextRequest) {
       const cleanPin = pin.toString().trim();
 
       // Check brute-force rate limit
-      const rateCheck = checkRateLimit(cleanPhone);
+      const rateCheck = await checkRateLimit(cleanPhone);
       if (!rateCheck.allowed) {
         return NextResponse.json({
           success: false,
@@ -231,7 +210,7 @@ export async function POST(req: NextRequest) {
       const isCorrectPin = expectedPin && expectedPin === cleanPin;
 
       if (!isCorrectPin) {
-        recordFailure(cleanPhone);
+        await recordFailure(cleanPhone);
         return NextResponse.json({
           success: false,
           invalidPin: true,
@@ -239,7 +218,7 @@ export async function POST(req: NextRequest) {
         }, { status: 401 });
       }
 
-      clearFailures(cleanPhone);
+      await clearFailures(cleanPhone);
 
       // Successful verified B2B authentication
       return createAuthResponse({
@@ -253,7 +232,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 4. APPLICATION FOR PORTAL ACCESS (NEW EMPLOYER)
+    // 3. APPLICATION FOR PORTAL ACCESS (NEW EMPLOYER)
     if (action === 'register' || action === 'request_access') {
       const { industry, workersNeeded } = body;
       if (!phone || !companyName) {

@@ -1,7 +1,13 @@
 import crypto from 'crypto';
 import { NextRequest } from 'next/server';
 
-const SECRET = process.env.JWT_SECRET || process.env.CRM_INTERNAL_SECRET || 'riclub_sec_jwt_auth_2026';
+const SECRET = process.env.JWT_SECRET || process.env.CRM_INTERNAL_SECRET;
+if (!SECRET) {
+  throw new Error(
+    '[auth] JWT_SECRET is not set. Generate a strong secret (e.g. `openssl rand -hex 32`) ' +
+    'and add it to your environment variables. Refusing to sign tokens with a weak default.'
+  );
+}
 
 export interface EmployerSession {
   companyId: string;

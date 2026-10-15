@@ -7,7 +7,14 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    
+
+    // Honeypot anti-spam: the hidden "website" field is invisible to humans.
+    // Bots fill it — silently return success without touching the CRM so
+    // attackers can't tell they were filtered.
+    if (data.website && String(data.website).trim() !== '') {
+      return NextResponse.json({ success: true });
+    }
+
     const leadRecord = {
       id: `LEAD-${Date.now()}`,
       name: data.name || 'Не вказано',

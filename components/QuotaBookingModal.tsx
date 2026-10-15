@@ -23,6 +23,7 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
     workersCount: '15',
     category: preselectedCategory || (isRu ? 'Упаковщики / Склад (WMS)' : 'Пакувальники / Склад (WMS)'),
     urgency: isRu ? '1 месяц (экспресс)' : '1 місяць (експрес)',
+    website: '',
   });
 
   if (!isOpen) return null;
@@ -41,7 +42,8 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
           company: formData.company,
           workersNeeded: formData.workersCount,
           industry: formData.category,
-          source: isRu ? 'quota_lead_modal_ru' : 'quota_lead_modal_ua'
+          source: isRu ? 'quota_lead_modal_ru' : 'quota_lead_modal_ua',
+          website: formData.website
         })
       });
     } catch (err) {
@@ -83,6 +85,8 @@ export default function QuotaBookingModal({ isOpen, onClose, preselectedCategory
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Honeypot anti-spam: invisible to humans, bots fill it and get silently rejected */}
+            <input type="text" name="website" value={formData.website} onChange={(e) => setFormData({ ...formData, website: e.target.value })} autoComplete="off" tabIndex={-1} aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', opacity: 0 }} />
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
                   {isRu ? 'Название предприятия / ООО *' : 'Назва підприємства / ТОВ *'}

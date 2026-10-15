@@ -2,10 +2,16 @@ import { MetadataRoute } from 'next';
 import { PROFESSIONS_DATA } from '@/lib/professionsData';
 
 import { articlesData } from '@/lib/articlesData';
+import { parseUkDate } from '@/lib/ukDate';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.recruiter-i.club';
-  const now = new Date();
+  // Honest lastmod: static pages use the last known content refresh
+  // (matches the newest article date), articles use their own dates.
+  // The old `new Date()` made every page look "updated today", which
+  // crawlers learn to ignore.
+  const siteUpdated = new Date('2026-09-21T00:00:00+03:00');
+  const now = siteUpdated;
 
   const staticPages = [
     { url: baseUrl + '/', lastModified: now, changeFrequency: 'daily' as const, priority: 1.0 },
@@ -35,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articlePages = articlesData.map((article) => ({
     url: baseUrl + '/blog/' + article.slug,
-    lastModified: now,
+    lastModified: parseUkDate(article.date, siteUpdated),
     changeFrequency: 'monthly' as const,
     priority: 0.75,
   }));

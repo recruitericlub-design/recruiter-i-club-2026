@@ -7,21 +7,30 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action, candidateId, companyId, companyName, reason, requisition } = body;
 
-    // 1. Session verification & multi-tenant isolation
+    // 1. Session verification & strict multi-tenant isolation.
+    // The old `body.isDemo` flag was client-controlled: anyone could send
+    // { isDemo: true } and approve/reject/assign REAL candidates without login.
     const session = getAuthenticatedEmployer(req);
-    if (!session && !body.isDemo) {
+    if (!session) {
       return NextResponse.json(
         { success: false, error: 'Необхідна авторизація в кабінеті роботодавця' },
         { status: 401 }
       );
     }
-    const effectiveCompanyId = session ? session.companyId : '1e7c0ccf-9666-48db-b792-1be182f9a4fa';
-    const effectiveCompanyName = session ? session.companyName : 'Демо-підприємство';
+    const isDemo = session.isDemo === true;
+    // Demo sessions NEVER touch the real CRM: destructive actions are simulated
+    // so the demo UX stays interactive without risking production data.
+    // Only request_workers (a new hiring request = a lead) writes to the CRM.
+    const effectiveCompanyId = isDemo ? '1e7c0ccf-9666-48db-b792-1be182f9a4fa' : session.companyId;
+    const effectiveCompanyName = session.companyName;
 
     // 1. APPROVE CANDIDATE
     if (action === 'approve') {
       if (!candidateId) {
         return NextResponse.json({ success: false, error: 'Вкажіть ID кандидата' }, { status: 400 });
+      }
+      if (isDemo) {
+        return NextResponse.json({ success: true, message: 'Кандидата успішно затверджено! (демо-режим)' });
       }
 
       // Ensure the candidate belongs to the authorized company or is in review
@@ -66,6 +75,9 @@ export async function POST(req: NextRequest) {
       if (!candidateId) {
         return NextResponse.json({ success: false, error: 'Вкажіть ID кандидата' }, { status: 400 });
       }
+      if (isDemo) {
+        return NextResponse.json({ success: true, message: 'Запит на заміну надіслано координатору (демо-режим)' });
+      }
 
       await dbQuery(`
         UPDATE "Contact"
@@ -106,6 +118,9 @@ export async function POST(req: NextRequest) {
     if (action === 'assign') {
       if (!candidateId) {
         return NextResponse.json({ success: false, error: 'Неповні параметри' }, { status: 400 });
+      }
+      if (isDemo) {
+        return NextResponse.json({ success: true, message: 'Кандидата прикріплено до вашого підприємства! (демо-режим)' });
       }
 
       await dbQuery(`

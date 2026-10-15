@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/HeroSection';
+import TrustStatsStrip from '@/components/TrustStatsStrip';
 import WorkerCatalogSection from '@/components/WorkerCatalogSection';
 import PortalPreviewSection from '@/components/PortalPreviewSection';
 import GuaranteesSection from '@/components/GuaranteesSection';
@@ -88,6 +89,7 @@ export default function RussianHomePage() {
       <div className="flex flex-col w-full">
         {/* 1. Hero Pitch & Profession Cluster */}
         <HeroSection locale="ru" />
+        <TrustStatsStrip locale="ru" />
 
         {/* 2. Candidate Catalog & Live Trade Tests */}
         <div id="catalog">

@@ -32,6 +32,7 @@ export default function AiWorkforceAuditModal({ isOpen, onClose, defaultSource =
   const [company, setCompany] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot anti-spam
   const [messenger, setMessenger] = useState<'telegram' | 'whatsapp'>('telegram');
   const [isCalculating, setIsCalculating] = useState(false);
   const [calcProgress, setCalcProgress] = useState(0);
@@ -76,7 +77,8 @@ export default function AiWorkforceAuditModal({ isOpen, onClose, defaultSource =
           industry,
           workersNeeded: workersCount,
           country,
-          source: defaultSource
+          source: defaultSource,
+          website
         })
       });
       const data = await res.json();
@@ -257,6 +259,8 @@ export default function AiWorkforceAuditModal({ isOpen, onClose, defaultSource =
           {/* STEP 3: Contacts & Messenger Choice */}
           {step === 3 && (
             <form onSubmit={handleStartCalculation} className="space-y-5 animate-fadeIn">
+            {/* Honeypot anti-spam: invisible to humans, bots fill it and get silently rejected */}
+            <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} autoComplete="off" tabIndex={-1} aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', opacity: 0 }} />
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-300">Назва підприємства / ТОВ / ФОП</label>
                 <input

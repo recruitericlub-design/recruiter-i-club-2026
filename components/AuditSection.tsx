@@ -11,7 +11,8 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
     specialization: '',
     headcount: '',
     phone: '',
-    company: ''
+    company: '',
+    website: ''
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -82,6 +83,8 @@ export default function AuditSection({ locale = 'uk' }: { locale?: 'uk' | 'ru' }
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
+            {/* Honeypot anti-spam: invisible to humans, bots fill it and get silently rejected */}
+            <input type="text" name="website" value={formData.website} onChange={(e) => setFormData({ ...formData, website: e.target.value })} autoComplete="off" tabIndex={-1} aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', opacity: 0 }} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
