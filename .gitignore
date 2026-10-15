@@ -34,3 +34,7 @@ yarn-error.log*
 next-env.d.ts
 .env*
 scratch/
+
+# Handover & zip files
+AGENT_HANDOVER_MASTER_2026.md
+*.zip
